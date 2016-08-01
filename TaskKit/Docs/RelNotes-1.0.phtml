@@ -1,0 +1,24 @@
+<% header(name + ' 1.0 Release Notes') %>
+
+<p><% name %> version 1.0 released on 11/29/08</p>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>The Scheduler now accepts an <code>exceptionHandler</code> argument.
+  If passed, this exception handler is invoked whenever an unhandled exception
+  occurs within a <code>Task</code>. Previously there was no general mechanism
+  for handling exceptions within Tasks.</li>
+  <li>If an exception occurs within a periodic Task, the Task will be started
+  again at the next scheduled time. Previously when an exception occurred,
+  the Task was not able to be restarted.</li>
+</ul>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>The <code>isOnDemand()</code> method of the <code>TaskHandler</code>
+  did not work correctly.</li>
+  <li>The scheduler could not unregister running tasks (reported as bug
+  #849732 by Brett Funderburg).</li>
+</ul>
+
+<% footer() %>

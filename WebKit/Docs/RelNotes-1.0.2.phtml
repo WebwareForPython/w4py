@@ -1,0 +1,41 @@
+<% header(name + ' 1.0.2 Release Notes') %>
+
+<p><% name %> version 1.0.2 released on 06/07/09</p>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li><code>HTTPResponse</code> and <code>HTTPContent</code> have got new
+  methods allowing different kinds of redirect, besides the default redirect
+  with status code 302. The <code>sendRedirectSeeOtherAndEnd()</code> method
+  is particularly interesting, since it is the proper way to implement the
+  Post/Redirect/Get pattern.</li>
+  <li>The file extensions of the files that shall be parsed as PSP files
+  or Kid templates can now be configured using the settings
+  <code>ExtensionsForPSP</code> and <code>ExtensionsForKid</code>. By default
+  (as before), only files with the extension <code>.psp</code> are
+  regarded as PSP files, and only files with the extension <code>.kid</code>
+  are regarded as Kid templates.</li>
+</ul>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>The session cookie has been set in every response until now.
+  As Fionn Behrens pointed out, this is bad practice, since the browser
+  may be configured to ask the user whenever a cookie is set, and some
+  browsers may even do this if the cookie value does not change.
+  So starting with this WebKit version, the session cookie will not be set
+  in the response anymore when it was already present in the request.</li>
+</ul>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>When using the psp-handler of mod_webkit, request methods like
+  <code>servletPath()</code> and others returned values which were different
+  from what you get when using the ordinary webkit-handler. This could
+  cause various problems, for instance because the default cookie path
+  is set to the servlet path (reported by Fionn Behrens). To avoid such
+  problems, requests made via the psp-handler now will look much more
+  similar to a request made via the ordinary webkit-handler.</li>
+</ul>
+
+<% footer() %>

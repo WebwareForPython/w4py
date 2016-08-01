@@ -1,0 +1,294 @@
+#!/usr/bin/env twill-sh
+
+# Webware for Python
+# twill test script (twill.idyll.org)
+# Docs context
+
+setglobal version X.Y
+setglobal date @@/@@/@@
+
+config use_tidy 0
+config use_BeautifulSoup 0
+config allow_parse_errors 0
+
+go http://127.0.0.1:8080
+follow Docs
+url Docs
+code 200
+title "Webware Documentation"
+find '<h1 class="titlebar">Webware Documentation</h1>'
+find "<b>Version ${version}<br>${date}</b>"
+find '<div class="footer">'
+
+follow Overview
+title "Webware for Python"
+find "<b>Release ${version} on ${date}</b>"
+find "<h2>Synopsis</h2>"
+find "<h2>Thanks to...</h2>"
+find '<div class="footer">'
+back
+
+follow "Component Index"
+title "Webware Documentation"
+find '<h1 class="titlebar">Webware Documentation</h1>'
+find "Don't know where to start?"
+find '<span class="Version">${version}</span>'
+find '<div class="footer">'
+
+follow CGIWrapper
+title "CGIWrapper Documentation"
+follow "User's Guide"
+find '<h1 class="header">CGIWrapper User\'s Guide</h1>'
+find "CGIWrapper version ${version}"
+find "<h2>Synopsis</h2>"
+find "<h2>Credit</h2>"
+back
+back
+
+# if win32
+#follow COMKit
+#title "COMKit Documentation"
+#follow "User's Guide"
+#find '<h1 class="header">COMKit User\'s Guide</h1>'
+#find "COMKit version ${version}"
+#find "<h2>Synopsis</h2>"
+#find "<h2>Credit</h2>"
+#back
+#back
+# end if
+
+# if kid
+#follow KidKit
+#title "KidKit Documentation"
+#follow "User's Guide"
+#find '<h1 class="header">KidKit User\'s Guide</h1>'
+#find "KidKit version ${version}"
+#find "<h2>Synopsis</h2>"
+#find "<h2>Credits</h2>"
+#back
+#back
+# end if
+
+follow MiddleKit
+title "MiddleKit Documentation"
+follow "Introduction"
+find '<h1 class="header">Introduction to MiddleKit</h1>'
+find "MiddleKit version ${version}"
+find "<h2>About MiddleKit</h2>"
+back
+follow "Quick Start"
+find '<h1 class="header">MiddleKit Quick Start</h1>'
+find "MiddleKit version ${version}"
+find "<h2>What you need</h2>"
+back
+follow "User's Guide"
+find '<h1 class="header">MiddleKit User\'s Guide</h1>'
+find "MiddleKit version ${version}"
+find "<h2>Synopsis</h2>"
+find "<h2>Credit</h2>"
+back
+follow "To Do"
+find "MiddleKit"
+find "<overview>"
+back
+back
+
+follow MiscUtils
+title "MiscUtils Documentation"
+follow "User's Guide"
+find '<h1 class="header">MiscUtils User\'s Guide</h1>'
+find "MiscUtils version ${version}"
+find "<h2>Synopsis</h2>"
+find "<h2>Credit</h2>"
+back
+back
+
+follow "Python Server Pages"
+title "Python Server Pages Documentation"
+find "\(or PSP\)"
+follow "User's Guide"
+find '<h1 class="header">Python Server Pages User\'s Guide</h1>'
+find "Python Server Pages version ${version}"
+find "<h2>Summary</h2>"
+find "<h2>Developers</h2>"
+back
+back
+
+follow "TaskKit"
+title "TaskKit Documentation"
+follow "Quick Start"
+find '<h1 class="header">TaskKit Quick Start</h1>'
+find "TaskKit version ${version}"
+find '<h1>Scheduling with Python and Webware</h1>'
+
+back
+follow "User's Guide"
+find '<h1 class="header">TaskKit User\'s Guide</h1>'
+find "TaskKit version ${version}"
+find "<h2>Synopsis</h2>"
+find "<h2>Credit</h2>"
+back
+follow "To Do"
+find "TaskKit"
+find "<docs>"
+back
+back
+
+follow "UserKit"
+title "UserKit Documentation"
+follow "User's Guide"
+find '<h1 class="header">UserKit User\'s Guide</h1>'
+find "UserKit version ${version}"
+find "<h2>Synopsis</h2>"
+find "<h2>Credit</h2>"
+back
+follow "To Do"
+find "UserKit"
+find "<major>"
+back
+back
+
+follow "WebKit"
+title "WebKit Documentation"
+find '<h1 class="titlebar">WebKit Documentation</h1>'
+follow "Install Guide"
+find '<h1 class="header">WebKit Install Guide</h1>'
+find "python install\.py"
+find '<h1>Quick Start</h1>'
+find '<h1>Introduction</h1>'
+find '<div class="footer">'
+back
+follow "User's Guide"
+find '<h1 class="header">WebKit User\'s Guide</h1>'
+find "<p>Webware for Python</p>"
+find "<th.*>Version:</th><td.*>${version}</td>"
+# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find '<h1>Synopsis</h1>'
+find '<h1>Credit</h1>'
+find '<div class="footer">'
+back
+follow "Configuration Guide"
+find '<h1 class="header">Configuration Guide</h1>'
+find '<h1>Command Line Configuration</h1>'
+back
+follow "Beginner Tutorial"
+find '<h1 class="header">Beginner Tutorial</h1>'
+find "<p>Webware for Python</p>"
+find "<th.*>Version:</th><td.*>${version}</td>"
+# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find '<h1>Synopsis</h1>'
+find '<div class="footer">'
+back
+follow "Application Development"
+find '<h1 class="header">Application Development With Webware</h1>'
+find "<p>Webware for Python</p>"
+find "<th.*>Version:</th><td.*>${version}</td>"
+# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find '<h1>Synopsis</h1>'
+find '<div class="footer">'
+back
+follow "Developing Webware"
+find '<h1 class="header">Developing Webware</h1>'
+find '<h1>Style Guidelines</h1>'
+back
+follow "Future Work"
+find '<h1 class="header">Future Work</h1>'
+find "<p>Webware for Python</p>"
+find "<th.*>Version:</th><td.*>${version}</td>"
+# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find "To Do"
+find '<div class="footer">'
+back
+follow "Class hierarchy"
+title "Class Hierarchy of WebKit"
+find "<h1>Class Hierarchy of WebKit</h1>"
+find '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HTTPException</td>'
+back
+follow "Class list"
+title "Class List of WebKit"
+find "<h1>Class List of WebKit</h1>"
+find '<td>HTTPException</td>'
+back
+follow "File list"
+title "File List of WebKit"
+find '<td><a.*>HTTPExceptions\.py</a></td>'
+back
+go Source/Files/HTTPExceptions.html
+title "HTTPExceptions\.py"
+find '<pre>'
+find '<span class="PY_KEYWORD">class</span> HTTPException\(Exception\):'
+back
+go Source/Docs/WebKit.HTTPExceptions.html
+title "Python: module WebKit.HTTPExceptions"
+find "<big><strong>Classes</strong></big>"
+back
+go Source/Summaries/HTTPExceptions.html
+title "Summary of WebKit.HTTPExceptions"
+find "<h2>Summary of WebKit.HTTPExceptions</h2>"
+find '<pre>'
+find 'class <span class="name_class">HTTPException</span>\(Exception\):'
+find '<span class="line_category">    ## Error codes ##</span>'
+back
+follow "1\.0\.1"
+find '<h1 class="header">WebKit 1\.0\.1 Release Notes</h1>'
+find '<h2>Bugfixes</h2>'
+back
+back
+
+follow "WebUtils"
+title "WebUtils Documentation"
+follow "User's Guide"
+find '<h1 class="header">WebUtils User\'s Guide</h1>'
+find "WebUtils version ${version}"
+find "<h2>Synopsis</h2>"
+find "<h2>Credit</h2>"
+back
+back
+back
+
+follow "Copyright et al"
+title "Webware Copyright et al"
+find '<h1 class="titlebar">Webware Copyright et al</h1>'
+find "<h2>Copyright</h2>"
+find 'Copyright &copy; 1999-2010 by Chuck Esterbrook.'
+find "<h2>License</h2>"
+back
+
+follow "Release Notes"
+title "Webware for Python Release Notes"
+find '<h1 class="header">Webware for Python Release Notes</h1>'
+follow "1\.0\.1"
+title "Webware for Python 1\.0\.1 Release Notes"
+find '<h1 class="header">Webware for Python 1\.0\.1 Release Notes</h1>'
+find "Webware for Python version 1\.0\.1 released on 02/06/09"
+back
+back
+
+follow "Style Guidelines"
+title "Webware Style Guidelines"
+find '<h1 class="header">Webware Style Guidelines</h1>'
+find '<h2>Introduction</h2>'
+find 'docstrings'
+find 'PEP 257'
+find '<div class="footer">'
+back
+
+follow "Release Procedures"
+title "Webware for Python - Release Procedures"
+find '<h1 class="header">Webware for Python - Release Procedures</h1>'
+find '<h2>Testing</h2>'
+find '<h2>Post-release</h2>'
+back
+
+url Docs
+find '<h1 class="titlebar">Webware Documentation</h1>'
+find '<a href="http://www.webwareforpython.org" class="BigLink">Webware</a>'
+find '<a href="http://www.python.org" class="BigLink">Python</a>'
+find '<div class="footer">'
+back
+
+find 'The location of the documentation on the server:'
+
+follow Docs
+url Docs
+back

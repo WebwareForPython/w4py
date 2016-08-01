@@ -1,0 +1,52 @@
+<% header(name + ' 1.1 Release Notes') %>
+
+<p><% name %> version 1.1 released on 08/03/11</p>
+
+<a name="Changes"></a><h2>Changes</h2>
+<ul>
+  <li>The main change in the Webware 1.1 branch is that it now requires
+  at least Python version 2.4, while the Webware 1.0 branch still supports
+  old Python releases down to version 2.0. This move allowed us to get rid
+  of a lot of cruft, workarounds and old fashioned code; the code has become
+  much cleaner and leaner, and by using more modern Python idioms also faster
+  in many places. We do not yet support Python 3, but these changes give us
+  a good starting point for further modernization of Webware for Python.</li>
+  <li>We also changed our style guideline and are using 4 spaces instead of
+  tabs throughout our codebase now, in order to conform a bit more with PEP8.
+  We did not modernize our naming conventions, though, because we want to stay
+  backward compatible with existing Webware applications.</li>
+  <li>The methods and objects which have been marked as deprecated
+  in version 1.0 and modules that are now available in the standard library
+  have been removed in Webware for Python 1.1.</li>
+  <li>The <code>NamedValueAccess</code> "magic" has been removed. See the
+  MiscUtils release notes for details.</li>
+  <li>We are now only using new-style classes in our code base. The
+  <code>Object</code> root class for WebKit objects has gone.</li>
+  <li>Webware (particularly MiddleKit) does not support <code>mxDateTime</code>
+  types any more, only the native datetime types. However, if python-dateutil
+  is not installed, Webware will still use <code>mxDateTime</code> internally
+  for string parsing (but the results will be <code>datetime</code> anyway).
+  This makes datetime handling much clearer and easier maintainable.</li>
+</ul>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>Added an adapter for any WSGI compliant webserver to communicate with
+  the Webware application server, which you can use straight away as WSGI
+  application script file for mod_wsgi.</li>
+  <li>Added new session store classes based on shelve and Memcached.</li>
+  <li>MiddleKit now supports SQLite as database.</li>
+  <li>A mod_webkit binary for Apache 2 64bit on Windows is now included.</li>
+</ul>
+
+<a name="Fixes"></a><h2>Fixes</h2>
+<ul>
+  <li>Fixed a long outstanding issue with filenames in tracebacks: Since the
+  installer compiled the files from a different directory (Webware) than the
+  appserver uses (WebKit), the stored filenames (co_filename) could sometimes
+  not be resolved.</li>
+  <li>Fixed problems when shutting down an app server with hanging threads.</li>
+  <li>More WebKit bugfixes are listed in the WebKit release notes.</li>
+</ul>
+
+<% footer() %>

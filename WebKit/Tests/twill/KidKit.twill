@@ -1,0 +1,74 @@
+#!/usr/bin/env twill-sh
+
+# Webware for Python
+# twill test script (twill.idyll.org)
+# KidKit context
+
+setglobal version X.Y
+
+config use_tidy 0
+config use_BeautifulSoup 0
+config allow_parse_errors 0
+
+go http://127.0.0.1:8080
+follow KidKit
+url KidKit
+title Welcome
+find "Hello from <tt.*>Kid</tt>!"
+find '<img src="kidlogo.png" alt="Kid Templates">'
+find 'This is the <strong>KidKit</strong> plug-in'
+find 'Here are some examples\.'
+
+follow Welcome
+title Welcome
+find '<td id="CornerTitle">Kid Examples</td>'
+
+follow Time1
+title "Time1"
+find "<h2>Time Example 1</h2>"
+find "<p><i>This page is embedded as a KidExamplePage\.</i></p>"
+find "The current time is"
+find "\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}"
+find '<td id="CornerTitle">Kid Examples</td>'
+
+follow Time2
+title "A Kid Template"
+find "Time Example 2"
+find 'This page is a stand-alone page\.'
+find "The current time is \w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}\."
+notfind "Examples"
+back
+
+follow Files
+title "Files"
+find '<h3>Index of .*Examples</h3>'
+find '<li><a href="KidExamplePage\.py">KidExamplePage\.py</a></li>'
+
+follow ServletInfo
+title ServletInfo
+find "<h1>Kid Servlet Info</h1>"
+find "<h2>Useful Variables</h2>"
+find "<h2>Environment</h2>"
+
+follow SimpleForm
+title SimpleForm
+find "<h1>Kid Form Demo</h1>"
+find "<p>Hello <strong>stranger</strong>, how are you\?</p>"
+find "Enter your name here:"
+fv 1 name "James"
+submit
+find "<p>Hello <strong>James</strong>, how are you\?</p>"
+
+follow MandelbrotSet
+title "The Mandelbrot Set"
+find "<h1>The Mandelbrot Set</h1>"
+find '<table cellpadding="2" cellspacing="1">'
+back
+
+go ../../KidKit/Docs
+title "KidKit Documentation"
+follow "User's Guide"
+find '<h1 class="header">KidKit User\'s Guide</h1>'
+find "KidKit version ${version}"
+find "<h2>Synopsis</h2>"
+find "<h2>Credits</h2>"

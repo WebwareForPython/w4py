@@ -1,0 +1,40 @@
+TaskKit
+Webware for Python
+TO DO
+
+
+<misc>
+<tests>
+<docs>
+
+
+<misc>
+
+    [ ] Test WebKit with the new changes
+
+    [ ] Task.proceed() questionable name.
+        run() runs and  proceed() proceeds, er, no, it inquires?
+        Maybe shouldProceed()?
+
+    [ ] Does a Task's run() really always have to invoke self.proceed()?
+
+</misc>
+
+
+<tests>
+
+    [ ] Make tests that cover all methods and features
+
+</tests>
+
+
+
+<docs>
+
+    [ ] Better doc strings for all the major methods.
+
+    [ ] User's Guide
+
+    [ ] Properties: Better synopsis
+
+</docs>

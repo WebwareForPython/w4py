@@ -1,0 +1,241 @@
+#!/usr/bin/env twill-sh
+
+# Webware for Python
+# twill test script (twill.idyll.org)
+# WebKit context
+
+setglobal version X.Y
+
+config use_tidy 0
+config use_BeautifulSoup 0
+config allow_parse_errors 0
+
+# Start page
+
+go http://127.0.0.1:8080
+code 200
+title Welcome
+find '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'
+find 'background-color: white;'
+find "Welcome to WebKit ${version}!"
+find Examples
+find Other
+find Contexts
+find E-mail
+find Exits
+find Versions
+find "WebKit ${version}"
+find "Webware ${version}"
+find "Python 2\.\d"
+
+# Examples
+
+follow Welcome
+code 200
+title Welcome
+find "Welcome to WebKit ${version}!"
+
+go Examples
+code 200
+title Welcome
+
+follow Welcome
+code 200
+title Welcome
+url Examples/Welcome
+
+follow ShowTime
+code 200
+title ShowTime
+find "The current time is:"
+find "\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}"
+
+follow CountVisits
+code 200
+title CountVisits
+find "Counting Visits"
+find "<p>You've been here\n<strong.*>&nbsp;1&nbsp;</strong> time\.</p>"
+follow revisit
+find "<p>You've been here\n<strong.*>&nbsp;2&nbsp;</strong> times\.</p>"
+follow revisit
+find "<p>You've been here\n<strong.*>&nbsp;3&nbsp;</strong> times\.</p>"
+follow expire
+find "Counting Visits"
+find "<p>You've been here\n<strong.*>&nbsp;1&nbsp;</strong> time\.</p>"
+follow revisit
+find "<p>You've been here\n<strong.*>&nbsp;2&nbsp;</strong> times\.</p>"
+
+follow Error
+code 200
+title "Error raising Example"
+submit
+code 500
+title Error
+find '<h2 class="section">Error</h2>'
+find "The site is having technical difficulties with this page."
+find '<h2 class="section">Traceback</h2>'
+find "self.runTransactionViaServlet"
+find "raise error"
+find "StandardError: You clicked that button!"
+back
+fv 1 error "System Error"
+submit
+code 500
+title Error
+find "SystemError: You clicked that button!"
+back
+fv 1 error "Custom Class (old)"
+submit
+code 500
+title Error
+find "CustomError: You clicked that button!"
+back
+fv 1 error "String (deprecated)"
+submit
+code 500
+title Error
+find "You clicked that button!|TypeError: exceptions .* not str"
+notfind "StandardError"
+back
+
+follow View
+title View
+find "View the source of a WebKit servlet."
+follow "View source"
+code 200
+title View.py
+url Examples/View\?filename=View.py
+find "<pre>"
+find '<span class="PY_KEYWORD">class</span> View\(ExamplePage\):'
+back
+go ?filename=Nada
+find "<h3.*>Error</h3>"
+find "does not exist"
+back
+go ?filename=Error.py
+title Error.py
+find ' Error\(ExamplePage\):'
+back
+
+follow Introspect
+title Introspect
+find "shows the values for various Python expressions"
+find "globals\(\).keys\(\)"
+find "ExamplePage"
+
+follow Colors
+title Colors
+find "Color Table Demo"
+find 'bgcolor="#FFFFFF"'
+fv 1 bgcolor "#33CC66"
+submit
+code 200
+find 'bgcolor="#33CC66"'
+
+follow ListBox
+title ListBox
+find "List box example"
+code 200
+find "--- empty ---"
+notfind "New item"
+submit action_new
+code 200
+notfind "--- empty ---"
+find "New item 1"
+notfind "New item 2"
+submit action_new
+submit action_new
+find "New item 1"
+find "New item 2"
+find "New item 3"
+notfind "New item 4"
+submit action_delete
+find "must select a row to delete"
+find "New item 1"
+find "New item 2"
+find "New item 3"
+fv 1 items 1
+submit action_delete
+find "New item 1"
+notfind "New item 2"
+find "New item 3"
+fv 1 items 0
+fv 1 items 1
+submit action_delete
+find "--- empty ---"
+notfind "New item"
+find 'name="items"\s+size="10"\s+style="width:250pt;'
+submit action_taller
+find 'name="items"\s+size="11"\s+style="width:250pt;'
+submit action_shorter
+find 'name="items"\s+size="10"\s+style="width:250pt;'
+submit action_wider
+find 'name="items"\s+size="10"\s+style="width:280pt;'
+submit action_narrower
+find 'name="items"\s+size="10"\s+style="width:250pt;'
+
+follow Forward
+title Forward
+find "This is the Forward servlet speaking."
+find "Welcome to WebKit"
+
+follow SecureCountVisits
+title "Log In"
+find "Please log in"
+fv 1 username alice
+fv 1 password bob
+submit
+title "Log In"
+find "Login failed"
+find "try again"
+fv 1 username alice
+fv 1 password alice
+submit
+title SecureCountVisits
+find "Counting Visits on a Secured Page"
+find "<p>You've been here <strong.*>&nbsp;1&nbsp;</strong> time.</p>"
+find "Authenticated user is <strong>alice</strong>."
+follow Revisit
+find "<p>You've been here <strong.*>&nbsp;2&nbsp;</strong> times.</p>"
+find "Authenticated user is <strong>alice</strong>."
+follow Logout
+title "Log In"
+find "You have been logged out"
+follow SecureCountVisits
+title "Log In"
+find "Please log in"
+
+follow FileUpload
+title "File Upload Example"
+find "This servlet shows how to handle uploaded files."
+formfile 1 filename WebKit.twill
+submit
+find "Upload Test"
+find "Here's the file you submitted:"
+find "WebKit.twill"
+find "twill.idyll.org"
+
+#follow PushServlet
+#find "Pushing Content Demo"
+#find "<h3>This page has been replaced <strong.*>3</strong> times.</h3>"
+#back
+
+follow RequestInformation
+title RequestInformation
+find "table shows the values for various request variables"
+find "<tr.*><td>PATH_INFO</td><td>/Examples/RequestInformation</td></tr>"
+
+follow ImageDemo
+find "WebKit Image Generation Demo"
+
+follow AjaxSuggest
+title AjaxSuggest
+find "Start typing"
+fv 1 query ajax
+submit
+find 'You have just entered the word <b.*>"ajax"</b>.'
+find "try again"
+
+follow JSONRPCClient
+title JSONRPCClient
+find "JSON-RPC Example"

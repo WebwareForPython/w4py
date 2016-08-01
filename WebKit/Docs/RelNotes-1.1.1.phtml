@@ -1,0 +1,44 @@
+<% header(name + ' 1.1.1 Release Notes') %>
+
+<p><% name %> version 1.1.1 released on 01/18/13</p>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>The conversion from the <code>cgi.FieldStorage</code> elements to the
+  plain <code>WebKit.request().fields()</code> had a quadratic running time
+  and could seriously slow down requests sending many different fields.
+  This conversion is now done much faster and in linear time.</li>
+  <li>When the socket connection fails, the mod_webkit2 adapter now logs
+  a proper error message.</li>
+  <li>As recommended by W3C in section B.2.2 of the HTML 4.01 specification,
+  the FieldStorage class now also supports use of ';' in place of '&amp;'
+  as separator in query strings.</li>
+</ul>
+
+<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>We changed the behavior of the <code>filenamesForBaseName()</code>
+  method in the <code>URLParser</code> class. If the filename matches exactly,
+  then we return only that filename.
+  Earlier, if you had <span class="filename">test.js</span>
+  and <span class="filename">test.js.bak</span>,
+  and requested <span class="filename">test.js</span>,
+  then you got a 404 "ambiguous filename" error.
+  This is not really what you would expect in that situation.</li>
+</ul>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>Aborting threads did not work properly on 64bit platforms.</li>
+  <li>Fixed possible problems when stopping the application server by pressing
+  Ctrl-C under Windows.</li>
+  <li>Fixed possible problems when shutting down the
+  <code>AutoReloadingAppServer</code>.</li>
+  <li><code>HTTPRequest.serverPath()</code> did not work properly when
+  <code>SCRIPT_URL</code> was not set by the webserver and the request had
+  been forwarded (bug reported by Adam Smith).</li>
+  <li>Fixed possible race condition in <code>SessionDynamicStore</code>
+  when manipulating the sessions in a different thread.</li>
+</ul>
+
+<% footer() %>

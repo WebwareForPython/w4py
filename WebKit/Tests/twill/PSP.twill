@@ -1,0 +1,70 @@
+#!/usr/bin/env twill-sh
+
+# Webware for Python
+# twill test script (twill.idyll.org)
+# PSP context
+
+setglobal version X.Y
+
+config use_tidy 0
+config use_BeautifulSoup 0
+config allow_parse_errors 0
+
+go http://127.0.0.1:8080
+follow PSP
+url PSP
+title "PSP Hello"
+find '<h1 align="center" style="color:navy">Hello from PSP!</h1>'
+find '<img src="psplogo.png" alt="Python Server Pages">'
+find 'This is <strong>PSP</strong>\.'
+find 'Here are some examples\.'
+
+follow Hello
+title "PSP Hello"
+find '<td id="CornerTitle">PSP Examples</td>'
+
+follow Braces
+title "Braces Test"
+find '<h4 align="center" style="color:navy">Python Server Pages</h4>'
+find '<h2 align="center">Braces Test</h2>'
+find "just use <strong>braces</strong>"
+find "<li>I'm number 5</li>"
+notfind "<li>I'm number 6</li>"
+
+follow PSPTests
+title "PSP Tests Page"
+find '<h1 align="center" style="color:navy">Hello from PSP!</h1>'
+find "This is the sample/test page"
+notfind 'test page uses <a href="Braces"><b>braces</b></a>'
+find "<p>Hello from included file!<p>"
+find "<p>\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</p>"
+find 'This is an HTML file that is dynamically inserted.'
+find '<p style="color:purple">\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</p>'
+find "<ul><li>Outer loop: 1"
+find "<li>Inner loop: 2"
+find '<a href="PSPTests-Braces">braces</a> can make things easier here.</p>'
+find '<th align="left">Path Info:</th><td>.*PSP/Examples/PSPTests</td>'
+find '<h4>Request Variables:</h4>'
+notfind 'not even in Python file'
+find '<p>I\'m a method. <b style="color:maroon">Howdy!</b></p>'
+find '<b style="color:green">It\'s True</b></p>'
+find "<p><b>That's all, folks.</b></p>"
+
+follow PSPTests-Braces
+title "PSP Tests Page - Braces"
+find '<h1 align="center" style="color:navy">Hello from PSP!</h1>'
+find "This is the sample/test page"
+find 'test page uses <a href="Braces"><b>braces</b></a>'
+find "<p>Hello from included file!<p>"
+find "<p>\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</p>"
+find 'This is an HTML file that is dynamically inserted.'
+find '<p style="color:purple">\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</p>'
+find "<ul><li>Outer loop: 1"
+find "<li>Inner loop: 2"
+find 'The use of braces.* does make things easier here'
+find '<th align="left">Path Info:</th><td>.*PSP/Examples/PSPTests-Braces</td>'
+find '<h4>Request Variables:</h4>'
+notfind 'not even in Python file'
+find '<p>I\'m a method. <b style="color:maroon">Howdy!</b></p>'
+find '<b style="color:green">It\'s True</b></p>'
+find "<p><b>That's all, folks.</b></p>"

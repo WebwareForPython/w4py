@@ -1,0 +1,49 @@
+<% header(name + ' 1.1 Release Notes') %>
+
+<p><% name %> version 1.1 released on 08/03/11</p>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>Added the <code>DateParser</code> module for parsing strings to datetime
+  values using python-dateutil, mxDateTime or strptime.</li>
+  <li>Added the <code>Funcs.localTimeDelta</code> function to support setting
+  cookie expiration as datetime without timezone.</li>
+</ul>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>Simplified and modernized <code>DataTable</code>. Now using only native
+  datetime classes instead of mxDateTime.</li>
+</ul>
+
+<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>Renamed the <code>positive_id</code> function to <code>positiveId</code>,
+  using the Webware naming convention.</li>
+  <li>The <code>asclocaltime</code> function has been from
+  <code>WebKit.Common</code> to <code>MiscUtils</code>.</li>
+  <li>Renamed the <code>pickleVersion</code> parameter to
+  <code>pickleProtocol</code> since it's referred to as "protocol" in the
+  pickle docs. If not specified, we always use the highest format available
+  (i.e. 2 instead of 1 as before).</li>
+</ul>
+
+<a name="Deprecations"></a><h2>Deprecations</h2>
+<ul>
+  <li>The methods and objects which have been marked as deprecated
+  in version 1.0 and modules that are now  available in the standard library
+  have been removed in Webware for Python 1.1, particularly
+  <code>BasicDateTime</code>, <code>pydoc</code> and <code>inspect</code>.</li>
+  <li>The <code>NamedValueAccess</code> "magic" was disposed since it has
+  never been well documented and hardly anyone understood and used it.
+  It also made things difficult to maintain, and the key bindings had already
+  caused problems with garbage collection in the past which had been very hard
+  to find. And now that properties and new-style classes exist, this whole
+  approach can be considered outmoded. So the <code>NamedValueAccess</code>
+  mix-in and wrapper classes and the <code>UserDict</code> monkey-patch are
+  gone now. However, the <code>valueForKey</code> and <code>valueForName</code>
+  functions are still available and can be useful in some cases (for instance
+  for evaluating the <code>ActivityLogColumns</code>).</li>
+</ul>
+
+<% footer() %>

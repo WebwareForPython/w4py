@@ -1,0 +1,65 @@
+<% header(name + ' 1.0 Release Notes') %>
+
+<p><% name %> version 1.0 released on 11/29/08</p>
+
+<a name="Introduction"></a><h2>Introduction</h2>
+<p>This release contains a few improvements and bugfixes, and it allows better
+monitoring and handling of long-running threads in the ThreadedAppServer.</p>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>Instead of using the standard WebKit adapter mod_webkit, you can also
+  use any SCGI adapter such as mod_scgi (not part of Webware for Python).
+  For details, see the installation and configuration guides.</li>
+  <li>The ThreadedAppServer has got a new method <code>abortRequest()</code>
+  allowing the abortion of the worker thread processing a request specified by
+  its request id. This feature needs a recent version of <code>ctypes</code>
+  and Python (2.3 or higher). The <code>_canAbortRequest</code> attribute
+  tells you whether this feature is available.</li>
+  <li>The new AppServer.config setting 'MaxRequestTime' allows monitoring
+  long-running requests. All requests with an execution time longer than
+  'MaxRequestTime' seconds will be automatically aborted. This feature is
+  disabled by setting 'MaxRequestTime' to 0 or None.</li>
+  <li>The SMTP authentication when sending error emails has been improved,
+  and it is now possible to use SMTP after POP by adding the name of the POP
+  server to the ``ErrorEmailServer`` setting (Roger Haase).</li>
+  <li>HTTPRequests have got two new methods <code>scheme()</code> and
+  <code>hostAndPort()</code> returning the respective URL parts.</li>
+</ul>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>If an exception occurs within a Task scheduled by the Application
+  task manager (obtained from <code>application.taskManager()</code>),
+  the exception will be handled by the Application's exception handler
+  (i.e. the exception will be logged and emailed if the appropriate
+  settings have been enabled within Application.config).</li>
+  <li>The <code>_action_</code> prefix for Webware actions can now be
+  changed by overriding <code>HTTPContent._actionPrefix</code>, or setting
+  this to None if you don't want to use actions at all.</li>
+  <li>The error email messages are now created using the email module instead
+  of using the deprecated MimeWriter module for Python 2.2 and higher.</li>
+</ul>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>ThreadedAppServer could crash with socket error during nmap scan on
+  NetBSD (reported by Patrick TJ McPhee), this should be fixed now.</li>
+  <li>Fixed bug with "Memory" Session configuration (as suggested by
+  Steve Schwarz).</li>
+  <li><code>HTTPResponse</code> created a Session for every request (bug
+  reported by Ben Parker).</li>
+  <li>In the case of nested transactions (when you use forwarding),
+  the session is now only awakened and put to sleep once by the outmost
+  transaction (as suggested by Ben Parker).</li>
+  <li>Made <code>Transaction.die()</code> work properly with Python 2.2
+  and higher, where <code>WebKit.Object</code> is a new-style class.</li>
+  <li>Changed the <code>urlRedirect</code> hook to behave as documented when
+  the <code>urlRedirect</code> dictionary has an empty string as key.</li>
+  <li><span class="filename">__init__.py</span> is not created any more if
+  <span class="filename">__init__.pyc</span> exists (Andrew Gaul).</li>
+  <li>The <code>UseAutomaticPathSessions</code> did not works with
+  Microsoft IIS (bug #494764 reported by Geoff Talvola).</li>
+</ul>
+
+<% footer() %>

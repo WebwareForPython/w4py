@@ -1,0 +1,12 @@
+<% header(name + ' 1.0.2 Release Notes') %>
+
+<p><% name %> version 1.0.2 released on 06/07/09</p>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>The output of <code>Funcs.dateForEmail()</code> was locale dependent,
+  but RFC&nbsp;5322 requires dates to use specified English abbreviations
+  (reported by Andreas Poisel).</li>
+</ul>
+
+<% footer() %>

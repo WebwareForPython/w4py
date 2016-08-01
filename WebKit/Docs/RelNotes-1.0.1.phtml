@@ -1,0 +1,35 @@
+<% header(name + ' 1.0.1 Release Notes') %>
+
+<p><% name %> version 1.0.1 released on 02/06/09</p>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>An auxiliary function <code>HTMLForStackTrace()</code> was added to
+  <code>WebUtils.HTMLForException</code>, as suggested by Jason Hildebrand.
+  This may be useful when debugging Webware applications.</li>
+</ul>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>The Error example servlet was improved so that an error is not raised
+  immedately, but can be selected beforehand by the user.</li>
+</ul>
+
+<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>String based exceptions and exceptions that are not based on the
+  (Base)Exception class are now caught and reported just as regular
+  exceptions, in case they are raised accidentally or by an old Webware
+  application that is updated to Webware 1.0.</li>
+</ul>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>In version 1.0, the <code>ThreadedAppServer</code> contained a bug
+  in handling data coming across the network in multiple packets.
+  This bug could cause problems when connecting to Webware's application
+  server via mod_webkit or mod_scgi from a webserver on a different host
+  (thanks to Jehiah Czebotar for the accurate bug report).</li>
+</ul>
+
+<% footer() %>

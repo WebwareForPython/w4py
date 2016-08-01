@@ -1,0 +1,71 @@
+The MiddleKit test suite is quite extensive. It's a great way to see if
+MiddleKit is working on your system and it's essential to developing new
+adapters.
+
+To run the test suite, create a file, LocalConfig.py like so:
+
+# LocalConfig.py
+dbName = 'MySQL'
+storeArgs = {'user': 'root', 'passwd': 'blarr'}
+sqlCommand = 'mysql -u root -pblarr'
+sqlVersionCommand = 'mysql --version'
+# end
+
+It can be useful to run one test at a time, especially when developing a
+new adapter:
+> python Test.py MKBasic
+
+Or you can run a few:
+> python Test.py MKBasic MKDateTime MKNone
+
+Run all tests like this:
+> python Test.py
+
+Here is another example config file for a fresh MySQL installation on Windows:
+
+# LocalConfig.py
+dbName = 'MySQL'
+storeArgs = {'user': 'root'}
+sqlClient = r'"C:\Program Files\MySQL\MySQL Server 5.0\bin\mysql" '
+sqlCommand = sqlClient + '-u root'
+sqlVersionCommand = sqlClient + '--version'
+# end
+
+Here is a config file for a fresh Microsoft SQL Server Express 2008
+installation on the local host using trusted authentication:
+
+# LocalConfig.py
+dbName = 'MSSQL'
+server = r'localhost\sqlexpress'
+storeArgs = {'driver': '{SQL Server Native Client 10.0}',
+  'server': server, 'Trusted_Connection': 'yes'}
+sqlCommand = 'sqlcmd -E -S %s -i "%%s"' % server
+sqlVersionCommand = 'sqlcmd -E -S %s -Q"select @@version" -h-1' % server
+# end
+
+You can use the following config file to make use of the SQLite database
+which is particularly useful for testing purposes:
+
+# LocalConfig.py
+dbName = 'SQLite'
+storeArgs = {'database': 'test.db'}
+sqlCommand = 'python ExecuteScript.py "%s"'
+sqlVersionCommand = 'python ExecuteScript.py --version'
+# end
+
+You can see what databases are supported by looking in the MiddleKit/Run
+directory. At the time I write this they are MySQL, PostgreSQL, MSSQL and SQLite.
+
+If you are creating a new test model, here are some additional notes for you:
+
+* You can put a TestEmpty.py in the model that the test suite will execute
+  with a fresh store (one that has no initial data). See the TestEmpty.py
+  files in the existing test models for details.
+
+* You can put a TestSamples.py in the model that the test suite will execute
+  with after the sample values have been loaded into the database. See the
+  TestSamples.py files in the existing test models for details.
+
+* You can have more than one config file for the model which will cause the
+  test suite to run the model tests for each one. Name them to match
+  'Settings*.config'; for example, Settings1.config and Settings2.config.

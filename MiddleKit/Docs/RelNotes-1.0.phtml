@@ -1,0 +1,40 @@
+<% header(name + ' 1.0 Release Notes') %>
+
+<p><% name %> version 1.0 released on 11/29/08</p>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>Given an attribute of type list with the name "bars", MK will now
+  not only generate a Python method <code>addToBars()</code> for adding
+  objects to the list, but also a method named <code>delFromBars()</code>
+  that will make it easy for you to remove an existing object from the list
+  (as suggested by Luke Holden in patch #670051).</li>
+  <li>The SQLObjectStore method <code>executeSQL()</code> now can commit
+  the SQL statement immediately if you pass in <code>commit=True</code>.
+  This is helpful since the standard DB API <code>execute()</code> method
+  does not commit automatically, and MySQLdb now follows the standard.</li>
+  <li>A method <code>executeSQLTransaction()</code> has been added that
+  executes and commits a sequence of SQL statements as a transaction.</li>
+  <li>The MySQLObjectStore can now be created with a keyword parameter named
+  <code>autocommit</code> that will reestablish the old behavior of MySQLdb
+  of auto commiting every statement if you set to True. But note that by
+  default there will now be no autocommit any more.</li>
+</ul>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>Added a lock for accessing the MiddleKit persistent store to avoid
+  race conditions with multithreading (as suggested by Roger Haase).</li>
+  <li>Do not allow attributes with some reserved names because they can
+  lead to confusing error messages later (bug report #925481).</li>
+</ul>
+
+<a name="MinorChanges"></a><h2>Minor Changes</h2>
+<ul>
+  <li>The PostgreSQL SQL generator now generates DateTime attributes as
+  timestamps <em>without</em> time zone. This is also the default in newer
+  PostgreSQL versions and in MySQL. It is recommended to simply store all
+  DateTimes as UTC.</li>
+</ul>
+
+<% footer() %>

@@ -1,0 +1,192 @@
+#!/usr/bin/env twill-sh
+
+# Webware for Python
+# twill test script (twill.idyll.org)
+# Testing context
+
+setglobal version X.Y
+
+config use_tidy 0
+config use_BeautifulSoup 0
+config allow_parse_errors 0
+
+go http://127.0.0.1:8080
+find "Welcome to WebKit"
+
+go Welcome
+find "Welcome to WebKit"
+back
+
+go Welcome.py
+find "Welcome to WebKit"
+back
+
+go Examples/Welcome
+find "Welcome to WebKit"
+back
+
+go Examples/Welcome.py
+find "Welcome to WebKit"
+back
+
+go Examples
+url Examples/
+find "Welcome to WebKit"
+back
+
+go Admin/
+find "Administration Pages"
+back
+
+go Admin/Main
+find "Administration Pages"
+back
+
+go Admin
+url Admin/
+find "Administration Pages"
+back
+
+follow Testing
+url Testing/
+title Testing
+find '<h2 style="text-align:center">Test cases</h2>'
+find '<td>Expectation</td>'
+
+go Dir/File.html
+title "Testing/Dir/File\.html"
+find "This is <tt.*>File\.html</tt> in <tt.*>/Testing/Dir/</tt>"
+back
+
+go Dir
+title "Testing/Dir/"
+title "Testing/Dir/"
+find "This is <tt.*>index.html</tt> in <tt.*>/Testing/Dir/</tt>"
+back
+
+go Welcome/
+code 404
+back
+
+go Examples/Welcome/
+code 404
+back
+
+go BadURL
+code 404
+title "Error 404"
+find '<h1 style="color:#008">Error 404</h1>'
+find "The page you requested, <b>.*BadURL</b>, was not found"
+back
+
+go BadURL/
+code 404
+back
+
+go Examples/BadURL
+code 404
+back
+
+go Examples/BadURL/
+code 404
+back
+
+go Examples/BadURL/MoreBad
+code 404
+back
+
+go File.badext
+code 404
+back
+
+go Examples/File.badext
+code 404
+back
+
+go Servlet/
+code 404
+back
+
+go Servlet/Extra/Path/Info
+code 404
+back
+
+go Servlet/Extra/Path/Info/
+code 404
+back
+
+go Servlet/More/Info?
+code 404
+back
+
+go IncludeURLTest
+code 200
+title IncludeURLTest
+find "<h2>IncludeURLTest</h2>"
+find "<h2>IncludeURLTest2</h2>"
+find "<td>IncludeURLTest test</td>"
+find "Including the Main servlet"
+find '<h2 style="text-align:center">Test cases</h2>'
+find "IncludeURLTest complete\."
+back
+
+go Dir/IncludeURLTest2
+code 200
+title IncludeURLTest2
+notfind "<h2>IncludeURLTest</h2>"
+find "<h2>IncludeURLTest2</h2>"
+find "This is the second part of the URL test code."
+notfind "Test cases"
+back
+
+go Forward1
+code 200
+title Forward1Target
+find "<h2><tt>Forward1Target</tt></h2>"
+notfind "Test cases"
+back
+
+go Forward2
+code 200
+title Forward2Target
+find "<h2><tt>Forward2Target</tt></h2>"
+notfind "Test cases"
+back
+
+go Dir/Forward3
+code 200
+title Forward3Target
+find "<h2><tt>Forward3Target</tt></h2>"
+notfind "Test cases"
+back
+
+go FieldStorage
+code 200
+title FieldStorage
+find "FieldStorage class can be tested here"
+find "press the button"
+notfind "Test cases"
+submit
+find "Everything ok"
+find "FieldStorage works as expected"
+follow "Back to the test cases overview."
+code 200
+find "Test cases"
+
+go SetCookie
+code 200
+title SetCookie
+find '<h2>Cookies being sent:</h2>'
+notfind "'onclose' ="
+find "'onclose' sends:"
+go SetCookie
+code 200
+title SetCookie
+find '<h2>Cookies received:</h2>'
+find "'onclose' ="
+back
+
+go TestIMS
+code 200
+title TestIMS
+find '<h4>TestIMS passed.</h4>'

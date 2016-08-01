@@ -1,0 +1,120 @@
+<% header(name + ' 1.1 Release Notes') %>
+
+<p><% name %> version 1.1 released on 08/03/11</p>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>In <span class="filename">WebKit/Adapters</span> you find a new adapter
+  <span class="filename">WSGIAdapter.py</span> allowing any WSGI compliant
+  webserver to communicate with the Webware application server. You can use
+  it straight away as WSGI application script file for
+  <a href="http://code.google.com/p/modwsgi/">mod_wsgi</a>.</li>
+  <li>All worker threads are now tagged as daemon threads by default,
+  thereby allowing the app server to quit even if some of them cannot
+  be told to quit their work. This can be changed via the new
+  <span class="filename">AppServer.config</span> setting
+  <code>UseDaemonThreads</code>.</li>
+  <li>Two new session store classes have been added,
+  <code>SessionShelveStore</code> (using the shelve module) and
+  <code>SessionMemcachedStore</code> (using python-memcached).
+  The latter one is very useful if you want to share Webware sessions
+  between different app server instances. You can activate and configure
+  the new classes in <span class="filename">Application.config</span>.</li>
+  <li>A mod_webkit binary for Apache 2 64bit on Windows is now included.</li>
+  <li>With the new <span class="filename">AppServer.config</span> setting
+  <code>SilentURIs</code> you can specify request URIs for which you don't
+  want messages with request info to be printed in the server output.
+  By default, as earlier, all requests will appear in the server output.</li>
+  <li>Changes in servlet classes are not picked up using the AutoReload
+  mechanism; the corresponding modules are simply reloaded. However, this can
+  cause problems when other modules are dependent on the reloaded modules,
+  e.g. by inheriting from the reloaded servlet class. For such cases,
+  the new <span class="filename">Application.config</span> setting
+  <code>ReloadServletClasses</code>, when set to <code>False</code>, can be
+  used to suppress reloading of servlet classes and utilizing the AutoReload
+  mechanism for reloading the servlet classes instead (Bug 3016673 reported
+  by Patrick Gendron).</li>
+  <li>A new setting <code>AlwaysSaveSessions</code> has been introduced that
+  can be set to <code>False</code> in order to avoid saving unaltered sessions
+  (as suggested by Steve Schwarz).</li>
+  <li>The mod_webkit2 adapter now also works with 64bit builds of Apache 2.2;
+  we have included pre-compiled 32bit and 64bit dll files for Windows.</li>
+</ul>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>Made the mimetype guessing a bit more robust.</li>
+  <li>Instead of <code>mx.DateTime</code> types, we now use the native
+  datetime types for cookie expiration in <code>HTTPResponse</code>.</li>
+  <li>We now set the close-on-exec-flag on the ThreadedAppServer socket
+  (as suggested by Justin Akehurst).</li>
+  <li>The mod_webkit2 adapter would interpret the WKServer host address as IPv6,
+  but later created the socket connection with IPv4 even if it was an IPv6
+  address. Fixed this so that the WKServer address is always interpreted as IPv4.
+  The ThreadedAppServer only listens on an IPv4 socket anyway.</li>
+  <li>If the AppServer is launched with <code>runProfile = False</code>
+  (see <span class="filename">Profiler.py</span> for details), then the
+  profiling will be done with the <code>cProfile</code> module instead of
+  the <code>profile</code> module if possible (Python 2.5 and later).</li>
+  <li>The <code>Sessionstore.cleanStaleSessions()</code> method has been
+  made a bit more robust.</li>
+  <li>In the <code>AutoReloadingAppServer</code>, we do not add files more
+  than once to the watchlist any more. If a FAM module cannot be initialized,
+  we try to use the alternative FAM modules. Besides <code>python-fam</code>
+  and <code>python-gamin</code>, we now support <code>pyinotify</code>.</li>
+  <li>Slashes in module names (from nested contexts) are now replaced
+  with underscores, to make PSP and KidKit work with PyPy as well.</li>
+</ul>
+
+<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>We are now only using new-style classes in our code base.</li>
+  <li>The internal <code>asclocaltime</code> function has been from
+  <code>WebKit.Common</code> to <code>MiscUtils</code>.</li>
+</ul>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>The mod_webkit2 adapter interpreted the WKServer host address as
+  IPv6 in newer Linux versions and then was unable to connect.</li>
+  <li>Thread dumps now work with Python 2.5 and later (and the threadframe
+  module isn't necessary here any more).</li>
+  <li>For some kinds of bad URLs, the URLParser raised an AssertionError
+  instead of HTTPNotFound.</li>
+  <li>The modified <code>FieldStorage</code> class used by WebKit did not work
+  as before with Python 2.6 and newer. These Python versions already add query
+  string parameters to the fields passed via POST, but differently to how we
+  did this before. In WebKit, POST parameters used to completely override query
+  string parameters, the values were not appended to possibly existing values
+  in the query string. In order to stay compatible and because it seems to be
+  more reasonable, we restored the old behavior even for newer versions of
+  Python (thanks to Fionn Behrens for bringing this up).</li>
+  <li>Fixed a problem with FAM when files were imported while the thread loop
+  was initialized.</li>
+  <li>The <code>IncludeEditLink</code> setting had always been ignored
+  (assumed to be True).</li>.
+  <li>The <code>ServletCache</code> page in the Admin context did not show
+  anything when caching was not activated.</li>
+</ul>
+
+<a name="Deprecations"></a><h2>Deprecations</h2>
+<ul>
+  <li>The methods and objects which have been marked as deprecated
+  in version 1.0 and modules that are now  available in the standard library
+  have been removed in Webware for Python 1.1, particularly:
+  <code>HTTPRequest.ServerSideDir</code>, <code>HTTPRequest.relativePath</code>,
+  <code>HTTPRequest.servletFilePath</code> and <code>HTTPResponse.addHeader</code>.
+  Removed support for the <code>404Text.txt</code> file name (it is called
+  <code>error404.html</code> now) and the <code>Port</code> setting (which is
+  <code>AdapterPort</code> now).</li>
+  <li>The <code>Object</code> root class for WebKit objects has gone.
+  It made things unnecessary complicated and did not contribute much
+  functionality besides named value access which hardly anyone was uning
+  and has now been removed anyway.</li>
+  <li>The internal <code>WebKit.Common</code> module is also gone. It was
+  mostly used for creating backward compatibility with old Python versions
+  which is now not necessary any more. Also, wild card imports (as in
+  <code>from Common import *</code>) are considered bad practice.</li>
+</ul>
+
+<% footer() %>

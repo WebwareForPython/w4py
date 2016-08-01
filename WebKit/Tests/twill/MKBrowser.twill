@@ -1,0 +1,35 @@
+#!/usr/bin/env twill-sh
+
+# Webware for Python
+# twill test script (twill.idyll.org)
+# MKBrowser context
+
+setglobal version X.Y
+
+config use_tidy 0
+config use_BeautifulSoup 0
+config allow_parse_errors 0
+
+go http://127.0.0.1:8080
+follow MKBrowser
+url MKBrowser
+title SelectModel
+find "MiddleKit Browser"
+find "Enter a model filename:"
+find "Select a recent model:"
+
+follow "Help"
+title SelectModel
+find "Enter a model filename:"
+find "The MiddleKit browser allows you to browse the objects"
+
+fv 1 modelFilename "MiddleKit/Docs/Videos/Middle/Videos"
+submit
+title SelectDatabase
+find "Enter database connection info:"
+find "Select a recent database:"
+
+follow "Help"
+title SelectDatabase
+find "Enter database connection info:"
+find "You must choose a database to connect to"

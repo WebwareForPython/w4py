@@ -1,0 +1,22 @@
+This is a C coded CGI script for talking to the WebKit AppServer.
+Just put it in a directory where your webserver can execute CGI scripts,
+and you're good to go.
+
+By default, it will try to talk to the AppServer on localhost port 8086.
+It'll retry the connection 10 times with a delay of 1 second between retries.
+
+To change any of these parameters, put a file name webkit.cfg in the same
+directory as the CGI executable.  A sample file is included here.
+
+Build Instructions:
+
+On Unix:
+Just run make. For Solaris and some other Unix variants, you may have to
+adapt the LIBS setting in the Makefile before.
+
+On Windows:
+Install the free Microsoft Visual C++ 2010 Express Edition and run the
+'make.bat' batch file. For your convenience, a pre-compiled wkcgi.exe
+for Windows 7 is already included in this directory.
+
+Enjoy!

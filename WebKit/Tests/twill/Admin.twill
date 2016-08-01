@@ -1,0 +1,96 @@
+#!/usr/bin/env twill-sh
+
+# Webware for Python
+# twill test script (twill.idyll.org)
+# Admin context
+
+setglobal version X.Y
+setglobal password WebKit
+
+config use_tidy 0
+config use_BeautifulSoup 0
+config allow_parse_errors 0
+
+go http://127.0.0.1:8080
+follow Admin
+url Admin
+code 200
+title LoginPage
+find "Please log in to view Administration Pages."
+fv 1 username alice
+fv 1 password alice
+submit
+find "Login failed. Please try again."
+#fv 1 username admin
+fv 1 password ${password}
+submit
+echo "The WebKit password must be set to '${password}' for this test."
+code 200
+find "WebKit Administration Pages"
+find "<tr><th.*>Webware Version:</th><td>${version}</td></tr>"
+find "<tr><th.*>WebKit Version:</th><td>${version}</td></tr>"
+find "<th.*>Local Time:</th><td>\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</td>"
+find "<tr><th.*>Working Dir:</th><td>.*WebKit</td></tr>"
+
+follow "Activity log"
+title "View Activity"
+
+follow "Error log"
+title "View Errors"
+
+follow "Config"
+find "<th.*>AppServer</th>"
+find "<tr><th.*>EnableHTTP</th><td>True</td></tr>"
+find "<th.*>Application</th>"
+find "<tr><th.*>AdminPassword</th><td>WebKit</td></tr>"
+
+follow "Plug-ins"
+title PlugIns
+find "The following Plug-ins were found:"
+find "<tr><td><a.*>MiscUtils</a></td><td.*>${version}</td><td>.*</td></tr>"
+
+follow "Servlet Cache"
+code 200
+title "Servlet Cache"
+find "PythonServletFactory"
+find "Details:"
+submit flush_PythonServletFactory
+find "The servlet cache has been flushed."
+submit reload
+code 200
+find "Unique paths in the servlet cache: <strong>1</strong>"
+
+follow "Application Control"
+title AppControl
+follow "Servlet Cache"
+find "Unique paths in the servlet cache: <strong>2</strong>"
+follow "Application Control"
+find "Clear the class and instance cache"
+submit "Clear cache"
+code 200
+find "The caches of all factories have been flushed."
+follow "Servlet Cache"
+code 200
+find "Unique paths in the servlet cache: <strong>1</strong>"
+
+follow "Thread Control"
+code 200
+title ThreadControl
+find "Thread name"
+find "Request URI"
+find "Current time"
+fv 1 duration 99
+submit cancel_long
+code 200
+title ThreadControl
+find 'name="duration" value="99"'
+find "Current time"
+
+follow Logout
+code 200
+title LoginPage
+find "You have been logged out."
+
+follow "Activity log"
+title LoginPage
+find "Please log in to view Administration Pages."

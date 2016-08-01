@@ -1,0 +1,155 @@
+<% header(name, 'titlebar') %>
+
+<p class="center"><b>Release <% versionString %> on <% releaseDate %></b></p>
+
+
+<h2>Synopsis</h2>
+
+<p>Webware for Python is a suite of software components for developing object-oriented, web-based applications. The suite uses well known design patterns and includes popular features such as:</p>
+
+<ul>
+  <li>An application server that is <strong>fast, multi-threaded, easy to use</strong>.</li>
+  <li><strong>Good error handling</strong>. A crash of one page will not crash the application server. Exception reports are logged and easy to read when developing.</li>
+  <li><strong>Servlets</strong>. Similar to Java servlets, they provide a familiar basis for construction web applications.</li>
+  <li><strong>Python Server Pages</strong> (PSP, similar to ASP, PHP and JSP).</li>
+  <li><strong>MiddleKit, an object-relational mapper</strong>. MiddleKit facilitates storing objects in an SQL. It is one of the strongest and components in Webware.</li>
+  <li><strong>Simplicity</strong>. Webware's code is quite simple and easy to understand if you feel the need to extend it.</li>
+  <li>Task scheduling.</li>
+  <li>User management and authentication.</li>
+  <li>A simple built-in web-server and a CGI wrapper.</li>
+</ul>
+
+<p>Key goals of the project include:</p>
+
+<ul>
+  <li>Python- and object-oriented ("Pythonic") approach.</li>
+  <li>An expansive suite of components and features to cover common needs of web developers.</li>
+  <li>Modular architecture where components can be used together or independently.</li>
+  <li>Excellent documentation and numerous examples.</li>
+  <li>Open source development and community.</li>
+</ul>
+
+
+<h2>Feedback and Support</h2>
+
+<p>You can e-mail <a href="mailto:webware-discuss@lists.sourceforge.net">webware-discuss@lists.sourceforge.net</a> to give feedback, discuss features and get help using Webware. You can visit the <a href="http://lists.sourceforge.net/mailman/listinfo/webware-discuss">webware-discuss page</a> to join the list.</p>
+
+
+<a name="Installation"></a><h2>Installation</h2>
+
+<p>See the <a href="../WebKit/Docs/InstallGuide.html">WebKit Install Guide</a>.</p>
+
+<h2>Automated Tests</h2>
+
+<p>Webware includes a suite of automated tests to make sure everything is working on your platform. To run the tests, go to the Webware root folder and run <span class="py">python AllTests.py</span> . The first time you run the tests, it creates a file <span class="py">AllTests.config</span>. This file has configuration options required for some tests to run, such as database connections. If you don't adjust this file, then any tests that need a database are skipped. The file includes comments that describe each option. You should find it easy to understand.</p>
+<p>If some of the tests fail on your system, please enter it on the Bug Tracker link of the <a href="http://www.webwareforpython.org">Webware home page</a>. Also, if you find a bug that doesn't show up in the automated tests, it will be much easier for us to fix if you can submit a test case with your bug report.</p>
+
+
+<a name="Components"></a><h2>Components</h2>
+
+<p>Each Webware component has a focused purpose and can often be used on its own. At the same time, the components are designed to work together where appropriate. You can use as much or as little of Webware as you want to.</p>
+
+<p>The components are summarized in the <a href="ComponentIndex.html">Component Index</a>.</p>
+
+<p>The core component is <a href="../WebKit/Docs/index.html">WebKit</a>, which is the Webware application server.</p>
+
+
+<a name="Status"></a><h2>Status</h2>
+
+<p>Webware is a pretty mature and stable software that has been used in production for a long time by a variety of people in different environments. With support from the <a href="http://lists.sourceforge.net/mailman/listinfo/webware-discuss">webware-discuss</a> mailing list, you should feel comfortable developing with Webware.</p>
+
+<p>In the <a href="ComponentIndex.html">Component Index</a> you will see the status of each component such as <span class="name">alpha</span> and <span class="name">beta</span>. For beta components we are successfully striving for backwards compatibility of the API as the components mature.</p>
+
+<p>You can keep up on new releases through the <em>very low traffic</em> <a href="http://lists.sourceforge.net/mailman/listinfo/webware-announce">announcement list</a> and the home page at <a href="http://www.webwareforpython.org">http://www.webwareforpython.org</a>.</p>
+
+
+<a name="Contributing"></a><h2>Contributing</h2>
+
+<p>Webware could always use contributors in various areas, some of them lightweight and some of them not. Consider all the fun things you could do:</p>
+<ul>
+  <li>Test pre-releases on your favorite OS, web server and version of Python. (lightweight)</li>
+  <li>Write custom WebKit adapters for your favorite web server for enhanced performance. (fairly lightweight)</li>
+  <li>Write an article about using Webware. (middleweight)</li>
+  <li>Write a tutorial. (middleweight)</li>
+  <li>Build up regression test suites to help with testing and ensure future stability. (middleweight)</li>
+  <li>Contribute to the implementation of components such as WebKit, MiddleKit and PSP. (heavyweight)</li>
+  <li>For morea ideas, see also the <a href="../WebKit/Docs/Future.html">Future Work</a> document and the comments below.</li>
+  <li>Contribute something else you might think of that we haven't.</li>
+</ul>
+
+<p>If you are interested in contributing please contact <a href="mailto:webware-discuss@lists.sourceforge.net">webware-discuss@lists.sourceforge.net</a>.</p>
+
+
+<a name="Summary"></a><h2>Summary Information</h2>
+
+<table style="padding-left: 2em">
+<tr><td valign="top"> Home: </td> <td><a href="http://www.webwareforpython.org">http://www.webwareforpython.org</a></td></tr>
+<tr><td valign="top">Version:</td><td><% versionString %></td></tr>
+<tr><td valign="top">Requirements:</td><td> Python <% requiredPyVersionString %>
+<br>Tested on UNIX (FreeBSD, Linux, et al) and
+Windows (XP, 2K, NT, Me, et al).</td></tr>
+<tr><td valign="top">Status:</td><td><% status %></td></tr>
+<tr><td valign="top">Announcements:</td><td>join: <a href="http://lists.sourceforge.net/mailman/listinfo/webware-announce">http://lists.sourceforge.net/mailman/listinfo/webware-announce</a> (very low traffic)</td></tr>
+<tr><td valign="top">Discussion:</td><td>e-mail: <a href="mailto:webware-discuss@lists.sourceforge.net">webware-discuss@lists.sourceforge.net</a>
+<br>join: <a href="http://lists.sourceforge.net/mailman/listinfo/webware-discuss">http://lists.sourceforge.net/mailman/listinfo/webware-discuss</a> </td></tr>
+<tr><td valign="top">Copyright:</td><td>See <a href="Copyright.html">Copyright, License and Disclaimer</a>.</td></tr>
+<tr><td valign="top">Primary Authors:</td><td>
+Chuck Esterbrook, <a href="mailto:chuckesterbrook@yahoo.com">chuckesterbrook@yahoo.com</a>
+<br>Jay Love, <a href="mailto:jsliv@jslove.org">jsliv@jslove.org</a>
+<br>Geoff Talvola, <a href="mailto:gtalvola@nameconnector.com">gtalvola@nameconnector.com</a>
+</td></tr>
+<tr><td valign="top">Other Contributors:</td><td>
+Ian Bicking, <a href="mailto:ianb@colorstudy.com">ianb@colorstudy.com</a>
+<br>Tom Schwaller, <a href="mailto:tom.schwaller@linux-community.de">tom.schwaller@linux-community.de</a>
+<br>Stuart Donaldson, <a href="mailto:stu@asyn.com">stu@asyn.com</a>
+<br>Jason Hildebrand, <a href="jason@opensky.ca">jason@opensky.ca</a>
+<br>Christoph Zwerschke, <a href="mailto:cito@online.de">cito@online.de</a>
+<br>and many others
+</td></tr>
+<tr><td valign="top">Current Maintainer:</td><td>
+Christoph Zwerschke, <a href="mailto:cito@online.de">cito@online.de</a>
+</td></tr>
+</table>
+
+
+<a name="DesignPoints"></a><h2>Design Points</h2>
+
+<ul>
+  <li>Webware is pro-Python. These software components are not about Java, C++ or any other programming languages.</li>
+  <li>The various software components are meant to be accessible in a stand alone fashion except in those cases where one component builds on another. That doesn't preclude the idea that the components can provide hooks for integration or even automatically integrate other components when their presence is detected.</li>
+  <li>A clean, object-oriented style of development is used as much as possible.</li>
+  <li>However, Webware components don't provide a special class for each type of HTML tag. It's generally easier and more efficient to use strings like '&lt;br&gt;&lt;hr&gt;' than to say something like 'BreakLine() + HorizontalRule()'.</li>
+  <li>Documentation is meant to be of the highest caliber so that users can more quickly get up and running with Webware.</li>
+  <li>All components are accompanied by examples (that also serve as tests).</li>
+  <li>Over time, regression tests are created and expanded upon for each component.</li>
+  <li>Although Webware includes more than one independent component, it's not intended to be a hodge-podge repository of any kind of web component written in Python. New components should fit into the 'feel' of what's there already and provide integration with other components wherever possible. The emphasis is on high-quality, object-oriented components (with the mild exception of the utility collections, MiscUtils and WebUtils).</li>
+</ul>
+
+
+<a name="Future"></a><h2>Future</h2>
+
+<p>Webware for Python has been created in the year 2000 (even before Python&nbsp;2.0 was released) and stood the test of time. However, this also brings some problems. A lot of things could be realized in simpler ways today, using new Python features and other recent developments such as setuptools. Some Python standards such as WSGI or PEP8 did not exist when Webware has been designed, and thus things have been implemented in Webware's own ways, some of which may look quirky today. Also, many other great web frameworks for Python and components for such frameworks (e.g. templating systems, object-relational mapping) have emerged in recent years.</p>
+
+<p>There are ideas to radically modernize, streamline and refactor Webware for Python after version 1.0, heeding and utilizing all currently available Python standards and components, maybe even requiring Python&nbsp;3.0. Ian Bicking has already made an experiment in this direction with <a href="http://pythonpaste.org/wareweb/">Wareweb</a>. However, such a radical rewrite is a lot of work and does not seem to be possible without breaking backward compatibility and removing non-essential Webware components to a great extend. The question is whether this effort is justifiable in view of the plethora of already existing modern Python web frameworks.</p>
+
+<p>So probably the next Webware for Python versions will see only gradual adaptations to newer Python versions and clean-ups. The current stable Webware for Python version 1.0 will still support the old Python versions and will continue to be maintained with bug fix releases in the foreseeable future.</p>
+
+
+<a name="ReleaseNotes"></a><h2>Release Notes</h2>
+
+<p>See the global <a href="RelNotes.html">Webware release notes</a>
+and the release notes for the various
+<a href="ComponentIndex.html">components</a>, particularly
+<a href="../WebKit/Docs/index.html">WebKit</a>.</p>
+
+
+<a name="Thanks"></a><h2>Thanks to...</h2>
+
+<p>Members of <a href="http://lists.sourceforge.net/mailman/listinfo/webware-discuss">webware-discuss</a> and <a href="http://www.egroups.com/group/python-web-modules">python-web-modules</a> for discussion and feedback.</p>
+
+<p><a href="http://www.sourceforge.net">SourceForge</a> and <a href="http://www.tummy.com">tummy.com</a> for hosting <a href="http://webware.sourceforge.net">Webware for Python</a></p>
+
+<p><a href="http://www.python.org/~guido/">Guido van Rossum</a> for <a href="http://www.python.org">Python</a></p>
+
+
+<% footer() %>
