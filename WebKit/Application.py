@@ -179,8 +179,6 @@ class Application(ConfigurableForServerSidePath):
         URLParser.initApp(self)
         self._rootURLParser = URLParser.ContextParser(self)
 
-        self._running = 1
-
         if useSessionSweeper:
             self.startSessionSweeper()
 
@@ -306,7 +304,6 @@ class Application(ConfigurableForServerSidePath):
         of Application won't be called due to circular references.
         """
         print "Application is shutting down..."
-        self._running = 0
         self._sessions.storeAllSessions()
         if self._server.isPersistent():
             self.taskManager().stop()
