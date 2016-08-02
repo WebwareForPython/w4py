@@ -12,7 +12,8 @@ class HierRole(Role):
     def __init__(self, name, description=None, superRoles=[]):
         Role.__init__(self, name, description)
         for role in superRoles:
-            assert isinstance(role, Role)
+            if not isinstance(role, Role):
+                raise TypeError('%s is not a Role object' % (role,))
         self._superRoles = superRoles[:]
 
     def playsRole(self, role):

@@ -18,8 +18,6 @@ webwarePath = os.path.dirname(os.path.dirname(testDir))
 if sys.path[0] != webwarePath:
     sys.path.insert(0, webwarePath)
 
-import AllTests
-
 
 class UserManagerTest(unittest.TestCase):
     """Tests for the base UserManager class."""
@@ -154,9 +152,10 @@ class _UserManagerToSomewhereTest(UserManagerTest):
     def testDuplicateUser(self):
         mgr = self._mgr
         user = self._user = mgr.createUser('foo', 'bar')
-        self.assertRaises(AssertionError, mgr.createUser, 'foo', 'bar')
+        self.assertEqual(user.name(), 'foo')
+        self.assertRaises(KeyError, mgr.createUser, 'foo', 'bar')
         userClass = mgr.userClass()
-        self.assertRaises(AssertionError, userClass, mgr, 'foo', 'bar')
+        self.assertRaises(KeyError, userClass, mgr, 'foo', 'bar')
 
 
 class UserManagerToFileTest(_UserManagerToSomewhereTest):

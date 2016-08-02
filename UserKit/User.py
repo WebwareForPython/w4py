@@ -38,11 +38,13 @@ class User(object):
 
     def setManager(self, manager):
         """Set the manager, which can only be done once."""
-        assert self._manager is None
+        if self._manager is not None:
+            raise RuntimeError('Manager has already been set')
         from UserManager import UserManager
-        assert isinstance(manager, UserManager)
-        assert manager.userForName(self.name(), None) is None, (
-            'There is already a user named %r.' % self.name())
+        if not isinstance(manager, UserManager):
+            raise TypeError('%s is not a UserManager object' % (manager,))
+        if manager.userForName(self.name(), None) is not None:
+            raise KeyError('There is already a user named %r.' % (self._name,))
         self._manager = manager
 
     def serialNum(self):
@@ -61,7 +63,8 @@ class User(object):
 
     def setName(self, name):
         """Set the name, which can only be done once."""
-        assert self._name is None
+        if self._name is not None:
+            raise RuntimeError('name has already been set')
         self._name = name
         # @@ 2001-02-15 ce: do we need to notify the manager
         # which may have us keyed by name?

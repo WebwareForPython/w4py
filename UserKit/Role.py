@@ -63,5 +63,6 @@ class Role(object):
         For Role, this is simply a test of equality. Subclasses may override
         this method to provide richer semantics (such as hierarchical roles).
         """
-        assert isinstance(role, Role)
+        if not isinstance(role, Role):
+            raise TypeError('%s is not a Role object' % (role,))
         return self == role

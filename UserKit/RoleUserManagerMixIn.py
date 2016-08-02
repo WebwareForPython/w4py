@@ -27,9 +27,11 @@ class RoleUserManagerMixIn(object):
     ## Roles ##
 
     def addRole(self, role):
-        assert isinstance(role, Role)
+        if not isinstance(role, Role):
+            raise TypeError('%s is not a Role object' % (role,))
         name = role.name()
-        assert name not in self._roles
+        if name in self._roles:
+            raise KeyError('role name %r already exists' % (name,))
         self._roles[name] = role
 
     def role(self, name, default=NoDefault):

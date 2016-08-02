@@ -132,7 +132,8 @@ class UserManager(object):
 
         See also: userClass().
         """
-        assert issubclass(userClass, User)
+        if not issubclass(userClass, User):
+            raise TypeError('%s is not a User class' % (userClass,))
         self._userClass = userClass
 
     def modifiedUserTimeout(self):
@@ -172,9 +173,11 @@ class UserManager(object):
         return user
 
     def addUser(self, user):
-        assert isinstance(user, User)
+        if not isinstance(user, User):
+            raise TypeError('%s is not a User object' % (user,))
         self._cachedUsers.append(user)
-        assert user.serialNum() not in self._cachedUsersBySerialNum
+        if user.serialNum() in self._cachedUsersBySerialNum:
+            raise KeyError('a user with this number already exists')
         self._cachedUsersBySerialNum[user.serialNum()] = user
 
     def userForSerialNum(self, serialNum, default=NoDefault):
@@ -218,14 +221,16 @@ class UserManager(object):
 
     def login(self, user, password):
         """Return the user if the login is successful, otherwise return None."""
-        assert isinstance(user, User)
+        if not isinstance(user, User):
+            raise TypeError('%s is not a User object' % (user,))
         result = user.login(password, fromMgr=True)
         if result:
             self._numActive += 1
         return result
 
     def logout(self, user):
-        assert isinstance(user, User)
+        if not isinstance(user, User):
+            raise TypeError('%s is not a User object' % (user,))
         user.logout(fromMgr=True)
         self._numActive -= 1
 

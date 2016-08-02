@@ -104,7 +104,8 @@ class UserManagerToFile(UserManager):
         return result
 
     def addUser(self, user):
-        assert isinstance(user, User)
+        if not isinstance(user, User):
+            raise TypeError('%s is not a User object' % (user,))
         user.setSerialNum(self.nextSerialNum())
         user.externalId()  # set unique id
         UserManager.addUser(self, user)

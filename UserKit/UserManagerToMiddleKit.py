@@ -53,7 +53,8 @@ class UserManagerToMiddleKit(UserManager):
         if store is None:
             from MiddleKit.Run.ObjectStore import ObjectStore
             store = ObjectStore
-        assert store, 'No MiddleKit store.'
+        if not store:
+            raise RuntimeError('No MiddleKit store.')
         self._store = store
 
         # If the user didn't say whether or not to useSQL, then
@@ -92,7 +93,8 @@ class UserManagerToMiddleKit(UserManager):
     def setUserClass(self, userClass):
         """Overridden to verify that our userClass is really a MiddleObject."""
         from MiddleKit.Run.MiddleObject import MiddleObject
-        assert issubclass(userClass, MiddleObject)
+        if not issubclass(userClass, MiddleObject):
+            raise TypeError('%s is not a MiddleObject' % (userClass,))
         UserManager.setUserClass(self, userClass)
 
 
@@ -120,7 +122,8 @@ class UserManagerToMiddleKit(UserManager):
             users = self._store.fetchObjectsOfClass(self._userClass,
                 clauses='where externalId=%r' % externalId)
             if users:
-                assert len(users) == 1
+                if len(users) != 1:
+                    raise KeyError('More than one user found')
                 return users[0]
         else:
             for user in self.users():
@@ -139,7 +142,8 @@ class UserManagerToMiddleKit(UserManager):
             users = self._store.fetchObjectsOfClass(
                 self._userClass, clauses='where name=%r' % name)
             if users:
-                assert len(users) == 1
+                if len(users) != 1:
+                    raise KeyError('More than one user found')
                 return users[0]
         else:
             for user in self.users():
