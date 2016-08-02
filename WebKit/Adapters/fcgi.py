@@ -160,7 +160,7 @@ class Record(object):
         ]
         hdr = ''.join(map(chr, hdr))
 
-        sock.send(hdr + content + padLen*'\000')
+        sock.sendall(hdr + content + padLen*'\000')
 
 #---------------------------------------------------------------------------
 

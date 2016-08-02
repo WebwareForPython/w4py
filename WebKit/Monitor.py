@@ -139,7 +139,7 @@ def checkServer(restart=True):
         sts = time.time()
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect(addr)
-        s.send(statstr)
+        s.sendall(statstr)
         s.shutdown(1)
         resp = s.recv(9)  # up to 1 billion requests!
         monwait = time.time() - sts
@@ -219,7 +219,7 @@ def shutDown(signum, frame):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect(addr)
-        s.send(quitstr)
+        s.sendall(quitstr)
         s.shutdown(1)
         resp = s.recv(10)
         s.close()

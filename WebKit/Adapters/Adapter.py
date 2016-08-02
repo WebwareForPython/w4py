@@ -52,13 +52,9 @@ class Adapter(Configurable):
             else:
                 break
         data = dumps(requestDict)
-        s.send(dumps(int(len(data))))
-        s.send(data)
-        sent = 0
-        inputLength = len(myInput)
-        while sent < inputLength:
-            chunk = s.send(myInput[sent:])
-            sent += chunk
+        s.sendall(dumps(int(len(data))))
+        s.sendall(data)
+        s.sendall(myInput)
         s.shutdown(1)
         bufsize = self.setting('ResponseBufferSize')
         while 1:

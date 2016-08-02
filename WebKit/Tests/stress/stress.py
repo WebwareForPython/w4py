@@ -77,11 +77,11 @@ def request(names, dicts, host, port, count, delay=0, slowconn=0):
         data = dumps(len(data)) + data
         if slowconn:
             for d in data:
-                s.send(d)
+                s.sendall(d)
             if delay:
                 sleep(delay)
         else:
-            s.send(data)
+            s.sendall(data)
         s.shutdown(1)
         data = []
         while 1:

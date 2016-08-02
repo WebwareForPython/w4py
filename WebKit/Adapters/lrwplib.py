@@ -107,7 +107,7 @@ class LRWP(object):
         try:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.sock.connect((self.host, self.port))
-            self.sock.send("%s\xFF%s\xFF%s"
+            self.sock.sendall("%s\xFF%s\xFF%s"
                 % (self.name, self.vhost, self.filter))
             buf = self.sock.recv(1024)
             if buf != 'OK':
@@ -196,8 +196,8 @@ class LRWP(object):
         doc = self.out.getvalue()
         size = LENGTHFMT % (len(doc),)
         try:
-            self.sock.send(size)
-            self.sock.send(doc)
+            self.sock.sendall(size)
+            self.sock.sendall(doc)
         except socket.error, val:
             raise SocketError(val)
 
