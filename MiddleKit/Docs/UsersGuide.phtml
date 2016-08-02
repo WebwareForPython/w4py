@@ -408,21 +408,21 @@ This setting has no effect on the visible behavior of MiddleKit; it only changes
 <p><a name="Configuration_SQLSerialColumnName"></a> The <span class="name">SQLSerialColumnName</span> controls the name that is used for the serial number of a given database record, which is also the primary key. The default is 'serialNum' which matches MiddleKit naming conventions. You can change this:</p>
 
 <pre class="py">{
-    'SQLSerialColumnName': 'SerialNum', # capitalized, or
-    'SQLSerialColumnName': '%(className)sId', # the name used by older MiddleKits
+    'SQLSerialColumnName': 'SerialNum',  # capitalized, or
+    'SQLSerialColumnName': '%(className)sId',  # the name used by older MiddleKits
         # you can use className for lower, ClassName for upper, or _ClassName for as-is
 }</pre>
 
 <p><a name="Configuration_ObjRefSuffixes"></a> The <span class="name">ObjRefSuffixes</span> controls the suffixes that are appended for the names of the two SQL column that are created for each obj ref attribute. The suffixes must be different from each other.</p>
 
 <pre class="py">{
-    'ObjRefSuffixes': ('ClassId', 'ObjId'), # the default
+    'ObjRefSuffixes': ('ClassId', 'ObjId'),  # the default
 }</pre>
 
 <p><a name="Configuration_UseBigIntObjRefColumns"></a> The <span class="name">UseBigIntObjRefColumns</span> causes MiddleKit to store object references in 64-bit fields, instead of in two fields (one for the class id and one for the obj id). You would only do this for a legacy MiddleKit application. Turning this on obsoletes the ObjRefSuffixes setting.</p>
 
 <pre class="py">{
-    'UseBigIntObjRefColumns': True, # use single 64-bit obj ref fields
+    'UseBigIntObjRefColumns': True,  # use single 64-bit obj ref fields
 }</pre>
 
 <p><a name="Configuration_UsePickledClassesCache"></a> The <span class="name">UsePickledClassesCache</span> setting defaults to False. <span class="warning">This feature has proven to be unreliable which is why it now defaults to False.</span> When True, it causes MiddleKit to cache the <span class="filename">Classes.csv</span> text file as a binary pickle file named <span class="filename">Classes.pickle.cache</span>. This reduces subsequent load times by about 40%. The cache will be ignored if it can't be read, is older than the CSV file, has a different Python version, etc. You don't normally even need to think about this, but if for some reason you would like to turn off the use of the cache, you can do so through this setting.</p>
@@ -679,7 +679,7 @@ addition to the object itself.  You can control this by adding a "Copy" column i
 
 <ul>
 <li><a href="http://www.xs4all.nl/~bsarempt/python/dbobj.html">dbObj</a> by Boudewijn Rempt</li>
-<li><a href="http://modeling.sourceforge.net">Modeling</a> by Sébastien Bigaret</li>
+<li><a href="http://modeling.sourceforge.net">Modeling</a> by Sï¿½bastien Bigaret</li>
 </ul>
 
 <p>Here's a Perl ORM that someone recommended as interesting:</p>

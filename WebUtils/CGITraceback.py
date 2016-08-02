@@ -2,7 +2,6 @@
 
 Original version know as cgitb written By Ka-Ping Yee <ping@lfw.org>
 Modified for Webware by Ian Bicking <ianb@colorstudy.com>
-
 """
 
 import inspect, keyword, linecache, pydoc, os, sys, tokenize

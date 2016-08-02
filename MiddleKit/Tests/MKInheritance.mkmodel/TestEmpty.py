@@ -57,12 +57,12 @@ def test(store):
         assert fetchedObj.a() == obj.a()
 
     # Using fetchObjectsOfClass when there are several objects of the base class and subclass
-    for i in range(19): # To make a total of 20 One's
+    for i in range(19):  # To make a total of 20 One's
         one = One()
         one.setA('a' + str(i))
         one.setB('b' + str(i))
         store.addObject(one)
-    for i in range(14): # To make a total of 15 Two's
+    for i in range(14):  # To make a total of 15 Two's
         two = Two()
         two.setA('a' + str(i))
         two.setB('b' + str(i))

@@ -61,7 +61,6 @@ class MakeAppWorkDir(object):
 
     Existing files will not be overwritten, but access permissions
     will be changed accordingly in any case.
-
     """
 
     def __init__(self, webwareDir, workDir, verbose=True, osType=None,
@@ -72,7 +71,6 @@ class MakeAppWorkDir(object):
         Pass in at least the Webware directory and the target working
         directory. If you pass None for contextName then the default
         context will be the the WebKit/Examples directory as usual.
-
         """
         self._webwareDir = webwareDir
         self._webKitDir = os.path.join(webwareDir, 'WebKit')
@@ -94,7 +92,6 @@ class MakeAppWorkDir(object):
         """These are all the steps needed to make a new runtime directory.
 
         You can override the steps taken here with your own methods.
-
         """
         if os.path.exists(self._workDir):
             self.msg("The target directory already exists.")
@@ -369,7 +366,7 @@ Have fun!
             else:
                 print
 
-launcherScripts = { # launcher scripts with adjusted parameters
+launcherScripts = {  # launcher scripts with adjusted parameters
 
 'Launch.py': r"""#!%(executable)s
 
@@ -445,9 +442,9 @@ if __name__ == '__main__':
     service.main()
 """
 
-} # end of launcher scripts
+}  # end of launcher scripts
 
-exampleContext = { # files copied to example context
+exampleContext = {  # files copied to example context
 
 # This is used to create a very simple sample context for the new
 # work dir to give the newbie something easy to play with.
@@ -489,7 +486,7 @@ class Main(Page):
         self.writeln('</ul>')
 """
 
-} # end of example context files
+}  # end of example context files
 
 def usage():
     """Print the docstring and exit with error."""
@@ -578,7 +575,7 @@ def main(args=None):
     webwareDir = os.path.abspath(os.path.join(binDir, os.pardir))
     mawd = MakeAppWorkDir(webwareDir, workDir, True, None,
         contextName, contextDir, libraryDirs, cvsIgnore, uid, gid)
-    mawd.buildWorkDir() # go!
+    mawd.buildWorkDir()  # go!
 
 if __name__ == '__main__':
     main()

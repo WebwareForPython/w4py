@@ -7,7 +7,6 @@
 
 Ordinary .txt files are understood to be standalone reStructuredText.
 Files named ``pep-*.txt`` are interpreted as reStructuredText PEPs.
-
 """
 
 # Once PySource is here, build .html from .py as well.
@@ -127,7 +126,6 @@ class Builder(object):
         its own configuration defaults, which must be kept separate from those
         of the other publishers.  Setting defaults are combined with the
         config file settings and command-line options by `self.get_settings()`.
-
         """
         for name, publisher in self.publishers.items():
             option_parser = OptionParser(
@@ -149,7 +147,6 @@ class Builder(object):
         Copy the setting defaults, overlay the startup config file settings,
         then the local config file settings, then the command-line options.
         Assumes the current directory has been set.
-
         """
         publisher = self.publishers[publisher_name]
         settings = frontend.Values(publisher.setting_defaults.__dict__)
@@ -195,7 +192,7 @@ class Builder(object):
         for name in names:
             if name.endswith('.txt'):
                 if self.process_txt(directory, name):
-                    break # prune
+                    break  # prune
         if not recurse:
             del names[:]
 

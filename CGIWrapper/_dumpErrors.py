@@ -10,7 +10,6 @@ class _dumpErrors(_dumpCSV):
         """Return cell contents of CSV file.
 
         This subclass adds a link to error files.
-
         """
         if self._headings[colIndex] == 'error report filename':
             return '<a href="_viewError?filename=%s">%s</a>' % (value, value)

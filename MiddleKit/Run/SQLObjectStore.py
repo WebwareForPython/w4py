@@ -34,7 +34,6 @@ class UnknownSerialNumberError(SQLObjectStoreError):
 
     Sometimes an obj ref cannot be immediately resolved on INSERT because
     the target has not yet been inserted and therefore, given a serial number.
-
     """
 
     def __init__(self, info):
@@ -54,7 +53,6 @@ class UnknownSerialNumInfo(object):
         sourceObject
         sourceAttr
         targetObject
-
     """
 
     def updateStmt(self):
@@ -86,7 +84,6 @@ class SQLObjectStore(ObjectStore):
 
     For details on DB API 2.0, including the thread safety levels see:
         http://www.python.org/topics/database/DatabaseAPI-2.0.html
-
     """
 
 
@@ -102,7 +99,7 @@ class SQLObjectStore(ObjectStore):
         self._commited = False
         self._sqlEcho = None
         self._sqlCount = 0
-        self._pool = None # an optional DBPool
+        self._pool = None  # an optional DBPool
 
     def modelWasSet(self):
         """Perform additional set up of the store after the model is set.
@@ -110,7 +107,6 @@ class SQLObjectStore(ObjectStore):
         Performs additional set up of the store after the model is set, normally
         via setModel() or readModelFileNamed(). This includes checking that
         threading conditions are valid, and connecting to the database.
-
         """
         ObjectStore.modelWasSet(self)
 
@@ -150,7 +146,6 @@ class SQLObjectStore(ObjectStore):
         The logging is set up according to the setting 'SQLLog'.
 
         See the User's Guide for more info. Invoked by modelWasSet().
-
         """
         setting = self.setting('SQLLog', None)
         if setting is None or setting == {}:
@@ -183,7 +178,6 @@ class SQLObjectStore(ObjectStore):
 
         The default implementation of connect() is usually sufficient provided
         that subclasses have implemented newConnection().
-
         """
         assert self._model, 'Cannot connect:' \
             ' No model has been attached to this store yet.'
@@ -217,7 +211,6 @@ class SQLObjectStore(ObjectStore):
         host, username, etc.) as well as self._model.sqlDatabaseName().
 
         Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -297,7 +290,6 @@ class SQLObjectStore(ObjectStore):
         Databases which cannot determine the id until the object has been
         added return None, signifying that retrieveLastInsertId
         should be called to get the id after the insert has been made.
-
         """
         return None
 
@@ -306,7 +298,6 @@ class SQLObjectStore(ObjectStore):
 
         This id is typically a 32-bit int. Used by commitInserts() to get
         the correct serial number for the last inserted object.
-
         """
         return cur.lastrowid
 
@@ -342,7 +333,6 @@ class SQLObjectStore(ObjectStore):
         the name of the class (e.g., a string) or a Python class.
         Raises an exception if aClass parameter is invalid, or the object
         cannot be located.
-
         """
         klass = self._klassForClass(aClass)
         objects = self.fetchObjectsOfClass(klass, serialNum=serialNum, isDeep=False)
@@ -380,7 +370,6 @@ class SQLObjectStore(ObjectStore):
         No guarantees are made about the order of the arguments except that
         aClass will always be the first.
         Raises an exception if aClass parameter is invalid.
-
         """
         klass = self._klassForClass(aClass)
 
@@ -398,7 +387,7 @@ class SQLObjectStore(ObjectStore):
             fetchSQLStart = klass.fetchSQLStart()
             className = klass.name()
             if serialNum is not None:
-                serialNum = int(serialNum) # make sure it's a valid int
+                serialNum = int(serialNum)  # make sure it's a valid int
                 clauses = 'where %s=%d' % (klass.sqlSerialColumnName(), serialNum)
             if self._markDeletes:
                 clauses = self.addDeletedToClauses(clauses)
@@ -448,9 +437,8 @@ class SQLObjectStore(ObjectStore):
         Returns the connection and cursor used and relies on connectionAndCursor()
         to obtain these. Note that you can pass in a connection to force a
         particular one to be used and a flag to commit immediately.
-
         """
-        sql = str(sql) # Excel-based models yield Unicode strings which some db modules don't like
+        sql = str(sql)  # Excel-based models yield Unicode strings which some db modules don't like
         sql = sql.strip()
         if aggressiveGC:
             import gc
@@ -472,7 +460,6 @@ class SQLObjectStore(ObjectStore):
 
         This is a hook for subclasses that wish to influence this event.
         Invoked by executeSQL().
-
         """
         cur.execute(sql)
 
@@ -503,7 +490,6 @@ class SQLObjectStore(ObjectStore):
 
         This uses the nonstandard executescript() method as provided
         by the PySQLite adapter.
-
         """
         sql = str(sql).strip()
         if not connection:
@@ -517,7 +503,6 @@ class SQLObjectStore(ObjectStore):
         """Set a file to echo sql statements to, as sent through executeSQL().
 
         None can be passed to turn echo off.
-
         """
         self._sqlEcho = file
 
@@ -527,7 +512,6 @@ class SQLObjectStore(ObjectStore):
         Takes into account factors such as setting('Threaded') and the
         threadsafety level of the DB API module. You can pass in a connection to
         force a particular one to be used. Uses newConnection() and connect().
-
         """
         if aggressiveGC:
             import gc
@@ -540,7 +524,7 @@ class SQLObjectStore(ObjectStore):
                 conn = self._pool.connection()
             elif self._threadSafety == 1:
                 conn = self.newConnection()
-            else: # safety = 2, 3
+            else:  # safety = 2, 3
                 if not self._connected:
                     self.connect()
                 conn = self._connection
@@ -565,7 +549,6 @@ class SQLObjectStore(ObjectStore):
         """Return the database version.
 
         Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -594,7 +577,6 @@ class SQLObjectStore(ObjectStore):
         this method assumes that obj refs are stored as 64-bit numbers containing
         the class id and object serial number, subclasses are certainly able to
         override that assumption by overriding this method.
-
         """
         assert isinstance(objRef, long), 'type=%r, objRef=%r' % (type(objRef), objRef)
         if objRef == 0:
@@ -630,7 +612,6 @@ class SQLObjectStore(ObjectStore):
         Returns the object corresponding to the given objref if and only if it
         has been loaded into memory. If the object has never been fetched from
         the database, None is returned.
-
         """
         assert isinstance(objRef, long), 'type=%r, objRef=%r' % (type(objRef), objRef)
         if objRef == 0:
@@ -653,7 +634,6 @@ class SQLObjectStore(ObjectStore):
 
         Invoked by fetchObjRef() if either the class or the object serial
         number is zero.
-
         """
         raise ObjRefZeroSerialNumError(objRefSplit(objRef))
 
@@ -666,7 +646,6 @@ class SQLObjectStore(ObjectStore):
         E.g., this can happen for a dangling reference. This method invokes
         self.warning() and includes the objRef as decimal, hexadecimal
         and class:obj numbers.
-
         """
         raise ObjRefDanglesError(objRefSplit(objRef))
 
@@ -679,7 +658,6 @@ class SQLObjectStore(ObjectStore):
         Some databases have no TIME type and therefore will not return
         DateTimeDeltas. This utility method is overridden by subclasses
         as appropriate and invoked by the test suite.
-
         """
         return dtd
 
@@ -694,7 +672,6 @@ class SQLObjectStore(ObjectStore):
         """Invoked by self when a connection is no longer needed.
 
         The default behavior is to commit and close the connection.
-
         """
         if conn is not None:
             # Starting with 1.2.0, MySQLdb disables autocommit by default,
@@ -781,7 +758,6 @@ class Model(object):
         """Return the name of the database.
 
         This is either the 'Database' setting or self.name().
-
         """
         name = self.setting('Database', None)
         if name is None:
@@ -795,7 +771,6 @@ class MiddleObjectMixIn(object):
         """Return the 64-bit integer value that refers to self in a SQL database.
 
         This only makes sense if the UseBigIntObjRefColumns setting is True.
-
         """
         return objRefJoin(self.klass().id(), self.serialNum())
 
@@ -807,7 +782,6 @@ class MiddleObjectMixIn(object):
 
         May add an info object to the unknowns list for obj references that
         are not yet resolved.
-
         """
         klass = self.klass()
         insertSQLStart, sqlAttrs = klass.insertSQLStart(includeSerialColumn=id)
@@ -842,7 +816,6 @@ class MiddleObjectMixIn(object):
         Returns the SQL update statement of the form:
             update table set name=value, ... where idName=idValue;
         Installed as a method of MiddleObject.
-
         """
         assert self._mk_changedAttrs
         klass = self.klass()
@@ -862,7 +835,6 @@ class MiddleObjectMixIn(object):
         Or if deletion is being marked with a timestamp:
             update table set deleted=Now();
         Installed as a method of MiddleObject.
-
         """
         klass = self.klass()
         assert klass is not None
@@ -894,8 +866,8 @@ import MiddleKit.Design.KlassSQLSerialColumnName
 
 class Klass(object):
 
-    _fetchSQLStart = None # help out the caching mechanism in fetchSQLStart()
-    _insertSQLStart = None # help out the caching mechanism in insertSQLStart()
+    _fetchSQLStart = None  # help out the caching mechanism in fetchSQLStart()
+    _insertSQLStart = None  # help out the caching mechanism in insertSQLStart()
 
     def sqlTableName(self):
         """Return the name of the SQL table for this class.
@@ -903,7 +875,6 @@ class Klass(object):
         Returns self.name().
         Subclasses may wish to override to provide special quoting that
         prevents name collisions between table names and reserved words.
-
         """
         return self.name()
 
@@ -940,7 +911,6 @@ class Attr(object):
         This only makes sense since there would be no point in registering
         changes on an attribute with no corresponding SQL column. The standard
         example of such an attribute is "list".
-
         """
         return self.hasSQLColumn()
 
@@ -950,7 +920,6 @@ class Attr(object):
         Returns true if the attribute has a direct correlating SQL column in
         its class' SQL table definition.
         Most attributes do. Those of type list do not.
-
         """
         return not self.get('isDerived', False)
 
@@ -958,7 +927,6 @@ class Attr(object):
         """Return the SQL column name corresponding to this attribute-
 
         This is consisting of self.name() + self.sqlTypeSuffix().
-
         """
         if not self._sqlColumnName:
             self._sqlColumnName = self.name()
@@ -970,7 +938,6 @@ class Attr(object):
         For a given Python value, this returns the correct string for use in a
         SQL statement. Subclasses will typically *not* override this method,
         but instead, sqlForNonNone() and on rare occasions, sqlForNone().
-
         """
         if value is None:
             return self.sqlForNone()
@@ -991,7 +958,6 @@ class Attr(object):
         Using sqlColumnName() and sqlValue(). Subclasses only need to
         override this if they have a special need (such as multiple columns,
         see ObjRefAttr).
-
         """
         colName = self.sqlColumnName()
         return colName + '=' + self.sqlValue(value)
@@ -1024,13 +990,13 @@ class LongAttr(object):
 class DecimalAttr(object):
 
     def sqlForNonNone(self, value):
-        return str(value) # repr() can give Decimal("3.4") in Python 2.4
+        return str(value)  # repr() can give Decimal("3.4") in Python 2.4
 
 
 class BoolAttr(object):
 
     def sqlForNonNone(self, value):
-        return value and '1' or '0' # MySQL and MS SQL will take 1 and 0 for bools
+        return value and '1' or '0'  # MySQL and MS SQL will take 1 and 0 for bools
 
 
 class ObjRefAttr(object):
@@ -1038,7 +1004,7 @@ class ObjRefAttr(object):
     def sqlColumnName(self):
         if not self._sqlColumnName:
             if self.setting('UseBigIntObjRefColumns', False):
-                self._sqlColumnName = self.name() + 'Id' # old way: one 64 bit column
+                self._sqlColumnName = self.name() + 'Id'  # old way: one 64 bit column
             else:
                 # new way: 2 int columns for class id and obj id
                 self._sqlColumnName = '%s,%s' % self.sqlColumnNames()
@@ -1081,7 +1047,6 @@ class ObjRefAttr(object):
         Using sqlColumnName() and sqlValue(). Subclasses only need to
         override this if they have a special need (such as multiple columns,
         see ObjRefAttr).
-
         """
         if self.setting('UseBigIntObjRefColumns', False):
             colName = self.sqlColumnName()

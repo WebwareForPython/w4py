@@ -11,7 +11,6 @@ The Scheduler class is the organizing object. It manages the addition,
 execution, deletion, and well being of a number of tasks. Once you have
 created your task class, you call the Scheduler to get it added to the
 tasks to be run.
-
 """
 
 
@@ -28,7 +27,6 @@ class Scheduler(Thread):
     The Scheduler class should be instantiated to start a task manager session.
     Its start method should be called to start the task manager.
     Its stop method should be called to end the task manager session.
-
     """
 
 
@@ -54,7 +52,6 @@ class Scheduler(Thread):
 
         When called, it waits for the specified number of seconds, or until
         it is notified that it needs to wake up, through the notify event.
-
         """
         try:
             self._notifyEvent.wait(seconds)
@@ -74,7 +71,6 @@ class Scheduler(Thread):
 
         Returns a task with the given name from the "running" list,
         if it is present there.
-
         """
         return self._running.get(name, default)
 
@@ -86,7 +82,6 @@ class Scheduler(Thread):
         """Add a task to the running dictionary.
 
         Used internally only.
-
         """
         self._running[handle.name()] = handle
 
@@ -94,7 +89,6 @@ class Scheduler(Thread):
         """Delete a task from the running list.
 
         Used internally.
-
         """
         try:
             handle = self._running[name]
@@ -172,7 +166,6 @@ class Scheduler(Thread):
 
         Adds a task to the scheduler that will not be scheduled
         until specifically requested.
-
         """
         handle = self.unregisterTask(name)
         if handle:
@@ -193,7 +186,6 @@ class Scheduler(Thread):
         something once a week? We probably don't need that for Webware,
         but this is a more generally useful module. This could be a
         difficult function, though. Particularly without mxDateTime.
-
         """
         current = localtime()
         currHour = current[3]
@@ -243,7 +235,6 @@ class Scheduler(Thread):
         If a task with the given name is already registered with
         the scheduler, that task will be removed from the scheduling
         queue and registered anew as a periodic task.
-
         """
         handle = self.unregisterTask(name)
         if handle:
@@ -260,7 +251,6 @@ class Scheduler(Thread):
 
         After that it can be rescheduled with different parameters,
         or simply removed.
-
         """
 
         handle = (self.delRunning(name)
@@ -275,7 +265,6 @@ class Scheduler(Thread):
         Returns True if the task is either currently running or was started,
         or False if the task could not be found in the list of currently
         registered tasks.
-
         """
         if self.hasRunning(name):
             return True
@@ -298,7 +287,6 @@ class Scheduler(Thread):
 
         Returns False if the task name could not be found on the on-demand
         or currently running lists.
-
         """
         if self.hasRunning(name) or self.hasOnDemand(name):
             handle = self.running(name)
@@ -318,7 +306,6 @@ class Scheduler(Thread):
 
         Returns True if the task was either not running, or was
         running and was told to stop.
-
         """
         handle = self.running(name)
         if not handle:
@@ -340,7 +327,6 @@ class Scheduler(Thread):
         future until re-enabled.
 
         Returns True if the task was found and disabled.
-
         """
         handle = self.running(name)
         if not handle:
@@ -360,7 +346,6 @@ class Scheduler(Thread):
         simply skipped.
 
         Returns True if the task was found and enabled.
-
         """
         handle = self.running(name)
         if not handle:
@@ -375,7 +360,6 @@ class Scheduler(Thread):
 
         Used by the Scheduler thread's main loop to put a task in
         the scheduled hash onto the run hash.
-
         """
         name = handle.name()
         if self.delScheduled(name) or self.delOnDemand(name):
@@ -390,7 +374,6 @@ class Scheduler(Thread):
         by this method. This is the only Scheduler method that can notify
         the run() method that it may need to wake up early to handle a
         newly registered task.
-
         """
         self.setScheduled(handle)
         if not self.nextTime() or handle.startTime() < self.nextTime():
@@ -406,7 +389,6 @@ class Scheduler(Thread):
         Used by instances of TaskHandler to let the Scheduler thread know
         when their tasks have run to completion. This method is responsible
         for rescheduling the task if it is a periodic task.
-
         """
         name = handle.name()
         if self.hasRunning(name):
@@ -426,7 +408,6 @@ class Scheduler(Thread):
 
         Used by instances of TaskHandler to let the Scheduler thread know
         if an exception has occurred within the task thread.
-
         """
         self.notifyCompletion(handle)
         if self._exceptionHandler is not None:
@@ -466,7 +447,6 @@ class Scheduler(Thread):
         be called while this method is waiting for something to happen.
         These methods modify the data structures that run() uses to
         determine its scheduling needs.
-
         """
         while self._isRunning:
             if self.nextTime():

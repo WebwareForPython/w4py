@@ -39,7 +39,7 @@ b:int,i:int,l:long,f:float,s:string,x:int
         for attr in list('bilsx'):
             assert results[0].valueForKey(attr) == values[attr]
 
-        different = 0.000001 # @@ 2000-11-25 ce: more work needed on floats
+        different = 0.000001  # @@ 2000-11-25 ce: more work needed on floats
         assert abs(results[0].valueForKey('f')-values['f']) < different
 
         # Insert the fetched attributes

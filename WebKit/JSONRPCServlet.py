@@ -1,7 +1,6 @@
 """JSON-RPC servlet base class
 
 Written by Jean-Francois Pieronne
-
 """
 
 import traceback
@@ -28,17 +27,16 @@ class JSONRPCServlet(HTTPContent):
     Some basic security measures against JavaScript hijacking are taken     by
     default which can be deactivated if you're not dealing with sensitive data.
     You can further increase security by adding shared secret mechanisms.
-
     """
 
     # Class level variables that can be overridden by servlet instances:
-    _debug = False # set to True if you want to see debugging output
+    _debug = False  # set to True if you want to see debugging output
     # The following variables control security precautions concerning
     # a vulnerability known as "JavaScript hijacking". See also:
     # http://www.fortifysoftware.com/servlet/downloads/public/JavaScript_Hijacking.pdf
     # http://ajaxian.com/archives/protecting-a-javascript-service
-    _allowGet = False # set to True if you want to allow GET requests
-    _allowEval = False # set to True to allow direct evaluation of the response
+    _allowGet = False  # set to True if you want to allow GET requests
+    _allowEval = False  # set to True to allow direct evaluation of response
 
     def __init__(self):
         HTTPContent.__init__(self)
@@ -77,7 +75,6 @@ class JSONRPCServlet(HTTPContent):
         """Execute method with arguments on the server side.
 
         Returns Javascript function to be executed by the client immediately.
-
         """
         request = self.request()
         data = simplejson.loads(request.rawInput().read())

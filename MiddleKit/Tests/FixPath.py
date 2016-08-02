@@ -3,7 +3,6 @@
 Enhance sys.path so that we're guaranteed to import the MiddleKit that
 we reside in. This is particularly important for Webware developers
 that might have more than one Webware source tree on their file system.
-
 """
 
 

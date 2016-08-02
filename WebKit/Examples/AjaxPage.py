@@ -3,7 +3,6 @@
 Written by John Dickinson based on ideas from
 Apple Developer Connection and DivMod Nevow.
 Some changes by Robert Forkel and Christoph Zwerschke.
-
 """
 
 import time
@@ -70,13 +69,12 @@ class AjaxPage(BaseClass):
     reports) or if you want to send commands to the client without the client
     first triggering an event (e.g. for a chat application). In the first case,
     you should also specify a timeout after which polling shall be used.
-
     """
 
     # Class level variables that can be overridden by servlet instances:
-    _debug = False # set to True if you want to see debugging output
-    _clientPolling = True # set to True if you want to use the polling mechanism
-    _responseTimeout = 90 # timeout of client waiting for a response in seconds
+    _debug = False  # set to True if you want to see debugging output
+    _clientPolling = True  # set to True if you want to use polling
+    _responseTimeout = 90  # timeout of client waiting for response in seconds
 
     # Class level variables to help make client code simpler:
     window, document, alert, this = map(PyJs,
@@ -109,7 +107,6 @@ class AjaxPage(BaseClass):
         """Set the interval for the client polling.
 
         You should always make it a little random to avoid synchronization.
-
         """
         return random.choice(range(3, 8))
 
@@ -121,7 +118,6 @@ class AjaxPage(BaseClass):
         and the arguments in the field _ (single underscore).
 
         Returns Javascript function to be executed by the client immediately.
-
         """
         req = self.request()
         if req.hasField('_call_'):
@@ -176,14 +172,13 @@ class AjaxPage(BaseClass):
 
         This is polled by the client in random intervals in order to get
         results from long-running queries or push content to the client.
-
         """
         if self._clientPolling:
             sid = self.session().identifier()
             # Set the timeout until the next time this method is called
             # by the client, using the Javascript wait variable:
             cmd = ['wait=%s' % self.clientPollingInterval()]
-            if sid in self._responseQueue: # add in other commands
+            if sid in self._responseQueue:  # add in other commands
                 cmd.extend(map(str, self._responseQueue[sid]))
                 self._responseQueue[sid] = []
             cmd = ';'.join(cmd) + ';'
@@ -193,13 +188,12 @@ class AjaxPage(BaseClass):
             if self._debug:
                 self.log("Ajax tells the client to stop polling.")
             cmd = 'dying=true;'
-        self.write(cmd) # write out at least the wait variable
+        self.write(cmd)  # write out at least the wait variable
 
     def ajaxPush(self, cmd):
         """Push Javascript commands to be executed on the client side.
 
         Client polling must be activitated if you want to use this.
-
         """
         if self._clientPolling:
             if self._debug:

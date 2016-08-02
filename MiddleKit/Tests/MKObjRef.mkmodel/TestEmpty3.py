@@ -20,8 +20,8 @@ def test(store):
     assert len(quxes) == 1
     qux2 = quxes[0]
     assert qux2 is qux
-    assert qux.bar() is not None # the sign of the bug in question
-    assert qux.bar() is bar # what we should expect
+    assert qux.bar() is not None  # the sign of the bug in question
+    assert qux.bar() is bar  # what we should expect
 
     store.clear()
     qux = store.fetchObjectsOfClass(Qux)[0]

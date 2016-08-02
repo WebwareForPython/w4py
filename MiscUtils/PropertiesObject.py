@@ -42,7 +42,6 @@ class PropertiesObject(dict):
     Note: We don't normally suffix a class name with "Object" as we have
     with this class, however, the name Properties.py is already used in
     our containing package and all other packages.
-
     """
 
 
@@ -69,7 +68,7 @@ class PropertiesObject(dict):
 
     def cleanPrivateItems(self):
         """Remove items whose keys start with a double underscore, such as __builtins__."""
-        for key in self.keys(): # must use keys() because dict is changed
+        for key in self.keys():  # must use keys() because dict is changed
             if key.startswith('__'):
                 del self[key]
 
@@ -84,7 +83,6 @@ class PropertiesObject(dict):
         For a sequence containing version information such as (2, 0, 0, 'pre'),
         this returns a printable string such as '2.0pre'.
         The micro version number is only excluded from the string if it is zero.
-
         """
         ver = map(str, version)
         numbers, rest = ver[:ver[2] == '0' and 2 or 3], ver[3:]
@@ -107,14 +105,13 @@ class PropertiesObject(dict):
         except WillNotRunError, msg:
             self['willNotRunReason'] = msg
             return
-        self['willRun'] = 1 # we passed all the tests
+        self['willRun'] = 1  # we passed all the tests
 
     def willRunKeys(self):
         """Return keys to be examined before running the component.
 
         This returns a set of all keys whose values should be examined in
         order to determine if the component will run. Used by createWillRun().
-
         """
         return set(('requiredPyVersion', 'requiredOpSys', 'deniedOpSys', 'willRunFunc'))
 

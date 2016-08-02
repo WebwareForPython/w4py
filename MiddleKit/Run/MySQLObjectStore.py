@@ -31,7 +31,6 @@ class MySQLObjectStore(SQLObjectStore):
 
     See the MySQLdb docs or the DB API 2.0 docs for more information.
       http://www.python.org/topics/database/DatabaseAPI-2.0.html
-
     """
 
     def __init__(self, **kwargs):

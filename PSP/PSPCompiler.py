@@ -11,7 +11,6 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 from StreamReader import StreamReader

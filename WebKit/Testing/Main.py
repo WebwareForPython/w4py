@@ -6,7 +6,6 @@ class Main(SidebarPage):
 
     TO DO
       * Reload TestCases.data only load when modified (by checking mod date).
-
     """
 
     def title(self):
@@ -41,7 +40,7 @@ class Main(SidebarPage):
                     urls.append((url, urlName))
             if not urls:
                 continue
-            expectation = case['Expectation'] # self.htmlEncode(case['Expectation'])
+            expectation = case['Expectation']  # self.htmlEncode(case['Expectation'])
             bgcolor = ['EEE', 'DDD'][caseNum % 2]
             wr('<tr style="background-color:#%s">'
                 '<td>%d.</td><td>' % (bgcolor, caseNum))
@@ -56,7 +55,6 @@ class Main(SidebarPage):
 
         Each of them is a dictionary, as defined the given file.
         See TestCases.data for information on the format.
-
         """
         f = open(filename)
         cases = self.readFile(f)
@@ -73,7 +71,7 @@ class Main(SidebarPage):
         urls = []
         for line in lines:
             if line and line[0] != '#':
-                if line[-1] == '\\': # continuation line;
+                if line[-1] == '\\':  # continuation line;
                     # means there are multiple URLs for this case
                     urls.append(line[:-1].strip())
                 else:
@@ -83,7 +81,7 @@ class Main(SidebarPage):
                     urls.append(parts[0].strip())
                     cases.append(dict(
                         URLs=urls, Expectation=parts[1].strip()))
-                    urls = [] # reset list of URLs
+                    urls = []  # reset list of URLs
             lineNum += 1
         return cases
 

@@ -25,7 +25,7 @@ class TestIMS(SidebarPage):
     def writeContent(self):
         import httplib
         sd = self.request().serverDictionary()
-        self._host = sd['HTTP_HOST'] # includes the port
+        self._host = sd['HTTP_HOST']  # includes the port
         self._httpconnection = (sd.get('HTTPS', '').lower() == 'on'
             and httplib.HTTPSConnection or httplib.HTTPConnection)
         servletPath = self.request().servletPath()
@@ -68,7 +68,7 @@ class TestIMS(SidebarPage):
                 % (rsp.status, rsp.reason, size))
         arpaformat = '%a, %d %b %Y %H:%M:%S GMT'
         t = list(time.strptime(lm, arpaformat))
-        t[0] -= 1 # last year
+        t[0] -= 1  # last year
         newlm = time.strftime(arpaformat, time.gmtime(time.mktime(t)))
         self.writeTest('Opening <tt>%s</tt><br>with If-Modified-Since: %s'
             % (path, newlm))

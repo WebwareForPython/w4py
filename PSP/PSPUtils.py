@@ -11,7 +11,6 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 # PSP Error classes
@@ -46,7 +45,7 @@ def checkAttributes(tagType, attrs, validAttrs):
     """Check for mandatory and optional atributes."""
     attrs = set(attrs)
     mandatoryAttrs = validAttrs[0]
-    for attr in mandatoryAttrs: # mandatory
+    for attr in mandatoryAttrs:  # mandatory
         try:
             attrs.remove(attr)
         except KeyError:
@@ -68,7 +67,6 @@ def startsNewBlock(line):
     """Determine whether a code line starts a new block.
 
     Added by Christoph Zwerschke.
-
     """
     line = line.strip()
     if line.startswith('#'):
@@ -93,7 +91,6 @@ def normalizeIndentation(pySource):
     See PSPUtilsTest for examples.
 
     First written by Winston Wolff; improved version by Christoph Zwerschke.
-
     """
     lines = splitLines(pySource, True)
     minIndent = None

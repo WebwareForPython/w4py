@@ -68,18 +68,18 @@ class HTTPRequest(Request):
             f.close()
 
         # Get adapter, servlet path and query string
-        self._absolutepath = 'WK_ABSOLUTE' in env # set by adapter
+        self._absolutepath = 'WK_ABSOLUTE' in env  # set by adapter
         if self._absolutepath:
             # this is set when the servlet is a webserver file that shall
             # be handled without context (e.g. when the psp-handler is used)
-            self._servletPath = '' # make it look like the normal handler
+            self._servletPath = ''  # make it look like the normal handler
             self._extraURLPath = env.get('PATH_INFO', '')
             self._pathInfo = env.get('SCRIPT_NAME', '') + self._extraURLPath
             self._fsPath = self.fsPath()
         else:
             self._servletPath = env.get('SCRIPT_NAME', '')
             self._pathInfo = env.get('PATH_INFO', '')
-            self._extraURLPath = '' # will be determined later
+            self._extraURLPath = ''  # will be determined later
         self._queryString = env.get('QUERY_STRING', '')
         if 'REQUEST_URI' in env:
             self._uri = env['REQUEST_URI']
@@ -171,7 +171,6 @@ class HTTPRequest(Request):
 
         Values are fields or cookies.
         Use this method when you're field/cookie agnostic.
-
         """
         if name in self._fields:
             return self._fields[name]
@@ -187,7 +186,6 @@ class HTTPRequest(Request):
 
         Only works if the Application.config setting "ExtraPathInfo"
         is set to true; otherwise you will get a page not found error.
-
         """
         return self._extraURLPath
 
@@ -240,7 +238,6 @@ class HTTPRequest(Request):
         """Return a dictionary with the data the web server gave us.
 
         This data includes HTTP_HOST and HTTP_USER_AGENT, for example.
-
         """
         return self._environ
 
@@ -252,7 +249,6 @@ class HTTPRequest(Request):
 
         The session is either as specified by sessionId() or newly created.
         This is a convenience for transaction.session()
-
         """
         return self._transaction.session()
 
@@ -262,7 +258,6 @@ class HTTPRequest(Request):
         Only works if the Application.config setting "IgnoreInvalidSession"
         is set to true; otherwise you get a canned error page on an invalid
         session, so your servlet never gets processed.
-
         """
         return self._sessionExpired
 
@@ -276,7 +271,6 @@ class HTTPRequest(Request):
         """Always returns None since authentication is not yet supported.
 
         Take from CGI variable REMOTE_USER.
-
         """
         return self._environ['REMOTE_USER']
 
@@ -288,7 +282,6 @@ class HTTPRequest(Request):
         """Return the fully qualified name of the client that sent the request.
 
         Returns the IP address of the client if the name cannot be determined.
-
         """
         env = self._environ
         return env.get('REMOTE_NAME', env['REMOTE_ADDR'])
@@ -303,7 +296,6 @@ class HTTPRequest(Request):
         If you do not define otherwise which preferences you are
         interested in ('language', 'charset', 'encoding'), by default
         you will get the user preferences for the content types.
-
         """
         var = 'HTTP_ACCEPT'
         if which:
@@ -324,7 +316,6 @@ class HTTPRequest(Request):
         yields '/Context/Servlet'.
 
         If self._absolutepath is set, this refers to the filesystem path.
-
         """
         if self._absolutepath:
             return self._fsPath
@@ -341,7 +332,6 @@ class HTTPRequest(Request):
         If self._absolutepath is set, this refers to the filesystem path.
 
         There is rarely a need to do this. Proceed with caution.
-
         """
         if self._absolutepath:
             self._fsPath = path
@@ -356,7 +346,6 @@ class HTTPRequest(Request):
 
         If the optional path is passed in, then it is joined with the
         server side directory to form a path relative to the object.
-
         """
         if path:
             if path.startswith('/'):
@@ -374,7 +363,6 @@ class HTTPRequest(Request):
 
         This directory could be different from the result of serverSidePath()
         if the request is in a subdirectory of the main context directory.
-
         """
         if path:
             if path.startswith('/'):
@@ -389,7 +377,6 @@ class HTTPRequest(Request):
 
         This isn't necessarily the same as the name of the directory
         containing the context.
-
         """
         return self._contextName
 
@@ -457,7 +444,6 @@ class HTTPRequest(Request):
 
         The path is returned without any extra path info or query strings,
         i.e. http://www.my.own.host.com:8080/WebKit/TestPage.py
-
         """
         if canonical and 'SCRIPT_URI' in self._environ:
             return self._environ['SCRIPT_URI']
@@ -469,7 +455,6 @@ class HTTPRequest(Request):
         """Return the directory of the URL in full Internet form.
 
         Same as serverURL, but removes the actual page.
-
         """
         fullurl = self.serverURL()
         if fullurl and not fullurl.endswith('/'):
@@ -483,7 +468,6 @@ class HTTPRequest(Request):
         before any rewriting took place.
 
         Same as serverURL, but without scheme and host.
-
         """
         if 'SCRIPT_URL' in self._environ:
             path = self._environ['SCRIPT_URL']
@@ -499,7 +483,6 @@ class HTTPRequest(Request):
         """Return the directory of the webserver URL path.
 
         Same as serverPath, but removes the actual page.
-
         """
         fullurl = self.serverPath()
         if fullurl and not fullurl.endswith('/'):
@@ -525,7 +508,6 @@ class HTTPRequest(Request):
         links to avoid broken links. This works properly because this method
         computes the path based on the _original_ servlet, not the location
         of the servlet that you have forwarded to.
-
         """
         url = self.originalURLPath()
         if url.startswith('/'):
@@ -544,7 +526,6 @@ class HTTPRequest(Request):
 
         Similar to siteRoot() but instead, it returns the site root
         relative to the _current_ servlet, not the _original_ servlet.
-
         """
         url = self.urlPath()
         if url.startswith('/'):
@@ -562,7 +543,6 @@ class HTTPRequest(Request):
         If you append this to the result of self.siteRoot() you get back to
         the current servlet. This is useful for saving the path to the current
         servlet in a database, for example.
-
         """
         urlPath = self.urlPath()
         if urlPath.startswith('/'):
@@ -587,7 +567,6 @@ class HTTPRequest(Request):
         Example: '/WK' or '/WebKit.cgi'
         Does not reflect redirection by the webserver.
         Equivalent to the CGI variable SCRIPT_NAME.
-
         """
         return self._environ.get('SCRIPT_NAME', '')
 
@@ -595,7 +574,6 @@ class HTTPRequest(Request):
         """Return the filesystem path of the adapter.
 
         Equivalent to the CGI variable SCRIPT_FILENAME.
-
         """
         return self._environ.get('SCRIPT_FILENAME', '')
 
@@ -637,13 +615,13 @@ class HTTPRequest(Request):
         if self._stack:
             return self._stack[-1][0]
 
-    parent = previousServlet # kept old name as synonym
+    parent = previousServlet  # kept old name as synonym
 
     def previousServlets(self):
         """Get the list of all previous servlets."""
         return [s[0] for s in self._stack]
 
-    parents = previousServlets # kept old name as synonym
+    parents = previousServlets  # kept old name as synonym
 
     def originalURLPath(self):
         """Get URL path of the original servlet before any forwarding."""
@@ -703,7 +681,6 @@ class HTTPRequest(Request):
         The file might not be rewound to the beginning if there was valid,
         form-encoded POST data. Pass rewind=True if you want to be sure
         you get the entire body of the request.
-
         """
         fs = self.fieldStorage()
         if fs is None:
@@ -721,7 +698,6 @@ class HTTPRequest(Request):
 
         The request ID is a serial number unique to this request
         (at least unique for one run of the AppServer).
-
         """
         return self._requestID
 
@@ -736,7 +712,6 @@ class HTTPRequest(Request):
 
         Roughly equivalent to the CGI variable SCRIPT_NAME,
         but reflects redirection by the webserver.
-
         """
         return self._servletPath
 
@@ -749,7 +724,6 @@ class HTTPRequest(Request):
 
         This is anything after the servlet name but before the query string.
         Equivalent to the CGI variable PATH_INFO.
-
         """
         return self._pathInfo
 
@@ -758,7 +732,6 @@ class HTTPRequest(Request):
 
         This is the same as pathInfo() but translated to the file system.
         Equivalent to the CGI variable PATH_TRANSLATED.
-
         """
         return self._environ.get('PATH_TRANSLATED', '')
 
@@ -766,7 +739,6 @@ class HTTPRequest(Request):
         """Return the query string portion of the URL for this request.
 
         Equivalent to the CGI variable QUERY_STRING.
-
         """
         return self._queryString
 
@@ -776,7 +748,6 @@ class HTTPRequest(Request):
         This is the URL that was actually received by the webserver
         before any rewriting took place, including the query string.
         Equivalent to the CGI variable REQUEST_URI.
-
         """
         return self._uri
 
@@ -784,7 +755,6 @@ class HTTPRequest(Request):
         """Return the HTTP request method (in all uppercase).
 
         Typically from the set GET, POST, PUT, DELETE, OPTIONS and TRACE.
-
         """
         return self._environ['REQUEST_METHOD'].upper()
 
@@ -792,7 +762,6 @@ class HTTPRequest(Request):
         """Return a string with the session ID specified by the client.
 
         Returns None if there is no session ID.
-
         """
         trans = self._transaction
         app = trans.application()
@@ -817,7 +786,6 @@ class HTTPRequest(Request):
         as will identifiers longer than 80 characters.
         (Without passing in force=True, a random session ID will be generated
         if that session ID isn't already present in the session store.)
-
         """
         # Modify the request so that it looks like a hashed version of the
         # given session ID was passed in
@@ -840,7 +808,6 @@ class HTTPRequest(Request):
 
         Values are typically atomic values such as numbers and strings or
         another list of tuples in the same fashion. This is for debugging only.
-
         """
         # @@ 2000-04-10 ce: implement and invoke super if appropriate
         # @@ 2002-06-08 ib: should this also return the unparsed body
@@ -866,7 +833,6 @@ class HTTPRequest(Request):
         """Return a single HTML string that represents info().
 
         Useful for inspecting objects via web browsers.
-
         """
         return htmlInfo(self.info())
 
@@ -890,11 +856,11 @@ _infoMethods = (
     HTTPRequest.sessionId
 )
 
+
 def htmlInfo(info):
     """Return a single HTML string that represents the info structure.
 
     Useful for inspecting objects via web browsers.
-
     """
     res = ['<table border="1">\n']
     for pair in info:
@@ -906,6 +872,7 @@ def htmlInfo(info):
             % (pair[0], value))
     res.append('</table>\n')
     return ''.join(res)
+
 
 def _infoForDict(d):
     """Return an "info" structure for any dictionary-like object."""

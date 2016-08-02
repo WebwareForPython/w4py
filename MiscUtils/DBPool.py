@@ -12,7 +12,7 @@ The idea behind DBPool is that it's completely seamless, so once you have
 established your connection, use it just as you would any other DB-API 2
 compliant module. For example:
 
-    import pgdb # import used DB-API 2 module
+    import pgdb  # import used DB-API 2 module
     from MiscUtils.DBPool import DBPool
     dbpool = DBPool(pgdb, 5, host=..., database=..., user=..., ...)
     db = dbpool.connection()
@@ -40,12 +40,12 @@ CREDIT
   * Fix unthreadsafe functions which were leaking, Jay Love.
   * Eli Green's webware-discuss comments were lifted for additional docs.
   * Coding and comment clean-up by Christoph Zwerschke.
-
 """
 
 
 class DBPoolError(Exception):
     """General database pooling error."""
+
 
 class NotSupportedError(DBPoolError):
     """Missing support from database module error."""
@@ -56,7 +56,6 @@ class PooledConnection(object):
 
     You don't normally deal with this class directly,
     but use DBPool to get new connections.
-
     """
 
     def __init__(self, pool, con):
@@ -88,7 +87,6 @@ class DBPool(object):
         maxconnections: the number of connections cached in the pool
         args, kwargs: the parameters that shall be used to establish
                       the database connections using connect()
-
         """
         try:
             threadsafety = dbapi.threadsafety
@@ -102,7 +100,7 @@ class DBPool(object):
             # the pool using the synchronized queue class
             # that implements all the required locking semantics.
             from Queue import Queue
-            self._queue = Queue(maxconnections) # create the queue
+            self._queue = Queue(maxconnections)  # create the queue
             self.connection = self._unthreadsafe_get_connection
             self.addConnection = self._unthreadsafe_add_connection
             self.returnConnection = self._unthreadsafe_return_connection
@@ -111,9 +109,9 @@ class DBPool(object):
             # pool with an ordinary list used as a circular buffer.
             # We only need a minimum of locking in this case.
             from threading import Lock
-            self._lock = Lock() # create a lock object to be used later
-            self._nextCon = 0 # the index of the next connection to be used
-            self._connections = [] # the list of connections
+            self._lock = Lock()  # create a lock object to be used later
+            self._nextCon = 0  # the index of the next connection to be used
+            self._connections = []  # the list of connections
             self.connection = self._threadsafe_get_connection
             self.addConnection = self._threadsafe_add_connection
             self.returnConnection = self._threadsafe_return_connection
@@ -146,7 +144,6 @@ class DBPool(object):
         back into the queue after they have been used.
         This is done automatically when the connection is closed
         and should never be called explicitly outside of this module.
-
         """
         self._unthreadsafe_add_connection(con)
 
@@ -178,6 +175,5 @@ class DBPool(object):
 
         In this case, the connections always stay in the pool,
         so there is no need to do anything here.
-
         """
         pass

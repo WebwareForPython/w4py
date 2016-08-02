@@ -4,7 +4,7 @@ from ExamplePage import ExamplePage
 
 # Helper functions
 
-gamma = 2.2 # an approximation for today's CRTs
+gamma = 2.2  # an approximation for today's CRTs
 
 def brightness(r, g, b):
     """Calculate brightness of RGB color."""
@@ -29,7 +29,7 @@ def HTMLColorToRGB(h):
 
 # Prepare HTML for color table
 
-numSteps = 6 # this gives the "web-safe" color palette
+numSteps = 6  # this gives the "web-safe" color palette
 steps = map(lambda x: 255.0*x/(numSteps-1), range(numSteps))
 
 colorTable = [
@@ -57,7 +57,6 @@ class Colors(ExamplePage):
     this servlet creates never changes, so the servlet caches this
     in the global colorTable variable. The original version of this
     example did no caching and was 12 times slower.
-
     """
 
     def htBodyArgs(self):
@@ -65,7 +64,6 @@ class Colors(ExamplePage):
 
         Overridden in order to throw in the custom background color
         that the user can specify in our form.
-
         """
         self._bgcolor = self.request().field('bgcolor', '#FFFFFF')
         try:

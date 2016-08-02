@@ -13,7 +13,6 @@ The tuple contents are always like this:
     (tag, startindex, endindex, sublist)
 tag is one of ('comment', 'string', 'keyword', 'function', 'class')
 sublist is not used, hence always None.
-
 """
 
 # Based on FontText.py by Mitchell S. Chapman,
@@ -65,7 +64,7 @@ qqq
 )*
 qqq
 """
-pat = ''.join(pat.split()) # get rid of whitespace
+pat = ''.join(pat.split())  # get rid of whitespace
 tripleQuotePat = pat.replace("q", "'") + "|" + pat.replace('q', '"')
 
 # Build up a regular expression which matches all and only Python keywords.
@@ -78,7 +77,7 @@ keyPat = nonKeyPat + "(" + keywordsPat + ")" + nonKeyPat
 matchPat = keyPat + "|" + commentPat + "|" + tripleQuotePat + "|" + quotePat
 matchRE = re.compile(matchPat)
 
-idKeyPat = "[ \t]*[A-Za-z_][A-Za-z_0-9.]*" # ident with leading whitespace
+idKeyPat = "[ \t]*[A-Za-z_][A-Za-z_0-9.]*"  # ident with leading whitespace
 idRE = re.compile(idKeyPat)
 
 
@@ -105,7 +104,7 @@ def fontify(pytext, searchfrom=0, searchto=None):
             # Must have matched a keyword.
             if start == searchfrom:
                 # this is the first keyword in the text
-                match = match[:-1] # only a space at the end
+                match = match[:-1]  # only a space at the end
             else:
                 # there's still a redundant char before and after it
                 match = match[1:-1]

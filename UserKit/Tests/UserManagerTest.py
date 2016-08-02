@@ -3,7 +3,6 @@
 UserManagers can save their data to files, or to a MiddleKit database.
 For MiddleKit, the database can be MySQL, PostgreSQL, MSSQL or SQLite,
 but we test only with the SQLite database.
-
 """
 
 import os
@@ -64,11 +63,10 @@ class _UserManagerToSomewhereTest(UserManagerTest):
     This abstract class provides some tests that all user managers should pass.
     Subclasses are responsible for overriding setUp() and tearDown() for which
     they should invoke super.
-
     """
 
     def setUp(self):
-        pass # nothing for no
+        pass  # nothing for no
 
     def tearDown(self):
         self._mgr = None
@@ -83,7 +81,7 @@ class _UserManagerToSomewhereTest(UserManagerTest):
         self.assertEqual(mgr.userForSerialNum(user.serialNum()), user)
         self.assertEqual(mgr.userForExternalId(user.externalId()), user)
         self.assertEqual(mgr.userForName(user.name()), user)
-        externalId = user.externalId() # for use later in testing
+        externalId = user.externalId()  # for use later in testing
 
         users = mgr.users()
         self.assertEqual(len(users), 1)

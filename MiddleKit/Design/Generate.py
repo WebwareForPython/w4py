@@ -3,7 +3,6 @@
 """Generate.py
 
 > python Generate.py -h
-
 """
 
 import os, sys
@@ -115,7 +114,6 @@ Usage: %s --db DBNAME --model FILENAME \\
         The pyClass may be a string, in which case a module of the same name is
         imported and the class extracted from that. The model may be a string,
         in which case it is considered a filename of a model.
-
         """
         if isinstance(pyClass, basestring):
             module = __import__(pyClass, globals())

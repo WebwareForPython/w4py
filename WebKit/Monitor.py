@@ -24,7 +24,6 @@ You can have the whole process run as a daemon by specifying ``daemon``
 after ``start`` on the command line.
 
 To stop the processes, run ``Monitor.py stop``.
-
 """
 
 # Future:
@@ -40,7 +39,7 @@ To stop the processes, run ``Monitor.py stop``.
 # Combining these with a timer lends itself to load balancing of some kind.
 
 defaultServer = "ThreadedAppServer"
-monitorInterval = 10 # add to config if this implementation is adopted
+monitorInterval = 10  # add to config if this implementation is adopted
 maxStartTime = 120
 
 """Module global:
@@ -53,7 +52,6 @@ maxStartTime = 120
 `maxStartTime`:
     default 120. Seconds to wait for AppServer to start
     before killing it and trying again.
-
 """
 
 import os, sys, time, socket, signal
@@ -90,7 +88,7 @@ def startupCheck():
     """Make sure the AppServer starts up correctly."""
     if os.name == 'posix':
         print "Waiting for start..."
-        time.sleep(monitorInterval / 2) # give the server a chance to start
+        time.sleep(monitorInterval / 2)  # give the server a chance to start
         count = 0
         while 1:
             if checkServer(False):
@@ -109,7 +107,6 @@ def startServer(killcurrent=True):
     """Start the AppServer.
 
     If `killcurrent` is true or not provided, kill the current AppServer.
-
     """
     global srvpid
     if os.name == 'posix':
@@ -137,7 +134,6 @@ def checkServer(restart=True):
     This function could also be used to see how busy an AppServer
     is by measuring the delay in getting a response when using the
     standard port.
-
     """
     try:
         sts = time.time()
@@ -145,7 +141,7 @@ def checkServer(restart=True):
         s.connect(addr)
         s.send(statstr)
         s.shutdown(1)
-        resp = s.recv(9) # up to 1 billion requests!
+        resp = s.recv(9)  # up to 1 billion requests!
         monwait = time.time() - sts
         if debug:
             print "Processed %s Requests." % resp
@@ -166,7 +162,6 @@ def main(args):
     Starts the server with `startServer(False)`,
     checks it's started up (`startupCheck`), and does a
     loop checking the server (`checkServer`).
-
     """
     global running
     running = True
@@ -207,7 +202,7 @@ def main(args):
             except Exception:
                 sys.exit(0)
             try:
-                os.waitpid(srvpid, 0) # prevent zombies
+                os.waitpid(srvpid, 0)  # prevent zombies
             except Exception:
                 sys.exit(0)
 
@@ -216,7 +211,6 @@ def shutDown(signum, frame):
     """Shutdown handler.
 
     For when Ctrl-C has been hit, or this process is being cleanly killed.
-
     """
     global running
     print "Monitor Shutdown Called."
@@ -250,7 +244,6 @@ def stop():
 
     This kills the other monitor process that has been opened
     (from the PID file ``monitor.pid``).
-
     """
     pid = int(open("monitor.pid", "r").read())
     # this goes to the other running instance of this module
@@ -275,7 +268,6 @@ Optional arguments:
 "AppServer": The AppServer class to use (currently only ThreadedAppServer)
 daemon:      If "daemon" is specified, the Monitor will run
              as a background process.
-
 """
 
 arguments = ["start", "stop"]
@@ -297,7 +289,7 @@ if __name__ == '__main__':
         usage()
         sys.exit()
 
-    if True: # setup path:
+    if True:  # setup path:
         if '' not in sys.path:
             sys.path = [''] + sys.path
         try:
@@ -337,7 +329,7 @@ if __name__ == '__main__':
         if i in args:
             serverName = i
 
-    if 'daemon' in args: # fork and become a daemon
+    if 'daemon' in args:  # fork and become a daemon
         daemon = os.fork()
         if daemon:
             sys.exit()

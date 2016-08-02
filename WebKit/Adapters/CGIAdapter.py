@@ -23,7 +23,6 @@ or even:
 :8086
 
 ...since an empty string is a special case indicating the local host.
-
 """
 
 import sys, os, time
@@ -57,7 +56,7 @@ class CGIAdapter(Adapter):
             host, port = open(os.path.join(self._webKitDir,
                 'adapter.address')).read().split(':', 1)
             if os.name == 'nt' and not host:
-                host = 'localhost' # MS Windows doesn't like a blank host name
+                host = 'localhost'  # MS Windows doesn't like a blank host name
             port = int(port)
 
             response = self.transactWithAppServer(os.environ.data, myInput, host, port)
@@ -91,13 +90,13 @@ htmlCodes = (
     ('"', '&quot;'),
 )
 
+
 def htmlEncode(s, codes=htmlCodes):
     """Returns the HTML encoded version of the given string.
 
     This is useful to display a plain ASCII text string on a web page.
     (We could get this from WebUtils, but we're keeping CGIAdapter
     independent of everything but standard Python.)
-
     """
     for c, e in codes:
         s = s.replace(c, e)

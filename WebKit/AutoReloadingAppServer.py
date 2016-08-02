@@ -10,7 +10,6 @@ that adds a file-monitoring and restarting to the AppServer. Used mostly like:
 If `UseImportSpy` is set to False in AppServer.config, or FAM support is
 not available, this requires regular polling. The interval for the polling
 in seconds can be set with `AutoReloadPollInterval` in AppServer.config.
-
 """
 
 import os
@@ -25,7 +24,7 @@ from AppServer import AppServer
 
 defaultConfig = dict(
     AutoReload = False,
-    AutoReloadPollInterval = 1, # in seconds
+    AutoReloadPollInterval = 1,  # in seconds
     UseImportSpy = True,
     UseFAMModules = 'pyinotify gamin _fam')
 
@@ -37,7 +36,6 @@ def getFAM(modules):
     pyinotify: http://github.com/seb-m/pyinotify
     python-gamin (gamin): http://www.gnome.org/~veillard/gamin/
     python-fam (_fam): http://python-fam.sourceforge.net
-
     """
     global fam
 
@@ -236,7 +234,6 @@ class AutoReloadingAppServer(AppServer):
     to import is modified. This is so that changes to a file containing
     a syntax error (which would have prevented it from being imported)
     will also cause the server to restart.
-
     """
 
 
@@ -266,7 +263,6 @@ class AutoReloadingAppServer(AppServer):
         """Shut down the monitoring thread.
 
         This is done in addition to the normal shutdown procedure.
-
         """
         self.deactivateAutoReload()
         AppServer.shutDown(self)
@@ -351,7 +347,6 @@ class AutoReloadingAppServer(AppServer):
         The server can only restart from the main thread, other threads
         can't do the restart. So this polls to see if `shouldRestart`
         has been called.
-
         """
         if self._shouldRestart:
             self.restart()
@@ -361,7 +356,6 @@ class AutoReloadingAppServer(AppServer):
         """Do the actual restart.
 
         Call `shouldRestart` from outside the class.
-
         """
         sys.stdout.flush()
         sys.stderr.flush()
@@ -378,7 +372,6 @@ class AutoReloadingAppServer(AppServer):
 
         This is a callback which ImportSpy invokes to notify us of new files
         to monitor. This is only used when we are using FAM.
-
         """
         self._fam.monitorFile(os.path.abspath(filepath))
 
@@ -397,7 +390,6 @@ class AutoReloadingAppServer(AppServer):
         (i.e., going through every file that's being used and checking
         its last-modified time, seeing if it's been changed since it
         was initially loaded).
-
         """
         while self._runFileMonitor:
             sleep(self._pollInterval)
@@ -421,7 +413,7 @@ class AutoReloadingAppServer(AppServer):
         # Monitor all modules which will be loaded from now on
         self._imp.notifyOfNewFiles(self.monitorNewModule)
         # Monitor all modules which have already been loaded
-        for f in files: # note that files cannot change during this loop
+        for f in files:  # note that files cannot change during this loop
             self.monitorNewModule(f)
         # Create a pipe so that this thread can be notified when the
         # server is shutdown. We use a pipe because it needs to be an object

@@ -37,7 +37,6 @@ and writing data, simply add the directive:
 WebwareChunkSize  69
 
 (or whatever your new chunksize is)
-
 """
 
 import mod_snake

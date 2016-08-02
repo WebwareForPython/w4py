@@ -13,7 +13,6 @@ class RunError(Exception):
 
     Raised by Test.run() if the process exits with a non-zero status,
     which indicates an error.
-
     """
 
 
@@ -205,7 +204,6 @@ class Test(object):
         program was a Python program that exited via sys.exit(1) or an
         uncaught exception. On Windows XP Pro SP 1, this problem does not
         occur. Windows ME has plenty of other problems as well; avoid it.
-
         """
         print '<cmd>', cmd
         sys.stdout.flush()

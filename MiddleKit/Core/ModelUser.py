@@ -45,7 +45,6 @@ class ModelUser(object):
 
         Invoked by setModel() or readModelFileNamed() as a hook for taking
         action on this event. Invokes installMixIns().
-
         """
         self.installMixIns()
 
@@ -105,7 +104,6 @@ class ModelUser(object):
         behavior, including providing more debugging information.
 
         This implementation writes the msg to stdout.
-
         """
         print 'WARNING:', msg
 
@@ -117,7 +115,6 @@ class ModelUser(object):
 
         Returns a list of modules for pyClass, going up the chain of ancestor
         classes, stopping short before ModelUser. Utility method for installMixIns.
-
         """
         if modules is None:
             modules = []

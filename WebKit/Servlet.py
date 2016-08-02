@@ -30,7 +30,6 @@ class Servlet(object):
     The awake(), respond() and sleep() methods form a message sandwich.
     Each is passed an instance of Transaction which gives further access
     to all the objects involved.
-
     """
 
 
@@ -50,7 +49,6 @@ class Servlet(object):
 
         Subclasses should *not* override this method.
         It is used for logging and debugging.
-
         """
         return self.__class__.__name__
 
@@ -74,7 +72,7 @@ class Servlet(object):
                 raise Exception('Two exceptions. first=%s; second=%s'
                     % (excstr(first), excstr(second)))
             else:
-                raise # no problems with sleep() so raise the one and only exception
+                raise  # no problems with sleep() so raise the one and only exception
         else:
             trans.sleep()
 
@@ -90,7 +88,6 @@ class Servlet(object):
         This message is sent to all objects that participate in the
         request-response cycle in a top-down fashion, prior to respond().
         Subclasses must invoke super.
-
         """
         self._transaction = trans
 
@@ -111,7 +108,6 @@ class Servlet(object):
         This can be invoked to print messages concerning the servlet.
         This is often used by self to relay important information back
         to developers.
-
         """
         print '[%s] [msg] %s' % (asclocaltime(), message)
 
@@ -125,7 +121,6 @@ class Servlet(object):
         This value should not change during the lifetime of the object.
         The default implementation returns False.
         Note: This is not currently used.
-
         """
         return False
 
@@ -139,7 +134,6 @@ class Servlet(object):
         an instance. Remember the awake() and sleep() methods are invoked
         for every transaction. But just in case, your servlet can refuse
         to be reused.
-
         """
         return True
 

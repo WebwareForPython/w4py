@@ -258,12 +258,12 @@ but this is an experimental setting with some known problems.</p>
 <p>Default:</p>
 <pre class="last literal-block">
 {
-    'ReuseServlets': True, # cache servlets in memory
-    'Technique': 'serveContent', # or 'redirectSansAdapter'
+    'ReuseServlets': True,  # cache servlets in memory
+    'Technique': 'serveContent',  # or 'redirectSansAdapter'
     # If serving content:
-    'CacheContent': False, # set to True for caching file content
-    'MaxCacheContentSize': 128*1024, # cache files up to this size
-    'ReadBufferSize': 32*1024 # read buffer size when serving files
+    'CacheContent': False,  # set to True for caching file content
+    'MaxCacheContentSize': 128*1024,  # cache files up to this size
+    'ReadBufferSize': 32*1024  # read buffer size when serving files
 }
 </pre>
 </dd>

@@ -48,7 +48,6 @@ class SessionStore(object):
         prevent concurrent requests on the same session? If so, that can
         probably be done at this level (as opposed to pushing the burden
         on various subclasses).
-
     """
 
 
@@ -58,7 +57,6 @@ class SessionStore(object):
         """Initialize the session store.
 
         Subclasses must invoke super.
-
         """
         self._app = app
         self._alwaysSave = app._alwaysSaveSessions
@@ -79,7 +77,6 @@ class SessionStore(object):
         """Return the number of sessions in the store.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -87,7 +84,6 @@ class SessionStore(object):
         """Get a session item from the store.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -95,7 +91,6 @@ class SessionStore(object):
         """Set a session item, saving it to the store.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -107,7 +102,6 @@ class SessionStore(object):
             session = self[key]
             if not session.isExpired():
                 session.expiring()
-
         """
         raise AbstractError(self.__class__)
 
@@ -115,7 +109,6 @@ class SessionStore(object):
         """Check whether the session store has a given key.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -123,7 +116,6 @@ class SessionStore(object):
         """Return an iterator over the stored session keys.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -135,7 +127,6 @@ class SessionStore(object):
         """Return a list with the keys of all the stored sessions.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -147,7 +138,6 @@ class SessionStore(object):
         """Clear the session store, removing all of its items.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -155,7 +145,6 @@ class SessionStore(object):
         """Return value if key available, else default (also setting it).
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -163,7 +152,6 @@ class SessionStore(object):
         """Return value if key available, else default (also remove key).
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -176,7 +164,6 @@ class SessionStore(object):
         Used at the end of transactions.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -186,7 +173,6 @@ class SessionStore(object):
         Used when the application server is shut down.
 
         Subclasses must implement this method.
-
         """
         raise AbstractError(self.__class__)
 
@@ -195,7 +181,6 @@ class SessionStore(object):
 
         Called by the Application to tell this store to clean out all
         sessions that have exceeded their lifetime.
-
         """
         curTime = time()
         keys = []
@@ -203,7 +188,7 @@ class SessionStore(object):
             try:
                 session = self[key]
             except KeyError:
-                pass # session was already deleted by some other thread
+                pass  # session was already deleted by some other thread
             else:
                 try:
                     timeout = session.timeout()
@@ -216,7 +201,7 @@ class SessionStore(object):
             try:
                 del self[key]
             except KeyError:
-                pass # already deleted by some other thread
+                pass  # already deleted by some other thread
 
 
     ## Convenience methods ##

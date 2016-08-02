@@ -4,7 +4,6 @@ This module provides some basic functions that are useful
 in HTML and web development.
 
 You can safely import * from WebUtils.Funcs if you like.
-
 """
 
 __all__ = [
@@ -12,7 +11,7 @@ __all__ = [
     'htmlForDict', 'requestURI', 'normURL']
 
 
-htmlForNone = '-' # used by htmlEncode
+htmlForNone = '-'  # used by htmlEncode
 
 htmlCodes = (
     ('&', '&amp;'),
@@ -29,7 +28,6 @@ def htmlEncode(what, codes=htmlCodes):
     """Return the HTML encoded version of the given object.
 
     The optional 'codes' parameter allows passing custom translations.
-
     """
     if what is None:
         return htmlForNone
@@ -50,7 +48,6 @@ def htmlEncodeStr(s, codes=htmlCodes):
     This is useful to display a plain ASCII text string on a web page.
 
     The optional 'codes' parameter allows passing custom translations.
-
     """
     for c, e in codes:
         s = s.replace(c, e)
@@ -64,7 +61,6 @@ def htmlDecode(s, codes=htmlCodesReversed):
     It is the inverse of htmlEncode().
 
     The optional 'codes' parameter allows passing custom translations.
-
     """
     for c, e in codes:
         s = s.replace(e, c)
@@ -112,7 +108,6 @@ def requestURI(env):
 
     Uses REQUEST_URI if available, otherwise constructs and returns it
     from SCRIPT_URL, SCRIPT_NAME, PATH_INFO and QUERY_STRING.
-
     """
     uri = env.get('REQUEST_URI')
     if uri is None:
@@ -129,7 +124,6 @@ def normURL(path):
     """Normalizes a URL path, like os.path.normpath.
 
     Acts on a URL independant of operating system environment.
-
     """
     if not path:
         return

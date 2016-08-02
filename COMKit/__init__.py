@@ -8,7 +8,6 @@ Robinson for details.
 To use COM, simply set EnableCOM to 1 in your AppServer.config file.
 This causes the app server threads to be configured properly for
 COM free-threading. Then go ahead and use win32com inside your servlets.
-
 """
 
 __all__ = []

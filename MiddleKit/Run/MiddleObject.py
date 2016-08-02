@@ -33,7 +33,6 @@ class MiddleObject(object):
     users of MiddleKit subclass MiddleObject, they only need to have
     a limited understanding of it. Also, in __setattr__ we skip the
     change-detection bookkeeping on '_mk_*' attributes.
-
     """
 
     _mk_isDeleted = False
@@ -65,7 +64,6 @@ class MiddleObject(object):
         Invoked by the store in order for this object to read data from the
         persistent store. Could be invoked multiple times for the same object
         in order to "refresh the attributes" from the persistent store.
-
         """
         self._mk_cacheLock.acquire()
         try:
@@ -91,7 +89,7 @@ class MiddleObject(object):
                     # @@ 2000-10-29 ce: next line is major hack: hasSQLColumn()
                     attrs = [attr for attr in allAttrs if attr.hasSQLColumn()]
                     attrNames = [attr.name() for attr in attrs]
-                    assert len(attrNames) + 1 == len(row) # +1 because row has serialNumber
+                    assert len(attrNames) + 1 == len(row)  # +1 because row has serialNumber
                     for name in attrNames:
                         setMethodName = 'set' + name[0].upper() + name[1:]
                         setMethod = getattr(self.__class__, setMethodName, '_'+name)
@@ -120,7 +118,7 @@ class MiddleObject(object):
             self._mk_initing = False
             self._mk_inStore = True
             # setting the values above will cause _mk_changed to be set
-            self._mk_changed = False # clear it now
+            self._mk_changed = False  # clear it now
         finally:
             self._mk_cacheLock.release()
         return self
@@ -163,7 +161,6 @@ class MiddleObject(object):
         to anything else. Also, if the serial number is negative, indicating
         a temporary serial number for new objects that haven't been committed
         to the database, it can only be set to a positive value.
-
         """
         assert isinstance(value, (int, long)), \
             "Type is: %r, value is: %r" % (type(value), value)
@@ -197,7 +194,6 @@ class MiddleObject(object):
 
         Returns true if the object was newly created (whether added to the
         store or not). Objects fetched from the database will return false.
-
         """
         return self._mk_serialNum < 1
 
@@ -212,7 +208,6 @@ class MiddleObject(object):
 
         Will return None if setKey() was never invoked, or not invoked
         after a setSerialNum().
-
         """
         return self._mk_key
 
@@ -220,7 +215,6 @@ class MiddleObject(object):
         """Set the object's key.
 
         Restrictions: Cannot set the key twice.
-
         """
         assert self._mk_serialNum >= 1, \
             "Cannot make keys for objects that haven't been persisted yet."
@@ -235,7 +229,6 @@ class MiddleObject(object):
 
         Only works for non-changed objects from a store.
         @@ not covered by test suite yet
-
         """
         assert self.isInStore()
         assert not self.isChanged()
@@ -251,7 +244,6 @@ class MiddleObject(object):
             {'_x': 1, '_y': 1},
         or if includeUnderscoresInKeys is false,
             {'x': 1, 'y': 1}.
-
         """
         allAttrs = {}
         allAttrDefs = self.klass().allAttrs()
@@ -268,7 +260,6 @@ class MiddleObject(object):
         """Remove object from any list attributes that this instance might have.
 
         This is used if the object is deleted, so we don't have dangling references.
-
         """
         for attr in self.klass().allAttrs():
             if isinstance(attr, ListAttr):
@@ -283,7 +274,6 @@ class MiddleObject(object):
 
         Checks through all object references, and asks each referenced
         object to remove us from any list attributes that they might have.
-
         """
         for attr in self.klass().allAttrs():
             if isinstance(attr, ObjRefAttr):
@@ -301,7 +291,6 @@ class MiddleObject(object):
 
         Returns a list of tuples of (attr, object) for all objects
         that this object references.
-
         """
         t = []
         for attr in self.klass().allDataAttrs():
@@ -319,7 +308,6 @@ class MiddleObject(object):
 
         Returns a list of tuples of (object, attr) for all objects that have
         ObjRefAttrs that reference this object.
-
         """
         referencingObjectsAndAttrs = []
         selfSqlObjRef = self.sqlObjRef()
@@ -336,7 +324,6 @@ class MiddleObject(object):
 
         Used by referencingObjectsAndAttrs() to reduce the load on the
         persistent store. Specific object stores replace this as appropriate.
-
         """
         return dict(refreshAttrs=True)
 
@@ -348,7 +335,6 @@ class MiddleObject(object):
 
         If verbose is false (the default), then the only MiddleKit specific
         attribute that gets printed is _mk_serialNum.
-
         """
         if out is None:
             out = sys.stdout
@@ -386,9 +372,8 @@ class MiddleObject(object):
         These definitions are instances of MiddleKit.Core.Klass and
         come from the MiddleKit model. Be sure the MiddleKit model
         is loaded. See the docs for more details.
-
         """
-        return self._mk_klass # If you get AttributeError, then the MK model wasn't loaded.
+        return self._mk_klass  # If you get AttributeError, then the MK model wasn't loaded.
 
     def addReferencedObjectsToStore(self, store):
         """Adds all MK objects referenced by this object to the store."""
@@ -421,7 +406,6 @@ class MiddleObject(object):
 
         If a value is still not found, the default argument is returned
         if specified, otherwise LookupError is raised with the attrName.
-
         """
         attr = self.klass().lookupAttr(attrName, None)
         if attr:
@@ -450,7 +434,6 @@ class MiddleObject(object):
 
         If the required set method is not found, a LookupError is raised
         with the attrName.
-
         """
         try:
             attr = self.klass().lookupAttr(attrName)
@@ -472,7 +455,7 @@ class MiddleObject(object):
             pyGetName = attr.pyGetName()
             getMethod = getattr(self.klass().pyClass(), pyGetName, None)
             if getMethod is None:
-                getMethod = False # indicates that the search was already done
+                getMethod = False  # indicates that the search was already done
             self.klass()._getMethods[attr.name()] = getMethod
         if getMethod:
             return getMethod(self)
@@ -494,7 +477,6 @@ class MiddleObject(object):
         Prints very useful information to stdout.
         Override if you wish other actions to be taken.
         The value returned is used for the obj ref (defaults to None).
-
         """
         klassId, objSerialNum = error.args
         try:
@@ -539,7 +521,6 @@ class MiddleObject(object):
 
         The parameter depthAttr may be set to a column name which, if set, will
         take precedence over the value in the 'Copy' column for that attribute.
-
         """
 
         def copyAttrValue(source, dest, attr, memo, depthAttr):

@@ -3,7 +3,6 @@
 This module defines a subclass of the standard Python cgi.FieldStorage class
 with an extra method that will allow a FieldStorage to parse a query string
 even in a POST request.
-
 """
 
 import cgi, os, urllib
@@ -22,7 +21,6 @@ class FieldStorage(cgi.FieldStorage):
 
     As recommended by W3C in section B.2.2 of the HTML 4.01 specification,
     we also support use of ';' in place of '&' as separator in query strings.
-
     """
 
     def __init__(self, fp=None, headers=None, outerboundary='',

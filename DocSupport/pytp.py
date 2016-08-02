@@ -69,7 +69,6 @@ COPYRIGHT
 
 Copyright (c) 2005 by Christoph Zwerschke.
 Licensed under the Open Software License version 2.1.
-
 """
 
 __version__ = '0.2'
@@ -88,14 +87,12 @@ class PyTP(object):
     """A very simple Python Template Processor.
 
     Provides only one method process().
-
     """
 
     def __init__(self, tags=None):
         """Initialize the Python template processor.
 
         You may define your own start and end tags here.
-
         """
         if tags is None:
             tags = ('<%', '%>')
@@ -110,7 +107,6 @@ class PyTP(object):
 
         You may also pass a variable scope for the
         processing instructions that must be a directory.
-
         """
         if scope is None:
             scope = {}
@@ -125,7 +121,7 @@ class PyTP(object):
             isexpr = pi.startswith('=')
             if isexpr:
                 pi = pi[1:].lstrip()
-            try: # try to evaluate as Python expression
+            try:  # try to evaluate as Python expression
                 out = eval(pi, scope)
                 if out is None:
                     out = ''
@@ -147,7 +143,7 @@ class PyTP(object):
                     self._errmsg('expression output', line, pi)
                     raise
             elif out is None:
-                try: # try to evaluate as Python block
+                try:  # try to evaluate as Python block
                     tempout = StringIO()
                     sys.stdout = tempout
                     try:
@@ -197,7 +193,7 @@ class PyTP(object):
         """Adjust the indentation of a Python block."""
         lines = block.splitlines()
         lines = [lines[0].strip()] + [line.rstrip() for line in lines[1:]]
-        ind = None # find least index
+        ind = None  # find least index
         for line in lines[1:]:
             if line != '':
                 s = line.lstrip()
@@ -207,30 +203,30 @@ class PyTP(object):
                         ind = i
                         if i == 0:
                             break
-        if ind is not None or ind != 0: # remove indentation
+        if ind is not None or ind != 0:  # remove indentation
             lines[1:] = [line[:ind].lstrip() + line[ind:]
                 for line in lines[1:]]
         block = '\n'.join(lines) + '\n'
         if lines[0] and not lines[0][0] == '#':
             # the first line contains code
-            try: # try to compile it
+            try:  # try to compile it
                 compile(lines[0], '<string>', 'exec')
                 # if it works, line does not start new block
-            except SyntaxError: # unexpected EOF while parsing?
-                try: # try to compile the whole block
+            except SyntaxError:  # unexpected EOF while parsing?
+                try:  # try to compile the whole block
                     compile(block, '<string>', 'exec')
                     # if it works, line does not start new block
-                except IndentationError: # expected an indented block?
+                except IndentationError:  # expected an indented block?
                     # so try to add some indentation:
                     lines2 = lines[:1] + [tab + line for line in lines[1:]]
                     block2 = '\n'.join(lines2) + '\n'
                     # try again to compile the whole block:
                     compile(block2, '<string>', 'exec')
-                    block = block2 # if it works, keep the indentation
+                    block = block2  # if it works, keep the indentation
                 except Exception:
-                    pass # leave it as it is
+                    pass  # leave it as it is
             except Exception:
-                pass # leave it as it is
+                pass  # leave it as it is
         return block
 
 

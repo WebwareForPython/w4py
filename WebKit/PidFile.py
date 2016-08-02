@@ -62,7 +62,7 @@ class PidFile(object):
         try:
             os.kill(pid, 0)
         except OSError, e:
-            if e.errno == 3: # no such process
+            if e.errno == 3:  # no such process
                 return False
         except AttributeError:
             if win32api:
@@ -70,7 +70,7 @@ class PidFile(object):
                     if not win32api.OpenProcess(1024, False, pid):
                         return False
                 except win32api.error, e:
-                    if e.winerror == 87: # wrong parameter (no such process)
+                    if e.winerror == 87:  # wrong parameter (no such process)
                         return False
         return True
 
@@ -129,7 +129,7 @@ class PidFile(object):
                 os.unlink(self._path)
             except (AttributeError, OSError):
                 pass
-        self._created = False # remove only once
+        self._created = False  # remove only once
 
     def write(self):
         """Write our pid file."""
@@ -138,4 +138,4 @@ class PidFile(object):
         pidfile = open(self._path, 'w')
         pidfile.write(str(self._pid))
         pidfile.close()
-        self._created = True # write only one
+        self._created = True  # write only one

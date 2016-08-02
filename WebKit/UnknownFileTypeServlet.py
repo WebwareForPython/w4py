@@ -16,7 +16,7 @@ try:
     from mimetypes import init as init_mimetypes
 except ImportError:
     pass
-else: # workaround for Python issue #5853
+else:  # workaround for Python issue #5853
     init_mimetypes()
 
 
@@ -24,7 +24,6 @@ class UnknownFileTypeServletFactory(ServletFactory):
     """The servlet factory for unknown file types.
 
     I.e. all files other than .py, .psp, .kid and the other types we support.
-
     """
 
     def uniqueness(self):
@@ -70,7 +69,6 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
             filename = trans.request().field('i')
             filename = os.path.join(self.imageDir, filename)
             return filename
-
     """
 
 
@@ -81,12 +79,11 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
 
         A subclass could override this in order to serve files from other
         disk locations based on some logic.
-
         """
         filename = getattr(self, '_serverSideFilename', None)
         if filename is None:
             filename = trans.request().serverSidePath()
-            self._serverSideFilename = filename # cache it
+            self._serverSideFilename = filename  # cache it
         return filename
 
     def shouldCacheContent(self):
@@ -96,7 +93,6 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
         through this servlet is cached. The default behavior is to return
         the CacheContent setting. Subclasses may override to always True
         or False, or incorporate some other logic.
-
         """
         return self.setting('CacheContent')
 
@@ -116,7 +112,6 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
         """Get the default config.
 
         Taken from Application's 'UnknownFileTypes' default setting.
-
         """
         return self._application.defaultConfig()['UnknownFileTypes']
 
@@ -124,7 +119,6 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
         """Get the user config.
 
         Taken from Application's 'UnknownFileTypes' user setting.
-
         """
         return self._application.userConfig().get('UnknownFileTypes', {})
 
@@ -143,7 +137,6 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
 
         Responds to the transaction by invoking self.foo() for foo is
         specified by the 'Technique' setting.
-
         """
         technique = self.setting('Technique')
         assert technique in self.validTechniques(), 'technique = %s' % technique
@@ -160,7 +153,6 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
         Since posts are usually accompanied by data, this might not be
         the best policy. However, a POST would most likely be for a CGI,
         which currently no one is mixing in with their WebKit-based web sites.
-
         """
         # @@ 2001-01-25 ce: See doc string for why this might be a bad idea.
         self.respondToGet(trans)
@@ -175,14 +167,13 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
         This has only been test with "*.[f]cgi" adapters.
         Keep in mind that links off the target page will *not* include
         the adapter in the URL.
-
         """
         # @@ 2000-05-08 ce: the following is horribly CGI specific and hacky
         env = trans.request()._environ
         # @@ 2001-01-25 ce: isn't there a func in WebUtils to get script name?
         # because some servers are different?
         newURL = os.path.split(env['SCRIPT_NAME'])[0] + env['PATH_INFO']
-        newURL = newURL.replace('//', '/') # hacky
+        newURL = newURL.replace('//', '/')  # hacky
         trans.response().sendRedirect(newURL)
 
     def lastModified(self, trans):
@@ -249,14 +240,14 @@ class UnknownFileTypeServlet(HTTPServlet, Configurable):
             if debug:
                 print '>> sending content from cache'
             response.write(fileDict['content'])
-        else: # too big or not supposed to cache
+        else:  # too big or not supposed to cache
             if debug:
                 print '>> sending directly'
             numBytesSent = 0
             while numBytesSent < fileSize:
                 data = f.read(min(fileSize-numBytesSent, readBufferSize))
                 if data == '':
-                    break # unlikely, but safety first
+                    break  # unlikely, but safety first
                 response.write(data)
                 numBytesSent += len(data)
         f.close()

@@ -16,7 +16,6 @@ class Task(object):
 
         Long running tasks can periodically use the proceed() method to check
         if a task should stop.
-
         """
         raise AbstractError(self.__class__)
 
@@ -29,7 +28,6 @@ class Task(object):
         Should be called periodically by long tasks to check if the system
         wants them to exit. Returns True if its OK to continue, False if
         it's time to quit.
-
         """
         return self._handle._isRunning
 
@@ -44,7 +42,6 @@ class Task(object):
         Under normal circumstances you should not need the handler,
         but if you want to write period modifying run() methods,
         it is useful to have access to the handler. Use it with care.
-
         """
         return self._handle
 
@@ -59,7 +56,6 @@ class Task(object):
         """This is the actual run method for the Task thread.
 
         It is a private method which should not be overriden.
-
         """
         self._name = handle.name()
         self._handle = handle

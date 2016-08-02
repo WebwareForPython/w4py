@@ -13,7 +13,6 @@ class SessionShelveStore(SessionStore):
     """A session store implemented with a shelve object.
 
     To use this store, set SessionStore in Application.config to 'Shelve'.
-
     """
 
     _filename = 'Session.Store'
@@ -24,7 +23,6 @@ class SessionShelveStore(SessionStore):
         """Initialize the session shelf.
 
         If restoreFiles is true, existing shelve file(s) will be reused.
-
         """
         SessionStore.__init__(self, app)
         filename = os.path.join(app._sessionDir, filename or self._filename)
@@ -59,7 +57,7 @@ class SessionShelveStore(SessionStore):
                 except Exception:
                     if dirty:
                         value.setDirty()
-                    raise # raise original exception
+                    raise  # raise original exception
             finally:
                 self._lock.release()
 
@@ -122,7 +120,6 @@ class SessionShelveStore(SessionStore):
         """Permanently save all sessions in the store.
 
         Should be used (only) when the application server is shut down.
-
         """
         self._store.close()
 

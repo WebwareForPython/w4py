@@ -28,7 +28,7 @@ def test(filename, configFilename, pyFilename, deleteData):
         objectStoreClass = names['c']
         store = objectStoreClass(**storeArgs)
         store.readModelFileNamed(filename, configFilename=configFilename)
-        assert store.model()._havePythonClasses # @@
+        assert store.model()._havePythonClasses  # @@
 
         # Clear the database
         if deleteData:

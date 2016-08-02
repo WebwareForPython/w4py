@@ -8,7 +8,6 @@ on the command line which contain the test cases to be run.
 Usage:
     python AllTests.py                  - Runs all the unittests
     python AllTests.py mypackage.MyFile - Runs the tests in 'mypackage/MyFile'
-
 """
 
 
@@ -51,7 +50,7 @@ import logging
 
 if __name__ == '__main__':
     # Configure logging
-    logging.basicConfig() # default level is WARN
+    logging.basicConfig()  # default level is WARN
     print
     print
     # If no arguments are given, all of the test cases are run.
@@ -77,7 +76,7 @@ if __name__ == '__main__':
             tests.addTest(unittest.defaultTestLoader.loadTestsFromName(test))
         except Exception:
             print 'ERROR: Skipping tests from "%s".' % test
-            try: # just try to import the test after loadig failed
+            try:  # just try to import the test after loading failed
                 __import__(test)
             except ImportError:
                 print 'Could not import the test module.'

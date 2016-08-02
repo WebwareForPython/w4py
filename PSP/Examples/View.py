@@ -14,7 +14,6 @@ class View(PSPExamplePage):
 
     Note that if the View servlet isn't passed a PSP filename, it prints the
     View's docstring which you are reading right now.
-
     """
 
     def writeContent(self):

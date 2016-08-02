@@ -24,17 +24,15 @@ class UnknownObjectError(LookupError):
     This is the exception returned by store.fetchObject() if the specified
     object cannot be found (unless you also passed in a default value in
     which case that value is returned).
-
     """
-    pass
+
 
 class DeleteError(Exception):
     """Delete error.
 
     Base class for all delete exceptions.
-
     """
-    pass
+
 
 class DeleteReferencedError(DeleteError):
     """Delete referenced object error.
@@ -46,7 +44,6 @@ class DeleteReferencedError(DeleteError):
     And you can call object() to get the object that was trying to be deleted.
     This might not be the same as the object originally being deleted if a
     cascading delete was happening.
-
     """
 
     def __init__(self, text, obj, referencingObjectsAndAttrs):
@@ -70,7 +67,6 @@ class DeleteObjectWithReferencesError(DeleteError):
     And you can call object() to get the object trying to be deleted that
     contains those attrs.  This might not be the same as the object originally
     being deleted if a cascading delete was happening.
-
     """
 
     def __init__(self, text, obj, attrs):
@@ -93,7 +89,6 @@ class ObjectStore(ModelUser):
 
     FUTURE
       * expanded fetch
-
     """
 
 
@@ -109,7 +104,7 @@ class ObjectStore(ModelUser):
         ModelUser.modelWasSet(self)
         self._threaded = self.setting('Threaded')
         if self._threaded:
-            self._hasChanges = set() # keep track on a per-thread basis
+            self._hasChanges = set()  # keep track on a per-thread basis
             self._newObjects = PerThreadList()
             self._deletedObjects = PerThreadList()
             self._changedObjects = PerThreadDict()
@@ -118,7 +113,7 @@ class ObjectStore(ModelUser):
             self._newObjects = NonThreadedList()
             self._deletedObjects = NonThreadedList()
             self._changedObjects = NonThreadedDict()
-        self._objects = self.emptyObjectCache() # dict; keyed by ObjectKeys
+        self._objects = self.emptyObjectCache()  # dict; keyed by ObjectKeys
 
     def emptyObjectCache(self):
         if self.setting('CacheObjectsForever', False):
@@ -133,7 +128,6 @@ class ObjectStore(ModelUser):
         """Check if the object is in the store.
 
         Note: this does not check the persistent store.
-
         """
         key = obj.key()
         if key is None:
@@ -155,7 +149,6 @@ class ObjectStore(ModelUser):
 
         `someClass` can be a Python class, a string (the name of a class)
             or a MiddleKit.Core.Klass
-
         """
         if isinstance(a, ObjectKey):
             return self.objectForKey(a, b)
@@ -178,7 +171,6 @@ class ObjectStore(ModelUser):
         If no default is given and the object is not in the store,
         then an exception is raised.  Note: This method doesn't currently
         fetch objects from the persistent store.
-
         """
         if default is NoDefault:
             return self._objects[key]
@@ -196,7 +188,6 @@ class ObjectStore(ModelUser):
         a no-op.  The noRecurse flag is used internally, and should be avoided
         in regular MiddleKit usage; it causes only this object to be added
         to the store, not any dependent objects.
-
         """
         if not obj.isInStore():
             assert obj.key() is None
@@ -222,7 +213,6 @@ class ObjectStore(ModelUser):
 
         Restrictions: The object must be contained in the store and obviously
         you cannot remove it more than once.
-
         """
         # First check if the delete is possible.  Then do the actual delete.
         # This avoids partially deleting objects only to have an exception
@@ -230,7 +220,7 @@ class ObjectStore(ModelUser):
 
         objectsToDel = {}
         detaches = []
-        self._deleteObject(obj, objectsToDel, detaches) # compute objectsToDel and detaches
+        self._deleteObject(obj, objectsToDel, detaches)  # compute objectsToDel and detaches
         self.willChange()
 
         # detaches
@@ -256,7 +246,6 @@ class ObjectStore(ModelUser):
         objectsToDel - a running dictionary of all objects to delete
         detaches     - a running list of all detaches (eg, obj.attr=None)
         superobject  - the object that was the cause of this invocation
-
         """
         # Some basic assertions
         assert self.hasObject(obj), safeDescription(obj)
@@ -380,7 +369,6 @@ class ObjectStore(ModelUser):
 
         Done by invoking commitInserts(), commitUpdates() and commitDeletions()
         all of which must by implemented by a concrete subclass.
-
         """
         self.commitDeletions(allThreads=True)
         self.commitInserts(allThreads=True)
@@ -395,7 +383,6 @@ class ObjectStore(ModelUser):
 
         Done by invoking commitInserts(), commitUpdates() and commitDeletions()
         all of which must by implemented by a concrete subclass.
-
         """
         self.commitDeletions()
         self.commitInserts()
@@ -410,7 +397,6 @@ class ObjectStore(ModelUser):
 
         Invoked by saveChanges() to insert any news objects add since the
         last save. Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -419,7 +405,6 @@ class ObjectStore(ModelUser):
 
         Invoked by saveChanges() to update the persistent store with any
         changes since the last save.
-
         """
         raise AbstractError(self.__class__)
 
@@ -428,7 +413,6 @@ class ObjectStore(ModelUser):
 
         Invoked by saveChanges() to delete from the persistent store any
         objects deleted since the last save. Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -437,7 +421,6 @@ class ObjectStore(ModelUser):
 
         Discards all insertions and deletions, and restores changed objects
         to their original values.
-
         """
         raise AbstractError(self.__class__)
 
@@ -450,7 +433,6 @@ class ObjectStore(ModelUser):
         Subclasses should raise UnknownObjectError if an object with the
         given className and serialNum does not exist, unless a default value
         was passed in, in which case that value should be returned.
-
         """
         raise AbstractError(self.__class__)
 
@@ -458,7 +440,6 @@ class ObjectStore(ModelUser):
         """Fetch all objects of a given class.
 
         If isDeep is True, then all subclasses are also returned.
-
         """
         raise AbstractError(self.__class__)
 
@@ -475,7 +456,6 @@ class ObjectStore(ModelUser):
         This does not delete the objects in the persistent backing.
         This method can only be invoked if there are no outstanding changes
         to be saved.  You can check for that with hasChanges().
-
         """
         assert not self.hasChanges()
         assert self._newObjects.isEmpty()
@@ -493,7 +473,6 @@ class ObjectStore(ModelUser):
 
         This method is a severe form of clear() and is typically used only
         for debugging or production emergencies.
-
         """
         if self._threaded:
             self._hasChanges = set()
@@ -516,7 +495,6 @@ class ObjectStore(ModelUser):
         in the class model.  This method records the object in a set for
         later processing when the store's changes are saved.
         If you subclass MiddleObject, then you're taken care of.
-
         """
         self.willChange()
         self._changedObjects[obj] = obj
@@ -533,7 +511,6 @@ class ObjectStore(ModelUser):
         actually temporary and replaced upon committal. Also, they are always
         negative to indicate that they are temporary, whereas serial numbers
         taken from the persistent store are positive.
-
         """
         self._newSerialNum -= 1
         return self._newSerialNum
@@ -550,13 +527,12 @@ class ObjectStore(ModelUser):
             - a class name (e.g., string)
         Users of this method include the various fetchObjectEtc() methods
         which take a "class" parameter.
-
         """
         assert aClass is not None
         if not isinstance(aClass, BaseKlass):
-            if isinstance(aClass, type): # new Python classes
+            if isinstance(aClass, type):  # new Python classes
                 aClass = self._model.klass(aClass.__name__)
-            elif isinstance(aClass, ClassType): # old Python classes
+            elif isinstance(aClass, ClassType):  # old Python classes
                 aClass = self._model.klass(aClass.__name__)
             elif isinstance(aClass, basestring):
                 aClass = self._model.klass(aClass)
@@ -575,6 +551,5 @@ class Attr(object):
         MiddleObject asks attributes if changes should be registered.
         By default, all attributes respond true, but specific stores may
         choose to override this (a good example being ListAttr for SQLStore).
-
         """
         return True

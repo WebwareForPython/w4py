@@ -30,7 +30,6 @@ by adding these lines, outside of any location or directory:
     PythonPath "sys.path+['/path/to/WebKit']"
     PythonHandler modpHandler::pspHandler
     PythonOption AppWorkDir /path/to/dir/with/adapter.address
-
 """
 
 # Fix the current working directory -- this gets initialized incorrectly
@@ -122,7 +121,6 @@ class ModPythonAdapter(Adapter):
 
         Not being used yet. Probably never be used, because the req.handler
         field is read only in mod_python.
-
         """
         self.reset(req)
         debug = True

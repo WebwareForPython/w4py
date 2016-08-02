@@ -7,7 +7,6 @@ class AdminPage(object):
     classes. Subclasses typically override title() and writeBody(), but may
     customize other methods. Subclasses use self._var for the various vars
     that are passed in from CGI Wrapper and self.write() and self.writeln().
-
     """
 
 

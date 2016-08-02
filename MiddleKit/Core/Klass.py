@@ -9,7 +9,6 @@ class Klass(MiddleDict, ModelObject):
     """A Klass represents a class specification.
 
     It is consisting primarily of a name and a list of attributes.
-
     """
 
 
@@ -21,7 +20,6 @@ class Klass(MiddleDict, ModelObject):
         This is typically read from a file. The 'Class' field contains the name
         and can also contain the name of the superclass (like "Name : SuperName").
         Multiple inheritance is not yet supported.
-
         """
         MiddleDict.__init__(self, {})
         self._klassContainer = klassContainer
@@ -71,7 +69,6 @@ class Klass(MiddleDict, ModelObject):
         """Perform further initialization.
 
         Invoked by Klasses after all basic Klass definitions have been read.
-
         """
         assert self._klasses is klasses
 
@@ -94,7 +91,6 @@ class Klass(MiddleDict, ModelObject):
         ...and a dictionary attribute used by lookupAttr().
 
         Does nothing if called extra times.
-
         """
         if self._allAttrs is not None:
             return
@@ -144,7 +140,6 @@ class Klass(MiddleDict, ModelObject):
 
         Ids can be fundamental to storing object references in concrete object stores.
         This method will throw an exception if setId() was not previously invoked.
-
         """
         return self._id
 
@@ -185,7 +180,6 @@ class Klass(MiddleDict, ModelObject):
 
         Raises an exception if no such klass exists, unless a default
         is specified (in which case it is returned).
-
         """
         if self._superklass:
             if self._superklass.name() == name:
@@ -203,7 +197,6 @@ class Klass(MiddleDict, ModelObject):
 
         Returns true if the klass is the same as, or inherits from,
         the klass with the given name.
-
         """
         if self.name() == name:
             return True
@@ -252,7 +245,6 @@ class Klass(MiddleDict, ModelObject):
 
         If no such attribute exists, an exception is raised unless a default
         was provided (which is then returned).
-
         """
         if default is NoDefault:
             return self._attrsByName[name]
@@ -273,7 +265,6 @@ class Klass(MiddleDict, ModelObject):
 
         This includes those attributes that are inherited and derived.
         The order is top down; that is, ancestor attributes come first.
-
         """
         return self._allAttrs
 
@@ -283,7 +274,6 @@ class Klass(MiddleDict, ModelObject):
         This includes those attributes that are inherited.
         The order is top down; that is, ancestor attributes come first.
         Derived attributes are not included in the list.
-
         """
         return self._allDataAttrs
 
@@ -292,7 +282,6 @@ class Klass(MiddleDict, ModelObject):
 
         Returns a list of all data attributes that are obj refs or lists,
         including those that are inherited.
-
         """
         return self._allDataRefAttrs
 
@@ -321,7 +310,6 @@ class Klass(MiddleDict, ModelObject):
         This request will even result in the Python class' module being
         imported if necessary. It will also set the Python class
         attribute _mk_klass which is used by MiddleKit.Run.MiddleObject.
-
         """
         if self._pyClass == False:
             if self._klassContainer._model._havePythonClasses:
@@ -339,7 +327,6 @@ class Klass(MiddleDict, ModelObject):
         Returns a list of all ObjRefAttrs in the given object model that can
         potentially refer to this object. The list does NOT include attributes
         inherited from superclasses.
-
         """
         if self._backObjRefAttrs is None:
             backObjRefAttrs = []
@@ -377,7 +364,7 @@ class Klass(MiddleDict, ModelObject):
     ## As a dictionary key (for "set" purposes) ##
 
     def __hash__(self):
-        return hash(self.name()) # | hash(self.model().name())
+        return hash(self.name())  # | hash(self.model().name())
 
     def __cmp__(self, other):
         if other is None:
@@ -403,8 +390,8 @@ class Klass(MiddleDict, ModelObject):
 
     def willBuildDependencies(self):
         """Preps the klass for buildDependencies()."""
-        self._dependencies = set() # who self depends on
-        self._dependents = set() # who depends on self
+        self._dependencies = set()  # who self depends on
+        self._dependents = set()  # who depends on self
 
     def buildDependencies(self):
         """Build dependencies of the klass.
@@ -412,7 +399,6 @@ class Klass(MiddleDict, ModelObject):
         A klass' immediate dependencies are its ancestor classes (which may
         have auxilliary tables such as enums), the target klasses of all its
         obj ref attrs and their descendant classes.
-
         """
         if self._dependents is not None:
             # already done

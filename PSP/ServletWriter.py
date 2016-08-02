@@ -11,7 +11,6 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 import os
@@ -22,11 +21,10 @@ class ServletWriter(object):
     """This file creates the servlet source code.
 
     Well, it writes it out to a file at least.
-
     """
 
     _tab = '\t'
-    _spaces = '    ' # 4 spaces
+    _spaces = '    '  # 4 spaces
     _emptyString = ''
 
     def __init__(self, ctxt):
@@ -34,13 +32,13 @@ class ServletWriter(object):
         fd, self._temp = mkstemp('tmp', dir=os.path.dirname(self._pyfilename))
         self._filehandle = os.fdopen(fd, 'w')
         self._tabcnt = 0
-        self._blockcount = 0 # a hack to handle nested blocks of python code
+        self._blockcount = 0  # a hack to handle nested blocks of python code
         self._indentSpaces = self._spaces
         self._useTabs = False
         self._useBraces = False
         self._indent = '    '
         self._userIndent = self._emptyString
-        self._awakeCreated = False # means that awake() needs to be generated
+        self._awakeCreated = False  # means that awake() needs to be generated
 
     def setIndentSpaces(self, amt):
         self._indentSpaces = ' ' * amt

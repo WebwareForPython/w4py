@@ -12,14 +12,13 @@ If none of these modules are available, we try using the strptime function
 in the Python standard library with several frequently used formats.
 
 Contributed to Webware for Python by Christoph Zwerschke.
-
 """
 
 
 try:
     from dateutil.parser import parse as parseDateTime
 
-except ImportError: # dateutil not available
+except ImportError:  # dateutil not available
 
     from datetime import datetime
 
@@ -31,14 +30,14 @@ except ImportError: # dateutil not available
             # needs to be converted to datetime
             try:
                 return datetime.fromtimestamp(t)
-            except Exception: # out of range for timestamp values
+            except Exception:  # out of range for timestamp values
                 return datetime(*t.tuple()[:6])
 
-    except ImportError: # mx.DateTime not available
+    except ImportError:  # mx.DateTime not available
 
         try:
             strpdatetime = datetime.strptime
-        except AttributeError: # Python < 2.5
+        except AttributeError:  # Python < 2.5
             from time import strptime
             # needs to be converted to datetime
             strpdatetime = lambda s, format: datetime(

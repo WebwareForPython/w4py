@@ -7,7 +7,6 @@ class HierRole(Role):
     """HierRole is a hierarchical role.
 
     It points to its parent roles. The hierarchy cannot have cycles.
-
     """
 
     def __init__(self, name, description=None, superRoles=[]):
@@ -20,7 +19,6 @@ class HierRole(Role):
         """Check whether the receiving role plays the role that is passed in.
 
         This implementation provides for the inheritance that HierRole supports.
-
         """
         if self == role:
             return True

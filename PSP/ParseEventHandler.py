@@ -16,12 +16,11 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 import time
 
-from Generators import * # ResponseObject, plus all the *Generator functions.
+from Generators import *  # ResponseObject, plus all the *Generator functions
 
 
 class ParseEventHandler(object):
@@ -30,7 +29,6 @@ class ParseEventHandler(object):
     It implements the handling of all the parsing elements.
     Note: This files JSP cousin is called ParseEventListener,
     I don't know why, but Handler seemed more appropriate to me.
-
     """
 
     aspace = ' '
@@ -79,14 +77,13 @@ class ParseEventHandler(object):
     def handleComment(self, start, stop):
         """Comments get swallowed into nothing."""
         self._parser.flushCharData(self.tmplStart, self.tmplStop)
-        return # just eats the comment
+        return  # just eats the comment
 
     def handleInclude(self, attrs, param):
         """This is for includes of the form <psp:include ...>
 
         This function essentially forwards the request to the specified
         URL and includes that output.
-
         """
         self._parser.flushCharData(self.tmplStart, self.tmplStop)
         gen = IncludeGenerator(attrs, param, self._ctxt)
@@ -96,7 +93,6 @@ class ParseEventHandler(object):
         """This is for includes of the form <psp:insert ...>
 
         This type of include is not parsed, it is just inserted in the output stream.
-
         """
         self._parser.flushCharData(self.tmplStart, self.tmplStop)
         gen = InsertGenerator(attrs, param, self._ctxt)
@@ -120,7 +116,6 @@ class ParseEventHandler(object):
         that this class will generate. The choice of base class affects
         the choice of a method to override with the BaseMethod page directive.
         The default base class is PSPPage. PSPPage inherits from Page.py.
-
         """
         self._baseClasses = [s.strip() for s in bc.split(',')]
 
@@ -131,7 +126,6 @@ class ParseEventHandler(object):
         over-rides. The default is WriteHTML. This value should be set
         to either WriteHTML or writeBody. See the PSPPage.py and Page.py
         servlet classes for more information.
-
         """
         self._baseMethod = method
 
@@ -142,7 +136,6 @@ class ParseEventHandler(object):
         The value can be "yes" or "no".
         Default is no because the default base class,
         Page.py, isn't thread safe.
-
         """
         self._threadSafe = value
 
@@ -154,7 +147,6 @@ class ParseEventHandler(object):
         The default is "yes".
 
         Saying "no" here hurts performance.
-
         """
         self._instanceSafe = value
 
@@ -167,7 +159,7 @@ class ParseEventHandler(object):
 
     def indentSpacesHandler(self, amount, start, stop):
         """Set number of spaces used to indent in generated source."""
-        self._indentSpaces = int(amount) # don't really need this
+        self._indentSpaces = int(amount)  # don't really need this
         self._writer.setIndentSpaces(int(amount))
 
     def gobbleWhitespaceHandler(self, value, start, stop):
@@ -262,7 +254,7 @@ class ParseEventHandler(object):
         self._writer.println()
         self.generateHeader()
         self.generateAll('psp:file')
-        self.generateDeclarations() # overwrite this when we can handle extends
+        self.generateDeclarations()  # overwrite this when we can handle extends
         self.generateInitPSP()
         self.generateAll('psp:class')
         self.generateAll('Declarations')
@@ -325,7 +317,7 @@ class ParseEventHandler(object):
         self._writer.printChars('):')
         self._writer.printChars('\n')
         self._writer.pushIndent()
-        self._writer.println('def canBeThreaded(self):') # sadly, still needed
+        self._writer.println('def canBeThreaded(self):')  # sadly, still needed
         self._writer.pushIndent()
         if self._threadSafe.lower() in ('no', 'false', '0'):
             self._writer.println('return False')
@@ -333,7 +325,7 @@ class ParseEventHandler(object):
             self._writer.println('return True')
         self._writer.popIndent()
         self._writer.println()
-        self._writer.println('def canBeReused(self):') # sadly, still needed
+        self._writer.println('def canBeReused(self):')  # sadly, still needed
         self._writer.pushIndent()
         if self._instanceSafe.lower() in ('no', 'false', '0'):
             self._writer.println('return False')
@@ -350,8 +342,8 @@ class ParseEventHandler(object):
             self._writer.pushIndent()
             self._writer.println('baseclass.awake(self, trans)')
             self._writer.println('break\n')
-            self._writer.popIndent() # end if statement
-            self._writer.popIndent() # end for statement
+            self._writer.popIndent()  # end if statement
+            self._writer.popIndent()  # end for statement
             self._writer.println('self.initPSP()\n')
             self._writer.println()
             self._writer.popIndent()
@@ -366,7 +358,7 @@ class ParseEventHandler(object):
     def generateInitPSP(self):
         self._writer.println('def initPSP(self):\n')
         self._writer.pushIndent()
-        self._writer.println('pass\n') # nothing for now
+        self._writer.println('pass\n')  # nothing for now
         self._writer.popIndent()
         self._writer.println()
 
@@ -407,7 +399,6 @@ class ParseEventHandler(object):
         Too many char data generators make the servlet slow.
         If the current Generator and the next are both CharData type,
         merge their data.
-
         """
         gens = self._gens
         count = 0
@@ -429,7 +420,6 @@ class ParseEventHandler(object):
 
         This is necessary so that a write() line can't sneek in between
         a if/else, try/except etc.
-
         """
         debug = False
         gens = self._gens
@@ -454,7 +444,6 @@ def checkForTextHavingOnlyGivenChars(text, ws=None):
 
     Does the given text contain anything other than the ws characters?
     Return true if text is only ws characters.
-
     """
     if ws is None:
         return text.isspace()

@@ -22,7 +22,6 @@ class SessionFileStore(SessionStore):
       4. Clustering
 
     Note that the last two are not yet supported by WebKit.
-
     """
 
     _extension = '.ses'
@@ -34,7 +33,6 @@ class SessionFileStore(SessionStore):
 
         If restoreFiles is true, and sessions have been saved to file,
         the store will be initialized from these files.
-
         """
         SessionStore.__init__(self, app)
         self._sessionDir = app._sessionDir
@@ -57,7 +55,7 @@ class SessionFileStore(SessionStore):
             try:
                 sessionFile = open(filename, 'rb')
             except IOError:
-                raise KeyError(key) # session file not found
+                raise KeyError(key)  # session file not found
             try:
                 try:
                     value = self.decoder()(sessionFile)
@@ -66,7 +64,7 @@ class SessionFileStore(SessionStore):
             except Exception:
                 print "Error loading session from disk:", key
                 self.application().handleException()
-                try: # remove the session file because it is corrupt
+                try:  # remove the session file because it is corrupt
                     os.remove(filename)
                 except Exception:
                     pass
@@ -94,8 +92,8 @@ class SessionFileStore(SessionStore):
                     except Exception:
                         # remove the session file because it is corrupt
                         os.remove(filename)
-                        raise # raise original exception
-                except Exception: # error pickling the session
+                        raise  # raise original exception
+                except Exception:  # error pickling the session
                     if dirty:
                         value.setDirty()
                     print "Error saving session to disk:", key
@@ -183,7 +181,7 @@ class SessionFileStore(SessionStore):
 
     def storeAllSessions(self):
         """Permanently save all sessions in the store."""
-        pass # sessions have all been saved to files already
+        pass  # sessions have all been saved to files already
 
 
     ## Self utility ##

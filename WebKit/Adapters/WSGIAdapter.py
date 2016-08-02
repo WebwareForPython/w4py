@@ -12,7 +12,6 @@ Note that this adapter script and the AppServer must be running
 with marshal-compatible Python versions (check marshal.version).
 
 Contributed to Webware for Python by Christoph Zwerschke, 04/2010.
-
 """
 
 # If you used the MakeAppWorkDir.py script to make a separate
@@ -100,7 +99,7 @@ class WSGIAdapter(Adapter):
             # if the generator is deleted, the local variable err also gets
             # deleted and its close() method will be called by its destructor.
             err.close()
-            raise # re-raise the original exception
+            raise  # re-raise the original exception
         else:
             err.close()
 
@@ -109,4 +108,4 @@ class WSGIAdapter(Adapter):
 
 wsgiAdapter = WSGIAdapter(workDir)
 
-application = wsgiAdapter # the name expected by mod_wsgi
+application = wsgiAdapter  # the name expected by mod_wsgi

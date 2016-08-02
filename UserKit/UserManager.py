@@ -91,7 +91,6 @@ class UserManager(object):
 
     Please read the method docstrings and other class documentation to
     fully understand UserKit.
-
     """
 
 
@@ -113,7 +112,6 @@ class UserManager(object):
         """Perform any tasks necessary to shut down the user manager.
 
         Subclasses may override and must invoke super as their *last* step.
-
         """
         pass
 
@@ -124,7 +122,6 @@ class UserManager(object):
         """Return the userClass, which is used by createUser.
 
         The default value is UserKit.User.User.
-
         """
         if self._userClass is None:
             self.setUserClass(User)
@@ -134,7 +131,6 @@ class UserManager(object):
         """Set the userClass, which cannot be None and must inherit from User.
 
         See also: userClass().
-
         """
         assert issubclass(userClass, User)
         self._userClass = userClass
@@ -168,7 +164,6 @@ class UserManager(object):
         This method invokes self.addUser().
 
         See also: userClass(), setUserClass()
-
         """
         if userClass is None:
             userClass = self.userClass()
@@ -186,7 +181,6 @@ class UserManager(object):
         """Return the user with the given serialNum.
 
         The user record is pulled into memory if needed.
-
         """
         raise AbstractError(self.__class__)
 
@@ -194,7 +188,6 @@ class UserManager(object):
         """Return the user with the given external id.
 
         The user record is pulled into memory if needed.
-
         """
         raise AbstractError(self.__class__)
 
@@ -202,7 +195,6 @@ class UserManager(object):
         """Return the user with the given name.
 
         The user record is pulled into memory if needed.
-
         """
         raise AbstractError(self.__class__)
 
@@ -269,7 +261,6 @@ class UserManager(object):
         then consistency problems could occur.
 
         The most popular use of this method is in the regression test suite.
-
         """
         self._cachedUsers = []
         self._cachedUsersBySerialNum = {}

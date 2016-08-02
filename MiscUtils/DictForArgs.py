@@ -3,9 +3,7 @@
 See the doc string for the DictForArgs() function.
 
 Also, there is a test suite in Tests/TestDictForArgs.py
-
 """
-
 
 import re
 
@@ -52,7 +50,6 @@ def DictForArgs(s):
     Will raise DictForArgsError if the string is invalid.
 
     See also: PyDictForArgs() and ExpandDictWithExtras() in this module.
-
     """
 
     s = s.strip()
@@ -168,7 +165,6 @@ def PyDictForArgs(s):
     Returns {} for an empty string.
 
     See also: DictForArgs() and ExpandDictWithExtras() in this module.
-
     """
     if s:
         s = s.strip()
@@ -203,7 +199,6 @@ def ExpandDictWithExtras(d, key='Extras', delKey=True, dictForArgs=DictForArgs):
     that was initialized from a CSV file (e.g., a spreadsheet or tabular file).
     FormKit and MiddleKit both use CSV files and allow for an Extras column
     to specify attributes that occur infrequently.
-
     """
     if key in d:
         newDict = dict(d)

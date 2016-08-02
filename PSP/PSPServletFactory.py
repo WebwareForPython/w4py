@@ -9,7 +9,6 @@ provided that the above copyright notice appear in all copies and that
 both that copyright notice and this permission notice appear in
 supporting documentation or portions thereof, including modifications,
 that you make.
-
 """
 
 import os
@@ -65,7 +64,6 @@ class PSPServletFactory(ServletFactory):
 
         Argument: pagename: the path to the PSP source file
         Returns: a unique name for the class generated fom this PSP source file
-
         """
         # Compute class name by taking the path and substituting
         # underscores for all non-alphanumeric characters:
@@ -76,7 +74,6 @@ class PSPServletFactory(ServletFactory):
 
         The module containing the class is imported as though it were a
         module within the context's package (and appropriate subpackages).
-
         """
         module = self.importAsPackage(transaction, filename)
         assert classname in module.__dict__, (

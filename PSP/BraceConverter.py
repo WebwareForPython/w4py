@@ -22,7 +22,6 @@ Becomes (roughly, barring some spurious newlines):
 This implementation is fed a line at a time via parseLine(),
 outputs to a PSPServletWriter, and tracks the current quotation
 and block levels internally.
-
 """
 
 import re
@@ -43,7 +42,6 @@ class BraceConverter(object):
 
         The only public method of this class, call with subsequent lines
         and an instance of PSPServletWriter.
-
         """
         self.line = line
         if self.inquote and self.line:
@@ -129,7 +127,6 @@ class BraceConverter(object):
 
         Skip over all chars until the line is exhausted
         or the current non-escaped quote sequence is encountered.
-
         """
         pos = self.line.find(self.quotechars)
         if pos < 0:

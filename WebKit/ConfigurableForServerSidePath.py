@@ -18,7 +18,6 @@ class ConfigurableForServerSidePath(Configurable):
     `Configurable` base class, should inherit this class instead.
 
     This is used with for MakeAppWorkDir, which changes the serverSidePath.
-
     """
 
     def setting(self, name, default=NoDefault):
@@ -26,7 +25,6 @@ class ConfigurableForServerSidePath(Configurable):
 
         Returns the setting, filtered by self.serverSidePath(),
         if the name ends with ``Filename`` or ``Dir``.
-
         """
         value = Configurable.setting(self, name, default)
         if name[-8:] == 'Filename' or name[-3:] == 'Dir':

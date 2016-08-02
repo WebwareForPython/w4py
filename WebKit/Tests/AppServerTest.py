@@ -58,7 +58,6 @@ class AppServerTest(unittest.TestCase):
 
         If the appserver does not output the pattern within the given number
         of seconds, an assertion is raised.
-
         """
         self.assertTrue(self.waitForAppServer(pattern, wait),
             "Expected appserver to say '%s',\n"
@@ -69,7 +68,6 @@ class AppServerTest(unittest.TestCase):
         """Check that the appserver output contains the specified pattern.
 
         Returns True or False depending on whether the pattern was seen.
-
         """
         start = time.time()
         comp = reCompile(pattern)

@@ -87,7 +87,6 @@ class TestThreads(Test):
 
         We do all our necessary testing in testEmpty() so we override
         this method to pass.
-
         """
         pass
 

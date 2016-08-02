@@ -1,7 +1,6 @@
 """CSVJoiner.py
 
 A helper function for joining CSV fields.
-
 """
 
 
@@ -12,7 +11,6 @@ def joinCSVFields(fields):
     Fields containing commands (,) or double quotes (") are quoted,
     and double quotes are escaped ("").
     The terminating newline is *not* included.
-
     """
     newFields = []
     for field in fields:

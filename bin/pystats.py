@@ -61,7 +61,6 @@ Some of our code is in common with checksrc.py. One more similar program and it
 might be time for an abstract class for these guys.
 
 Provide command line option to change extensions.
-
 """
 
 
@@ -91,7 +90,6 @@ class Stats(dict):
         """Return a real copy/duplicate of the receiver.
 
         This is needed because dict.copy() returns a dict.
-
         """
         return self.__class__(self)
 
@@ -114,9 +112,9 @@ class StatsNode(object):
 
     def __init__(self, name):
         self._name = name
-        self._subNodes = {} # map directory names to StatsNodes
-        self._stats = Stats() # stats for files just in this dir (no subdirs)
-        self._totalStats = None # stats for all files, recursively in subdirs
+        self._subNodes = {}  # map directory names to StatsNodes
+        self._stats = Stats()  # stats for files just in this dir (no subdirs)
+        self._totalStats = None  # stats for all files, recursively in subdirs
 
     def name(self):
         return self._name

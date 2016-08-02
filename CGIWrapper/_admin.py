@@ -19,13 +19,14 @@ class Page(AdminPage):
             <tr><th>Version:</th><td>%s</td></tr>
             <tr><th>Local time:</th><td>%s</td></tr>
             <tr><th>Global time:</th><td>%s</td></tr>
-        </table>''' % (self._wrapper.version(),
-        asctime(localtime(curTime)), asctime(gmtime(curTime))))
+        </table>''' % (
+            self._wrapper.version(),
+            asctime(localtime(curTime)), asctime(gmtime(curTime))))
         self.startMenu()
-        self.menuItem('Script log contents', '_dumpCSV?filename=%s'
-            % urlEncode(self._wrapper.setting('ScriptLogFilename')))
-        self.menuItem('Error log contents', '_dumpErrors?filename=%s'
-            % urlEncode(self._wrapper.setting('ErrorLogFilename')))
+        self.menuItem('Script log contents', '_dumpCSV?filename=%s' %
+                      urlEncode(self._wrapper.setting('ScriptLogFilename')))
+        self.menuItem('Error log contents', '_dumpErrors?filename=%s' %
+                      urlEncode(self._wrapper.setting('ErrorLogFilename')))
         self.menuItem('Show config', '_showConfig')
         self.endMenu()
 
@@ -48,8 +49,8 @@ end-parse
 
     def menuItem(self, title, url):
         self.write('''
-            <tr><td align="center"><a href="%s">%s</a></td></tr>'''
-            % (url, title))
+            <tr><td align="center"><a href="%s">%s</a></td></tr>''' % (
+                url, title))
 
     def endMenu(self):
         self.writeln('''

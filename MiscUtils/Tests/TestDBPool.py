@@ -7,7 +7,6 @@ FUTURE
 
   * We don't really test performance here.
     E.g., we don't do benchmarks to see if DBPool actually helps or not.
-
 """
 
 

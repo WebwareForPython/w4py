@@ -18,7 +18,6 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 import os
@@ -42,7 +41,6 @@ class ExpressionGenerator(GenericGenerator):
 
     It simply outputs the (hopefully) python expression within the block
     wrapped with a _formatter() call.
-
     """
 
     def __init__(self, chars):
@@ -59,7 +57,6 @@ class CharDataGenerator(GenericGenerator):
 
     It just dumps it out. Need to handle all the escaping of characters.
     It's just skipped for now.
-
     """
 
     def __init__(self, chars):
@@ -76,7 +73,7 @@ class CharDataGenerator(GenericGenerator):
         self.generateChunk(writer)
 
     def generateChunk(self, writer, start=0, stop=None):
-        writer.printIndent() # gives one level of indentation
+        writer.printIndent()  # gives one level of indentation
         writer.printChars(ResponseObject+'.write("""')
         writer.printChars(self.chars)
         writer.printChars('""")')
@@ -107,12 +104,12 @@ class ScriptGenerator(GenericGenerator):
             self.chars = self.chars.lstrip()
         lines = PSPUtils.splitLines(PSPUtils.removeQuotes(self.chars))
         if not lines:
-            return # ignore any empty tag
+            return  # ignore any empty tag
         # userIndent check
         if lines[-1].endswith('$'):
             lastline = lines[-1] = lines[-1][:-1]
             if not lastline:
-                lastline = lines[-2] # handle endscript marker on its own line
+                lastline = lines[-2]  # handle endscript marker on its own line
             count = 0
             while lastline[count].isspace():
                 count += 1
@@ -121,11 +118,11 @@ class ScriptGenerator(GenericGenerator):
             userIndent = writer._emptyString
             lastline = lines[-1]
         # Print out code (moved from above):
-        writer._userIndent = writer._emptyString # reset to none
+        writer._userIndent = writer._emptyString  # reset to none
         writer.printList(lines)
         writer.printChars('\n')
         # Check for a block:
-        commentstart = lastline.find('#') # @@ this fails if '#' part of string
+        commentstart = lastline.find('#')  # @@ this fails if '#' part of string
         if commentstart >= 0:
             lastline = lastline[:commentstart]
         blockcheck = lastline.rstrip()
@@ -192,7 +189,6 @@ class MethodGenerator(GenericGenerator):
 
     There are two parts to method generation.
     This class handles getting the method name and parameters set up.
-
     """
 
     def __init__(self, chars, attrs):
@@ -224,7 +220,6 @@ class MethodEndGenerator(GenericGenerator):
 
     After MethodGenerator, MethodEndGenerator actually generates
     the code for the method body.
-
     """
 
     def __init__(self, chars, attrs):
@@ -245,7 +240,6 @@ class IncludeGenerator(GenericGenerator):
 
     This is a new version of this directive that actually
     forwards the request to the specified page.
-
     """
 
     _theFunction = ('__pspincludepath = "%s"\n'
@@ -275,7 +269,6 @@ class InsertGenerator(GenericGenerator):
     If the attribute 'static' is set to True or 1, we include the file now,
     at compile time. Otherwise, we use a function added to every PSP page
     named __includeFile, which reads the file at run time.
-
     """
 
     def __init__(self, attrs, param, ctxt):

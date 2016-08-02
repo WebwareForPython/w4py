@@ -52,7 +52,6 @@ def transform(params):
 
     As an example, if you are under Windows and your edit file
     has a Unix filename, then it is transformed to a Samba path.
-
     """
     filename = params['filename']
     if os.sep == '\\' and filename.startswith('/'):

@@ -2,8 +2,7 @@
 
 """ClassHierarchy.py
 
-A quick, hacky script to contruct a class hierarchy list from a set of Python files.
-
+A quick, hacky script to construct a class hierarchy list from a set of Python files.
 """
 
 

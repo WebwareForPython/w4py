@@ -14,7 +14,7 @@ def test(store):
 
     bar = foo1.bar()
     baz = foo1.bar().baz()
-    assert baz.x() == 5 # just to make sure we got what we expected
+    assert baz.x() == 5  # just to make sure we got what we expected
     assertBazIsObjRef(bar)
 
     # Now here's what we're really testing for:

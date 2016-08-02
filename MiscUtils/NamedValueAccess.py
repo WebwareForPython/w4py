@@ -11,7 +11,6 @@ CREDIT
 
 Chuck Esterbrook <echuck@mindspring.com>
 Tavis Rudd <tavis@calrudd.com>
-
 """
 
 
@@ -48,7 +47,7 @@ def valueForKey(obj, key, default=NoDefault):
       * obj.foo
       * obj._foo
       * obj['foo']
-      * default # only if specified
+      * default  # only if specified
 
     If all of these fail, a ValueForKeyError is raised.
 
@@ -57,7 +56,6 @@ def valueForKey(obj, key, default=NoDefault):
       * valueForKey() works on dictionaries and dictionary-like objects.
       * See valueForName() which is a more advanced version of this
         function that allows multiple, qualified keys.
-
     """
 
     assert obj is not None
@@ -120,7 +118,6 @@ def valueForName(obj, name, default=NoDefault):
     semantics of that notation.
 
     Example: valueForName(obj, 'department.manager.salary')
-
     """
     for name in name.split('.'):
         obj = valueForKey(obj, name, default)

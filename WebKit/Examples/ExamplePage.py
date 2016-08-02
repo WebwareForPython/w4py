@@ -33,7 +33,6 @@ class ExamplePage(SidebarPage):
 
     If the WebKit Examples context is not present in the first place,
     then there is no access to the plug-in examples.
-
     """
 
     def cornerTitle(self):
@@ -48,7 +47,6 @@ class ExamplePage(SidebarPage):
         Returns a list of all the example pages for our particular plug-in.
         These can be used in the sidebar or in the main content area to
         give easy access to the other example pages.
-
         """
         if plugInName is None:
             # Special case: We're in WebKit examples

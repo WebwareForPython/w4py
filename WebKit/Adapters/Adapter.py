@@ -15,11 +15,11 @@ class Adapter(Configurable):
 
     def defaultConfig(self):
         return dict(
-            NumRetries = 20, # 20 retries when we cannot connect
-            SecondsBetweenRetries = 3, # 3 seconds pause between retries
-            ResponseBufferSize = 8*1024, # 8 kBytes
-            Host = 'localhost', # host running the app server
-            AdapterPort = 8086) # the default app server port
+            NumRetries = 20,  # 20 retries when we cannot connect
+            SecondsBetweenRetries = 3,  # 3 seconds pause between retries
+            ResponseBufferSize = 8*1024,  # 8 kBytes
+            Host = 'localhost',  # host running the app server
+            AdapterPort = 8086)  # the default app server port
 
     def configFilename(self):
         return os.path.join(self._webKitDir, 'Configs', '%s.config' % self.name())
@@ -30,7 +30,6 @@ class Adapter(Configurable):
 
         Used by subclasses that are communicating with a separate app server
         via socket. Yields the unmarshaled response in chunks.
-
         """
         if host is None:
             host = self.setting('Host')

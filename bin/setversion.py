@@ -53,7 +53,6 @@ release notes for the next release.
 
 Written by Stuart Donaldson - stu at asyn.com.
 Improved by Christoph Zwerschke - cito at online.de.
-
 """
 
 # Version format is (Major, Minor, Sub, Alpha/Beta/etc)

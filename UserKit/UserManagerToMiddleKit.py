@@ -37,7 +37,6 @@ class UserManagerToMiddleKit(UserManager):
 
         from MyUser import MyUser
         userMgr = UserManagerToMiddleKit(userClass=MyUser, store=store)
-
     """
 
 

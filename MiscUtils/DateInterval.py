@@ -6,8 +6,9 @@ Is not exactly about months or years (leap years in particular).
 Accepts (y)ear, (b)month, (w)eek, (d)ay, (h)our, (m)inute, (s)econd.
 
 Exports only timeEncode and timeDecode functions.
-
 """
+
+__all__ = ['timeEncode', 'timeDecode']
 
 import re
 
@@ -32,11 +33,11 @@ timeValues = {
 timeOrdered = timeValues.items()
 timeOrdered.sort(key=itemgetter(1), reverse=True)
 
+
 def timeEncode(seconds):
     """Encode a number of seconds (representing a time interval).
 
     Encode the number into a form like 2d1h3s.
-
     """
     s = []
     for char, amount in timeOrdered:
@@ -45,13 +46,14 @@ def timeEncode(seconds):
             s.append('%i%s' % (i, char))
     return ''.join(s)
 
+
 _timeRE = re.compile(r'[0-9]+[a-zA-Z]')
+
 
 def timeDecode(s):
     """Decode a number in the format 1h4d3m (1 hour, 3 days, 3 minutes).
 
     Decode the format into a number of seconds.
-
     """
     time = 0
     for match in _timeRE.findall(s):
@@ -62,4 +64,3 @@ def timeDecode(s):
             raise ValueError('Invalid unit of time: %c' % char)
     return time
 
-__all__ = ['timeEncode', 'timeDecode']

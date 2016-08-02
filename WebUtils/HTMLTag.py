@@ -50,7 +50,6 @@ CREDITS
 
   * Determined what HTML tags are empty by scanning O'Reilly's HTML Pocket
     Reference.
-
 """
 
 import sys
@@ -103,8 +102,8 @@ class HTMLTag(object):
         print tag.name()
 
     Attributes are dictionary-like in nature:
-        print tag.attr('color') # throws an exception if no color
-        print tag.attr('bgcolor', None) # returns None if no bgcolor
+        print tag.attr('color')  # throws an exception if no color
+        print tag.attr('bgcolor', None)  # returns None if no bgcolor
         print tag.attrs()
 
     Children are all the leaf parts of a tag, consisting of other tags
@@ -142,7 +141,6 @@ class HTMLTag(object):
       * Should attribute values be strip()ed?
         Probably not. SGMLParser probably strips them already unless they
         really do have spaces as in "  quoted  ". But that's speculation.
-
     """
 
 
@@ -162,7 +160,6 @@ class HTMLTag(object):
         """Set an attribute of the tag with the given name and value.
 
         An assertion fails if an attribute is set twice.
-
         """
         assert name not in self._attrs, 'name = %r, attrs = %r' % (name, attrs)
         self._attrs[name] = value
@@ -171,7 +168,6 @@ class HTMLTag(object):
         """Add a child to the receiver.
 
         The child will be another tag or a string (CDATA).
-
         """
         assert isinstance(child, (basestring, HTMLTag)), 'Invalid child: %r' % child
         self._children.append(child)
@@ -268,7 +264,6 @@ class HTMLTag(object):
         *unless* a default value was specified, which is then returned.
 
             tag = tag.tagWithMatchingAttr('bgcolor', '#FFFF', None)
-
         """
         tag = self._tagWithMatchingAttr(name, value)
         if tag is None:
@@ -295,7 +290,6 @@ class HTMLTag(object):
         Why is it so popular? Because by attaching ids to logical portions
         of your HTML, your regression test suite can quickly zero in on them
         for examination.
-
         """
         return self.tagWithMatchingAttr('id', id, default)
 
@@ -317,7 +311,6 @@ class HTMLTag(object):
         Performs a depth-first search for a tag with an attribute that matches
         the given value. Returns None if the tag cannot be found. The method
         tagWithMatchingAttr() (e.g., sans underscore) is more commonly used.
-
         """
         if self._attrs.get(name) == value:
             return self
@@ -401,7 +394,6 @@ class HTMLReader(SGMLParser):
 
       * The tagContainmentConfig class var can certainly be expanded
         for even better validation.
-
     """
 
 
@@ -437,7 +429,6 @@ class HTMLReader(SGMLParser):
         """Read the given file.
 
         Relies on readString(). See that method for more information.
-
         """
         self._filename = filename
         contents = open(filename).read()
@@ -448,7 +439,6 @@ class HTMLReader(SGMLParser):
 
         You could continue to use HTMLReader object or disregard it and simply
         use the root tag.
-
         """
         self._rootTag = None
         self._tagStack = []
@@ -478,7 +468,6 @@ class HTMLReader(SGMLParser):
 
         Indentation is used for subtags.
         Print 'Empty.' if there is no root tag.
-
         """
         if self._rootTag:
             self._rootTag.pprint(out)
@@ -495,7 +484,6 @@ class HTMLReader(SGMLParser):
 
         May return None if no HTML has been read yet, or if the last
         invocation of one of the read methods was passed retainRootTag=False.
-
         """
         return self._rootTag
 
@@ -507,7 +495,6 @@ class HTMLReader(SGMLParser):
         """Return a list of empty tags.
 
         See also: class docs and setEmptyTags().
-
         """
         return self._emptyTagList
 
@@ -517,7 +504,6 @@ class HTMLReader(SGMLParser):
         The default is found in the global, DefaultEmptyTags, and is fairly
         thorough, but does not include <p>, <li> and some other tags that
         HTML authors often use as empty tags.
-
         """
         self._emptyTagList = list(tagList)
         self._updateEmptyTagSet()
@@ -538,7 +524,6 @@ class HTMLReader(SGMLParser):
 
         This is a debugging option which will print the internal tag stack
         during HTML processing. The default value is False.
-
         """
         self._printsStack = flag
 
@@ -549,7 +534,6 @@ class HTMLReader(SGMLParser):
         """The command line equivalent of readFileNamed().
 
         Invoked when HTMLTag is run as a program.
-
         """
         if args is None:
             args = sys.argv

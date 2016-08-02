@@ -15,7 +15,6 @@ CREDITS:
     Based on the Cheetah servlet factory. No caching, fixed servlet hook.
   * Improved version contributed by Christoph Zwerschke (cito<at>online.de).
     Based on the PSP servlet factory. Supports caching and servlet hooks.
-
 """
 
 import os
@@ -24,13 +23,13 @@ from WebKit.ServletFactory import ServletFactory
 from WebKit.Servlet import Servlet
 from WebKit.Page import Page
 
-defaultHook = Page.respond # the default hook for Kid servlets
-defaultOutput = 'html' # the default Kid output method
-defaultFormat = 'default' # the default Kid output format
-defaultExtensions = ['.kid'] # the default extensions for Kid templates
+defaultHook = Page.respond  # the default hook for Kid servlets
+defaultOutput = 'html'  # the default Kid output method
+defaultFormat = 'default'  # the default Kid output format
+defaultExtensions = ['.kid']  # the default extensions for Kid templates
 
 from kid import load_template, output_methods
-try: # output formatting exists in newer Kid versions only
+try:  # output formatting exists in newer Kid versions only
     from kid.format import output_formats
 except ImportError:
     output_formats = None
@@ -91,11 +90,11 @@ class KidServletFactory(ServletFactory):
     def __init__(self, application):
         ServletFactory.__init__(self, application)
         setting = application.setting
-        global defaultOutput # the default Kid output method
+        global defaultOutput  # the default Kid output method
         defaultOutput = setting('KidOutputMethod', defaultOutput)
-        global defaultFormat # the default Kid output format
+        global defaultFormat  # the default Kid output format
         defaultFormat = setting('KidOutputFormat', defaultFormat)
-        global defaultExtensions # the default Kid template extensions
+        global defaultExtensions  # the default Kid template extensions
         self._extensions = setting('ExtensionsForKid', defaultExtensions)
         defaultExtensions = self._extensions
         self._cacheTemplates = setting('CacheKidTemplates', True)
@@ -137,7 +136,6 @@ class KidServletFactory(ServletFactory):
 
         Argument: pagename: the path to the Kid template file
         Returns: a unique name for the class generated fom this Kid file
-
         """
         # Compute class name by taking the path and substituting
         # underscores for all non-alphanumeric characters:

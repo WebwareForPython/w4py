@@ -23,7 +23,6 @@ class Response(Message):
         including buffer size.
       * Also, consider then having a method that doesn't allow
         commitment until the end.
-
     """
 
 
@@ -46,7 +45,6 @@ class Response(Message):
         Stores the current time as the end time of the response. This should
         be invoked at the end of deliver(). It may also be invoked by the
         application for those responses that never deliver due to an error.
-
         """
         self._endTime = time()
 

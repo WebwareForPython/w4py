@@ -15,7 +15,6 @@ class PerThreadDict(object):
     each thread. The implementation is not a complete dict wrapper; only
     some methods are implemented. If more methods are needed, see UserDict
     (in the standard Python lib) for inspiration.
-
     """
 
     def __init__(self):
@@ -75,7 +74,6 @@ class NonThreadedDict(object):
     NonThreadedDict behaves like a normal dict.  Its only purpose is
     to provide a compatible interface to PerThreadDict, so that they
     can be used interchangeably.
-
     """
 
     def __init__(self):

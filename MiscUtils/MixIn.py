@@ -43,9 +43,8 @@ def MixIn(pyClass, mixInClass, makeAncestor=False, mixInSuperMethods=False):
 
         class MyMixInClass(object):
         def foo(self):
-            MyMixInClass.mixInSuperFoo(self) # call the original method
+            MyMixInClass.mixInSuperFoo(self)  # call the original method
             # now do whatever you want
-
     """
     assert mixInClass is not pyClass, (
         'mixInClass = %r, pyClass = %r' % (mixInClass, pyClass))
@@ -73,10 +72,10 @@ def MixIn(pyClass, mixInClass, makeAncestor=False, mixInSuperMethods=False):
             # skip private members, but not __repr__ et al:
             if name.startswith('__'):
                 if not name.endswith('__'):
-                    continue # private
+                    continue  # private
                 member = getattr(mixInClass, name)
                 if not isinstance(member, MethodType):
-                    continue # built in or descriptor
+                    continue  # built in or descriptor
             else:
                 member = getattr(mixInClass, name)
             if isinstance(member, MethodType):

@@ -19,7 +19,6 @@ but that support is not yet realized (Will it ever be realized?).
 The distinction between `AppServer` and `Application` is somewhat
 vague -- both are global singletons and both handle dispatching requests.
 `AppServer` works on a lower level, handling sockets and threads.
-
 """
 
 import os
@@ -53,7 +52,6 @@ class AppServer(ConfigurableForServerSidePath):
     """The AppServer singleton.
 
     Purpose and usage are explained in the module docstring.
-
     """
 
 
@@ -67,7 +65,6 @@ class AppServer(ConfigurableForServerSidePath):
 
         This method loads plugins, creates the Application object,
         and starts the request handling loop.
-
         """
         self._running = 0
         self._startTime = time()
@@ -83,7 +80,7 @@ class AppServer(ConfigurableForServerSidePath):
 
         ConfigurableForServerSidePath.__init__(self)
         if path is None:
-            path = os.path.dirname(__file__) # os.getcwd()
+            path = os.path.dirname(__file__)  # os.getcwd()
         self._serverSidePath = os.path.abspath(path)
         self._webKitPath = os.path.abspath(os.path.dirname(__file__))
         self._webwarePath = os.path.dirname(self._webKitPath)
@@ -102,7 +99,7 @@ class AppServer(ConfigurableForServerSidePath):
         self._requestID = 0
 
         self.checkForInstall()
-        self.config() # cache the config
+        self.config()  # cache the config
         self.printStartUpMessage()
         if self.setting('CheckInterval') is not None:
             sys.setcheckinterval(self.setting('CheckInterval'))
@@ -123,7 +120,6 @@ class AppServer(ConfigurableForServerSidePath):
 
         Exits with an error message if Webware was not installed.
         Called from `__init__`.
-
         """
         if not os.path.exists(os.path.join(self._webwarePath, 'install.log')):
             sys.stdout = sys.stderr
@@ -140,7 +136,6 @@ class AppServer(ConfigurableForServerSidePath):
 
         Should be invoked by subclasses when they are finally ready to
         accept requests. Records some stats and prints a message.
-
         """
         if Profiler.startTime is None:
             Profiler.startTime = self._startTime
@@ -184,7 +179,6 @@ class AppServer(ConfigurableForServerSidePath):
             2. class specific statements for shutting down
             3. Invoke super's shutDown() e.g., `AppServer.shutDown(self)`
             4. set self._running = 0 (server is completely down)
-
         """
         if self._running:
             print "AppServer is shutting down..."
@@ -194,7 +188,7 @@ class AppServer(ConfigurableForServerSidePath):
             del self._plugIns
             del self._app
             if self._pidFile:
-                self._pidFile.remove() # remove the pid file
+                self._pidFile.remove()  # remove the pid file
             del self._pidFile
             if Profiler.profiler:
                 # The profile stats will be dumped by Launch.py.
@@ -212,7 +206,7 @@ class AppServer(ConfigurableForServerSidePath):
 
     def defaultConfig(self):
         """The default AppServer.config."""
-        return defaultConfig # defined on the module level
+        return defaultConfig  # defined on the module level
 
     def configFilename(self):
         """Return the name of the AppServer configuration file."""
@@ -259,7 +253,6 @@ class AppServer(ConfigurableForServerSidePath):
         """Return a list of the plug-ins loaded by the app server.
 
         Each plug-in is a Python package.
-
         """
         return self._plugIns
 
@@ -280,7 +273,6 @@ class AppServer(ConfigurableForServerSidePath):
 
         May return None if loading was unsuccessful (in which case this method
         prints a message saying so). Used by `loadPlugIns` (note the **s**).
-
         """
         plugIn = None
         path = self.serverSidePath(path)
@@ -305,7 +297,6 @@ class AppServer(ConfigurableForServerSidePath):
         necessarily having to modify its source. Plug-ins are loaded by
         AppServer at startup time, just before listening for requests.
         See the docs in `WebKit.PlugIn` for more info.
-
         """
         plugIns = [self.serverSidePath(path)
             for path in self.setting('PlugIns')]
@@ -353,7 +344,6 @@ class AppServer(ConfigurableForServerSidePath):
         """Return the time the app server was started.
 
         The time is given as seconds, like time().
-
         """
         return self._startTime
 
@@ -362,7 +352,6 @@ class AppServer(ConfigurableForServerSidePath):
 
         Returns the number of requests received by this app server
         since it was launched.
-
         """
         return self._requestID
 
@@ -371,7 +360,6 @@ class AppServer(ConfigurableForServerSidePath):
 
         When using `OneShot`, the AppServer will exist only for a single
         request, otherwise it will stay around indefinitely.
-
         """
         raise AbstractError(self.__class__)
 
@@ -380,7 +368,6 @@ class AppServer(ConfigurableForServerSidePath):
 
         If the optional path is passed in, then it is joined with the
         server side directory to form a path relative to the app server.
-
         """
         if path:
             return os.path.normpath(os.path.join(self._serverSidePath, path))
@@ -408,7 +395,7 @@ def main():
         print "Use one of the adapters such as WebKit.cgi (with ThreadedAppServer)"
         print "or OneShot.cgi"
         server.shutDown()
-    except Exception, exc: # Need to kill the sweeper thread somehow
+    except Exception, exc:  # need to kill the sweeper thread somehow
         print "Caught exception:", exc
         print "Exiting AppServer..."
         server.shutDown()

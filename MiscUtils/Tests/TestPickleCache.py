@@ -26,7 +26,7 @@ class TestPickleCache(unittest.TestCase):
     def oneIterTest(self):
         sourcePath = self._sourcePath = os.path.join(progDir, 'foo.dict')
         picklePath = self._picklePath = pc.PickleCache().picklePath(sourcePath)
-        self.remove(picklePath) # make sure we're clean
+        self.remove(picklePath)  # make sure we're clean
         data = self._data = dict(x=1)
         self.writeSource()
         try:
@@ -38,18 +38,18 @@ class TestPickleCache(unittest.TestCase):
             # test 3: wrong pickle version
             self.assertTrue(
                 pc.readPickleCache(sourcePath, pickleProtocol=1) is None)
-            self.writePickle() # restore
+            self.writePickle()  # restore
             # test 4: wrong data source
             self.assertTrue(
                 pc.readPickleCache(sourcePath, source='notTest') is None)
-            self.writePickle() # restore
+            self.writePickle()  # restore
             # test 5: wrong Python version
             v = list(pc.versionInfo)
-            v[-1] += 1 # increment serial number
+            v[-1] += 1  # increment serial number
             v, pc.versionInfo = pc.versionInfo, tuple(v)
             try:
                 self.assertTrue(pc.readPickleCache(sourcePath) is None)
-                self.writePickle() # restore
+                self.writePickle()  # restore
             finally:
                 pc.versionInfo = v
             # test 6: source is newer
@@ -60,7 +60,7 @@ class TestPickleCache(unittest.TestCase):
             time.sleep(2)
             self.writeSource()
             self.assertTrue(pc.readPickleCache(sourcePath) is None)
-            self.writePickle() # restore
+            self.writePickle()  # restore
         finally:
             self.remove(sourcePath)
             self.remove(picklePath)

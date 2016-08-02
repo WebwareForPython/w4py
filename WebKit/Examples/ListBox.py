@@ -12,7 +12,6 @@ class ListBox(ExamplePage):
     The source is a good example of how to use awake() and actions.
 
     It also shows how to avoid repeated exectution on refresh/reload.
-
     """
 
     def awake(self, transaction):
@@ -93,7 +92,7 @@ style="width:%(width)dpt;text-align:center">
             if not isinstance(indices, list):
                 indices = [indices]
             try:
-                indices = map(int, indices) # convert strings to ints
+                indices = map(int, indices)  # convert strings to ints
             except ValueError:
                 indices = []
             # remove the objects:

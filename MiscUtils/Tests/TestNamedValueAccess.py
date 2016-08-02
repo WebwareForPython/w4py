@@ -73,7 +73,6 @@ class LookupTest(NamedValueAccessTest):
 
     Subclasses must implement self.lookup() and can make use of
     self.classes and self.objs.
-
     """
 
     def setUp(self):
@@ -95,7 +94,6 @@ class LookupTest(NamedValueAccessTest):
         Invoke the look up function with key 'foo', expecting 1 in return.
         Invoke the look up with 'bar', expected an exception.
         Invoke the look up with 'bar' and default 2, expecting 2.
-
         """
         func = self.lookup
         for obj in self.objs:

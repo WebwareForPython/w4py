@@ -46,14 +46,13 @@ class PlugIn(object):
     case-by-case basis (and so far there is currently no need).
 
     Instructions for invoking:
-        p = PlugIn(self, '../Foo') # 'self' is typically AppServer. It gets passed to InstallInWebKit()
+        p = PlugIn(self, '../Foo')  # 'self' is typically AppServer. It gets passed to InstallInWebKit()
         willNotLoadReason = plugIn.load()
         if willNotLoadReason:
             print '    Plug-in %s cannot be loaded because:\n    %s' % (path, willNotLoadReason)
             return None
         p.install()
         # Note that load() and install() could raise exceptions. You should expect this.
-
     """
 
 
@@ -63,7 +62,6 @@ class PlugIn(object):
         """Initializes the plug-in with basic information.
 
         This lightweight constructor does not access the file system.
-
         """
         self._appServer = appServer
         self._path = path
@@ -79,7 +77,6 @@ class PlugIn(object):
 
         Will return None on success, otherwise a message (string) that says
         why the plug-in could not be loaded.
-
         """
         print 'Loading plug-in: %s at %s' % (self._name, self._path)
 
@@ -204,6 +201,5 @@ class PlugIn(object):
 
         This is a dictionary-like object, of the plug-in which comes
         from its Properties.py file. See MiscUtils.PropertiesObject.py.
-
         """
         return self._properties

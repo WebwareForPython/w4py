@@ -19,7 +19,6 @@ class Page(HTTPContent):
     `Page` called `SitePage` which defines the common look and feel of the
     website and provides site-specific convenience methods. Then all other
     pages in your application then inherit from `SitePage`.
-
     """
 
 
@@ -39,7 +38,6 @@ class Page(HTTPContent):
         This title should be absent of HTML tags. This implementation
         returns the name of the class, which is sometimes appropriate
         and at least informative.
-
         """
         return self.__class__.__name__
 
@@ -49,7 +47,6 @@ class Page(HTTPContent):
         Return self.title(). Subclasses sometimes override this to provide
         an HTML enhanced version of the title. This is the method that should
         be used when including the page title in the actual page contents.
-
         """
         return self.title()
 
@@ -62,7 +59,6 @@ class Page(HTTPContent):
         With the prevalence of stylesheets (CSS), you can probably skip
         this particular HTML feature, but for historical reasons this sets
         the page to black text on white.
-
         """
         return 'text="black" bgcolor="white"'
 
@@ -79,7 +75,6 @@ class Page(HTTPContent):
           * if you want to use a template that generates the entire page
           * if you want to send non-HTML content; in this case, be sure to call
             self.response().setHeader('Content-Type', 'mime/type').
-
         """
         self.writeDocType()
         self.writeln('<html>')
@@ -103,7 +98,6 @@ class Page(HTTPContent):
         You can find out more about doc types by searching for
         DOCTYPE on the web, or visiting:
         http://www.htmlhelp.com/tools/validator/doctype.html
-
         """
         self.writeln('<!DOCTYPE HTML PUBLIC'
             ' "-//W3C//DTD HTML 4.01 Transitional//EN"'
@@ -114,7 +108,6 @@ class Page(HTTPContent):
 
         Writes the ``<head>`` portion of the page by writing the
         ``<head>...</head>`` tags and invoking `writeHeadParts` in between.
-
         """
         wr = self.writeln
         wr('<head>')
@@ -128,7 +121,6 @@ class Page(HTTPContent):
         Invokes `writeTitle` and then `writeMetaData`, `writeStyleSheet`
         and `writeJavaScript`. Subclasses should override the `title`
         method and the three latter methods only.
-
         """
         self.writeTitle()
         self.writeMetaData()
@@ -140,7 +132,6 @@ class Page(HTTPContent):
 
         Writes the ``<title>`` portion of the page.
         Uses `title`, which is where you should override.
-
         """
         self.writeln('\t<title>%s</title>' % self.title())
 
@@ -153,7 +144,6 @@ class Page(HTTPContent):
         A typical implementation is:
 
             self.writeln('\t<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">')
-
         """
         pass
 
@@ -166,7 +156,6 @@ class Page(HTTPContent):
         A typical implementation is:
 
             self.writeln('\t<link rel="stylesheet" href="StyleSheet.css" type="text/css">')
-
         """
         pass
 
@@ -179,7 +168,6 @@ class Page(HTTPContent):
         A typical implementation is:
 
             self.writeln('\t<script type="text/javascript" src="ajax.js"></script>')
-
         """
         pass
 
@@ -189,7 +177,6 @@ class Page(HTTPContent):
         Writes the ``<body>`` portion of the page by writing the
         ``<body>...</body>`` (making use of `htBodyArgs`) and
         invoking `writeBodyParts` in between.
-
         """
         wr = self.writeln
         bodyArgs = self.htBodyArgs()
@@ -214,7 +201,6 @@ class Page(HTTPContent):
         See `SidebarPage` for an example override of this method.
 
         Invoked by `writeBody`.
-
         """
         self.writeContent()
 
@@ -225,7 +211,6 @@ class Page(HTTPContent):
         their unique page content.
 
         Invoked by `writeBodyParts`.
-
         """
         self.writeln('<p> This page has not yet customized its content. </p>')
 
@@ -233,7 +218,6 @@ class Page(HTTPContent):
         """Things to do before actions.
 
         For a page, we first writeDocType(), <html>, and then writeHead().
-
         """
         self.writeDocType()
         self.writeln('<html>')
@@ -243,7 +227,6 @@ class Page(HTTPContent):
         """Things to do after actions.
 
         Simply close the html tag (</html>).
-
         """
         self.writeln('</html>')
 
@@ -255,7 +238,6 @@ class Page(HTTPContent):
         """HTML encode special characters.
         Alias for `WebUtils.Funcs.htmlEncode`, quotes the special characters
         &, <, >, and \"
-
         """
         return Funcs.htmlEncode(s)
 
@@ -264,7 +246,6 @@ class Page(HTTPContent):
         """HTML decode special characters.
 
         Alias for `WebUtils.Funcs.htmlDecode`. Decodes HTML entities.
-
         """
         return Funcs.htmlDecode(s)
 
@@ -295,7 +276,6 @@ class Page(HTTPContent):
         the string ``</body></html>``.  At the point this method
         is called (e.g. from `writeBodyParts`) the page is not
         yet 100% complete, so we have to fake it.
-
         """
         # don't bother validating if the servlet has redirected
         status = self.response().header('status', None)

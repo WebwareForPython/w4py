@@ -63,7 +63,7 @@ class StringAttr(object):
         # @@ 2000-11-11 ce: cache this
         if not self.get('Max'):
             return 'varchar(100) /* WARNING: NO LENGTH SPECIFIED */'
-        max = int(self['Max']) # @@ 2000-11-12 ce: won't need int() after using types
+        max = int(self['Max'])  # @@ 2000-11-12 ce: won't need int() after using types
         if max > 65535:
             return 'longtext'
         if max > 255:

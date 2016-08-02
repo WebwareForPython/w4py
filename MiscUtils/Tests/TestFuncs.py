@@ -87,14 +87,14 @@ ceremony!\""""
         ip = localIP()
         self.assertTrue(ip)
         self.assertFalse(ip.startswith('127.'))
-        self.assertEqual(localIP(), ip) # second invocation
+        self.assertEqual(localIP(), ip)  # second invocation
         self.assertEqual(localIP(useCache=None), ip)
         self.assertEqual(localIP(remote=None, useCache=None), ip,
             'See if this works: localIP(remote=None).'
             ' If this fails, dont worry.')
         self.assertEqual(localIP(
             remote=('www.aslkdjsfliasdfoivnoiedndfgncvb.com', 80),
-            useCache=None), ip) # not existing remote address
+            useCache=None), ip)  # not existing remote address
 
     def testPositiveId(self):
         # About all we can do is invoke positiveId()

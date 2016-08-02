@@ -2,8 +2,7 @@
 
 """FileList.py
 
-A quick, hacky script to contruct a file list from a set of Python files.
-
+A quick, hacky script to construct a file list from a set of Python files.
 """
 
 

@@ -2,14 +2,14 @@ def test(store):
     from Thing import Thing
 
     things = store.fetchObjectsOfClass('Thing')
-    assert len(things) > 1 # make sure have at least some data to work with
+    assert len(things) > 1  # make sure have at least some data to work with
     for thing in things:
         assert thing.store() == store
 
     dbArgs = store._dbArgs
     newStore = store.__class__(**dbArgs)
     newStore.setModel(store.model())
-    assert newStore != store # paranoia
+    assert newStore != store  # paranoia
 
     things = newStore.fetchObjectsOfClass('Thing')
     assert len(things) > 1
@@ -23,7 +23,7 @@ def test(store):
     try:
         from TestDesign import test as generate
         model = generate('../MKBasic.mkmodel',
-            configFilename=None, workDir='WorkDir2') # toTestDir='../../',
+            configFilename=None, workDir='WorkDir2')  # toTestDir='../../',
 
         diffStore = store.__class__(**dbArgs)
         diffStore.setModel(model)

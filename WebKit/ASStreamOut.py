@@ -1,9 +1,11 @@
-"""This module defines a class for handling writing reponses."""
+"""This module defines a class for handling writing responses."""
 
 debug = False
 
+
 class InvalidCommandSequence(Exception):
     """Invalid command sequence error"""
+
 
 class ConnectionAbortedError(Exception):
     """Connection aborted error"""
@@ -26,7 +28,6 @@ class ASStreamOut(object):
     `flush()`:
         Send the accumulated response data now. Will ask the `Response`
         to commit if it hasn't already done so.
-
     """
 
     def __init__(self, autoCommit=False, bufferSize=8192):
@@ -62,7 +63,6 @@ class ASStreamOut(object):
 
         Returns True if we are ready to send, otherwise False (i.e.,
         if the buffer is full enough).
-
         """
         if self._closed:
             raise ConnectionAbortedError
@@ -84,23 +84,22 @@ class ASStreamOut(object):
     def buffer(self):
         """Return accumulated data which has not yet been flushed.
 
-        We want to be able to get at this data without having to call flush
-        first, so that we can (for example) integrate automatic HTML validation.
-
+        We want to be able to get at this data without having to call
+        flush() first, so that we can (for example) integrate automatic
+        HTML validation.
         """
-        if self._buffer: # if flush has been called, return what was flushed:
+        if self._buffer:  # if flush has been called, return what was flushed
             return self._buffer
-        else: # otherwise return the buffered chunks
+        else:  # otherwise return the buffered chunks
             return ''.join(self._chunks)
 
     def clear(self):
         """Try to clear any accumulated response data.
 
-        Will fail if the response is already sommitted.
-
+        Will fail if the response is already committed.
         """
         if debug:
-            print ">>> strmOut clear called"
+            print ">>> ASSTreamOut clear called"
         if self._committed:
             raise InvalidCommandSequence()
         self._buffer = ''
@@ -110,7 +109,7 @@ class ASStreamOut(object):
     def close(self):
         """Close this buffer. No more data may be sent."""
         if debug:
-            print ">>> ASStream close called"
+            print ">>> ASSTreamOut close called"
         self.flush()
         self._closed = True
         self._committed = True
@@ -125,10 +124,9 @@ class ASStreamOut(object):
         return self._chunkLen + len(self._buffer)
 
     def prepend(self, charstr):
-        """Add the attached string to front of the response buffer.
+        """Add the attached string to the front of the response buffer.
 
         Invalid if we are already committed.
-
         """
         if self.committed() or self.closed():
             raise InvalidCommandSequence()
@@ -141,9 +139,7 @@ class ASStreamOut(object):
     def pop(self, count):
         """Remove count bytes from the front of the buffer."""
         if debug:
-            print "AStreamOut popping %s" % count
-        # should we check for an excessive pop length?
-        assert count <= len(self._buffer)
+            print "ASSTreamOut popping %s" % count
         self._buffer = self._buffer[count:]
 
     def committed(self):
@@ -156,7 +152,6 @@ class ASStreamOut(object):
         Called by the `HTTPResponse` instance that is using this instance
         to ask if the response needs to be prepared to be delivered.
         The response should then commit its headers, etc.
-
         """
         return self._needCommit
 
@@ -164,7 +159,6 @@ class ASStreamOut(object):
         """Called by the Response to tell us to go.
 
         If `_autoCommit` is True, then we will be placed into autoCommit mode.
-
         """
         if debug:
             print ">>> ASStreamOut Committing"

@@ -192,7 +192,6 @@ TO DO
   * Add error checking that a column name is not a number (which could
     cause problems).
   * Reading Excel sheets with xlrd, not only with win32com.
-
 """
 
 
@@ -264,14 +263,12 @@ class TableColumn(object):
     A table column represents a column of the table including name and type.
     It does not contain the actual values of the column. These are stored
     individually in the rows.
-
     """
 
     def __init__(self, spec):
         """Initialize the table column.
 
         The spec parameter is a string such as 'name' or 'name:type'.
-
         """
         if ':' not in spec:
             name, type = spec, None
@@ -291,7 +288,6 @@ class TableColumn(object):
 
         Usually invoked by DataTable to set the default type for columns
         whose types were not specified.
-
         """
         if type:
             try:
@@ -319,7 +315,6 @@ class TableColumn(object):
         type. TableRecord invokes this method to ensure that values (especially
         strings that come from files) are the correct types (e.g., ints are
         ints and floats are floats).
-
         """
         if self._type:
             if isinstance(value, unicode) and self._type is str:
@@ -340,7 +335,6 @@ class DataTable(object):
     """Representation of a data table.
 
     See the doc string for this module.
-
     """
 
     _usePickleCache = True
@@ -456,7 +450,7 @@ class DataTable(object):
             haveReadHeadings = False
             rowNum = row
             numBlankRows = 0
-            valuesBuffer = {} # keyed by row number
+            valuesBuffer = {}  # keyed by row number
             while 1:
                 try:
                     # grab a single row
@@ -506,7 +500,6 @@ class DataTable(object):
 
         It's notable that a blank numeric value gets read as zero
         and written out that way. Also, values None are written as blanks.
-
         """
         # write headings
         file.write(','.join(map(str, self._headings)))
@@ -553,7 +546,6 @@ class DataTable(object):
 
         Headings can be a list of strings (like ['name', 'age:int'])
         or a list of TableColumns or None.
-
         """
         if not headings:
             self._headings = []
@@ -582,7 +574,6 @@ class DataTable(object):
         passing the object to initialize the TableRecord.
         Therefore, obj can be a TableRecord, list, dictionary or object.
         See TableRecord for details.
-
         """
         if not isinstance(obj, TableRecord):
             obj = TableRecord(self, obj)
@@ -628,7 +619,6 @@ class DataTable(object):
         The content is indexed by the particular key. This is useful
         for tables that have a column which represents a unique key
         (such as a name, serial number, etc.).
-
         """
         content = {}
         for row in self:
@@ -646,7 +636,6 @@ class DataTable(object):
 
         Table rows keep a reference to this map in order to speed up
         index-by-names (as in row['name']).
-
         """
         return self._nameToIndexMap
 
@@ -658,7 +647,6 @@ class DataTable(object):
 
         Invoked by self to create the nameToIndexMap after the table's
         headings have been read/initialized.
-
         """
         map = {}
         for i in range(len(self._headings)):
@@ -681,7 +669,6 @@ class TableRecord(object):
             2. A list
             3. A dictionary
             4. Any object responding to hasValueForKey() and valueForKey().
-
         """
         if headings is None:
             self._headings = table.headings()
@@ -732,7 +719,6 @@ class TableRecord(object):
         if the object returns False for hasValueForKey(). In that case, a
         "blank" value is assumed (such as zero or an empty string). If
         hasValueForKey() returns True, then valueForKey() must return a value.
-
         """
         self._values = []
         for heading in self._headings:
@@ -817,7 +803,6 @@ class TableRecord(object):
         """Return a sequence whose values are the same as the record's.
 
         The order of the sequence is the one defined by the table.
-
         """
         # It just so happens that our implementation already has this
         return self._values[:]

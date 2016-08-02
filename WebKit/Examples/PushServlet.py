@@ -12,7 +12,6 @@ class PushServlet(Page):
 
     This will not have the expected functionality on Internet Explorer, as it
     does not support the x-mixed-replace content type. Opera does, though.
-
     """
 
     _boundary = ("if-you-see-this-your-browser-does-not-support"

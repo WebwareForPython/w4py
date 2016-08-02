@@ -92,6 +92,5 @@ password,password
         Returns a list of the valid keys that can be used for a
         "database connection dictionary". These dictionaries are
         found in the config file and in the recent list.
-
         """
         return ['database', 'host', 'user', 'password']

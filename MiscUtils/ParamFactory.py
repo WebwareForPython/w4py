@@ -1,7 +1,6 @@
 """ParamFactory.py
 
 A factory for creating cached, parametrized class instances.
-
 """
 
 from threading import Lock

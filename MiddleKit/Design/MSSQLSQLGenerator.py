@@ -22,7 +22,7 @@ def cleanConstraintName(name):
 class MSSQLSQLGenerator(SQLGenerator):
 
     def sqlSupportsDefaultValues(self):
-        return True # I think it does but I do not know how it is implemented
+        return True  # I think it does but I do not know how it is implemented
 
 
 class Model(object):
@@ -50,7 +50,6 @@ class Klasses(object):
         delete the data, the identities need to be reset. What's even worse
         is that identity resets behave differently depending on whether data
         has existed in them at any given point. It's safer to drop the table.
-
         """
         strList = []
         # strList.append('use %s\ngo\n' % dbName)
@@ -174,7 +173,6 @@ class Klass(object):
 
         This method should use self.sqlIdName() and often ljust()s it
         by self.maxNameWidth().
-
         """
         constraintName = cleanConstraintName('PK__%s__%s'
             % (self.sqlTableName(), self.sqlSerialColumnName()))
@@ -185,7 +183,6 @@ class Klass(object):
         """Return table name.
 
         Returns "[name]" so that table names do not conflict with SQL keywords.
-
         """
         return '[%s]' % self.name()
 
@@ -234,7 +231,7 @@ class Attr(object):
     def sqlColumnName(self):
         """Return the SQL column name corresponding to this attribute."""
         if not hasattr(self, '_sqlColumnName'):
-            self._sqlColumnName = self.name() # + self.sqlTypeSuffix()
+            self._sqlColumnName = self.name()  # + self.sqlTypeSuffix()
         return '[' + self._sqlColumnName + ']'
 
     def uniqueSQL(self):
@@ -316,7 +313,7 @@ class StringAttr(object):
                 # add spaces before and after, to prevent
                 # syntax error if value begins or ends with "
                 value = eval('""" ' + str(value) + ' """')
-                value = repr(value[1:-1]) # trim off the spaces
+                value = repr(value[1:-1])  # trim off the spaces
                 value = value.replace('\\011', '\\t')
                 value = value.replace('\\012', '\\n')
                 value = value.replace("\\'", "''")
@@ -364,7 +361,7 @@ class ObjRefAttr(object):
             # It will complain:
             # "Subqueries are not allowed in this context. Only scalar expressions are allowed."
             # So we pass back some "pre-statements" to set up the scalar in a temp variable.
-            classId, objId = sql.split(',', 1) # objId is the '(select...' part
+            classId, objId = sql.split(',', 1)  # objId is the '(select...' part
             refVarName = str('@ref_%03i_%s'
                 % (ObjRefAttr.refVarCount, self.targetKlass().name()))
             ObjRefAttr.refVarCount += 1
@@ -390,5 +387,5 @@ class FloatAttr(object):
         # ^ use the decimal type instead
 
     def sampleValue(self, value):
-        float(value) # raises exception if value is invalid
+        float(value)  # raises exception if value is invalid
         return value

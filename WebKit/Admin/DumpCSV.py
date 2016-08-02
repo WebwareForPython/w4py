@@ -54,6 +54,5 @@ class DumpCSV(AdminSecurity):
         """Hook for subclasses to customize the contents of a cell.
 
         Based on any criteria (including location).
-
         """
         return value

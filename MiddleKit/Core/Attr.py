@@ -14,7 +14,6 @@ class Attr(MiddleDict, ModelObject):
     """An Attr represents an attribute of a Klass.
 
     The Attr objects behave like dictionaries.
-
     """
 
     def __init__(self, attr):
@@ -43,7 +42,6 @@ class Attr(MiddleDict, ModelObject):
 
         In Python, that means the value cannot be None. In relational theory
         terms, that means the value cannot be NULL.
-
         """
         return self.boolForKey('isRequired')
 
@@ -79,7 +77,6 @@ class Attr(MiddleDict, ModelObject):
         """Return the value of a particular configuration setting taken from the model.
 
         Implementation note: Perhaps a future version should ask the klass and so on up the chain.
-
         """
         return self.model().setting(name, default)
 

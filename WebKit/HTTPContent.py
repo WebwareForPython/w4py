@@ -31,7 +31,6 @@ class HTTPContent(HTTPServlet):
 
     If you plan to produce HTML content, you should start by looking
     at Page instead of this lower-level class.
-
     """
 
 
@@ -45,12 +44,11 @@ class HTTPContent(HTTPServlet):
         the transaction. This is also what allows us to
         implement functions like `write`, where you don't
         need to pass in the transaction or response.
-
         """
         HTTPServlet.awake(self, transaction)
         self._response = transaction.response()
         self._request = transaction.request()
-        self._session = None # don't create unless needed
+        self._session = None  # don't create unless needed
         assert self._transaction is not None
         assert self._response is not None
         assert self._request is not None
@@ -60,7 +58,6 @@ class HTTPContent(HTTPServlet):
 
         Invoked in response to a GET request method. All methods
         are passed to `_respond`.
-
         """
         self._respond(transaction)
 
@@ -69,7 +66,6 @@ class HTTPContent(HTTPServlet):
 
         Invoked in response to a POST request method. All methods
         are passed to `_respond`.
-
         """
         self._respond(transaction)
 
@@ -87,7 +83,6 @@ class HTTPContent(HTTPServlet):
         whereas ``name`` in ``_action_name`` is left unchanged.
 
         Invoked by both `respondToGet` and `respondToPost`.
-
         """
         req = transaction.request()
         prefix = self._actionPrefix
@@ -113,7 +108,6 @@ class HTTPContent(HTTPServlet):
 
         The core method that gets called as a result of requests.
         Subclasses should override this.
-
         """
         pass
 
@@ -121,7 +115,6 @@ class HTTPContent(HTTPServlet):
         """Let servlet sleep again.
 
         We unset some variables. Very boring.
-
         """
         self._session = None
         self._request = None
@@ -154,7 +147,6 @@ class HTTPContent(HTTPServlet):
         This provides a state for the current user
         (associated with a browser instance, really).
         If no session exists, then a session will be created.
-
         """
         if not self._session:
             self._session = self._transaction.session()
@@ -169,7 +161,6 @@ class HTTPContent(HTTPServlet):
         Writes the arguments, which are turned to strings (with `str`)
         and concatenated before being written to the response.
         Unicode strings must be encoded before they can be written.
-
         """
         for arg in args:
             self._response.write(arg)
@@ -179,7 +170,6 @@ class HTTPContent(HTTPServlet):
 
         Writes the arguments (like `write`), adding a newline after.
         Unicode strings must be encoded before they can be written.
-
         """
         for arg in args:
             self._response.write(arg)
@@ -192,7 +182,6 @@ class HTTPContent(HTTPServlet):
         """Declares whether servlet can be threaded.
 
         Returns False because of the instance variables we set up in `awake`.
-
         """
         return False
 
@@ -209,7 +198,6 @@ class HTTPContent(HTTPServlet):
         action method and `postAction`.
 
         Subclasses rarely override this method.
-
         """
         self.preAction(action)
         getattr(self, action)()
@@ -221,7 +209,6 @@ class HTTPContent(HTTPServlet):
         Returns a list or a set of method names that are allowable
         actions from HTML forms. The default implementation returns [].
         See `_respond` for more about actions.
-
         """
         return []
 
@@ -248,7 +235,6 @@ class HTTPContent(HTTPServlet):
         However, it's still provided just in case you need that hook.
 
         By default this does nothing.
-
         """
         pass
 
@@ -264,7 +250,6 @@ class HTTPContent(HTTPServlet):
         it simply returns the name. Subclasses should override this method
         when action names don't match their method names; they could "mangle"
         the action names or look the method names up in a dictionary.
-
         """
         return name
 
@@ -273,16 +258,14 @@ class HTTPContent(HTTPServlet):
         """Quotes special characters using the % substitutions.
 
         This method does the same as the `urllib.quote_plus()` function.
-
         """
-        return Funcs.urlEncode(s) # we could also use urllib.quote
+        return Funcs.urlEncode(s)  # we could also use urllib.quote
 
     @staticmethod
     def urlDecode(s):
         """Turn special % characters into actual characters.
 
         This method does the same as the `urllib.unquote_plus()` function.
-
         """
         return Funcs.urlDecode(s)
 
@@ -293,7 +276,6 @@ class HTTPContent(HTTPServlet):
         See `Application.forward` for details.
         The main difference is that here you don't have
         to pass in the transaction as the first argument.
-
         """
         self.application().forward(self.transaction(), url)
 
@@ -305,7 +287,6 @@ class HTTPContent(HTTPServlet):
         See `Application.includeURL` for details.
         The main difference is that here you don't have
         to pass in the transaction as the first argument.
-
         """
         self.application().includeURL(self.transaction(), url)
 
@@ -315,7 +296,6 @@ class HTTPContent(HTTPServlet):
         See `Application.callMethodOfServlet` for details.
         The main difference is that here you don't have
         to pass in the transaction as the first argument.
-
         """
         return self.application().callMethodOfServlet(
             self.transaction(), url, method, *args, **kwargs)
@@ -330,7 +310,6 @@ class HTTPContent(HTTPServlet):
 
         Note that `sleep` will still be called, providing a
         chance to clean up or free any resources.
-
         """
         raise EndResponse
 
@@ -339,7 +318,6 @@ class HTTPContent(HTTPServlet):
 
         Sends a redirect back to the client and ends the response.
         This is a very popular pattern.
-
         """
         self.response().sendRedirect(url, status)
         self.endResponse()
@@ -353,7 +331,6 @@ class HTTPContent(HTTPServlet):
         """Send redirect to a URL to be retrieved with GET and end.
 
         This is the proper method for the Post/Redirect/Get pattern.
-
         """
         self.response().sendRedirectSeeOther(url)
         self.endResponse()
@@ -372,7 +349,6 @@ class HTTPContent(HTTPServlet):
         Takes a url and adds the session ID as a parameter.
         This is for cases where you don't know if the client
         will accepts cookies.
-
         """
         if url is None:
             url = self.request().uri()
@@ -390,7 +366,6 @@ class HTTPContent(HTTPServlet):
         to the exception report.
 
         See `WebKit.ExceptionHandler` for more information.
-
         """
         handler.writeln('''
 <p>Servlets can provide debugging information here by overriding

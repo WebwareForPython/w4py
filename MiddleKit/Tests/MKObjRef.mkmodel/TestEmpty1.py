@@ -23,7 +23,7 @@ def test(store):
     f1 = b.foo()
     f2 = b.foo()
     assert f1 is not None, 'got None instead of a Foo'
-    assert f1 is f2 # test uniqueness
+    assert f1 is f2  # test uniqueness
     assert b.foo().x() == 3
 
     # Fetch in reverse order
@@ -46,21 +46,21 @@ def test(store):
     except Exception:
         pass
     else:
-        NoException('b.setFoo(None) # None not allowed')
+        NoException('b.setFoo(None)  # None not allowed')
 
     try:
         b.setFoo('x')
     except Exception:
         pass
     else:
-        NoException('b.setFoo("x") # wrong type not allowed')
+        NoException('b.setFoo("x")  # wrong type not allowed')
 
     try:
         b.setFoo(Bar())
     except Exception:
         pass
     else:
-        NoException('b.setFoo(Bar()) # wrong class not allowed')
+        NoException('b.setFoo(Bar())  # wrong class not allowed')
 
 
 def NoException(codeString):

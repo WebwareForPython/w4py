@@ -14,7 +14,6 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 import os
@@ -26,7 +25,6 @@ class PSPContext(object):
     Holds all the common stuff that various parts of the compilation
     will need access to. The items in this class will be used by both
     the compiler and the class generator.
-
     """
 
     def getClassPath(self):
@@ -50,7 +48,6 @@ class PSPContext(object):
         """Return the class name including package prefixes.
 
         Won't use this for now.
-
         """
         raise NotImplementedError
 
@@ -85,7 +82,6 @@ class PSPCLContext(PSPContext):
     Currently used for both command line and PSPServletEngine compilation.
     This class provides all the information necessary during the parsing
     and page generation steps of the PSP compilation process.
-
     """
 
     def __init__(self, pspfile):
@@ -110,7 +106,6 @@ class PSPCLContext(PSPContext):
 
         I am probably doing this in reverse order at the moment.
         I should start with this and get the Python filename from it.
-
         """
         return os.path.split(self._pyFileName)[0]
 
@@ -122,7 +117,6 @@ class PSPCLContext(PSPContext):
         """Return the class name including package prefixes.
 
         Won't use this for now.
-
         """
         raise NotImplementedError
 
@@ -168,7 +162,6 @@ class PSPCLContext(PSPContext):
         It simply returns the location relative to the base context
         directory, ie Examples/. If the filename has a leading /,
         it is assumed to be an absolute path.
-
         """
         if os.path.isabs(uri):
             return uri

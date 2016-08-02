@@ -23,7 +23,6 @@ Make sure all three goals are met:
   * User-defined classes can be used in place of the standard classes
   * Inheritance of generators is supported
   * Class inheritance (like Klasses inheriting ModelObject works)
-
 """
 
 
@@ -43,7 +42,6 @@ class CodeGenerator(ModelUser):
         """Return the name of the generator for informational purposes.
 
         The name the is the class name.
-
         """
         return self.__class__.__name__
 

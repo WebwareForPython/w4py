@@ -13,7 +13,6 @@ class PSPExamplePage(ExamplePage):
 
         Creates a list of dictionaries, where each dictionary stores
         information about a particular script.
-
         """
         examples = []
         filesyspath = self.request().serverSidePath()

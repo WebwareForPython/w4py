@@ -22,7 +22,7 @@ print '''<!DOCTYPE HTML SYSTEM>
 ''' % (bgcolorArg, bgcolor)
 
 space = '&nbsp;'*10
-gamma = 2.2 # an approximation for today's CRTs, see "brightness =" below
+gamma = 2.2  # an approximation for today's CRTs, see "brightness =" below
 
 for r in range(11):
     r /= 10.0

@@ -10,7 +10,6 @@ class AdminPage(SidebarPage):
 
     Subclasses typically override title() and writeContent(), but may
     customize other methods.
-
     """
 
     def cornerTitle(self):
@@ -38,7 +37,6 @@ class AdminPage(SidebarPage):
         """Utility method for writeMenu() to get the size of a configuration file.
 
         Returns an HTML string.
-
         """
         filename = self.application().setting(filename)
         if os.path.exists(filename):

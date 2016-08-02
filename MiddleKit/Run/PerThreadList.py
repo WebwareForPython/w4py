@@ -11,11 +11,10 @@ class PerThreadList(object):
     the list, only thread A sees that item.  There are a few non-standard
     methods (clear, isEmpty), too.
 
-    This is implementated by keeping a dictionary of lists; one for each
+    This is implemented by keeping a dictionary of lists; one for each
     thread. The implementation is not a complete list wrapper; only some
     methods are implemented. If more methods are needed, see UserList
     (in the standard Python lib) for inspiration.
-
     """
 
     def __init__(self):
@@ -40,7 +39,6 @@ class PerThreadList(object):
 
         We need this method, because it obviously won't work for user code
         to do: list = [].
-
         """
         if allThreads:
             self.data = {}
@@ -92,7 +90,6 @@ class NonThreadedList(object):
     NonThreadedList behaves like a normal list.  Its only purpose is
     to provide a compatible interface to PerThreadList, so that they
     can be used interchangeably.
-
     """
 
     def __init__(self):
@@ -112,7 +109,6 @@ class NonThreadedList(object):
 
         We need this method, because it obviously won't work for user code
         to do: list = [].
-
         """
         self.data = []
 

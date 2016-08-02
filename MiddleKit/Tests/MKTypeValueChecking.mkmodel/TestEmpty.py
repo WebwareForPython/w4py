@@ -5,7 +5,6 @@ def typeErrors(obj, value, skipAttrs=[]):
     Attempts to set every attribute of object to the given value,
     expecting that TypeError will be raised. skipAttrs can be used to
     give a list of attribute names to by pass.
-
     """
     for attr in obj.klass().allAttrs():
         if attr.name() not in skipAttrs:
@@ -28,7 +27,7 @@ def test(store):
 
     class Blarg(object):
         pass
-    blarg = Blarg() # a dummy object, incompatible with everything
+    blarg = Blarg()  # a dummy object, incompatible with everything
 
     f = Foo()
     typeErrors(f, blarg)
@@ -59,7 +58,7 @@ def test(store):
         raise Exception('expecting ValueError for invalid enum')
 
     # Numerics that pass
-    f.setI(1L) # ints can take longs that fit in the int range
-    f.setL(1) # longs can take ints
-    f.setF(1) # floats can take ints
-    f.setF(1L) # floats can take longs
+    f.setI(1L)  # ints can take longs that fit in the int range
+    f.setL(1)  # longs can take ints
+    f.setF(1)  # floats can take ints
+    f.setF(1L)  # floats can take longs

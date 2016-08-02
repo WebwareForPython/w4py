@@ -16,7 +16,6 @@ class CgiPlusHandler(object):
     """Handle incoming requests.
 
     Recreated with every request. Abstract base class.
-
     """
 
     def __init__(self, env, rfile, wfile):
@@ -30,7 +29,6 @@ class CgiPlusHandler(object):
 
         Actually performs the request, creating the environment and
         calling self.doTransaction(env, myInput) to perform the response.
-
         """
         myInput = ''
         self._discardOutput = False
@@ -45,7 +43,6 @@ class CgiPlusHandler(object):
 
         Takes a string (like what a CGI script would print) and
         sends the actual HTTP response (response code, headers, body).
-
         """
         if self._discardOutput:
             return
@@ -57,7 +54,6 @@ class CgiPlusHandler(object):
 
         If there's a Location header and no Status header,
         we need to add a Status header ourselves.
-
         """
         if 'Location' in headers:
             if 'Status' not in headers:
@@ -95,7 +91,6 @@ class CgiPlusAppServerHandler(Handler, CgiPlusHandler):
 
     Adapters CgiPlusHandler to fit with CgiPlusAppServer's
     model of an adapter.
-
     """
 
     protocolName = 'CgiPlus'

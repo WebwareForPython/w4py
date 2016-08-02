@@ -200,9 +200,9 @@ the <tt class="docutils literal">Pics</tt> directory.</p>
 album, and another <tt class="docutils literal">View.py</tt> for individual pictures. Place these two servlets
 in the default context directory. First, <tt class="docutils literal">Main.py</tt>:</p>
 <pre class="literal-block">
-from WebKit.Page import Page # the base class for web pages
+from WebKit.Page import Page  # the base class for web pages
 import os
-import Image # the Python Imaging Library
+import Image  # the Python Imaging Library
 from urllib import quote as urlEncode
 dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
@@ -278,9 +278,9 @@ PIL, and slighly improve the image index.</p>
 manually -- thumbnails will be put in the directory <tt class="docutils literal">Thumbs</tt> and have <tt class="docutils literal"><span class="pre">-tn</span></tt>
 appended to the name just to avoid confusion:</p>
 <pre class="literal-block">
-from WebKit.Page import Page # the base page class
+from WebKit.Page import Page  # the base page class
 import os
-import Image # the Python Imaging Library
+import Image  # the Python Imaging Library
 from urllib import quote as urlEncode
 baseDir = os.path.dirname(__file__)
 picsDir = os.path.join(baseDir, 'Pics')
@@ -296,12 +296,12 @@ class Main(Page):
         self.writeln('&lt;h1 style=&quot;text-align:center&quot;&gt;%s&lt;/h1&gt;' % self.title())
         # We'll format these in a table, two columns wide
         self.writeln('&lt;table width=&quot;100%&quot;&gt;')
-        col = 0 # will be 0 for the left and 1 for the right column
+        col = 0  # will be 0 for the left and 1 for the right column
         filenames = os.listdir(picsDir)
         # We'll sort the files, case-insensitive
         filenames.sort(key=lambda filename: filename.lower())
         for filename in filenames:
-            if not col: # left column
+            if not col:  # left column
                 self.write('&lt;tr style=&quot;text-align:center&quot;&gt;')
             thumbFilename = os.path.splitext(filename)
             thumbFilename = '%s-tn%s' % thumbFilename
@@ -321,7 +321,7 @@ class Main(Page):
                 '&lt;p&gt;Filename: %s&lt;br&gt;Size: %i Bytes&lt;/p&gt;'
                 % (url, url, im.size[0], im.size[1], filename,
                 os.stat(os.path.join(picsDir, filename)).st_size))
-            if col: # right column
+            if col:  # right column
                 self.writeln('&lt;/tr&gt;')
             col = not col
         self.write('&lt;/table&gt;')

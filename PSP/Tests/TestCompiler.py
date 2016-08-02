@@ -1,7 +1,6 @@
 """Automated tests for PSPCompiler
 
 (c) Copyright by Winston Wolff, 2004 http://www.stratolab.com
-
 """
 
 import os
@@ -33,7 +32,6 @@ class TestCompiler(unittest.TestCase):
         the Python class object.
 
         classname = some string so that each file is unique per test case.
-
         """
         # write string to temporary file
         moduleName = "tmp_TestCompiler_" + classname

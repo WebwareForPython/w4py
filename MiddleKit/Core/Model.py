@@ -37,10 +37,9 @@ class Model(Configurable):
 
     It also provides access to the Python classes that implement these structures
     for use by other MiddleKit entities including code generators and object stores.
-
     """
 
-    pickleProtocol = -1 # highest protocol available
+    pickleProtocol = -1  # highest protocol available
 
     def __init__(self,
             filename=None, classesFilename=None, configFilename=None,
@@ -52,7 +51,7 @@ class Model(Configurable):
         self._coreClasses = customCoreClasses
         self._klasses = None
         self._name = None
-        self._parents = [] # e.g., parent models
+        self._parents = []  # e.g., parent models
         self._pyClassForName = {}
 
         # _allModelsByFilename is used to avoid loading the same parent model twice
@@ -89,12 +88,12 @@ class Model(Configurable):
         if isClassesFile:
             self.dontReadParents()
         else:
-            self.readParents() # the norm
+            self.readParents()  # the norm
         try:
             if isClassesFile:
                 self.readKlassesDirectly(filename)
             else:
-                self.readKlassesInModelDir() # the norm
+                self.readKlassesInModelDir()  # the norm
             self.awakeFromRead()
         except ModelError, e:
             print
@@ -112,7 +111,7 @@ class Model(Configurable):
         if os.path.exists(xlPath):
             path = xlPath
         if path is None:
-            open(csvPath) # to get a properly constructed IOError
+            open(csvPath)  # to get a properly constructed IOError
 
         self.readKlassesDirectly(path)
 
@@ -166,7 +165,6 @@ class Model(Configurable):
 
         Reads the parent models of the current model, as specified in the
         'Inherit' setting. The attributes _parents and _searchOrder are set.
-
         """
         if parentFilenames is None:
             parentFilenames = self.setting('Inherit', [])
@@ -203,7 +201,6 @@ class Model(Configurable):
 
         Used internally for the rare case of reading class files directly
         (instead of from a model directory).
-
         """
         self._parents = []
         self._searchOrder = [self]
@@ -217,7 +214,6 @@ class Model(Configurable):
 
         Mostly useful for readParents() to establish the lookup
         order regarding model inheritance.
-
         """
         if parents is None:
             parents = []
@@ -231,7 +227,6 @@ class Model(Configurable):
 
         For the given name, returns a class from MiddleKit.Core
         or the custom set of classes that were passed in via initialization.
-
         """
         pyClass = self._coreClasses.get(className)
         if pyClass is None:
@@ -255,7 +250,6 @@ class Model(Configurable):
         classes passed to __init__, if any.
 
         See also: klass(), allKlassesInOrder(), allKlassesByName()
-
         """
         if self._klasses is None:
             Klasses = self.coreClass('Klasses')
@@ -267,7 +261,6 @@ class Model(Configurable):
 
         Returns the klass with the given name, searching the parent
         models if necessary.
-
         """
         for model in self._searchOrder:
             klass = model.klasses().get(name)
@@ -285,7 +278,6 @@ class Model(Configurable):
         name, including klasses inherited from parent models.
 
         The order is the order of declaration, top-down.
-
         """
         return self._allKlassesInOrder
 
@@ -294,7 +286,6 @@ class Model(Configurable):
 
         Returns a dictionary of all the klasses in this model, unique
         by name, including klasses inherited from parent models.
-
         """
         return self._allKlassesByName
 
@@ -311,7 +302,6 @@ class Model(Configurable):
         since there can be no definitive order when a cycle exists.
         You can break cycles by setting Ref=False for some
         attribute in the cycle.
-
         """
         for klass in self._allKlassesInOrder:
             klass.willBuildDependencies()
@@ -342,7 +332,6 @@ class Model(Configurable):
 
         If you already have a reference to the model klass, then you can
         just ask it for klass.pyClass().
-
         """
         pyClass = self._pyClassForName.get(name)
         if pyClass is None:
@@ -383,9 +372,9 @@ class Model(Configurable):
             # SQLLog = {'File': 'stdout'},
             PreSQL = '',
             PostSQL = '',
-            DropStatements = 'database', # database, tables
-            SQLSerialColumnName = 'serialNum', # can use [cC]lassName, _ClassName
-            AccessorStyle = 'methods', # can be 'methods' or 'properties'
+            DropStatements = 'database',  # database, tables
+            SQLSerialColumnName = 'serialNum',  # can use [cC]lassName, _ClassName
+            AccessorStyle = 'methods',  # can be 'methods' or 'properties'
             ExternalEnumsSQLNames = dict(
                 Enable = False,
                 TableName = '%(ClassName)s%(AttrName)sEnum',

@@ -198,9 +198,9 @@ We do this with two servlets -- one servlet ``Main.py`` to show the entire
 album, and another ``View.py`` for individual pictures. Place these two servlets
 in the default context directory. First, ``Main.py``::
 
-    from WebKit.Page import Page # the base class for web pages
+    from WebKit.Page import Page  # the base class for web pages
     import os
-    import Image # the Python Imaging Library
+    import Image  # the Python Imaging Library
     from urllib import quote as urlEncode
     dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
@@ -277,9 +277,9 @@ We'll generate thumbnails kind of on demand, so you can still upload files
 manually -- thumbnails will be put in the directory ``Thumbs`` and have ``-tn``
 appended to the name just to avoid confusion::
 
-    from WebKit.Page import Page # the base page class
+    from WebKit.Page import Page  # the base page class
     import os
-    import Image # the Python Imaging Library
+    import Image  # the Python Imaging Library
     from urllib import quote as urlEncode
     baseDir = os.path.dirname(__file__)
     picsDir = os.path.join(baseDir, 'Pics')
@@ -295,12 +295,12 @@ appended to the name just to avoid confusion::
             self.writeln('<h1 style="text-align:center">%s</h1>' % self.title())
             # We'll format these in a table, two columns wide
             self.writeln('<table width="100%">')
-            col = 0 # will be 0 for the left and 1 for the right column
+            col = 0  # will be 0 for the left and 1 for the right column
             filenames = os.listdir(picsDir)
             # We'll sort the files, case-insensitive
             filenames.sort(key=lambda filename: filename.lower())
             for filename in filenames:
-                if not col: # left column
+                if not col:  # left column
                     self.write('<tr style="text-align:center">')
                 thumbFilename = os.path.splitext(filename)
                 thumbFilename = '%s-tn%s' % thumbFilename
@@ -320,7 +320,7 @@ appended to the name just to avoid confusion::
                     '<p>Filename: %s<br>Size: %i Bytes</p>'
                     % (url, url, im.size[0], im.size[1], filename,
                     os.stat(os.path.join(picsDir, filename)).st_size))
-                if col: # right column
+                if col:  # right column
                     self.writeln('</tr>')
                 col = not col
             self.write('</table>')

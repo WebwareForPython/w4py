@@ -14,7 +14,6 @@ class RoleUser(User):
     See also:
       * class Role
       * class HierRole
-
     """
 
 
@@ -32,7 +31,6 @@ class RoleUser(User):
         """Return a direct list of the user's roles.
 
         Do not modify.
-
         """
         return self._roles
 
@@ -42,7 +40,6 @@ class RoleUser(User):
         Each role in the list may be a valid role name or a Role object.
 
         Implementation note: depends on addRoles().
-
         """
         self._roles = []
         self.addRoles(listOfRoles)
@@ -51,7 +48,6 @@ class RoleUser(User):
         """Add additional roles for the user.
 
         Each role in the list may be a valid role name or a Role object.
-
         """
         start = len(self._roles)
         self._roles.extend(listOfRoles)
@@ -76,7 +72,6 @@ class RoleUser(User):
         The application of this popular method often looks like this:
             if user.playsRole('admin'):
                 self.displayAdminMenuItems()
-
         """
         if isinstance(roleOrName, basestring):
             roleOrName = self._manager.roleForName(roleOrName)

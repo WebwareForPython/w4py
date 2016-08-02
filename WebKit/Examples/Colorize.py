@@ -11,14 +11,12 @@ class Colorize(Page):
     Set a variable 'filename' in the request so I know which file to work on.
     This also demonstrates forwarding. The View servlet actually forwards
     its request here.
-
     """
 
     def respond(self, transaction):
         """Write out a syntax hilighted version of the file.
 
         The filename is an attribute of the request object.
-
         """
         res = transaction._response
         req = self.request()
@@ -39,6 +37,6 @@ class Colorize(Page):
         sys.stdout = myout
         py2html.main((None, '-stdout', '-files', filename))
         results = myout.getvalue()
-        results = results.replace('\t', '    ') # 4 spaces per tab
+        results = results.replace('\t', '    ')  # 4 spaces per tab
         res.write(results)
         sys.stdout = stdout

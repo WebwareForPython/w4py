@@ -5,7 +5,6 @@ def FixPathForMiddleKit(verbose=0):
     that contains him, as opposed to whatever happens to be found first in the
     Python path. That's an subtle but important feature for those of us who
     sometimes have more than one MiddleKit on our systems.
-
     """
     v = verbose
     import os, sys

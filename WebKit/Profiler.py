@@ -41,7 +41,6 @@ readyDuration
     was ready to start accepting requests. A smaller readyDuration
     makes application reloading faster which is useful when
     developing with AutoReload on.
-
 """
 
 profiler = startTime = readyTime = readyDuration = None

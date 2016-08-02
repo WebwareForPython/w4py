@@ -10,7 +10,6 @@ class TaskHandler(object):
     the TaskHandler has all the knowledge about the periodicity of the task.
     Instances of this class are managed by the Scheduler in the scheduled,
     running and onDemand dictionaries.
-
     """
 
 
@@ -54,7 +53,6 @@ class TaskHandler(object):
 
         Increments the startTime and returns true if this is
         a periodically executed task.
-
         """
         if self._period == 0 or not self._reregister:
             return False
@@ -87,7 +85,6 @@ class TaskHandler(object):
 
         This method lets the Scheduler check to see whether this task should be
         re-run when it terminates.
-
         """
         return self._rerun
 
@@ -103,7 +100,6 @@ class TaskHandler(object):
 
         Intended for on-demand tasks that are requested by the Scheduler while
         they are already running.
-
         """
         self._rerun = True
 
@@ -111,7 +107,6 @@ class TaskHandler(object):
         """Request that this task not be kept after its current completion.
 
         Used to remove a task from the scheduler.
-
         """
         self._reregister = False
         self._rerun = False

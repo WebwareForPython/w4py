@@ -14,7 +14,6 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 from MiscUtils import StringIO
@@ -44,18 +43,17 @@ class PSPParser(object):
     when the time comes. When they return, they return true if they accept
     the character, and the PSPReader object cursor is positioned past the
     end of the block that the checker method accepted.
-
     """
 
-    checklist = checklist # global list of checker methods
+    checklist = checklist  # global list of checker methods
 
     def __init__(self, ctxt):
         self._reader = ctxt.getReader()
         self._writer = ctxt.getServletWriter()
         self._handler = None
-        self.cout = StringIO() # for dumping HTML that none of the check wants
-        self.tmplStart = None # marks the start of HTML code
-        self.tmplStop = None # marks the end of HTML code
+        self.cout = StringIO()  # for dumping HTML that none of the check wants
+        self.tmplStart = None  # marks the start of HTML code
+        self.tmplStop = None  # marks the end of HTML code
         self.currentFile = self._reader.mark().getFile()
 
     def setEventHandler(self, handler):
@@ -67,11 +65,10 @@ class PSPParser(object):
 
         Dump all the HTML that we've accumulated over to the character data
         handler in the event handler object.
-
         """
         data = self.cout.getvalue()
         self.cout.close()
-        if data: # make sure there's something there
+        if data:  # make sure there's something there
             self._handler.handleCharData(start, stop, data)
         self.cout = StringIO()
 
@@ -91,7 +88,7 @@ class PSPParser(object):
         """Look for "expressions" and handle them."""
         if not reader.matches('<%='):
             return False
-        reader.advance(3) # eat the opening tag
+        reader.advance(3)  # eat the opening tag
         reader.peekChar()
         reader.skipSpaces()
         start = reader.mark()
@@ -129,9 +126,9 @@ class PSPParser(object):
             checkAttributes('Include directive', attrs, (['file'], []))
         else:
             raise PSPParserException('%s directive not implemented' % match)
-        reader.skipSpaces() # skip to where we expect a close tag
+        reader.skipSpaces()  # skip to where we expect a close tag
         if reader.matches('%>'):
-            reader.advance(2) # advance past it
+            reader.advance(2)  # advance past it
         else:
             raise PSPParserException('Directive not terminated')
         stop = reader.mark()
@@ -193,7 +190,6 @@ class PSPParser(object):
             print 'hi Mome!'
             def foo(): return 'foo'
         </psp:file>
-
         """
         if not reader.matches('<psp:file>'):
             return False
@@ -221,7 +217,6 @@ class PSPParser(object):
             def foo(self):
                 return self.dosomething()
         </psp:class>
-
         """
         if not reader.matches('<psp:class>'):
             return False
@@ -246,7 +241,6 @@ class PSPParser(object):
         We only support one format for these,
         <psp:method name="xxx" params="xxx,xxx">
         Then the function body, then </psp:method>.
-
         """
         if not reader.matches('<psp:method'):
             return False
@@ -291,7 +285,6 @@ class PSPParser(object):
         No big hurry for this. It's almost the same as the page include
         directive.  This is only a partial implementation of what JSP does.
         JSP can pull it from another server, servlet, JSP page, etc.
-
         """
         if not reader.matches('<psp:insert'):
             return False
@@ -330,7 +323,7 @@ class PSPParser(object):
                 if not noPspElement:
                     self.tmplStart = reader.mark()
                     noPspElement = True
-                s = reader.nextContent() # skip till the next possible tag
-                self.tmplStop = reader.mark() # mark the end of HTML data
-                self.cout.write(s) # write out the raw HTML data
-            self.flushCharData(self.tmplStart, self.tmplStop) # dump the rest
+                s = reader.nextContent()  # skip till the next possible tag
+                self.tmplStop = reader.mark()  # mark the end of HTML data
+                self.cout.write(s)  # write out the raw HTML data
+            self.flushCharData(self.tmplStart, self.tmplStop)  # dump the rest

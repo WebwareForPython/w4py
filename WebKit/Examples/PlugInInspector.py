@@ -7,7 +7,6 @@ class PlugInInspector(ExamplePage):
     This example is not public yet.
     And this should probably just be axed and something
     real added in Admin/PlugIns.
-
     """
 
     def writeContent(self):

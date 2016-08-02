@@ -12,7 +12,6 @@ class RPCServlet(HTTPServlet):
         """Call custom method.
 
         Subclasses may override this class for custom handling of methods.
-
         """
         if methodName in self.exposedMethods():
             return getattr(self, methodName)(*args, **keywords)
@@ -25,7 +24,6 @@ class RPCServlet(HTTPServlet):
 
         Subclasses should return a list of methods that will be exposed
         through XML-RPC.
-
         """
         return ['exposedMethods']
 
@@ -35,7 +33,6 @@ class RPCServlet(HTTPServlet):
         Given an unhandled exception, returns the string that should be
         sent back in the RPC response as controlled by the
         RPCExceptionReturn setting.
-
         """
         # report exception back to server
         setting = trans.application().setting('RPCExceptionReturn')
@@ -69,7 +66,6 @@ class RPCServlet(HTTPServlet):
         the response) and then handle the exception in the standard WebKit way.
         This means logging it to the console, storing it in the error log,
         sending error email, etc. depending on the settings.
-
         """
         setting = transaction.application().setting('ReportRPCExceptionsInWebKit')
         if setting:
@@ -81,7 +77,6 @@ class RPCServlet(HTTPServlet):
         """Get the corresponding transaction.
 
         Most uses of RPC will not need this.
-
         """
         return self._transaction
 

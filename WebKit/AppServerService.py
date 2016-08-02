@@ -45,7 +45,6 @@ Please note that the AppServer looks for the pid file in the working
 directory, so use different working directories for different services.
 And of course, you have to adapt the respective AppServer.config files
 so that there will be no conflicts in the used ports.
-
 """
 
 # FUTURE
@@ -142,7 +141,7 @@ class AppServerService(win32serviceutil.ServiceFramework):
         if self._server:
             if self._server._running > 2:
                 self._server.initiateShutdown()
-            for i in range(30): # wait at most 3 seconds for shutdown
+            for i in range(30):  # wait at most 3 seconds for shutdown
                 if not self._server:
                     break
                 time.sleep(0.1)
@@ -161,16 +160,16 @@ class AppServerService(win32serviceutil.ServiceFramework):
                 # Switch the output to the logFile specified above:
                 stdout, stderr = sys.stdout, sys.stderr
                 logFile = self._logFile
-                if logFile: # logFile has been specified
+                if logFile:  # logFile has been specified
                     if os.path.exists(logFile):
-                        log = open(logFile, 'a', 1) # append line buffered
+                        log = open(logFile, 'a', 1)  # append line buffered
                         log.write('\n' + '-' * 68 + '\n\n')
                     else:
-                        log = open(logFile, 'w', 1) # write line buffered
-                else: # no logFile
+                        log = open(logFile, 'w', 1)  # write line buffered
+                else:  # no logFile
                     # Make all output go nowhere. Otherwise, print statements
                     # cause the service to crash, believe it or not.
-                    log = open('nul', 'w') # os.devnull on Windows
+                    log = open('nul', 'w')  # os.devnull on Windows
                 sys.stdout = sys.stderr = log
                 # By default, Webware is searched in the parent directory:
                 webwareDir = self._webwareDir
@@ -182,24 +181,24 @@ class AppServerService(win32serviceutil.ServiceFramework):
                 __name__ = __name__.rsplit('.', 1)[-1]
                 __package__ = None
                 # Check the validity of the Webware directory:
-                sysPath = sys.path # memorize the standard Python search path
-                sys.path = [webwareDir] # now include only the Webware directory
+                sysPath = sys.path  # memorize the standard Python search path
+                sys.path = [webwareDir]  # include only the Webware directory
                 # Check whether Webware is really located here
                 from Properties import name as webwareName
                 from WebKit.Properties import name as webKitName
                 if webwareName != 'Webware for Python' or webKitName != 'WebKit':
                     raise ImportError
                 # Now assemble a new clean Python search path:
-                path = [] # the new search path will be collected here
+                path = []  # the new search path will be collected here
                 webKitDir = os.path.abspath(os.path.join(webwareDir, 'WebKit'))
                 for p in [workDir, webwareDir] + self._libraryDirs + sysPath:
                     if not p:
-                        continue # do not include empty ("current") directory
+                        continue  # do not include empty ("current") directory
                     p = os.path.abspath(p)
                     if p == webKitDir or p in path or not os.path.exists(p):
-                        continue # do not include WebKit and duplicates
+                        continue  # do not include WebKit and duplicates
                     path.append(p)
-                sys.path = path # set the new search path
+                sys.path = path  # set the new search path
                 # Import the Profiler:
                 from WebKit import Profiler
                 Profiler.startTime = time.time()
@@ -212,7 +211,7 @@ class AppServerService(win32serviceutil.ServiceFramework):
                         'See docstring in Profiler.py for more info.')
                     print
                 self._server = getattr(appServerModule, appServer)(workDir)
-                sys.stdout = sys.stderr = log # in case this has been reset
+                sys.stdout = sys.stderr = log  # in case this has been reset
                 print
                 sys.stdout.flush()
                 if self._runProfile:
@@ -226,7 +225,7 @@ class AppServerService(win32serviceutil.ServiceFramework):
                     Profiler.runCall(self._server.mainloop)
                 else:
                     self._server.mainloop()
-                sys.stdout = sys.stderr = log # in case this has been reset
+                sys.stdout = sys.stderr = log  # in case this has been reset
                 print
                 sys.stdout.flush()
                 if self._server._running:

@@ -1,17 +1,17 @@
 
 connectionPool = True
 try:
-    import psycopg2 as dbi # psycopg2 version 2
+    import psycopg2 as dbi  # psycopg2 version 2
     from psycopg2 import Warning, DatabaseError
     from psycopg2.extensions import QuotedString
 except ImportError:
     try:
-        import psycopg as dbi # psycopg version 1
+        import psycopg as dbi  # psycopg version 1
         from psycopg import Warning, DatabaseError
         from psycopg.extensions import QuotedString
     except ImportError:
         connectionPool = False
-        import pgdb as dbi # PyGreSQL
+        import pgdb as dbi  # PyGreSQL
         from pgdb import Warning, DatabaseError
         def QuotedString(s):
             return "'%s'" % s.replace("\\", "\\\\").replace("'", "''")
@@ -36,7 +36,6 @@ class PostgreSQLObjectStore(SQLObjectStore):
       - client_flag
 
     You wouldn't use the 'db' argument, since that is determined by the model.
-
     """
 
     def augmentDatabaseArgs(self, args, pool=False):

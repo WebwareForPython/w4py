@@ -16,6 +16,5 @@ class RoleUserManagerToMiddleKit(UserManagerToMiddleKit, RoleUserManagerMixIn):
 
         Overridden to pass on the semantics we inherit from
         RoleUsersManagerMixIn. The user class is a MiddleKit issue for us.
-
         """
         pass

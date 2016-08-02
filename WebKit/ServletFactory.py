@@ -27,7 +27,6 @@ class ServletFactory(object):
     Do not invoke the base class methods as they all raise AbstractErrors.
 
     Each method is documented below.
-
     """
 
 
@@ -39,7 +38,6 @@ class ServletFactory(object):
         Stores a reference to the application in self._app, because
         subclasses may or may not need to talk back to the application
         to do their work.
-
         """
         self._app = application
         self._imp = self._app._imp
@@ -65,7 +63,6 @@ class ServletFactory(object):
         """Return the name of the factory.
 
         This is a convenience for the class name.
-
         """
         return self.__class__.__name__
 
@@ -79,7 +76,6 @@ class ServletFactory(object):
         Return values are 'file', 'extension' and 'application'.
 
         NOTE: Application only supports 'file' uniqueness at this point in time.
-
         """
         raise AbstractError(self.__class__)
 
@@ -89,7 +85,6 @@ class ServletFactory(object):
         Extensions should include the dot. An empty string indicates a file
         with no extension and is a valid value. The extension '.*' is a special
         case that is looked for a URL's extension doesn't match anything.
-
         """
         raise AbstractError(self.__class__)
 
@@ -110,7 +105,6 @@ class ServletFactory(object):
 
         Note that the module imported may have a different name from the
         servlet name specified in the URL. This is used in PSP.
-
         """
 
         # Pull out the full server side path and the context path
@@ -177,7 +171,6 @@ class ServletFactory(object):
 
         If isPackageDir is True, then this function creates an empty
         __init__.py if that file doesn't already exist.
-
         """
         if debug:
             print __file__, fullModuleName, moduleName, directory
@@ -192,7 +185,7 @@ class ServletFactory(object):
                 # the __init__.py file may only exist in compiled form
                 if os.path.exists(initPy + ext):
                     break
-            else: # if it does not exist, make an empty one
+            else:  # if it does not exist, make an empty one
                 file = open(initPy, 'w')
                 file.write('#')
                 file.close()
@@ -207,7 +200,6 @@ class ServletFactory(object):
         Given a transaction and a path, load the class for creating these
         servlets. Caching, pooling, and threadsafeness are all handled by
         servletForTransaction. This method is not expected to be threadsafe.
-
         """
         raise AbstractError(self.__class__)
 
@@ -220,7 +212,6 @@ class ServletFactory(object):
         This method handles caching, and will call loadClass(trans, filepath)
         if no cache is found. Caching is generally controlled by servlets
         with the canBeReused() and canBeThreaded() methods.
-
         """
         request = transaction.request()
         path = request.serverSidePath()
@@ -299,7 +290,6 @@ class ServletFactory(object):
 
         Called by Servlet.close(), which returns the servlet
         to the servlet pool if necessary.
-
         """
         if (servlet.canBeReused() and not servlet.canBeThreaded()
                 and self._cacheInstances):
@@ -311,7 +301,6 @@ class ServletFactory(object):
 
         Servlets that are currently in the wild may find their way back
         into the cache (this may be a problem).
-
         """
         self._importLock.acquire()
         self._classCache = {}
@@ -329,7 +318,6 @@ class PythonServletFactory(ServletFactory):
     This is the factory for ordinary Python servlets whose extensions
     are empty or .py. The servlets are unique per file since the file
     itself defines the servlet.
-
     """
 
 

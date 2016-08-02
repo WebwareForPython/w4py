@@ -41,7 +41,6 @@ class Session(object):
         be common to all transaction objects that do the
         awake()-respond()-sleep() thing? And should there be an
         abstract super class to codify that?
-
     """
 
 
@@ -94,7 +93,6 @@ class Session(object):
         Returns the last time the user accessed the session through
         interaction. This attribute is updated in awake(), which is
         invoked at the beginning of a transaction.
-
         """
         return self._lastAccessTime
 
@@ -102,7 +100,6 @@ class Session(object):
         """Return a string that uniquely identifies the session.
 
         This method will create the identifier if needed.
-
         """
         return self._identifier
 
@@ -118,7 +115,6 @@ class Session(object):
         """Check whether the session has been previously expired.
 
         See also: expiring()
-
         """
         return getattr(self, '_isExpired', False) or self._timeout == 0
 
@@ -141,7 +137,6 @@ class Session(object):
         """Invalidate the session.
 
         It will be discarded the next time it is accessed.
-
         """
         self._lastAccessTime = 0
         self._values = {}
@@ -192,7 +187,6 @@ class Session(object):
         Invoked during the beginning of a transaction, giving a Session an
         opportunity to perform any required setup. The default implementation
         updates the 'lastAccessTime'.
-
         """
         self._lastAccessTime = time()
         self._numTrans += 1
@@ -202,7 +196,6 @@ class Session(object):
 
         The default implementation does nothing, but could do something
         in the future. Subclasses should invoke super.
-
         """
         pass
 
@@ -213,7 +206,6 @@ class Session(object):
         opportunity to perform any required shutdown. The default
         implementation does nothing, but could do something in the future.
         Subclasses should invoke super.
-
         """
         pass
 
@@ -223,7 +215,6 @@ class Session(object):
         Called when session is expired by the application.
         Subclasses should invoke super.
         Session store __delitem__()s should invoke if not isExpired().
-
         """
         self._isExpired = True
 
@@ -233,7 +224,7 @@ class Session(object):
     def sessionEncode(self, url):
         """Encode the session ID as a parameter to a url."""
         import urlparse
-        url = list(urlparse.urlparse(url)) # make a list
+        url = list(urlparse.urlparse(url))  # make a list
         if url[4]:
             url[4] += '&'
         url[4] += '%s=%s' % (self._sessionName, self.identifier())

@@ -9,7 +9,6 @@ FUTURE
   * Look for an install.py in each component directory and run it
     (there's not a strong need right now).
   * Use distutils or setuptools instead of our own plugin concept.
-
 """
 
 
@@ -41,7 +40,6 @@ class Installer(object):
 
     The _comps attribute is a list of components,
     each of which is an instance of MiscUtils.PropertiesObject.
-
     """
 
 
@@ -216,7 +214,7 @@ class Installer(object):
                 password = ''.join(map(choice, [letters + digits]*8))
             else:
                 password = defpass
-        try: # read config file
+        try:  # read config file
             data = open(appConfig).read()
         except IOError:
             print 'Error reading Application.config file.'
@@ -226,9 +224,9 @@ class Installer(object):
         # and replace '...' with the content of the 'password' variable:
         if data.lstrip().startswith('{'):
             pattern = "('AdminPassword'\s*:)\s*'.*?'"
-        else: # keyword arguments style
+        else:  # keyword arguments style
             pattern = "(AdminPassword\\s*=)\\s*['\"].*?['\"]"
-        repl = "\g<1> '%s'" % password.replace( # escape critical characters
+        repl = "\g<1> '%s'" % password.replace(  # escape critical characters
             '\\', '\\\\\\\\').replace("'", "\\\\'").replace('%', '\\\\045')
         from re import subn
         data, count = subn(pattern, repl, data)
@@ -239,7 +237,7 @@ class Installer(object):
             else:
                 print "'AdminPassword' not found in config file."
             return
-        try: # write back config file
+        try:  # write back config file
             open(appConfig, 'w').write(data)
         except IOError:
             print 'Error writing Application.config (probably no permission).'
@@ -522,7 +520,6 @@ class Installer(object):
 
         This allows the user to always go back to the default config file if
         needed (for troubleshooting for example).
-
         """
         print
         print 'Creating backups of original config files...'
@@ -651,7 +648,7 @@ Installation is finished.''' % ((os.sep,)*2)
         self.printMsg('Creating %s...' % outFile)
         open(outFile, 'w').write(page)
         if not keep:
-            os.remove(inFile) # remove template
+            os.remove(inFile)  # remove template
 
     def processPyTemplate(self, input, props):
         """Process a Python template."""

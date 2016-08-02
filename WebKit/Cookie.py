@@ -42,7 +42,6 @@ class Cookie(object):
     dictionaries, etc.
 
     .. _`RFC 2109`: ftp://ftp.isi.edu/in-notes/rfc2109.txt
-
     """
 
     # Future
@@ -61,7 +60,6 @@ class Cookie(object):
         """Create a cookie.
 
         Properties other than `name` and `value` are set with methods.
-
         """
 
         self._cookies = CookieEngine.SimpleCookie()
@@ -146,7 +144,6 @@ class Cookie(object):
         and setting its max-age to 0. One of these will delete
         the cookie for any browser (which one actually works
         depends on the browser).
-
         """
         self._value = ''
         self._cookie['expires'] = "Mon, 01-Jan-1900 00:00:00 GMT"
@@ -157,7 +154,6 @@ class Cookie(object):
 
         Returns a string with the value that should be used
         in the HTTP headers.
-
         """
         items = self._cookies.items()
         assert len(items) == 1

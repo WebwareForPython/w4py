@@ -35,7 +35,6 @@ lives and HTTP are used.
   * Uses Just van Rossum's PyFontify version 0.3 to tag Python scripts.
     You can get it via his homepage on starship:
     URL: http://starship.python.net/~just/
-
 """
 __comments__ = """
 
@@ -61,6 +60,7 @@ Clean-up and modified expand tabs patch by Christoph Zwerschke.
      a little more robust.
 
 """
+
 __copyright__ = """\
 Copyright (c) 1998-2000, Marc-Andre Lemburg; mailto:mal@lemburg.com
 Copyright (c) 2000-2002, eGenix.com Software GmbH; mailto:info@egenix.com
@@ -141,7 +141,6 @@ class PrettyPrint(object):
         (format: [(id,left,right,sublist),...], where id is the
         "name" given to the slice left:right in text and sublist is a
         taglist for tags inside the slice or None)
-
     """
 
     # misc settings
@@ -487,7 +486,7 @@ URL: http://starship.python.net/~just/
                     write_html_error('Missing Parameter',
                         'Missing script=URL field in request')
                 sys.exit(1)
-            url = os.environ['PATH_INFO'][1:] # skip the leading slash
+            url = os.environ['PATH_INFO'][1:]  # skip the leading slash
         else:
             url = form['script'].value
         sys.stdout.write('Content-Type: text/html\r\n\r\n')

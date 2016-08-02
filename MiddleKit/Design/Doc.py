@@ -3,7 +3,6 @@
 """Doc.py
 
 > python Doc.py -h
-
 """
 
 import os
@@ -19,14 +18,14 @@ from WebUtils.Funcs import htmlEncode
 
 class Doc(object):
 
-    sourceStyleSheetFilename = 'GenDocStyles.css' # exists in MiddleKit/Design/
+    sourceStyleSheetFilename = 'GenDocStyles.css'  # in MiddleKit/Design/
     destStyleSheetFilename = 'Styles.css'
     otherKeys = 'isDerived Min Max Enums'.split()
 
     def main(self, args=None):
         self.progPath = os.path.join(os.getcwd(), sys.argv[0])
 
-        self.otherKeys = self.otherKeys # pick up class level value
+        self.otherKeys = self.otherKeys  # pick up class level value
         self.parseArgs(args)
 
         modelName = self.args.get('model')
@@ -212,7 +211,6 @@ class Doc(object):
 
         This is a simple example that you could expand to generate your own
         brand of HTML or some other output format.
-
         """
         for klass in self.model.allKlassesInOrder():
             print klass

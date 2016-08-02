@@ -11,7 +11,6 @@ class HTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     """Handles incoming requests.
 
     Recreated with every request. Abstract base class.
-
     """
 
     # This sends the common CGI variables, except the following:
@@ -24,7 +23,6 @@ class HTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
         Actually performs the request, creating the environment and calling
         self.doTransaction(env, input) to perform the response.
-
         """
         self.server_version = 'Webware/' + self._server.version()
         env = {}
@@ -63,7 +61,6 @@ class HTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
         Use a simple heuristic to convert all the headers to
         environmental variables.
-
         """
         for header, value in headers.items():
             env['HTTP_%s' % header.upper().replace('-', '_')] = value
@@ -74,7 +71,6 @@ class HTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
         Takes a string (like what a CGI script would print) and
         sends the actual HTTP response (response code, headers, body).
-
         """
         status, data = data.split('\r\n', 1)
         status, code, message = status.split(None, 2)
@@ -101,7 +97,6 @@ class HTTPAppServerHandler(Handler, HTTPHandler):
     """AppServer interface.
 
     Adapters HTTPHandler to fit with ThreadedAppServer's model of an adapter.
-
     """
     protocolName = 'http'
     settingPrefix = 'HTTP'
@@ -120,7 +115,7 @@ class HTTPAppServerHandler(Handler, HTTPHandler):
             self.processResponse(streamOut._buffer)
             self._sock.shutdown(2)
         except socket.error, e:
-            if e[0] == errno.EPIPE: # broken pipe
+            if e[0] == errno.EPIPE:  # broken pipe
                 return
             print '%5d  HTTPServer output error: %s' % (
                 self._requestID, e)

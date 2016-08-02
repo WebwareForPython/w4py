@@ -15,7 +15,6 @@ class XMLRPCExample(XMLRPCServlet):
 
     You'll get an exception if you try to call divide, because that
     method is not listed in exposedMethods.
-
     """
 
     def exposedMethods(self):

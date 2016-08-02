@@ -60,7 +60,6 @@ class HTTPResponse(Response):
         Parameters:
             name: the header name
             value: the header value
-
         """
         assert not self._committed, "Headers have already been sent."
         self._headers[name.capitalize()] = value
@@ -70,7 +69,6 @@ class HTTPResponse(Response):
 
         Returns a dictionary-style object of all header objects contained by
         this request.
-
         """
         return self._headers
 
@@ -79,7 +77,6 @@ class HTTPResponse(Response):
 
         You might consider a setHeader('Content-Type', 'text/html')
         or something similar after this.
-
         """
         assert not self._committed, "Headers have already been sent."
         self._headers = {}
@@ -116,7 +113,6 @@ class HTTPResponse(Response):
             1w (1 week), 3h46m (3:45), etc.  You can use y (year),
             b (month), w (week), d (day), h (hour), m (minute),
             s (second). This is done by the MiscUtils.DateInterval.
-
         """
         cookie = Cookie(name, value)
         t = expires
@@ -155,7 +151,6 @@ class HTTPResponse(Response):
         """Add a cookie that will be sent with this response.
 
         cookie is a Cookie object instance. See WebKit.Cookie.
-
         """
         assert not self._committed, "Headers have already been sent."
         assert isinstance(cookie, Cookie)
@@ -166,7 +161,6 @@ class HTTPResponse(Response):
 
         To do so, one has to create and send to the browser a cookie with
         parameters that will cause the browser to delete it.
-
         """
         if name in self._cookies:
             self._cookies[name].delete()
@@ -184,7 +178,6 @@ class HTTPResponse(Response):
 
         Returns a dictionary-style object of all Cookie objects that will
         be sent with this response.
-
         """
         return self._cookies
 
@@ -219,7 +212,6 @@ class HTTPResponse(Response):
         http://www.ietf.org/rfc/rfc3875 (section 6.2.3) and
         http://support.microsoft.com/kb/176113
         (removing cookies by IIS is considered a bug).
-
         """
         assert not self._committed, "Headers have already been sent."
         self.setHeader('Status', status or '302 Found')
@@ -237,7 +229,6 @@ class HTTPResponse(Response):
 
         This method exists primarily to allow for the PRG pattern.
         See http://en.wikipedia.org/wiki/Post/Redirect/Get
-
         """
         self.sendRedirect(url, status='303 See Other')
 
@@ -254,7 +245,6 @@ class HTTPResponse(Response):
         charstr must be convertible into an ordinary string.
         Unicode strings with special characters must therefore
         be encoded before they can be written.
-
         """
         if charstr:
             self._strmOut.write(str(charstr))
@@ -284,7 +274,6 @@ class HTTPResponse(Response):
         gets rendered. Some versions of MSIE will only start to display the page
         after they have received 256 bytes of output, so you may need to send
         extra whitespace before flushing to get MSIE to display the page.
-
         """
         if not self._committed:
             self.commit()
@@ -297,7 +286,6 @@ class HTTPResponse(Response):
         Checks whether the reponse has already been partially or completely sent.
         If this returns true, no new headers/cookies can be added
         to the response.
-
         """
         return self._committed
 
@@ -306,7 +294,6 @@ class HTTPResponse(Response):
 
         The final step in the processing cycle.
         Not used for much with responseStreams added.
-
         """
         if debug:
             print "HTTPResponse deliver called"
@@ -319,7 +306,6 @@ class HTTPResponse(Response):
 
         Write out all headers to the reponse stream, and tell the underlying
         response stream it can start sending data.
-
         """
         if debug:
             print "HTTPResponse commit"
@@ -349,10 +335,10 @@ class HTTPResponse(Response):
             status = 'Location' in self._headers and '302 Found' or '200 OK'
         head = ['Status: %s' % status]
         head.extend(map(lambda h: '%s: %s' % h, self._headers.items()))
-        self._headers['Status'] = status # restore status
+        self._headers['Status'] = status  # restore status
         head.extend(map(lambda c: 'Set-Cookie: %s' % c.headerValue(),
             self._cookies.values()))
-        head.extend(['']*2) # this adds one empy line
+        head.extend(['']*2)  # this adds one empty line
         head = '\r\n'.join(head)
         self._strmOut.prepend(head)
 
@@ -375,7 +361,6 @@ class HTTPResponse(Response):
         to the cookie name in order to distinguish application instances
         running on different ports on the same server, or to use the port
         cookie-attribute introduced with RFC 2965 for that purpose.
-
         """
         trans = self._transaction
         app = trans.application()
@@ -429,7 +414,6 @@ class HTTPResponse(Response):
         list of tuples each of which contains two strings: the header and
         it's value. 'contents' is a string (that may be binary, for example,
         if an image were being returned).
-
         """
         headers = []
         for key, value in self._headers.items():
@@ -442,7 +426,6 @@ class HTTPResponse(Response):
         """Return the size of the final contents of the response.
 
         Don't invoke this method until after deliver().
-
         """
         return self._strmOut.size()
 
@@ -451,7 +434,6 @@ class HTTPResponse(Response):
 
         Given a string of headers (separated by newlines),
         merge them into our headers.
-
         """
         lines = headerstr.splitlines()
         for line in lines:

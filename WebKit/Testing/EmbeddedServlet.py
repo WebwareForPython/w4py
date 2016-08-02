@@ -10,7 +10,6 @@ class EmbeddedServlet(Page):
 
     Where the servlet is embedded in the URL, rather than being the last
     component. This servlet simply prints its fields.
-
     """
 
     def writeBody(self):

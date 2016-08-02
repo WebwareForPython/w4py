@@ -10,7 +10,6 @@ This is done in __init__.py.
 
 If you add another mix-in then update the list of names found
 in InstallMixIns().
-
 """
 
 from WebUtils.Funcs import htmlEncode
@@ -40,7 +39,6 @@ class ObjectStore(object):
         and their attributes. The adjective describes the type
         of objects and is used in the output (for example 'Customer').
         This is a utility method for use by anyone.
-
         """
         if objs is None:
             objs = []

@@ -2,7 +2,7 @@
 
 from copy import copy
 
-data = dict() # our mock memcache
+data = dict()  # our mock memcache
 
 
 class Client(object):

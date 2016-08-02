@@ -21,7 +21,6 @@ class IncludeURLTest(Page):
     Finally, the top level page of this context is included with includeURL.
 
     A 'Test Complete' message is displayed at the very end.
-
     """
 
     def writeBody(self):

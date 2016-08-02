@@ -14,7 +14,6 @@ class View(ExamplePage):
 
     Note that if the View servlet isn't passed a filename,
     it prints the View's docstring which you are reading right now.
-
     """
 
     def writeContent(self):

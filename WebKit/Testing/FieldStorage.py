@@ -10,7 +10,6 @@ class FieldStorage(SidebarPage):
     names must be different. A GET parameters with the same name as a
     POST parameter is ignored, these values are not appended. In other words,
     POST parameters always override GET parameters with the same name.
-
     """
 
     def cornerTitle(self):

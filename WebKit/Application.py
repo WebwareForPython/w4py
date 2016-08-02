@@ -17,7 +17,6 @@ through the Transaction object (`transaction.application()`), or you can do::
 Settings for Application are taken from ``Configs/Application.config``,
 which is used for many global settings, even if they aren't closely tied
 to the Application object itself.
-
 """
 
 import os
@@ -111,7 +110,7 @@ defaultConfig = dict(
     FilesToServe = [],
     UnknownFileTypes = dict(
         ReuseServlets = True,
-        Technique = 'serveContent', # or redirectSansAdapter
+        Technique = 'serveContent',  # or redirectSansAdapter
         CacheContent = False,
         MaxCacheContentSize = 128*1024,
         ReadBufferSize = 32*1024
@@ -127,16 +126,13 @@ class EndResponse(Exception):
     if this exception is caught during awake() or respond() then sleep()
     is called and the response is sent. If caught during sleep(),
     processing ends and the response is sent.
-
     """
-    pass
 
 
 class Application(ConfigurableForServerSidePath):
     """The Application singleton.
 
     Purpose and usage are explained in the module docstring.
-
     """
 
 
@@ -148,7 +144,7 @@ class Application(ConfigurableForServerSidePath):
         self._server = server
         self._serverSidePath = server.serverSidePath()
 
-        self._imp = server._imp # the import manager
+        self._imp = server._imp  # the import manager
 
         ConfigurableForServerSidePath.__init__(self)
 
@@ -166,8 +162,8 @@ class Application(ConfigurableForServerSidePath):
         # Initialize task manager:
         if self._server.isPersistent():
             from TaskKit.Scheduler import Scheduler
-            self._taskManager = Scheduler(daemon=True,
-                exceptionHandler=self.handleException)
+            self._taskManager = Scheduler(
+                daemon=True, exceptionHandler=self.handleException)
             self._taskManager.start()
         else:
             self._taskManager = None
@@ -190,9 +186,9 @@ class Application(ConfigurableForServerSidePath):
 
     def initErrorPage(self):
         """Initialize the error page related attributes."""
-        for dir in (self._serverSidePath,
-                os.path.dirname(os.path.abspath(__file__))):
-            error404file = os.path.join(dir, 'error404.html')
+        for path in (self._serverSidePath,
+                     os.path.dirname(os.path.abspath(__file__))):
+            error404file = os.path.join(path, 'error404.html')
             try:
                 self._error404 = open(error404file).read()
             except Exception:
@@ -221,22 +217,22 @@ class Application(ConfigurableForServerSidePath):
                 from MiscUtils.Funcs import hostName
                 self._sessionPrefix = hostName()
             self._sessionPrefix += '-'
-        self._sessionTimeout = self.setting('SessionTimeout')*60
-        self._sessionName = (self.setting('SessionName')
-            or self.defaultConfig()['SessionName'])
+        self._sessionTimeout = self.setting('SessionTimeout') * 60
+        self._sessionName = (self.setting('SessionName') or
+                             self.defaultConfig()['SessionName'])
         self._autoPathSessions = self.setting('UseAutomaticPathSessions')
         self._alwaysSaveSessions = self.setting('AlwaysSaveSessions')
         moduleName = self.setting('SessionModule')
         className = moduleName.rsplit('.', 1)[-1]
         try:
             exec 'from %s import %s' % (moduleName, className)
-            klass = locals()[className]
-            if not isinstance(klass, type):
+            cls = locals()[className]
+            if not isinstance(cls, type):
                 raise ImportError
-            self._sessionClass = klass
+            self._sessionClass = cls
         except ImportError:
             print ("ERROR: Could not import Session class '%s'"
-                " from module '%s'" % (className, moduleName))
+                   " from module '%s'") % (className, moduleName)
             self._sessionClass = None
         moduleName = self.setting('SessionStore')
         if moduleName in ('Dynamic', 'File', 'Memcached', 'Memory', 'Shelve'):
@@ -246,13 +242,13 @@ class Application(ConfigurableForServerSidePath):
         className = moduleName.rsplit('.', 1)[-1]
         try:
             exec 'from %s import %s' % (moduleName, className)
-            klass = locals()[className]
-            if not isinstance(klass, type):
+            cls = locals()[className]
+            if not isinstance(cls, type):
                 raise ImportError
-            self._sessions = klass(self)
+            self._sessions = cls(self)
         except ImportError, err:
             print ("ERROR: Could not import SessionStore class '%s'"
-                " from module '%s':\n%s" % (className, moduleName, err))
+                   " from module '%s':\n%s") % (className, moduleName, err)
             self._sessions = None
 
     def makeDirs(self):
@@ -261,25 +257,24 @@ class Application(ConfigurableForServerSidePath):
             self.setting('CacheDir') or 'Cache')
         self._errorMessagesDir = self.serverSidePath(
             self.setting('ErrorMessagesDir') or 'ErrorMsgs')
-        for dir in (self.serverSidePath('Logs'),
-                self._cacheDir, self._errorMessagesDir, self._sessionDir):
-            if dir and not os.path.exists(dir):
-                os.makedirs(dir)
+        for path in (self.serverSidePath('Logs'),
+                     self._cacheDir, self._errorMessagesDir, self._sessionDir):
+            if path and not os.path.exists(path):
+                os.makedirs(path)
 
     def initVersions(self):
         """Get and store versions.
 
         Initialize attributes that store the Webware and WebKit versions as
         both tuples and strings. These are stored in the Properties.py files.
-
         """
         from MiscUtils.PropertiesObject import PropertiesObject
-        props = PropertiesObject(os.path.join(self.webwarePath(),
-            'Properties.py'))
+        props = PropertiesObject(os.path.join(
+            self.webwarePath(), 'Properties.py'))
         self._webwareVersion = props['version']
         self._webwareVersionString = props['versionString']
-        props = PropertiesObject(os.path.join(self.webKitPath(),
-            'Properties.py'))
+        props = PropertiesObject(os.path.join(
+            self.webKitPath(), 'Properties.py'))
         self._webKitVersion = props['version']
         self._webKitVersionString = props['versionString']
 
@@ -292,7 +287,6 @@ class Application(ConfigurableForServerSidePath):
 
         Starts the session sweeper, `WebKit.Tasks.SessionTask`, which deletes
         session objects (and disk copies of those objects) that have expired.
-
         """
         if self._sessionTimeout:
             tm = self.taskManager()
@@ -300,17 +294,16 @@ class Application(ConfigurableForServerSidePath):
                 from time import time
                 from Tasks import SessionTask
                 task = SessionTask.SessionTask(self._sessions)
-                sweepinterval = self._sessionTimeout/10
-                tm.addPeriodicAction(time() + sweepinterval,
-                    sweepinterval, task, "SessionSweeper")
+                sweepinterval = self._sessionTimeout / 10
+                tm.addPeriodicAction(time() + sweepinterval, sweepinterval,
+                                     task, "SessionSweeper")
                 print "Session sweeper has started."
 
     def shutDown(self):
         """Shut down the application.
 
-        Called by AppServer when it is shuting down.  The `__del__` function
-        of Application probably won't be called due to circular references.
-
+        Called by AppServer when it is shutting down.  The `__del__` function
+        of Application won't be called due to circular references.
         """
         print "Application is shutting down..."
         self._running = 0
@@ -333,7 +326,6 @@ class Application(ConfigurableForServerSidePath):
         Functions added through `addShutDownHandler` will be called when
         the AppServer is shutting down. You can use this hook to close
         database connections, clean up resources, save data to disk, etc.
-
         """
         self._shutDownHandlers.append(func)
 
@@ -342,7 +334,7 @@ class Application(ConfigurableForServerSidePath):
 
     def defaultConfig(self):
         """The default Application.config."""
-        return defaultConfig # defined on the module level
+        return defaultConfig  # defined on the module level
 
     def configFilename(self):
         return self.serverSidePath('Configs/Application.config')
@@ -376,7 +368,6 @@ class Application(ConfigurableForServerSidePath):
         """The session object for `sessionId`.
 
         Raises `KeyError` if session not found and no default is given.
-
         """
         if default is NoDefault:
             return self._sessions[sessionId]
@@ -398,7 +389,6 @@ class Application(ConfigurableForServerSidePath):
         a new session.
 
         Finding the session ID is done in `Transaction.sessionId`.
-
         """
         debug = self.setting('Debug').get('Sessions')
         if debug:
@@ -439,7 +429,6 @@ class Application(ConfigurableForServerSidePath):
         """Get the timeout (in seconds) for a user session.
 
         Overwrite to make this transaction dependent.
-
         """
         return self._sessionTimeout
 
@@ -447,7 +436,6 @@ class Application(ConfigurableForServerSidePath):
         """Get the prefix string for the session ID.
 
         Overwrite to make this transaction dependent.
-
         """
         return self._sessionPrefix
 
@@ -455,7 +443,6 @@ class Application(ConfigurableForServerSidePath):
         """Get the name of the field holding the session ID.
 
         Overwrite to make this transaction dependent.
-
         """
         return self._sessionName
 
@@ -465,7 +452,6 @@ class Application(ConfigurableForServerSidePath):
         If not path is specified in the configuration setting,
         the servlet path is used for security reasons, see:
         http://www.net-security.org/dl/articles/cookie_path.pdf
-
         """
         return self.setting('SessionCookiePath') or (
             trans.request().servletPath() + '/')
@@ -483,7 +469,6 @@ class Application(ConfigurableForServerSidePath):
         Returns the absolute server-side path of the WebKit application.
         If the optional path is passed in, then it is joined with the
         server side directory to form a path relative to the app server.
-
         """
         if path:
             return os.path.normpath(
@@ -512,7 +497,6 @@ class Application(ConfigurableForServerSidePath):
 
         Writes an entry to the script log file. Uses settings
         ``ActivityLogFilename`` and ``ActivityLogColumns``.
-
         """
         filename = self.serverSidePath(
             self.setting('ActivityLogFilename'))
@@ -553,7 +537,6 @@ class Application(ConfigurableForServerSidePath):
         This method creates the request, response, and transaction object,
         then runs (via `runTransaction`) the transaction. It also catches any
         exceptions, which are then passed on to `handleExceptionInTransaction`.
-
         """
         request = self.createRequestForDict(requestDict)
         if request:
@@ -597,7 +580,6 @@ class Application(ConfigurableForServerSidePath):
         and the request will later determine the class of the response.
 
         Called by `dispatchRawRequest`.
-
         """
         format = requestDict['format']
         # Maybe an EmailAdapter would make a request with a format of Email,
@@ -617,7 +599,6 @@ class Application(ConfigurableForServerSidePath):
         transaction, then calling `runTransactionViaServlet`.
 
         Called by `dispatchRawRequest`.
-
         """
         findServlet = self.rootURLParser().findServletForTransaction
         try:
@@ -635,7 +616,7 @@ class Application(ConfigurableForServerSidePath):
         except ConnectionAbortedError, err:
             trans.setError(err)
         except (KeyboardInterrupt, SystemExit):
-            raise # do not catch these here
+            raise  # do not catch these here
         except:
             # For once, we use a bare except here in order to catch
             # string and non standard exceptions from legacy code
@@ -643,7 +624,7 @@ class Application(ConfigurableForServerSidePath):
             # KeyboardInterrupt, SystemExit will be excluded already
             # and string exceptions will output deprecation warnings).
             errClass, err = sys.exc_info()[:2]
-            if not err: # string exception
+            if not err:  # string exception
                 err, errClass = errClass, None
             urls = {}
             while 1:
@@ -679,18 +660,18 @@ class Application(ConfigurableForServerSidePath):
                 except ConnectionAbortedError, err:
                     trans.setError(err)
                 except (KeyboardInterrupt, SystemExit):
-                    raise # do not catch these here
+                    raise  # do not catch these here
                 except:
                     # Once more, catch all other kinds of exceptions here.
                     # If the custom error page itself throws an exception,
                     # display the new exception instead of the original one,
                     # so we notice that something is broken here.
                     errClass, err = sys.exc_info()[:2]
-                    if not err: # string exception
+                    if not err:  # string exception
                         err, errClass = errClass, None
                     url = None
                 if url:
-                    return # error has already been handled
+                    return  # error has already been handled
             if isHTTPException:
                 # display standard http error page
                 trans.response().displayError(err)
@@ -714,7 +695,6 @@ class Application(ConfigurableForServerSidePath):
         sequence, or catch errors from that sequence.
 
         Called by `runTransaction`.
-
         """
         trans.setServlet(servlet)
         if hasattr(servlet, 'runTransaction'):
@@ -740,7 +720,6 @@ class Application(ConfigurableForServerSidePath):
 
         You can change the request in place to control the servlet you are
         forwarding to -- using methods like `HTTPRequest.setField`.
-
         """
         # Reset the response to a "blank slate"
         trans.response().reset()
@@ -760,7 +739,6 @@ class Application(ConfigurableForServerSidePath):
         The entire process is similar to `forward`, except that instead of
         `respond`, `method` is called (`method` should be a string, `*args`
         and `**kw` are passed as arguments to that method).
-
         """
         # store current request and set the new URL
         request = trans.request()
@@ -788,7 +766,6 @@ class Application(ConfigurableForServerSidePath):
 
         Include the servlet given by the URL. Like `forward`,
         except control is ultimately returned to the servlet.
-
         """
         # store current request and set the new URL
         request = trans.request()
@@ -816,7 +793,6 @@ class Application(ConfigurableForServerSidePath):
         Given a URL, return the absolute internal URL.
         URLs are assumed relative to the current URL.
         Absolute paths are returned unchanged.
-
         """
         if not url.startswith('/'):
             origDir = trans.request().urlPath()
@@ -855,7 +831,6 @@ class Application(ConfigurableForServerSidePath):
         This should only be used in cases where there is no transaction object,
         for example if an exception occurs when attempting to save a session
         to disk.
-
         """
         self._exceptionHandlerClass(self, None, sys.exc_info())
 
@@ -866,7 +841,6 @@ class Application(ConfigurableForServerSidePath):
         that was generated by `transaction`. It may display the exception
         report, email the report, etc., handled by
         `ExceptionHandler.ExceptionHandler`.
-
         """
         request = trans.request()
         editlink = (self.setting('IncludeEditLink')
@@ -879,7 +853,6 @@ class Application(ConfigurableForServerSidePath):
 
         URL parsing (as defined by subclasses of `URLParser.URLParser`)
         starts here. Other parsers are called in turn by this parser.
-
         """
         return self._rootURLParser
 
@@ -895,7 +868,6 @@ class Application(ConfigurableForServerSidePath):
         (The package will be named `name`, regardless of `path`).
 
         Delegated to `URLParser.ContextParser`.
-
         """
         self._rootURLParser.addContext(name, path)
 
@@ -904,7 +876,6 @@ class Application(ConfigurableForServerSidePath):
         """Add a ServletFactory.
 
         Delegated to the `URLParser.ServletFactoryManager` singleton.
-
         """
         URLParser.ServletFactoryManager.addServletFactory(factory)
 
@@ -919,7 +890,6 @@ class Application(ConfigurableForServerSidePath):
         """Write extra information to the exception report.
 
         See `WebKit.ExceptionHandler` for more information.
-
         """
         handler.writeTitle(self.__class__.__name__)
         handler.writeAttrs(self, self._exceptionReportAttrNames)
@@ -984,7 +954,6 @@ class Application(ConfigurableForServerSidePath):
 
         Note that we create an absolute URL with scheme and hostname
         because otherwise IIS will only cause an internal redirect.
-
         """
         request = trans.request()
         url = '%s://%s%s/%s=%s%s%s%s' % (request.scheme(),
@@ -1004,7 +973,6 @@ class Application(ConfigurableForServerSidePath):
         This is called if it has been determined that the request has a path
         session, but also cookies. In that case we redirect to eliminate the
         unnecessary path session.
-
         """
         request = trans.request()
         url = '%s://%s%s%s%s%s' % (request.scheme(),

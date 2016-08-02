@@ -9,7 +9,6 @@ parts of the URL with each step.
 
 This root parser is generally `ContextParser`, which is instantiated and set
 up by `Application` (accessible through `Application.rootURLParser`).
-
 """
 
 import os
@@ -53,7 +52,6 @@ class URLParser(object):
     If you cannot find a servlet, or some other (somewhat) expected error
     occurs, you should raise an exception. HTTPNotFound probably being the
     most interesting.
-
     """
 
     def __init__(self):
@@ -63,7 +61,6 @@ class URLParser(object):
         """Returns a servlet for the transaction.
 
         This is the top-level entry point, below it `parse` is used.
-
         """
         return self.parse(trans, trans.request().urlPath())
 
@@ -81,7 +78,6 @@ class ContextParser(URLParser):
 
     There is generally only one ContextParser, which can be found as
     ``application.rootURLParser()``.
-
     """
 
 
@@ -95,7 +91,6 @@ class ContextParser(URLParser):
 
         In __init__ we take the ``Contexts`` setting from
         Application.config and parse it slightly.
-
         """
         URLParser.__init__(self)
         # Need to set this here because we need for initialization, during
@@ -109,7 +104,7 @@ class ContextParser(URLParser):
         contexts = app.setting('Contexts')
         defaultContext = ''
         for name, dir in contexts.items():
-            dir = os.path.normpath(dir) # for Windows
+            dir = os.path.normpath(dir)  # for Windows
             if name == 'default':
                 defaultContext = dir
             else:
@@ -132,7 +127,7 @@ class ContextParser(URLParser):
                 for defaultContext in ('Default', 'Examples', 'Docs'):
                     if defaultContext in contexts:
                         break
-                else: # if not available, refuse the tempatation to guess
+                else:  # if not available, refuse the temptation to guess
                     raise KeyError("No default context has been specified.")
         if defaultContext in self._contexts:
             self._defaultContext = defaultContext
@@ -156,7 +151,6 @@ class ContextParser(URLParser):
 
         Returns the name of the context that the default context refers to,
         or 'default' if the default context is unique.
-
         """
         contexts = self._contexts
         contextDirs = {}
@@ -182,7 +176,6 @@ class ContextParser(URLParser):
         The context will be imported as a package, going by `name`,
         from the given directory. The directory doesn't have to match
         the context name.
-
         """
         if name == 'default':
             dest = self.resolveDefaultContext(name, dir)
@@ -256,7 +249,6 @@ class ContextParser(URLParser):
 
         Resolves relative paths, which are assumed to be relative to the
         Application's serverSidePath (the working directory).
-
         """
         if os.path.isabs(path):
             return path
@@ -274,7 +266,6 @@ class ContextParser(URLParser):
 
         The context name and file path are stored in the request (accessible
         through `Request.serverSidePath` and `Request.contextName`).
-
         """
         # This is a hack... should probably go in the Transaction class:
         trans._fileParserInitSeen = {}
@@ -331,7 +322,6 @@ class _FileParser(URLParser):
     function `initApp`, as class variables. They cannot be set when the module
     is loaded, because the Application is not yet set up, so `initApp` is
     called in `Application.__init__`.
-
     """
 
 
@@ -342,7 +332,6 @@ class _FileParser(URLParser):
 
         Each parsed directory has a FileParser instance associated with it
         (``self._path``).
-
         """
         URLParser.__init__(self)
         self._path = path
@@ -365,7 +354,6 @@ class _FileParser(URLParser):
         This uses `fileNamesForBaseName` to find files in its directory.
         That function has several functions to define what files are ignored,
         hidden, etc.  See its documentation for more information.
-
         """
         if debug:
             print "FP(%r) parses %r" % (self._path, requestPath)
@@ -450,7 +438,6 @@ class _FileParser(URLParser):
             extensions exist, only the .tmpl file will be returned.
         ExtensionCascadeOrder:
             A list of extensions, ordered by priority.
-
         """
         if '*' in baseName:
             return []
@@ -496,7 +483,6 @@ class _FileParser(URLParser):
         ExtensionsToServe:
             If set, only files with these extensions will be
             served.  Like FilesToServe, only doesn't use globs.
-
         """
         ext = os.path.splitext(filename)[1]
         if ext in self._toIgnore:
@@ -535,7 +521,6 @@ class _FileParser(URLParser):
         ``["Main", "index", "main", "Index"]``, which are searched in order.
         A file with any extension is allowed, so the index can be an HTML file,
         a PSP file, a Kid template, a Python servlet, etc.
-
         """
         req = trans.request()
         # If requestPath is empty, then we're missing the trailing slash:
@@ -652,7 +637,6 @@ class _FileParser(URLParser):
             Paths are relative to the current directory.  If you
             don't want the current directory to be a last resort,
             you can include '.' in the joins.
-
         """
         if self._initModule is None:
             self._initModule = self.initModule()
@@ -741,7 +725,6 @@ class URLParameterParser(URLParser):
     Or (slightly less efficient):
 
         from WebKit.URLParser import URLParameterParser as SubParser
-
     """
 
 
@@ -764,7 +747,6 @@ class URLParameterParser(URLParser):
         The `hook` is the FileParser object that originally called this --
         we just want to strip stuff out of the URL and then give it back to
         the FileParser instance, which can actually find the servlet.
-
         """
         parts = requestPath.split('/')
         result = []
@@ -787,7 +769,6 @@ class ServletFactoryManagerClass(object):
 
     See `addServletFactory` for adding new factories, and `servletForFile`
     for getting the factories back.
-
     """
 
 
@@ -815,7 +796,6 @@ class ServletFactoryManagerClass(object):
         ``['.ht']``).  The special extension ``.*`` will match any
         file if no other factory is found.  See `ServletFactory`
         for more information.
-
         """
 
         self._factories.append(factory)
@@ -840,7 +820,6 @@ class ServletFactoryManagerClass(object):
 
         Uses `factoryForFile` to find the factory, which
         creates the servlet.
-
         """
         factory = self.factoryForFile(path)
         return factory.servletForTransaction(trans)
@@ -859,7 +838,6 @@ def initApp(app):
 
     This needs to be called before any of the URLParser-derived classes
     are instantiated.
-
     """
     global _globalApplication
     _globalApplication = app
@@ -871,6 +849,7 @@ def initApp(app):
         ServletFactoryManager.addServletFactory(factory(app))
 
     initParser(app)
+
 
 def initParser(app):
     """Initialize the FileParser Class."""

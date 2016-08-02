@@ -10,7 +10,6 @@ class RoleUserManagerMixIn(object):
 
     This mixin adds the functionality of keeping a dictionary mapping
     names to role instances. Several accessor methods are provided for this.
-
     """
 
 

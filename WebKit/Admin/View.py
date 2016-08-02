@@ -9,7 +9,6 @@ class View(AdminSecurity):
     The Admin View servlet loads any text or html file
     in your application working directory on the Webware server
     and displays it in the browser for your viewing pleasure.
-
     """
 
     def defaultAction(self):

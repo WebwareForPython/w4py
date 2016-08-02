@@ -14,7 +14,6 @@ class ObjRefAttr(Attr):
     """This is an attribute that refers to another user-defined object.
 
     For a list of objects, use ListAttr.
-
     """
 
     def __init__(self, attr):

@@ -1,7 +1,6 @@
 """CSVParser.py
 
 A parser for CSV files.
-
 """
 
 # The states of the parser
@@ -47,7 +46,6 @@ class CSVParser(object):
     substantially faster. Before that can be done, it needs to support
     allowComments and stripWhitespace, and pass the TestCSVParser.py
     test suite.
-
     """
 
     def __init__(self, allowComments=True, stripWhitespace=True, fieldSep=',',
@@ -62,7 +60,6 @@ class CSVParser(object):
         autoReset: If true (the default), recover from errors automatically.
         doubleQuote: If true (the default), assume quotes in fields are
                      escaped by appearing doubled.
-
         """
         # settings
         self._allowComments = allowComments
@@ -75,7 +72,7 @@ class CSVParser(object):
         self._state = StartRecord
         self._fields = []
         self._hadParseError = False
-        self._field = [] # a list of chars for the cur field
+        self._field = []  # a list of chars for the cur field
         self.addChar = self._field.append
 
         # The handlers for the various states
@@ -97,7 +94,6 @@ class CSVParser(object):
 
         Returns None if the CSV record contains embedded newlines and
         the record is not yet complete.
-
         """
         if self._autoReset and self._hadParseError:
             self.reset()
@@ -110,12 +106,12 @@ class CSVParser(object):
             if c == '\r':
                 i += 1
                 if i == lineLen:
-                    break # Mac end of line
+                    break  # Mac end of line
                 c = line[i]
                 if c == '\n':
                     i += 1
                     if i == lineLen:
-                        break # Win end of line
+                        break  # Win end of line
 
                 self._hadParseError = True
                 raise ParseError('Newline inside string')
@@ -123,18 +119,18 @@ class CSVParser(object):
             elif c == '\n':
                 i += 1
                 if i == lineLen:
-                    break # unix end of line
+                    break  # unix end of line
 
                 self._hadParseError = True
                 raise ParseError('Newline inside string')
 
             else:
                 if handlers[self._state](c) == Finished:
-                    break # process a character
+                    break  # process a character
 
             i += 1
 
-        handlers[self._state]('\0') # signal the end of the input
+        handlers[self._state]('\0')  # signal the end of the input
 
         if self._state == StartRecord:
             fields = self._fields
@@ -143,7 +139,7 @@ class CSVParser(object):
                 fields = [field.strip() for field in fields]
             return fields
         else:
-            return None # indicates multi-line record; e.g. not finished
+            return None  # indicates multi-line record; e.g. not finished
 
 
     ## Reset ##
@@ -154,7 +150,6 @@ class CSVParser(object):
         Resets the parser to a fresh state in order to recover from
         exceptions. But if autoReset is true (the default), this is
         done automatically.
-
         """
         self._fields = []
         self._state = StartRecord
@@ -164,7 +159,7 @@ class CSVParser(object):
     ## State Handlers ##
 
     def startRecord(self, c):
-        if c != '\0': # not empty line
+        if c != '\0':  # not empty line
             if c == '#' and self._allowComments:
                 return Finished
             else:
@@ -173,16 +168,16 @@ class CSVParser(object):
 
     def startField(self, c):
         if c == '"':
-            self._state = InQuotedField # start quoted field
+            self._state = InQuotedField  # start quoted field
         elif c == self._fieldSep:
-            self.saveField() # save empty field
+            self.saveField()  # save empty field
         elif c == ' ' and self._stripWhitespace:
-            pass # skip over preceding whitespace
+            pass  # skip over preceding whitespace
         elif c == '\0':
-            self.saveField() # save empty field
+            self.saveField()  # save empty field
             self._state = StartRecord
         else:
-            self.addChar(c) # begin new unquoted field
+            self.addChar(c)  # begin new unquoted field
             self._state = InField
 
     def inField(self, c):
@@ -191,25 +186,25 @@ class CSVParser(object):
             self.saveField()
             self._state = StartField
         elif c == '\0':
-            self.saveField() # end of line
+            self.saveField()  # end of line
             self._state = StartRecord
         elif c == '"' and self._doubleQuote:
             self._state = QuoteInField
         else:
-            self.addChar(c) # normal character
+            self.addChar(c)  # normal character
 
     def quoteInField(self, c):
         self.addChar('"')
         if c == '"':
-            self._state = InField # save "" as "
+            self._state = InField  # save "" as "
         elif c == '\0':
-            self.saveField() # end of line
+            self.saveField()  # end of line
             self._state = StartRecord
         elif c == self._fieldSep:
             self.saveField()
             self._state = StartField
         else:
-            self.addChar(c) # normal character
+            self.addChar(c)  # normal character
             self._state = InField
 
     def inQuotedField(self, c):
@@ -217,34 +212,34 @@ class CSVParser(object):
             if self._doubleQuote:
                 self._state = QuoteInQuotedField
             else:
-                self.saveField() # end of field
+                self.saveField()  # end of field
                 self._state = EndQuotedField
         elif c == '\0':
-            self.addChar('\n') # end of line
+            self.addChar('\n')  # end of line
         else:
-            self.addChar(c) # normal character
+            self.addChar(c)  # normal character
 
     def quoteInQuotedField(self, c):
         if c == '"':
-            self.addChar('"') # save "" as "
+            self.addChar('"')  # save "" as "
             self._state = InQuotedField
         elif c == self._fieldSep:
             self.saveField()
             self._state = StartField
         elif c == ' ' and self._stripWhitespace:
-            pass # skip it
+            pass  # skip it
         elif c == '\0':
-            self.saveField() # end of line
+            self.saveField()  # end of line
             self._state = StartRecord
         else:
-            self._hadParseError = True # illegal
+            self._hadParseError = True  # illegal
             raise ParseError('%s expected after "' % self._fieldSep)
 
     def endQuotedField(self, c):
-        if c == self._fieldSep: # seen closing " on quoted field
-            self._state = StartField # wait for new field
+        if c == self._fieldSep:  # seen closing " on quoted field
+            self._state = StartField  # wait for new field
         elif c == '\0':
-            self._state = StartRecord # end of line
+            self._state = StartRecord  # end of line
         else:
             self._hadParseError = True
             raise ParseError('%s expected after "' % self._fieldSep)

@@ -21,7 +21,6 @@ class Transaction(object):
 
     The life cycle of a transaction begins and ends with Application's
     dispatchRequest().
-
     """
 
 
@@ -75,11 +74,10 @@ class Transaction(object):
         A new transaction is created if necessary. Therefore, this method
         never returns None. Use hasSession() if you want to find out if
         a session already exists.
-
         """
         if not self._session:
             self._session = self._application.createSessionForTransaction(self)
-            self._session.awake(self) # give the new servlet a chance to set up
+            self._session.awake(self)  # give new servlet a chance to set up
         return self._session
 
     def setSession(self, session):
@@ -90,7 +88,6 @@ class Transaction(object):
         """Return the current servlet that is processing.
 
         Remember that servlets can be nested.
-
         """
         return self._servlet
 
@@ -104,7 +101,6 @@ class Transaction(object):
         """Return the duration, in seconds, of the transaction.
 
         This is basically the response end time minus the request start time.
-
         """
         return self._response.endTime() - self._request.time()
 
@@ -121,7 +117,6 @@ class Transaction(object):
 
         Invoked by the application if an Exception is raised to the
         application level.
-
         """
         self._error = err
 
@@ -134,7 +129,6 @@ class Transaction(object):
         Currently, the request and response do not partake in the
         awake()-respond()-sleep() cycle. This could definitely be added
         in the future if any use was demonstrated for it.
-
         """
         if not self._nested and self._session:
             self._session.awake(self)
@@ -152,7 +146,6 @@ class Transaction(object):
 
         Note that sleep() is sent in reverse order as awake()
         (which is typical for shutdown/cleanup methods).
-
         """
         self._nested -= 1
         self._servlet.sleep(self)
@@ -183,9 +176,8 @@ class Transaction(object):
         finished with. Currently, this is invoked by AppServer. This method
         removes references to the different objects in the transaction,
         breaking cyclic reference chains and speeding up garbage collection.
-
         """
-        for name in self.__dict__.keys(): # needs keys() since dict changes
+        for name in self.__dict__.keys():  # needs keys() since dict changes
             delattr(self, name)
 
 

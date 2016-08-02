@@ -53,7 +53,6 @@ class SessionMemcachedStore(SessionStore):
 
     Contributed by Steve Schwarz, March 2010.
     Small improvements by Christoph Zwerschke, April 2010.
-
     """
 
     ## Init ##
@@ -87,7 +86,6 @@ class SessionMemcachedStore(SessionStore):
         """Return the number of sessions in the store.
 
         Not supported by Memcached (see FAQ for explanation).
-
         """
         if debug:
             print ">> len()"
@@ -131,7 +129,6 @@ class SessionMemcachedStore(SessionStore):
 
         Note that in contracts with SessionFileStore,
         not finding a key to delete isn't a KeyError.
-
         """
         if debug:
             print ">> delitem(%s)" % key
@@ -159,7 +156,6 @@ class SessionMemcachedStore(SessionStore):
         """Return an iterator over the stored session keys.
 
         Not supported by Memcached (see FAQ for explanation).
-
         """
         if debug:
             print ">> iter()"
@@ -176,7 +172,6 @@ class SessionMemcachedStore(SessionStore):
         """Return a list with the keys of all the stored sessions.
 
         Not supported by Memcached (see FAQ for explanation).
-
         """
         if debug:
             print ">> keys()"
@@ -189,7 +184,6 @@ class SessionMemcachedStore(SessionStore):
         an additional namespace counter, but then we would need to fetch
         the current counter from the memcache before every access in order
         to keep different app server instances in sync.
-
         """
         if debug:
             print ">> clear()"
@@ -241,7 +235,6 @@ class SessionMemcachedStore(SessionStore):
 
         Should be used (only) when the application server is shut down.
         This closes the connection to the Memcached servers.
-
         """
         if debug:
             print ">> storeAllSessions()"
@@ -251,7 +244,6 @@ class SessionMemcachedStore(SessionStore):
         """Clean stale sessions.
 
         Memcached does this on its own, so we do nothing here.
-
         """
         if debug:
             print ">> cleanStaleSessions()"

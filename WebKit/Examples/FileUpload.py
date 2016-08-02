@@ -14,7 +14,6 @@ class FileUpload(ExamplePage):
     You'll need to do something with the data in this file. The temp file will be
     automatically deleted. If you want to save the data in the uploaded file read it out
     and write it to a new file, database, whatever.
-
     """
 
     def title(self):

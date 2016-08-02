@@ -5,7 +5,6 @@ which you can access by using it as a (e.g., %s or str()).
 
 The notion of a "category" is recognized. A category is simply a group of
 methods with a given name. The default prefix for denoting a category is ##.
-
 """
 
 import os
@@ -50,23 +49,23 @@ class PySummary(object):
             try:
                 if sline[:6] == 'class ' and sline[6] != '_' and (
                         sline.find('(', 7) >= 0 or sline.find(':', 7) >= 0):
-                    self._lines.append(Line('class', line)) # a class
+                    self._lines.append(Line('class', line))  # a class
                     line = lines.pop(0).lstrip()
-                    if line[:3] == '"""': # skip docstring
+                    if line[:3] == '"""':  # skip docstring
                         while lines and line.rstrip()[-3:] != '"""':
                             line = lines.pop(0)
-                    while lines and line.lstrip(): # skip body
+                    while lines and line.lstrip():  # skip body
                         line = lines.pop(0)
                 elif sline[:4] == 'def ' and (sline[4] != '_'
                         or sline[5] == '_') and sline.find('(', 5) >= 0:
-                    self._lines.append(Line('def', line)) # a method
+                    self._lines.append(Line('def', line))  # a method
                     line = lines.pop(0).lstrip()
-                    if line[:3] == '"""': # skip docstring
+                    if line[:3] == '"""':  # skip docstring
                         while lines and line.rstrip()[-3:] != '"""':
                             line = lines.pop(0)
-                    while lines and line.lstrip(): # skip body
+                    while lines and line.lstrip():  # skip body
                         line = lines.pop(0)
-                elif sline[:3] == '## ': # a category
+                elif sline[:3] == '## ':  # a category
                     self._lines.append(Line('category', line))
             except IndexError:
                 pass
@@ -98,7 +97,7 @@ class PySummary(object):
                 res.append(settings[lineType][0])
                 if span:
                     res.append('<span class="line_%s">' % lineType)
-                res.append(getattr(line, format)()) # e.g., line.format()
+                res.append(getattr(line, format)())  # e.g., line.format()
                 if span:
                     res.append('</span>')
                 res.append('\n')

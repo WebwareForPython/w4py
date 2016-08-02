@@ -13,7 +13,6 @@ class Errors(DumpCSV):
         """Hook for subclasses to customize the contents of a cell.
 
         Based on any criteria (including location).
-
         """
         if self._headings[colIndex] in ('pathname', 'error report filename'):
             path = self.application().serverSidePath()

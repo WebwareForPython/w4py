@@ -74,28 +74,28 @@ def test(store):
     except Exception:
         pass
     else:
-        NoException('f.addToBars(None) # None not allowed')
+        NoException('f.addToBars(None)  # None not allowed')
 
     try:
         f.addToBars(5)
     except Exception:
         pass
     else:
-        NoException('f.addToBars(5) # not an object')
+        NoException('f.addToBars(5)  # not an object')
 
     try:
         f.addToBars(f)
     except Exception:
         pass
     else:
-        NoException('f.addToBars(f) # wrong class')
+        NoException('f.addToBars(f)  # wrong class')
 
     try:
         f.addToBars(bar)
     except Exception:
         pass
     else:
-        NoException('f.addToBars(bar) # already added')
+        NoException('f.addToBars(bar)  # already added')
 
     # Test delFromXYZ() method
     bar = bars[1]
@@ -117,25 +117,25 @@ def test(store):
     except Exception:
         pass
     else:
-        NoException('f.delFromBars(None) # None not allowed')
+        NoException('f.delFromBars(None)  # None not allowed')
 
     try:
         f.delFromBars(5)
     except Exception:
         pass
     else:
-        NoException('f.delFromBars(5) # not an object')
+        NoException('f.delFromBars(5)  # not an object')
 
     try:
         f.delFromBars(f)
     except Exception:
         pass
     else:
-        NoException('f.delFromBars(f) # wrong class')
+        NoException('f.delFromBars(f)  # wrong class')
 
     try:
         f.delFromBars(bar)
     except Exception:
         pass
     else:
-        NoException('f.delFromBars(bar) # already deleted')
+        NoException('f.delFromBars(bar)  # already deleted')

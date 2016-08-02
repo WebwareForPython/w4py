@@ -17,7 +17,6 @@ class Role(object):
     See also:
       * class HierRole
       * class RoleUser
-
     """
 
 
@@ -63,7 +62,6 @@ class Role(object):
 
         For Role, this is simply a test of equality. Subclasses may override
         this method to provide richer semantics (such as hierarchical roles).
-
         """
         assert isinstance(role, Role)
         return self == role

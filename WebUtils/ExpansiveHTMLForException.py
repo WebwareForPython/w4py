@@ -1,7 +1,6 @@
 """ExpansiveHTMLForException.py
 
 Create expansive HTML for exceptions using the CGITraceback module.
-
 """
 
 from WebUtils import CGITraceback

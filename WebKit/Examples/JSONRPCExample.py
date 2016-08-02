@@ -9,7 +9,6 @@ class JSONRPCExample(JSONRPCServlet):
     """Example JSON-RPC servlet.
 
     To try it out, use the JSONRPCClient servlet.
-
     """
 
     def __init__(self):

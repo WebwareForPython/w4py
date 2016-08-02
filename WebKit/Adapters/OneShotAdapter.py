@@ -8,7 +8,6 @@ the changes take effect.
 An example, URL:
 
     http://127.0.0.1/OneShot.cgi/MyPage
-
 """
 
 import sys, os, time
@@ -28,14 +27,14 @@ class OneShotAdapter(Adapter):
         config = Adapter.defaultConfig(self)
         config.update(
             ShowConsole = False,
-            ConsoleWidth = 80, # use 0 to turn off
+            ConsoleWidth = 80,  # use 0 to turn off
             ConsoleHangingIndent = 4,
         )
         return config
 
     def run(self):
 
-        timestamp = time.time() # start time
+        timestamp = time.time()  # start time
 
         # to capture the console output of the application
         stdout, sys.stdout = sys.stdout, StringIO()

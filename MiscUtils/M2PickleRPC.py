@@ -4,14 +4,13 @@ This lets you use M2Crypto for SSL encryption.
 
 Based on m2xmlrpclib.py which is
 Copyright (c) 1999-2002 Ng Pheng Siong. All rights reserved.
-
 """
 
 from MiscUtils import StringIO
 from PickleRPC import Transport
 from M2Crypto import SSL, httpslib, m2urllib
 
-__version__ = 1 # version of M2PickleRPC
+__version__ = 1  # version of M2PickleRPC
 
 
 class M2Transport(Transport):

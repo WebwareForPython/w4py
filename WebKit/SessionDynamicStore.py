@@ -30,7 +30,6 @@ class SessionDynamicStore(SessionStore):
     One-shot sessions (usually created by crawler bots) aren't moved to
     FileStore on periodical clean-up. They are still saved on SessionStore
     shutdown. This reduces the number of files in the Sessions directory.
-
     """
 
 
@@ -41,7 +40,7 @@ class SessionDynamicStore(SessionStore):
         SessionStore.__init__(self, app)
         self._fileStore = SessionFileStore.SessionFileStore(app)
         self._memoryStore = SessionMemoryStore.SessionMemoryStore(app,
-            restoreFiles=False) # session files are read on demand
+            restoreFiles=False)  # session files are read on demand
 
         # moveToFileInterval specifies after what period of time
         # in seconds a session is automatically moved to a file
@@ -246,7 +245,6 @@ class SessionDynamicStore(SessionStore):
 
         The problem is the FileStore.cleanStaleSessions can take a while to run.
         So here, we only run the file sweep every fourth time.
-
         """
         if debug:
             print "Session Sweep started"
@@ -272,7 +270,6 @@ class SessionDynamicStore(SessionStore):
 
         The interval function moves sessions from memory to file
         and can be run more often than the full cleanStaleSessions function.
-
         """
         if debug:
             print "Starting interval Sweep at %s" % time.ctime(time.time())

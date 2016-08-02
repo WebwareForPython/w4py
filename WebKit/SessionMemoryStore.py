@@ -10,7 +10,6 @@ class SessionMemoryStore(SessionStore):
     """Stores the session in memory as a dictionary.
 
     This is fast and secure when you have one, persistent app server.
-
     """
 
 
@@ -21,7 +20,6 @@ class SessionMemoryStore(SessionStore):
 
         If restoreFiles is true, and sessions have been saved to file,
         the store will be initialized from these files.
-
         """
         SessionStore.__init__(self, app)
         self._store = {}

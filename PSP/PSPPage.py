@@ -4,7 +4,6 @@ This class is intended to be used in the future as the default base class
 for PSP pages in the event that some special processing is needed.
 Right now, no special processing is needed, so the default base class
 for PSP pages is the standard WebKit Page.
-
 """
 
 from WebKit.Page import Page

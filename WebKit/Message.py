@@ -1,7 +1,6 @@
 """Message
 
 A very general (dumb) message class.
-
 """
 
 from MiscUtils import NoDefault
@@ -22,7 +21,6 @@ class Message(object):
     FUTURE
 
       * Support for different types of encodings
-
     """
 
 
@@ -53,7 +51,6 @@ class Message(object):
 
         Returns the name and version of the protocol the message uses
         in the form protocol/majorVersion.minorVersion, for example, HTTP/1.1.
-
         """
         return None
 

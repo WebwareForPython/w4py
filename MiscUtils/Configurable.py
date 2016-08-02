@@ -1,7 +1,6 @@
 """Configurable.py
 
 Provides configuration file functionality.
-
 """
 
 import os
@@ -42,7 +41,6 @@ class Configurable(object):
 
     Subclasses can also override userConfig() in order to obtain the
     user configuration settings from another source.
-
     """
 
 
@@ -59,7 +57,6 @@ class Configurable(object):
 
         This is a combination of defaultConfig() and userConfig().
         This method caches the config.
-
         """
         if self._config is None:
             self._config = self.defaultConfig()
@@ -90,7 +87,6 @@ class Configurable(object):
         """Return a dictionary with all the default values for the settings.
 
         This implementation returns {}. Subclasses should override.
-
         """
         return {}
 
@@ -101,7 +97,6 @@ class Configurable(object):
         Subclasses must override to specify a name.
         Returning None is valid, in which case no user config file
         will be loaded.
-
         """
         raise AbstractError(self.__class__)
 
@@ -110,7 +105,6 @@ class Configurable(object):
 
         This is the portion of the config file name before the '.config'.
         This is used on the command-line.
-
         """
         return os.path.splitext(os.path.basename(self.configFilename()))[0]
 
@@ -121,7 +115,6 @@ class Configurable(object):
         that should be used on the text in the config file.
         If an empty dictionary (or None) is returned, then no substitution
         will be attempted.
-
         """
         return {}
 
@@ -132,7 +125,6 @@ class Configurable(object):
         Returns {} if there is no such file.
 
         The config filename is taken from configFilename().
-
         """
         filename = self.configFilename()
         if not filename:
@@ -164,7 +156,7 @@ class Configurable(object):
             else:
                 exec contents in evalContext
                 config = evalContext
-                for name in config.keys(): # keys() since dict is changed
+                for name in config.keys():  # keys() since dict is changed
                     if name.startswith('_'):
                         del config[name]
         except Exception, e:
@@ -180,7 +172,6 @@ class Configurable(object):
 
         The default destination is stdout. A fixed with font is assumed
         for aligning the values to start at the same column.
-
         """
         if dest is None:
             dest = sys.stdout
@@ -194,7 +185,6 @@ class Configurable(object):
         """Return the settings that came from the command-line.
 
         These settings come via addCommandLineSetting().
-
         """
         return _settings.get(self.configName(), {})
 
@@ -203,13 +193,13 @@ class Configurable(object):
 
 _settings = {}
 
+
 def addCommandLineSetting(name, value):
     """Override the configuration with a command-line setting.
 
     Take a setting, like "AppServer.Verbose=0", and call
     addCommandLineSetting('AppServer.Verbose', '0'), and
     it will override any settings in AppServer.config
-
     """
     configName, settingName = name.split('.', 1)
     value = valueForString(value)
@@ -217,12 +207,12 @@ def addCommandLineSetting(name, value):
         _settings[configName] = {}
     _settings[configName][settingName] = value
 
+
 def commandLineSetting(configName, settingName, default=NoDefault):
     """Retrieve a command-line setting.
 
     You can use this with non-existent classes, like "Context.Root=/WK",
     and then fetch it back with commandLineSetting('Context', 'Root').
-
     """
     if default is NoDefault:
         return _settings[configName][settingName]

@@ -12,7 +12,6 @@ class Klasses(dict, ModelObject):
 
     A Klasses object can read a list of class specifications that are
     stored in a spreadsheet (.csv).
-
     """
 
 
@@ -39,7 +38,6 @@ class Klasses(dict, ModelObject):
         names (like int and enum) to the name of the attribute class that would
         implement them. Mapping to class names rather than actual classes is key,
         because in __init__, a different set of attribute classes can be passed in.
-
         """
         typemap = {}
         names = 'bool int long float string enum date time list ObjRef decimal'
@@ -76,7 +74,6 @@ class Klasses(dict, ModelObject):
         """Return a list of all the Klasses in the order they were declared.
 
         Do not modify the list.
-
         """
         return self._klasses
 
@@ -102,7 +99,7 @@ class Klasses(dict, ModelObject):
                         print 'Required key %s not found in row:' % key
                         print 'row:', row
                         print 'keys:', row.keys()
-                        print row[key] # throws exception
+                        print row[key]  # throws exception
                 if row['Class']:
                     pyClass = self._model.coreClass('Klass')
                     klass = pyClass(self, row)
@@ -122,7 +119,6 @@ class Klasses(dict, ModelObject):
         """Perform further initialization.
 
         Expected to be invoked by the model.
-
         """
         assert self._model is model
 
@@ -148,7 +144,6 @@ class Klasses(dict, ModelObject):
         """Add a class definition.
 
         Restrictions: Cannot add two classes with the same name.
-
         """
         name = klass.name()
         assert name not in self, 'Already have %s.' % name
@@ -165,7 +160,6 @@ class Klasses(dict, ModelObject):
         Given a raw attribute definition (in the form of a dictionary),
         this method returns the name of the Python class that should be
         instantiated for it. This method relies primarily on dict['Type'].
-
         """
         typeName = attrDict['Type']
         if not typeName:

@@ -4,11 +4,11 @@ from MiscUtils import StringIO
 from MiscUtils.Funcs import asclocaltime
 from ExamplePage import ExamplePage
 
-try: # GD module
+try:  # GD module
     from gd import image as gdImage, gdFontLarge
 except ImportError:
     gdImage = None
-    try: # Python Imaging Library
+    try:  # Python Imaging Library
         import Image as pilImage, ImageDraw, ImageFont
     except ImportError:
         try:
@@ -26,7 +26,7 @@ def image_lib_link(lib=None):
             'www.pythonware.com/products/pil/'))[lib]
     return '<a href="http://%s">%s</a>' % (src, name)
 
-X, Y = 500, 200 # the image size
+X, Y = 500, 200  # the image size
 
 def t(p):
     """Map coordinates: (x=0..2pi, y=-1.25..1.25) => (0..X, Y..0)"""
@@ -101,7 +101,6 @@ class ImageDemo(ExamplePage):
     http://python.org/topics/web/graphics.html.
 
     This example works with both PIL and GD.
-
     """
 
     def defaultAction(self):
@@ -137,7 +136,7 @@ class ImageDemo(ExamplePage):
         draw = Drawing()
         draw.text((2.7, 0.8), 'y=sin(x)', black)
         draw.text((0.2, -0.8), 'created: ' + asclocaltime(), red)
-        draw.lines(((0, 0), (2*pi, 0)), black) # x-axis
-        draw.lines(((0, -1), (0, 1)), black) # y-axis
+        draw.lines(((0, 0), (2*pi, 0)), black)  # x-axis
+        draw.lines(((0, -1), (0, 1)), black)  # y-axis
         draw.lines(map(f, map(lambda x: x*2*pi/X, xrange(X+1))), blue)
         return draw.png()

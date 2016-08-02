@@ -19,7 +19,6 @@ daemon: run as a daemon
 ClassName.SettingName=value: change configuration settings
 
 When started, the app server records its pid in appserver.pid.
-
 """
 
 import errno
@@ -47,12 +46,12 @@ except (TypeError, AttributeError):
 try:
     import fcntl
     F_GETFD, F_SETFD = fcntl.F_SETFD, fcntl.F_SETFD
-except (ImportError, AttributeError): # not Unix
+except (ImportError, AttributeError):  # not Unix
     fcntl = None
 else:
     try:
         FD_CLOEXEC = fcntl.FD_CLOEXEC
-    except AttributeError: # not always defined
+    except AttributeError:  # not always defined
         FD_CLOEXEC = 1
 
 from MiscUtils.Funcs import asclocaltime
@@ -67,26 +66,26 @@ from HTTPExceptions import HTTPServiceUnavailable
 debug = False
 
 defaultConfig = dict(
-    Host = 'localhost', # same as '127.0.0.1'
-    EnableAdapter = True, # enable WebKit adapter
+    Host = 'localhost',  # same as '127.0.0.1'
+    EnableAdapter = True,  # enable WebKit adapter
     AdapterPort = 8086,
-    EnableMonitor = False, # disable status monitoring
+    EnableMonitor = False,  # disable status monitoring
     SCGIPort = 8084,
-    EnableSCGI = False, # disable SCGI adapter
+    EnableSCGI = False,  # disable SCGI adapter
     MonitorPort = 8085,
-    EnableHTTP = True, # enable built-in HTTP server
+    EnableHTTP = True,  # enable built-in HTTP server
     HTTPPort = 8080,
-    StartServerThreads = 10, # initial number of server threads
-    MinServerThreads = 5, # minimum number
-    MaxServerThreads = 20, # maxium number
-    UseDaemonThreads = True, # use daemonic worker threads
-    MaxRequestTime = 300, # maximum request execution time in seconds
-    RequestQueueSize = 0, # means twice the maximum number of threads
-    RequestBufferSize = 8*1024, # 8 kBytes
-    ResponseBufferSize = 8*1024, # 8 kBytes
-    AddressFiles = '%s.address', # %s stands for the protocol name
+    StartServerThreads = 10,  # initial number of server threads
+    MinServerThreads = 5,  # minimum number
+    MaxServerThreads = 20,  # maximum number
+    UseDaemonThreads = True,  # use daemonic worker threads
+    MaxRequestTime = 300,  # maximum request execution time in seconds
+    RequestQueueSize = 0,  # means twice the maximum number of threads
+    RequestBufferSize = 8*1024,  # 8 kBytes
+    ResponseBufferSize = 8*1024,  # 8 kBytes
+    AddressFiles = '%s.address',  # %s stands for the protocol name
     # @@ the following setting is not yet implemented
-    # SocketType = 'inet', # inet, inet6, unix
+    # SocketType = 'inet',  # inet, inet6, unix
 )
 
 # Need to know this value for communications
@@ -102,17 +101,22 @@ exitStatus = 0
 class NotEnoughDataError(Exception):
     """Not enough data received error"""
 
+
 class ProtocolError(Exception):
     """Network protocol error"""
+
 
 class ThreadAbortedError(HTTPServiceUnavailable):
     """Thread aborted error"""
 
+
 class RequestAbortedError(ThreadAbortedError):
     """Request aborted error"""
 
+
 class RequestTooLongError(RequestAbortedError):
     """Request lasts too long error"""
+
 
 class ServerShutDownError(ThreadAbortedError):
     """Server has been shut down error"""
@@ -122,7 +126,6 @@ class WorkerThread(Thread):
     """Base class for Webware worker threads that can be aborted.
 
     (Idea taken from: http://sebulba.wikispaces.com/recipe+thread2)
-
     """
 
     _canAbort = PyThreadState_SetAsyncExc is not None
@@ -143,7 +146,6 @@ class WorkerThread(Thread):
         A return value of one means the thread was successfully aborted,
         a value of zero means the thread could not be found,
         any other value indicates that an error has occurred.
-
         """
         if not self._canAbort:
             if debug:
@@ -202,7 +204,6 @@ class ThreadedAppServer(AppServer):
     response is sent directly (if streaming is used, like if you call
     `response.flush()`). Thus the ThreadedAppServer packages the
     socket/response, rather than value being returned up the call chain.
-
     """
 
 
@@ -214,7 +215,6 @@ class ThreadedAppServer(AppServer):
         Create an initial thread pool (threads created with `spawnThread`),
         and the request queue, record the PID in a file, and add any enabled
         handlers (Adapter, HTTP, Monitor).
-
         """
         self._threadPool = []
         self._threadCount = 0
@@ -293,7 +293,6 @@ class ThreadedAppServer(AppServer):
         The `handlerClass` is a subclass of `Handler`, and is used to
         handle the actual request -- usually returning control back
         to ThreadedAppServer in some fashion. See `Handler` for more.
-
         """
 
         if serverAddress is None:
@@ -310,7 +309,7 @@ class ThreadedAppServer(AppServer):
                 handlerClass.settingPrefix, str(serverAddress))
             sys.stdout.flush()
             raise
-        serverAddress = sock.getsockname() # resolve/normalize
+        serverAddress = sock.getsockname()  # resolve/normalize
         self._socketHandlers[serverAddress] = handlerClass
         self._handlerCache[serverAddress] = []
         self._sockets[serverAddress] = sock
@@ -322,9 +321,9 @@ class ThreadedAppServer(AppServer):
             print "Warning: %s already exists" % adrFile
             try:
                 os.unlink(adrFile)
-            except (AttributeError, OSError): # we cannot remove the file
+            except (AttributeError, OSError):  # we cannot remove the file
                 if open(adrFile).read() == adrStr:
-                    return # same content, so never mind
+                    return  # same content, so never mind
                 else:
                     print "Error: Could not remove", adrFile
                     sys.stdout.flush()
@@ -350,7 +349,7 @@ class ThreadedAppServer(AppServer):
             self._defaultConfig.update(defaultConfig)
         return self._defaultConfig
 
-    _ignoreErrnos = [] # silently ignore these errors:
+    _ignoreErrnos = []  # silently ignore these errors:
     for e in 'EAGAIN', 'EWOULDBLOCK', 'EINTR', 'ECONNABORTED', 'EPROTO':
         try:
             _ignoreErrnos.append(getattr(errno, e))
@@ -380,14 +379,13 @@ class ThreadedAppServer(AppServer):
         information (`updateThreadUsage`), and every
         ``MaxServerThreads * 2`` loops it it will manage
         threads (killing or spawning new ones, in `manageThreadCount`).
-
         """
 
         threadCheckInterval = self._maxServerThreads * 2
-        threadUpdateDivisor = 5 # grab stat interval
+        threadUpdateDivisor = 5  # grab stat interval
         threadCheck = 0
 
-        self._running = 3 # server is in the main loop now
+        self._running = 3  # server is in the main loop now
 
         try:
             while self._running > 2:
@@ -451,7 +449,6 @@ class ThreadedAppServer(AppServer):
         """Update the threadUseCounter list.
 
         Called periodically     from `mainloop`.
-
         """
         count = self.activeThreadCount()
         if len(self._threadUseCounter) > self._maxServerThreads:
@@ -462,7 +459,6 @@ class ThreadedAppServer(AppServer):
         """Get a snapshot of the number of threads currently in use.
 
         Called from `updateThreadUsage`.
-
         """
         count = 0
         for t in self._threadPool:
@@ -476,7 +472,6 @@ class ThreadedAppServer(AppServer):
         From information gleened from `updateThreadUsage`, we see about how
         many threads are being used, to see if we have too many threads or
         too few. Based on this we create or absorb threads.
-
         """
 
         # @@: This algorithm needs work. The edges (i.e. at the
@@ -498,9 +493,9 @@ class ThreadedAppServer(AppServer):
             print "ThreadCount: ", self._threadCount
 
         if len(self._threadUseCounter) < self._maxServerThreads:
-            return # not enough samples
+            return  # not enough samples
 
-        margin = self._threadCount / 2 # smoothing factor
+        margin = self._threadCount / 2  # smoothing factor
         if debug:
             print "Margin:", margin
 
@@ -526,7 +521,6 @@ class ThreadedAppServer(AppServer):
         """Create a new worker thread.
 
         Worker threads poll with the `threadloop` method.
-
         """
         if debug:
             print "Spawning new thread"
@@ -550,7 +544,6 @@ class ThreadedAppServer(AppServer):
         threads we go through all the threads and find the
         thread(s) that have exited, so that we can take them
         out of the thread pool.
-
         """
         for i in range(count):
             self._requestQueue.put(None)
@@ -563,7 +556,7 @@ class ThreadedAppServer(AppServer):
             # of the threads we want gone may not yet be gone.
             # But we'll pick them up later -- they'll wait.
             if not t.isAlive():
-                t.join() # don't need a timeout, it isn't alive
+                t.join()  # don't need a timeout, it isn't alive
                 self._threadPool.remove(t)
                 if debug:
                     print "Thread absorbed, real threadCount =", len(self._threadPool)
@@ -576,7 +569,6 @@ class ThreadedAppServer(AppServer):
         A return value of one means the thread was successfully aborted,
         a value of zero means the thread could not be found,
         any other value indicates that an error has occurred.
-
         """
         verbose = self._verbose
         if verbose:
@@ -617,7 +609,6 @@ class ThreadedAppServer(AppServer):
 
         The longest allowed execution time for requests is controlled
         by the MaxRequestTime setting.
-
         """
         if self._checkRequestTime is None:
             return
@@ -666,7 +657,6 @@ class ThreadedAppServer(AppServer):
         `initThread` and `delThread` methods are called at the beginning and
         end of the thread loop, but they aren't being used for anything
         (future use as a hook).
-
         """
         self.initThread()
         t = currentThread()
@@ -714,7 +704,6 @@ class ThreadedAppServer(AppServer):
 
         Invoked immediately by threadloop() as a hook for subclasses.
         This implementation does nothing and subclasses need not invoke super.
-
         """
         pass
 
@@ -723,7 +712,6 @@ class ThreadedAppServer(AppServer):
 
         Invoked immediately by threadloop() as a hook for subclasses.
         This implementation does nothing and subclasses need not invoke super.
-
         """
         pass
 
@@ -735,14 +723,13 @@ class ThreadedAppServer(AppServer):
 
         Also calls `AppServer.shutDown`, but first closes all sockets
         and tells all the threads to die.
-
         """
         print "ThreadedAppServer is shutting down..."
         if self._running > 2:
-            self._running = 2 # ask main loop to finish
-            self.awakeSelect() # unblock select call in mainloop()
+            self._running = 2  # ask main loop to finish
+            self.awakeSelect()  # unblock select call in mainloop()
             sys.stdout.flush()
-            for i in range(30): # wait at most 3 seconds for shutdown
+            for i in range(30):  # wait at most 3 seconds for shutdown
                 if self._running < 2:
                     break
                 sleep(0.1)
@@ -814,7 +801,6 @@ class ThreadedAppServer(AppServer):
         The `select()` in `mainloop()` is blocking, so when
         we shut down we have to make a connect to unblock it.
         Here's where we do that.
-
         """
         for host, port in self._sockets:
             if host == '0.0.0.0':
@@ -836,7 +822,6 @@ class ThreadedAppServer(AppServer):
         The address for the Adapter (Host/interface, and port),
         as taken from ``Configs/AppServer.config``,
         settings ``Host`` and ``AdapterPort``.
-
         """
         try:
             return self._addr[settingPrefix]
@@ -865,7 +850,6 @@ class Handler(object):
     picks it up and runs `handleRequest`, which subclasses should override.
 
     Several methods are provided which are typically used by subclasses.
-
     """
 
     def __init__(self, server, serverAddress):
@@ -873,7 +857,6 @@ class Handler(object):
 
         Each handler is attached to a specific host and port,
         and of course to the AppServer.
-
         """
         self._server = server
         self._serverAddress = serverAddress
@@ -888,7 +871,6 @@ class Handler(object):
 
         This isn't where work gets done -- the handler is queued after this,
         and work is done when `handleRequest` is called.
-
         """
         self._requestID = requestID
         self._sock = sock
@@ -898,7 +880,6 @@ class Handler(object):
 
         Called when the handler is finished. Closes the socket and
         returns the handler to the pool of inactive handlers.
-
         """
         self._sock = None
         self._server._handlerCache[self._serverAddress].append(self)
@@ -908,7 +889,6 @@ class Handler(object):
 
         Utility function to receive a marshalled dictionary from the socket.
         Returns None if the request was empty.
-
         """
         chunk = ''
         missing = intLength
@@ -971,7 +951,6 @@ See the Troubleshooting section of the WebKit Install Guide.\r''')
         """Handle a raw request.
 
         This is where the work gets done. Subclasses should override.
-
         """
         pass
 
@@ -979,7 +958,6 @@ See the Troubleshooting section of the WebKit Install Guide.\r''')
         """Track start of a raw request.
 
         Subclasses can use and override this method.
-
         """
         requestDict = requestDict or {}
         requestID = self._requestID
@@ -1001,7 +979,6 @@ See the Troubleshooting section of the WebKit Install Guide.\r''')
         """Track end of a raw request.
 
         Subclasses can use and override this method.
-
         """
         if self._verbose:
             requestDict = self._requestDict
@@ -1026,7 +1003,6 @@ class MonitorHandler(Handler):
     is a command (``STATUS`` or ``QUIT``). Responds with a simple
     string, either the number of requests we've received (for
     ``STATUS``) or ``OK`` for ``QUIT`` (which also stops the server).
-
     """
     # @@ 2003-03 ib: we should have a RESTART command, and
     # perhaps better status indicators (number of threads, etc).
@@ -1059,10 +1035,9 @@ class TASStreamOut(ASStreamOut):
     is called and the buffer is ready to be written, it sends the data from the
     buffer out on the socket. This is the response stream used for requests
     generated by ThreadedAppServer.
-
     """
 
-    _ignoreErrnos = [] # silently ignore these errors:
+    _ignoreErrnos = []  # silently ignore these errors:
     for e in 'EPIPE', 'ECONNABORTED', 'ECONNRESET':
         try:
             _ignoreErrnos.append(getattr(errno, e))
@@ -1074,7 +1049,6 @@ class TASStreamOut(ASStreamOut):
 
         We get an extra `sock` argument, which is the socket which we'll
         stream output to (if we're streaming).
-
         """
         ASStreamOut.__init__(self, autoCommit, bufferSize)
         self._socket = sock
@@ -1085,10 +1059,9 @@ class TASStreamOut(ASStreamOut):
         Calls `ASStreamOut.ASStreamOut.flush`, and if that returns True
         (indicating the buffer is full enough) then we send data from
         the buffer out on the socket.
-
         """
         result = ASStreamOut.flush(self)
-        if result: # a true return value means we can send
+        if result:  # a true return value means we can send
             reslen = len(self._buffer)
             sent = 0
             bufferSize = self._bufferSize
@@ -1118,7 +1091,6 @@ class AdapterHandler(Handler):
     object based off the socket, which contains the body of the
     request (the POST data, for instance). It's left to Application
     to handle that data.
-
     """
     protocolName = 'adapter'
     settingPrefix = 'Adapter'
@@ -1129,7 +1101,6 @@ class AdapterHandler(Handler):
         Creates the request dictionary, and creates a `TASStreamOut` object
         for the response, then calls `Application.dispatchRawRequest`, which
         does the rest of the work (here we just clean up after).
-
         """
         requestDict = self.receiveDict()
         if not requestDict:
@@ -1169,7 +1140,6 @@ class SCGIHandler(AdapterHandler):
     """SCGI handler.
 
     Modified Adapter handler speaking the SCGI protocol.
-
     """
     protocolName = 'scgi'
     settingPrefix = 'SCGI'
@@ -1179,7 +1149,6 @@ class SCGIHandler(AdapterHandler):
 
         Utility function to receive the SCGI headers from the socket.
         Returns None if the request was empty.
-
         """
         chunk = ''
         while 1:
@@ -1283,15 +1252,14 @@ def run(workDir=None):
 
     After setting up the ThreadedAppServer we call `ThreadedAppServer.mainloop`
     to start the server main loop. It also catches exceptions as a last resort.
-
     """
     global server
     server = None
     global exitStatus
     exitStatus = 0
-    os.chdir = chdir # inhibit use of os.chdir()
+    os.chdir = chdir  # inhibit use of os.chdir()
     runAgain = True
-    while runAgain: # looping in support of RestartAppServerError
+    while runAgain:  # looping in support of RestartAppServerError
         try:
             try:
                 runAgain = False
@@ -1312,10 +1280,10 @@ def run(workDir=None):
                     try:
                         while server._running > 1:
                             try:
-                                sleep(1) # wait for interrupt
+                                sleep(1)  # wait for interrupt
                             except Exception:
                                 if server._running < 3:
-                                    raise # shutdown
+                                    raise  # shutdown
                     finally:
                         t.join()
                 else:
@@ -1362,7 +1330,7 @@ def run(workDir=None):
             AppServerModule.globalAppServer = None
     sys.stdout.flush()
     sys.stderr.flush()
-    os.chdir = _chdir # allow use of os.chdir() again
+    os.chdir = _chdir  # allow use of os.chdir() again
     return exitStatus
 
 
@@ -1379,20 +1347,20 @@ def shutDown(signum, frame):
         if signum == SIGINT:
             raise KeyboardInterrupt
         elif signum == SIGHUP:
-            sys.exit(3) # force reload
+            sys.exit(3)  # force reload
         else:
-            sys.exit(0) # normal exit
+            sys.exit(0)  # normal exit
     else:
         print "No running app server was found."
 
 try:
     currentFrames = sys._current_frames
-except AttributeError: # Python < 2.5
+except AttributeError:  # Python < 2.5
     # Use the threadframe module for dumping thread stack frames:
     # http://www.majid.info/mylos/stories/2004/06/10/threadframe.html
     try:
         import threadframe
-    except ImportError: # threadframe module not installed
+    except ImportError:  # threadframe module not installed
         currentFrames = None
     else:
         currentFrames = threadframe.dict
@@ -1457,17 +1425,20 @@ if currentFrames:
 # Command line interface
 
 import re
-settingRE = re.compile(r'^(?:--)?([a-zA-Z][a-zA-Z0-9]*\.[a-zA-Z][a-zA-Z0-9]*)=')
+
+settingRE = re.compile(
+    r'^(?:--)?([a-zA-Z][a-zA-Z0-9]*\.[a-zA-Z][a-zA-Z0-9]*)=')
+
 from MiscUtils import Configurable
 
 usage = re.search('\n.* arguments:\n\n(.*\n)*?\n', __doc__).group(0)
+
 
 def main(args):
     """Command line interface.
 
     Run by `Launch`, this is the main entrance and command-line interface
     for ThreadedAppServer.
-
     """
     function = run
     daemon = False

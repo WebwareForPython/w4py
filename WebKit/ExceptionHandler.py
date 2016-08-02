@@ -11,7 +11,7 @@ from time import time, localtime
 try:
     from email.message import Message
     from email.Utils import formatdate
-except ImportError: # Python < 2.5
+except ImportError:  # Python < 2.5
     from email.Message import Message
     from email.Utils import formatdate
 
@@ -76,12 +76,11 @@ class ExceptionHandler(object):
 
     You can also control the errors with settings in
     ``Application.config``
-
     """
     # keep these lower case to support case insensitivity:
     _hideValuesForFields = ['password', 'passwd', 'pwd',
         'creditcard', 'credit card', 'cc', 'pin', 'tan']
-    if False: # for testing
+    if False:  # for testing
         _hideValuesForFields.extend(['application', 'uri',
             'http_accept', 'userid'])
     _hiddenString = '*** hidden ***'
@@ -102,7 +101,6 @@ class ExceptionHandler(object):
         ExceptionHandler instances are created anew for each exception.
         Instantiating ExceptionHandler completes the process --
         the caller need not do anything else.
-
         """
         # Keep references to the objects
         self._app = application
@@ -174,7 +172,6 @@ class ExceptionHandler(object):
 
         It also sends gives a page from `privateErrorPage` or
         `publicErrorPage` (which one based on ``ShowDebugInfoOnErrors``).
-
         """
         if self._res:
             self._res.recordEndTime()
@@ -221,7 +218,6 @@ class ExceptionHandler(object):
         Logs the time, servlet name and traceback to the console
         (typically stderr). This usually results in the information
         appearing in console/terminal from which AppServer was launched.
-
         """
         if stderr is None:
             stderr = sys.stderr
@@ -234,7 +230,6 @@ class ExceptionHandler(object):
 
         Returns a brief error page telling the user that an error has occurred.
         Body of the message comes from ``UserErrorMessage`` setting.
-
         """
         return '\n'.join((docType(), '<html>', '<head>', '<title>Error</title>',
             htStyle(), '</head>', '<body text="black" bgcolor="white">',
@@ -248,7 +243,6 @@ class ExceptionHandler(object):
         useful information such as the traceback.
 
         Most of the contents are generated in `htmlDebugInfo`.
-
         """
         html = [docType(), '<html>', '<head>', '<title>Error</title>',
             htStyle(), '</head>', '<body text="black" bgcolor="white">',
@@ -262,7 +256,6 @@ class ExceptionHandler(object):
 
         Return HTML-formatted debugging information about the current exception.
         Calls `writeHTML`, which uses ``self.write(...)`` to add content.
-
         """
         self._html = []
         self.writeHTML()
@@ -280,7 +273,6 @@ class ExceptionHandler(object):
           * `writeEnvironment`
           * `writeIds`
           * `writeFancyTraceback`
-
         """
         self.writeTraceback()
         self.writeMiscInfo()
@@ -319,14 +311,13 @@ class ExceptionHandler(object):
         Tries ``obj._name` first, followed by ``obj.name()``.
         Is resilient regarding exceptions so as not to spoil the
         exception report.
-
         """
         attrs = {}
         for name in attrNames:
-            value = getattr(obj, '_' + name, Singleton) # go for data attribute
+            value = getattr(obj, '_' + name, Singleton)  # go for attribute
             try:
                 if value is Singleton:
-                    value = getattr(obj, name, Singleton) # go for method
+                    value = getattr(obj, name, Singleton)  # go for method
                     if value is Singleton:
                         value = '(could not find attribute or method)'
                     else:
@@ -353,7 +344,6 @@ class ExceptionHandler(object):
 
         Writes the traceback, with most of the work done
         by `WebUtils.HTMLForException.HTMLForException`.
-
         """
         self.writeTitle('Traceback')
         self.write('<p><i>%s</i></p>' % self.servletPathname())
@@ -363,7 +353,6 @@ class ExceptionHandler(object):
         """Output misc info.
 
         Write a couple little pieces of information about the environment.
-
         """
         self.writeTitle('MiscInfo')
         info = {
@@ -380,7 +369,6 @@ class ExceptionHandler(object):
 
         Lets the transaction talk about itself, using
         `Transaction.writeExceptionReport`.
-
         """
         if self._tra:
             self._tra.writeExceptionReport(self)
@@ -394,7 +382,6 @@ class ExceptionHandler(object):
         environment that was passed in with the request (holding the CGI
         information) -- it's just the information from the environment
         that the AppServer is being executed in.
-
         """
         self.writeTitle('Environment')
         self.writeDict(os.environ)
@@ -403,7 +390,6 @@ class ExceptionHandler(object):
         """Output OS identification.
 
         Prints some values from the OS (like processor ID).
-
         """
         self.writeTitle('OS Ids')
         self.writeDict(osIdDict(), ('Name', 'Value'))
@@ -431,7 +417,6 @@ class ExceptionHandler(object):
 
         Saves the given HTML error page for later viewing by
         the developer, and returns the filename used.
-
         """
         filename = os.path.join(self._app._errorMessagesDir,
             self.errorPageFilename())
@@ -452,7 +437,6 @@ class ExceptionHandler(object):
 
         Construct a filename for an HTML error page, not including the
         ``ErrorMessagesDir`` setting (which `saveError` adds on).
-
         """
         # Note: Using the timestamp and a random number is a poor technique
         # for filename uniqueness, but it is fast and good enough in practice.
@@ -467,12 +451,11 @@ class ExceptionHandler(object):
         pathname, exception-name, exception-data,error report
         filename) to the errors file (typically 'Errors.csv')
         in CSV format. Invoked by `handleException`.
-
         """
         if not self.setting('LogErrors'):
             return
         err, msg = self._exc[:2]
-        if isinstance(err, basestring): # string exception
+        if isinstance(err, basestring):  # string exception
             err, msg = '', str(msg or err)
         else:
             err, msg = err.__name__, str(msg)
@@ -501,7 +484,6 @@ class ExceptionHandler(object):
 
         Send the exception via mail, either as an attachment,
         or as the body of the mail.
-
         """
         message = Message()
 
@@ -617,7 +599,6 @@ class ExceptionHandler(object):
 
         Filters keys from a dict.  Currently ignores the
         dictionary, and just filters based on the key.
-
         """
         return self.filterValue(value, key)
 
@@ -628,7 +609,6 @@ class ExceptionHandler(object):
         By default, it simply returns self._hiddenString if the key is
         in self._hideValuesForField (case insensitive). Subclasses
         could override for more elaborate filtering techniques.
-
         """
         try:
             key = key.lower()
@@ -649,7 +629,6 @@ class ExceptionHandler(object):
         dictionaries are nicely formatted in table.
 
         This is a utility method for `writeAttrs`.
-
         """
         if isinstance(value, dict):
             return htmlForDict(value, addSpace=self._addSpace,
@@ -669,6 +648,7 @@ def docType():
     return ('<!DOCTYPE HTML PUBLIC'
         ' "-//W3C//DTD HTML 4.01 Transitional//EN"'
         ' "http://www.w3.org/TR/html4/loose.dtd">')
+
 
 def htStyle():
     """Return the page style."""
@@ -715,15 +695,16 @@ table.NiceTable table.NiceTable th {
 -->
 </style>''')
 
+
 def htTitle(name):
     """Format a `name` as a section title."""
     return ('<h2 class="section">%s</h2>' % name)
+
 
 def osIdDict():
     """Get all OS id information.
 
     Returns a dictionary containing id information such as
-    uid, gid, etc., all obtained from the os module.
 
     """
     ids = ['egid', 'euid', 'gid', 'groups', 'pgrp',

@@ -30,10 +30,9 @@ def test(modelFilename, configFilename, workDir=workDir, toTestDir='../'):
     In most cases, the defaults for workDir and toTestDir are
     sufficient.     In funkalicious cases, like the MKMultipleStores test,
     overriding these defaults comes in handy.
-
     """
-    rmdir(workDir) # get rid of files from previous runs
-    os.mkdir(workDir) # make a space for the files from this run
+    rmdir(workDir)  # get rid of files from previous runs
+    os.mkdir(workDir)  # make a space for the files from this run
 
     # Run generate, load the model, and import some classes
     command = os.path.normpath('../Design/Generate.py')

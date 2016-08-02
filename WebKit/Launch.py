@@ -41,7 +41,6 @@ AppServerOptions:
 
 Please note that the default values for the StartOptions and the AppServer
 can be easily changed at the top of the Launch.py script.
-
 """
 
 # FUTURE
@@ -96,12 +95,15 @@ appServer = 'ThreadedAppServer'
 
 ## Launch app server ##
 
-import os, sys
+import os
+import sys
+
 
 def usage():
     """Print the docstring and exit with error."""
     sys.stdout.write(__doc__)
     sys.exit(2)
+
 
 def launchWebKit(appServer=appServer, workDir=None, args=None):
     """Import and launch the specified WebKit app server.
@@ -109,7 +111,6 @@ def launchWebKit(appServer=appServer, workDir=None, args=None):
     appServer  -- the name of the WebKit app server module
     workDir -- the server-side work directory of the app server
     args -- other options that will be given to the app server
-
     """
     # Set up the arguments for the app server:
     if args is None:
@@ -132,7 +133,7 @@ def launchWebKit(appServer=appServer, workDir=None, args=None):
         from time import time
         Profiler.startTime = time()
     # Run the app server:
-    return appServerMain(args) # go!
+    return appServerMain(args)  # go!
 
 
 ## Main ##
@@ -258,9 +259,9 @@ def main(args=None):
         __name__ = name
         __package__ = None
     # Check the validity of the Webware directory:
-    sysPath = sys.path # memorize the standard Python search path
-    sys.path = [webwareDir] # now include only the Webware directory
-    try: # check whether Webware is really located here
+    sysPath = sys.path  # memorize the standard Python search path
+    sys.path = [webwareDir]  # now include only the Webware directory
+    try:  # check whether Webware is really located here
         from Properties import name as webwareName
         from WebKit.Properties import name as webKitName
     except ImportError:
@@ -277,16 +278,16 @@ def main(args=None):
         print '> python install.py'
         sys.exit(1)
     # Now assemble a new clean Python search path:
-    path = [] # the new search path will be collected here
+    path = []  # the new search path will be collected here
     webKitDir = os.path.abspath(os.path.join(webwareDir, 'WebKit'))
     for p in [workDir, webwareDir] + libraryDirs + sysPath:
         if not p:
-            continue # do not include the empty ("current") directory
+            continue  # do not include the empty ("current") directory
         p = os.path.abspath(p)
         if p == webKitDir or p in path or not os.path.exists(p):
-            continue # do not include WebKit and duplicates
+            continue  # do not include WebKit and duplicates
         path.append(p)
-    sys.path = path # set the new search path
+    sys.path = path  # set the new search path
     # Prepare the arguments for launchWebKit:
     args = (appServer, workDir, args)
     # Handle special case where app server shall be stopped:
@@ -319,7 +320,7 @@ def main(args=None):
                 os.kill(pid, SIGTERM)
             except OSError, error:
                 from errno import ESRCH
-                if error.errno == ESRCH: # no such process
+                if error.errno == ESRCH:  # no such process
                     print 'The pid file was stale, continuing with startup...'
                     killed = True
                 else:
@@ -400,7 +401,7 @@ def main(args=None):
         if logFile:
             logFile = os.path.expanduser(logFile)
             try:
-                log = open(logFile, 'a', 1) # append, line buffered mode
+                log = open(logFile, 'a', 1)  # append, line buffered mode
                 print 'Output has been redirected to %r...' % logFile
                 stdout, stderr = sys.stdout, sys.stderr
                 sys.stdout = sys.stderr = log

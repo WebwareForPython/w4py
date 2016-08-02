@@ -5,7 +5,6 @@
 Webware for Python
 
 See the CGIWrapper.html documentation for more information.
-
 """
 
 # We first record the starting time, in case we're being run as a CGI script.
@@ -43,7 +42,6 @@ class CGIWrapper(object):
     for both the script and website developer and the administrator.
 
     See the CGIWrapper.html documentation for full information.
-
     """
 
 
@@ -60,7 +58,6 @@ class CGIWrapper(object):
 
         Subclasses could override to customize the values
         or where they're taken from.
-
         """
         return dict(
             ScriptsHomeDir = 'Examples',
@@ -107,7 +104,6 @@ class CGIWrapper(object):
         This are overrides found in the optional configuration file,
         or {} if there is no such file. The config filename is taken
         from configFilename().
-
         """
         try:
             f = open(self.configFilename())
@@ -125,7 +121,6 @@ class CGIWrapper(object):
 
         This is a combination of defaultConfig() and userConfig().
         This method does no caching.
-
         """
         config = self.defaultConfig()
         config.update(self.userConfig())
@@ -162,7 +157,6 @@ class CGIWrapper(object):
         """Check that given environment variable names exist.
 
         If they don't, a basic HTML error message is printed and we exit.
-
         """
         badNames = [name for name in names if name not in self._environ]
         if badNames:
@@ -180,7 +174,6 @@ class CGIWrapper(object):
         Scripts that start with an underscore are special -- they run
         out of the same directory as the CGI Wrapper and are typically
         CGI Wrapper support scripts.
-
         """
         # remove the CGI Wrapper's filename part
         pathname = os.path.split(self._environ['SCRIPT_FILENAME'])[0]
@@ -219,7 +212,6 @@ class CGIWrapper(object):
         """Write an entry to the script log file.
 
         Uses settings ScriptLogFilename and ScriptLogColumns.
-
         """
         filename = self.setting('ScriptLogFilename')
         if os.path.exists(filename):
@@ -251,7 +243,6 @@ class CGIWrapper(object):
         Invoked by self when an exception occurs in the target script.
         <code>excInfo</code> is a sys.exc_info()-style tuple of information
         about the exception.
-
         """
         # Note the duration of the script and time of the exception
         self._scriptEndTime = time()
@@ -277,7 +268,6 @@ class CGIWrapper(object):
         Logs the time, script name and traceback to the console
         (typically stderr). This usually results in the information
         appearing in the web server's error log. Used by handleException().
-
         """
         # stderr logging
         stderr.write('[%s] [error] CGI Wrapper:'
@@ -291,7 +281,6 @@ class CGIWrapper(object):
         Used by handleException() to clear out the current CGI output results
         in preparation of delivering an HTML error message page.
         Currently resets headers and deletes cookies, if present.
-
         """
         # Set headers to basic text/html. We don't want stray headers
         # from a script that failed.
@@ -305,7 +294,6 @@ class CGIWrapper(object):
 
         There could be more options in the future, so using named arguments
         (e.g. showDebugInfo=False) is recommended. Invoked by handleException().
-
         """
         html = ['''%s
 <html>
@@ -324,7 +312,6 @@ class CGIWrapper(object):
         """Return an HTML page with debugging info on the current exception.
 
         Used by handleException().
-
         """
         html = ['''
 %s<p><i>%s</i></p>
@@ -348,7 +335,6 @@ class CGIWrapper(object):
         """Save the given HTML error page for later viewing by the developer.
 
         Returns the filename used. Invoked by handleException().
-
         """
         dir = self.setting('ErrorMessagesDir')
         if not os.path.exists(dir):
@@ -370,7 +356,6 @@ class CGIWrapper(object):
         """Construct a filename for an HTML error page.
 
         This filename does not include the 'ErrorMessagesDir' setting.
-
         """
         # Note: Using the timestamp and a random number is a poor technique
         # for filename uniqueness, but it is fast and good enough in practice.
@@ -385,12 +370,11 @@ class CGIWrapper(object):
         exception-name, exception-data, error report filename)
         to the errors file (typically 'Errors.csv') in CSV format.
         Invoked by handleException().
-
         """
         if not excInfo:
             excInfo = sys.exc_info()
         err, msg = excInfo[:2]
-        if isinstance(err, basestring): # string exception
+        if isinstance(err, basestring):  # string exception
             err, msg = '', str(msg or err)
         else:
             err, msg = err.__name__, str(msg)
@@ -545,7 +529,6 @@ class CGIWrapper(object):
 
         This is used for the output that came from the script being served,
         or from our own error reporting.
-
         """
         # Compile the headers & cookies
         headers = StringIO()
@@ -610,7 +593,6 @@ def htTable(listOfDicts, keys=None):
 
     Deficiencies: There's no way to influence the formatting or to
     use column titles that are different from the keys.
-
     """
     if not listOfDicts:
         return ''
@@ -636,7 +618,6 @@ def osIdTable():
     as uid, gid, etc., all obtained from the os module.
 
     Dictionary keys are 'name' and 'value'.
-
     """
     funcs = ['getegid', 'geteuid', 'getgid', 'getpgrp',
         'getpid', 'getppid', 'getuid']

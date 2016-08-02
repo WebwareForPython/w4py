@@ -20,7 +20,6 @@ class SecurePage(ExamplePage, Configurable):
 
     To do: Integrate this functionality with the upcoming UserKit.
     Make more of the functionality configurable in the config file.
-
     """
 
     def __init__(self):
@@ -28,7 +27,7 @@ class SecurePage(ExamplePage, Configurable):
         Configurable.__init__(self)
 
     def awake(self, trans):
-        ExamplePage.awake(self, trans) # awaken our superclass
+        ExamplePage.awake(self, trans)  # awaken our superclass
         if self.setting('RequireLogin'):
             # Handle four cases:
             # login attempt, logout, already logged in, and not already logged in.

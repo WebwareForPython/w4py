@@ -3,7 +3,6 @@
 This module holds functions that don't fit in anywhere else.
 
 You can safely import * from MiscUtils.Funcs if you like.
-
 """
 
 import os
@@ -16,7 +15,7 @@ from struct import calcsize
 
 try:
     from hashlib import md5, sha1
-except ImportError: # Python < 2.5
+except ImportError:  # Python < 2.5
     from md5 import new as md5
     from sha import new as sha1
 
@@ -33,7 +32,6 @@ def commas(number):
     the thousands positions.
 
     The number can be a float, int, long or string. Returns None for None.
-
     """
     if number is None:
         return None
@@ -64,7 +62,6 @@ def charWrap(s, width, hanging=0):
 
     It can also be used to help delineate the entries in log-style
     output by passing hanging=4.
-
     """
     if not s:
         return s
@@ -96,7 +93,6 @@ def excstr(e):
         <ExceptionName>: <message>
         AttributeError: 'object' object has no attribute 'bar'
     Neither str(e) nor repr(e) do that.
-
     """
     if e is None:
         return None
@@ -110,7 +106,6 @@ def hostName():
     from the 'hostname' executable. May return None if neither attempt
     succeeded. The environment keys checked are HOST and HOSTNAME,
     both upper and lower case.
-
     """
     for name in ['HOST', 'HOSTNAME', 'host', 'hostname']:
         hostName = os.environ.get(name)
@@ -142,7 +137,6 @@ def localIP(remote=('www.yahoo.com', 80), useCache=True):
     about what you really want and how your network is really set up.
     Search comp.lang.python for "local ip" for more information.
     http://groups.google.com/groups?q=%22local+ip%22+group:comp.lang.python.*
-
     """
     global _localIP
     if useCache and _localIP:
@@ -192,6 +186,7 @@ def localIP(remote=('www.yahoo.com', 80), useCache=True):
 
 _address_mask = 256L ** calcsize('P')
 
+
 def positiveId(obj):
     """Return id(obj) as a non-negative integer."""
     result = id(obj)
@@ -205,7 +200,6 @@ def _descExc(reprOfWhat, err):
     """Return a description of an exception.
 
     This is a private function for use by safeDescription().
-
     """
     try:
         return '(exception from repr(%s): %s: %s)' % (
@@ -223,12 +217,11 @@ def safeDescription(obj, what='what'):
 
     Example use:
     assert isinstance(foo, Foo), safeDescription(foo)
-    print "foo:", safeDescription(foo) # won't raise exceptions
+    print "foo:", safeDescription(foo)  # won't raise exceptions
 
     # better output format:
     assert isinstance(foo, Foo), safeDescription(foo, 'foo')
     print safeDescription(foo, 'foo')
-
     """
     try:
         xRepr = repr(obj)
@@ -252,7 +245,6 @@ def asclocaltime(t=None):
     """Return a readable string of the current, local time.
 
     Useful for time stamps in log files.
-
     """
     return time.asctime(time.localtime(t))
 
@@ -272,7 +264,6 @@ def timestamp(t=None):
     of seconds is not passed, then the current time is taken. The 'pretty'
     format is ideal for print statements, while the 'condensed' and 'dashed'
     formats are generally more appropriate for filenames.
-
     """
     t = time.localtime(t)[:6]
     return dict(tuple=t,
@@ -296,9 +287,8 @@ def uniqueId(forObject=None, sha=False):
     If an object is passed, then its id() is incorporated into the generation.
     Returns a 32 character long string relying on md5 or,
     if sha is True, a 40 character long string relying on sha-1.
-
     """
-    try: # prefer os.urandom(), if available
+    try:  # prefer os.urandom(), if available
         r = [os.urandom(8)]
     except (AttributeError, NotImplementedError):
         r = [time.time(), random.random(), os.times()]
@@ -316,7 +306,6 @@ def valueForString(s):
 
     "None", "True" and "False" are case-insensitive because there is
     already too much case sensitivity in computing, damn it!
-
     """
     if not s:
         return s

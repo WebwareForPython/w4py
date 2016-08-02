@@ -23,7 +23,6 @@ class Request(Message):
       * Consider if the local host information should be moved up to Message.
       * Locales
       * Secure requests, authentication, etc.
-
     """
 
 
@@ -34,7 +33,6 @@ class Request(Message):
 
         Subclasses are responsible for invoking super
         and initializing self._time.
-
         """
         Message.__init__(self)
         self._transaction = None
@@ -56,7 +54,6 @@ class Request(Message):
         """Return a file-style object that the contents can be read from.
 
         # @@ 2000-05-03 ce: This is bogus. Disregard for now.
-
         """
         pass
 
@@ -71,7 +68,6 @@ class Request(Message):
 
         Returns a string containing the Internet Protocol (IP) address
         of the client that sent the request.
-
         """
         raise AbstractError(self.__class__)
 
@@ -80,7 +76,6 @@ class Request(Message):
 
         Returns the fully qualified name of the client that sent the request,
         or the IP address of the client if the name cannot be determined.
-
         """
         raise AbstractError(self.__class__)
 
@@ -92,7 +87,6 @@ class Request(Message):
 
         Returns a string containing the Internet Protocol (IP) address
         of the local host (e.g., the server) that received the request.
-
         """
         raise AbstractError(self.__class__)
 
@@ -102,7 +96,6 @@ class Request(Message):
 
         Returns the fully qualified name of the local host (e.g., the server)
         that received the request.
-
         """
         return 'localhost'
 
@@ -111,7 +104,6 @@ class Request(Message):
 
         Returns the port of the local host (e.g., the server)
         that received the request.
-
         """
         raise AbstractError(self.__class__)
 
@@ -125,7 +117,6 @@ class Request(Message):
         Returns true if request was made using a secure channel,
         such as HTTPS. This currently always returns false,
         since secure channels are not yet supported.
-
         """
         return False
 

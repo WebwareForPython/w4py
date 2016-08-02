@@ -1,8 +1,8 @@
 import new
 
-try: # import separately installed package because it may be newer
+try:  # import separately installed package because it may be newer
     from pysqlite2 import dbapi2 as sqlite
-except ImportError: # use package in standard library since Python 2.5
+except ImportError:  # use package in standard library since Python 2.5
     import sqlite3 as sqlite
 
 from SQLObjectStore import SQLObjectStore
@@ -19,7 +19,6 @@ class SQLiteObjectStore(SQLObjectStore):
     See the SQLite docs or the DB API 2.0 docs for more information:
       http://www.python.org/doc/2.5/lib/module-sqlite3.html
       http://www.python.org/dev/peps/pep-0249/
-
     """
 
     def augmentDatabaseArgs(self, args, pool=False):

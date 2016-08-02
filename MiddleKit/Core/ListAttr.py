@@ -6,13 +6,12 @@ class ListAttr(Attr):
 
     It cannot include basic data types or instances of classes that are not part
     of the object model.
-
     """
 
     def __init__(self, attr):
         Attr.__init__(self, attr)
         self._className = attr['Type'].rsplit(None, 1)[-1]
-        self._backRefAttr = None # init'ed in awakeFromRead()
+        self._backRefAttr = None  # init'ed in awakeFromRead()
         if self.get('Min') is not None:
             self['Min'] = int(self['Min'])
         if self.get('Max') is not None:
@@ -28,7 +27,6 @@ class ListAttr(Attr):
         It is necessary to be able to override the default back ref     to create
         data structures like trees, in which a Middle object might reference
         a parent and multiple children, all of the same class as itself.
-
         """
         assert self._backRefAttr is not None
         return self._backRefAttr

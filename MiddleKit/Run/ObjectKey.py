@@ -5,7 +5,6 @@ class ObjectKey(object):
     Currently a key is equal to the class name of the object combined
     with the object's serial number, although as a user of object keys,
     you don't normally need to know what's inside them.
-
     """
 
     def __init__(self):
@@ -17,7 +16,6 @@ class ObjectKey(object):
         Initializes the key and potentially invokes obj.setSerialNum()
         if the object does not have one. The key does not maintain a reference
         to either the object or the store.
-
         """
         self._className = obj.__class__.__name__
         self._serialNum = obj.serialNum()

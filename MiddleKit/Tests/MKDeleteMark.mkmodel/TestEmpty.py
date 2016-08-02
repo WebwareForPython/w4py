@@ -33,13 +33,13 @@ DELETE_FOO_AND_OBJECT = 3
 DELETE_REFERENCED_ERROR = 4
 DELETE_OBJECT_WITH_REFERENCES_ERROR = 5
 
+
 def testOther(store, klass, expectedResult):
     """Test "other".
 
     Test creating an instance of a specified class, that points to an instance
     of Foo, which itself points to an instance of Bar. Then try to delete
     the Foo, and make sure that the expected result happens.
-
     """
     # Run the test, deleting the specified object and verifying the expected result
     obj, foo, bar = setupTest(store, klass)
@@ -48,13 +48,13 @@ def testOther(store, klass, expectedResult):
     finally:
         cleanupTest(store, klass)
 
+
 def testSelf(store, klass, expectedResult):
     """Test "self".
 
     Test creating an instance of a specified class, that points to an instance
     of Foo, which itself points to an instance of Bar.  Then try to delete the
     object of the specified class, and make sure that the expected result happens.
-
     """
     # Run the test, deleting the specified object and verifying the expected result
     obj, foo, bar = setupTest(store, klass)
@@ -63,13 +63,13 @@ def testSelf(store, klass, expectedResult):
     finally:
         cleanupTest(store, klass)
 
+
 def testSelfList(store, klass, expectedResult):
     """Test list of "self".
 
     Test creating an instance of a specified class, pointed to by the list
     attribute in an instance of Foo, which itself points to an instance of Bar.
     Then try to delete the Foo, and make sure that the expected result happens.
-
     """
     # Run the test, deleting the specified object and verifying the expected result
     obj, foo, bar = setupListTest(store, klass)
@@ -78,12 +78,12 @@ def testSelfList(store, klass, expectedResult):
     finally:
         cleanupTest(store, klass)
 
+
 def setupTest(store, klass):
     """Setup test.
 
     Setup 3 objects: one of the specified klass, pointing to a Foo,
     pointing to a Bar. Returns tuple (object of specified klass, foo, bar).
-
     """
     # Create a Foo and a Bar, with the Foo pointing to the Bar
     bar = Bar()
@@ -102,12 +102,12 @@ def setupTest(store, klass):
 
     return obj, foo, bar
 
+
 def setupListTest(store, klass):
     """Setup list test.
 
     Setup 3 objects: one of the specified klass, pointing to a Foo,
     pointing to a Bar. Returns tuple (object of specified klass, foo, bar).
-
     """
     # Create a Foo and a Bar, with the Foo pointing to the Bar
     bar = Bar()
@@ -124,6 +124,7 @@ def setupListTest(store, klass):
     store.saveChanges()
 
     return obj, foo, bar
+
 
 def runTest(store, klass, objectToDelete, expectedResult):
     # Try to delete the specified object, then check that the expected result is what happened
@@ -159,6 +160,7 @@ def runTest(store, klass, objectToDelete, expectedResult):
             raise AssertionError('unknown expectedResult value')
     bars = store.fetchObjectsOfClass(Bar)
     assert len(bars) == 1
+
 
 def cleanupTest(store, klass):
     # Clean out all leftover objects

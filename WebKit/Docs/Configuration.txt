@@ -245,12 +245,12 @@ which files are hidden, and some of how those files get chosen.
     Default::
 
         {
-            'ReuseServlets': True, # cache servlets in memory
-            'Technique': 'serveContent', # or 'redirectSansAdapter'
+            'ReuseServlets': True,  # cache servlets in memory
+            'Technique': 'serveContent',  # or 'redirectSansAdapter'
             # If serving content:
-            'CacheContent': False, # set to True for caching file content
-            'MaxCacheContentSize': 128*1024, # cache files up to this size
-            'ReadBufferSize': 32*1024 # read buffer size when serving files
+            'CacheContent': False,  # set to True for caching file content
+            'MaxCacheContentSize': 128*1024,  # cache files up to this size
+            'ReadBufferSize': 32*1024  # read buffer size when serving files
         }
 
 Caching

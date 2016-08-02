@@ -212,7 +212,7 @@ Class,Attribute,Type,Extras
         try:
             DataTable().readString('a\n"1\n')
         except DataTableError:
-            pass # just what we were expecting
+            pass  # just what we were expecting
         else:
             raise Exception(
                 'Failed to raise exception for unfinished multiline record')

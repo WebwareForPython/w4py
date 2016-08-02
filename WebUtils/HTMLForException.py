@@ -1,7 +1,6 @@
 """HTMLForException.py
 
 Create HTML for exceptions.
-
 """
 
 import os, re, sys, traceback, urllib
@@ -63,7 +62,6 @@ def HTMLForStackTrace(frame=None, options=None):
     Returns an HTML string that presents useful information to the developer
     about the stack. The first argument is a stack frame such as returned by
     sys._getframe() which is in fact invoked if a stack frame isn't provided.
-
     """
 
     # Get the stack frame if needed:
@@ -80,7 +78,6 @@ def HTMLForException(excInfo=None, options=None):
     Returns an HTML string that presents useful information to the developer
     about the exception. The first argument is a tuple such as returned by
     sys.exc_info() which is in fact invoked if the tuple isn't provided.
-
     """
 
     # Get the excInfo if needed:

@@ -42,7 +42,6 @@ file was rapidly being written and read. I think that's fairly rare.
 
 SEE ALSO
     http://www.python.org/doc/current/lib/module-pickle.html
-
 """
 
 verbose = False
@@ -79,7 +78,6 @@ class PickleCacheReader(PickleCache):
         if it can read. Otherwise returns None, which also indicates
         that writePickleCache() should be subsequently called after
         the original file is read.
-
         """
         if pickleProtocol is None or pickleProtocol < 0:
             pickleProtocol = maxPickleProtocol
@@ -94,7 +92,7 @@ class PickleCacheReader(PickleCache):
         if not os.path.exists(filename):
             if v:
                 print 'Cannot find %r.' % filename
-            open(filename) # to get a properly constructed IOError
+            open(filename)  # to get a properly constructed IOError
 
         shouldDeletePickle = False
         data = None

@@ -67,7 +67,7 @@ class SimpleExampleTest(unittest.TestCase):
         from UserKit.HierRole import HierRole
         try:
             from hashlib import sha1 as sha
-        except ImportError: # Python < 2.5
+        except ImportError:  # Python < 2.5
             from sha import new as sha
 
         self._mgr = RoleUserManagerToFile()

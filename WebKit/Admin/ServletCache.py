@@ -14,7 +14,6 @@ class ServletCache(AdminSecurity):
 
     This can be useful for debugging WebKit problems and the
     information is interesting in general.
-
     """
 
     def title(self):

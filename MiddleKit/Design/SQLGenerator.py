@@ -50,7 +50,6 @@ class SQLGenerator(CodeGenerator):
             useDatabaseSQL()
           StringAttr
           EnumAttr
-
     """
 
     def sqlDatabaseName(self):
@@ -69,7 +68,6 @@ class SQLGenerator(CodeGenerator):
         Subclasses must override to return True or False, indicating their
         SQL variant supports DEFAULT <value> in the CREATE statement.
         Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -85,7 +83,6 @@ class Model(object):
 
         Creates the directory if necessary, sets the klasses' generator, and
         tells klasses to writeCreateSQL().
-
         """
         if not os.path.exists(dirname):
             os.mkdir(dirname)
@@ -97,7 +94,6 @@ class Model(object):
         """Return the name of the database.
 
         This is either the 'Database' setting or self.name().
-
         """
         name = self.setting('Database', None)
         if name is None:
@@ -124,7 +120,7 @@ class Model(object):
                     wr('delete from %s;\n' % klass.sqlTableName())
             wr('\n')
 
-            self._klassSamples = {} # keyed by klass,
+            self._klassSamples = {}  # keyed by klass,
             # value is list of SQL strings (comments or INSERT statements)
 
             filenames = glob(os.path.join(self._filename, 'Sample*.csv'))
@@ -172,7 +168,7 @@ class Model(object):
 
                 try:
                     if self.areFieldsBlank(fields):
-                        pass # skip blank lines
+                        pass  # skip blank lines
                     elif fields[0] and str(fields[0])[0] == '#':
                         pass
                     elif fields[0].lower().endswith(' objects'):
@@ -328,7 +324,6 @@ class Klasses(object):
         """Return a list of table names in addition to the tables that hold objects.
 
         One popular user of this method is dropTablesSQL().
-
         """
         return ['_MKClassIds']
 
@@ -341,7 +336,6 @@ class Klasses(object):
         """Write the SQL to define the tables for a set of classes.
 
         The target can be a file or a filename.
-
         """
         if isinstance(out, basestring):
             out = open(out, 'w')
@@ -391,7 +385,6 @@ class Klasses(object):
 
         Used by willWriteCreateSQL().
         Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -400,7 +393,6 @@ class Klasses(object):
 
         Used by willWriteCreateSQL().
         Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -409,7 +401,6 @@ class Klasses(object):
 
         Used by willWriteCreateSQL().
         Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -418,7 +409,6 @@ class Klasses(object):
 
         Used by willWriteCreateSQL().
         Subclass responsibility.
-
         """
         raise AbstractError(self.__class__)
 
@@ -487,7 +477,7 @@ class Klass(object):
         sqlAttrs = []
         nonSQLAttrs = []
         for attr in self.allAttrs():
-            attr.containingKlass = self # as opposed to the declaring klass of the attr
+            attr.containingKlass = self  # as opposed to the declaring klass of the attr
             if attr.hasSQLColumn():
                 sqlAttrs.append(attr)
             else:
@@ -520,7 +510,6 @@ class Klass(object):
         this mix-in method to customize the creation of the primary key for
         their SQL variant. This method should use self.sqlSerialColumnName()
         and often ljust()s it by self.maxNameWidth().
-
         """
         return ('    %s int not null primary key,\n'
             % self.sqlSerialColumnName().ljust(self.maxNameWidth()))
@@ -531,7 +520,6 @@ class Klass(object):
         Returns a the column definition that becomes part of the CREATE
         statement for the deleted timestamp field of the table.
         This is used if DeleteBehavior is set to "mark".
-
         """
         row = {'Attribute': 'deleted', 'Type': 'DateTime'}
         # create a "DateTimeAttr", so that the correct database type is used
@@ -541,14 +529,13 @@ class Klass(object):
         dateTimeAttr.writeCreateSQL(generator, out)
 
     def maxNameWidth(self):
-        return 30 # @@ 2000-09-15 ce: Ack! Duplicated from Attr class below
+        return 30  # @@ 2000-09-15 ce: Ack! Duplicated from Attr class below
 
     def writeIndexSQLDefsInTable(self, wr):
         """Return SQL for creating indexes in table.
 
         Subclasses should override this or writeIndexSQLDefsAfterTable,
         or no indexes will be created.
-
         """
         pass
 
@@ -557,7 +544,6 @@ class Klass(object):
 
         Subclasses should override this or writeIndexSQLDefsInTable,
         or no indexes will be created.
-
         """
         pass
 
@@ -581,7 +567,6 @@ class Attr(object):
         Returns true if the attribute has a direct correlating SQL column
         in its class' SQL table definition. Most attributes do.
         Those of type list do not.
-
         """
         return not self.get('isDerived', False)
 
@@ -590,7 +575,6 @@ class Attr(object):
 
         Users of Attr should invoke this method, but subclasses and mixins
         should implement sqlForNonNoneSampleInput() instead.
-
         """
         input = input.strip() or self.get('Default', '')
         if input in (None, 'None', 'none'):
@@ -612,7 +596,6 @@ class Attr(object):
 
         The klass argument is the containing klass of the attribute
         which can be different than the declaring klass.
-
         """
         try:
             if self.hasSQLColumn():
@@ -654,14 +637,14 @@ class Attr(object):
                 default = self.sqlForSampleInput(str(default))
         if default:
             default = str(default).strip()
-            if default.lower() == 'none': # kind of redundant
+            if default.lower() == 'none':  # kind of redundant
                 default = None
             return 'default ' + default
         else:
             return ''
 
     def maxNameWidth(self):
-        return 30 # @@ 2000-09-14 ce: should compute that from names rather than hard code
+        return 30  # @@ 2000-09-14 ce: should compute that from names rather than hard code
 
     def sqlTypeOrOverride(self):
         """Return SQL type.
@@ -670,7 +653,6 @@ class Attr(object):
         the SQLType that the user can specify in the model to override that.
         For example, SQLType='image' for a string attribute.
         Subclasses should not override this method, but sqlType() instead.
-
         """
         return self.get('SQLType') or self.sqlType()
 
@@ -683,7 +665,6 @@ class Attr(object):
         Returns the SQL column name corresponding to this attribute
         which simply defaults to the attribute's name. Subclasses may
         override to customize.
-
         """
         if not self._sqlColumnName:
             self._sqlColumnName = self.name()
@@ -727,7 +708,7 @@ class IntAttr(object):
                 # numeric values from Excel-based models are always float
                 value = value[:-2]
             try:
-                int(value) # raises exception if value is invalid
+                int(value)  # raises exception if value is invalid
             except ValueError, e:
                 raise ValueError('%s (attr is %s)' (e, self.name()))
             return str(value)
@@ -740,7 +721,7 @@ class LongAttr(object):
         return 'bigint'
 
     def sqlForNonNoneSampleInput(self, input):
-        long(input) # raises exception if value is invalid
+        long(input)  # raises exception if value is invalid
         return str(input)
 
 
@@ -750,7 +731,7 @@ class FloatAttr(object):
         return 'double precision'
 
     def sqlForNonNoneSampleInput(self, input):
-        float(input) # raises exception if value is invalid
+        float(input)  # raises exception if value is invalid
         return str(input)
 
 
@@ -787,7 +768,6 @@ class StringAttr(object):
         then the "char" type is preferred over "varchar".
         Also, most (if not all) SQL databases require different types
         depending on the length of the string.
-
         """
         raise AbstractError(self.__class__)
 
@@ -800,7 +780,7 @@ class StringAttr(object):
                 # add spaces before and after, to prevent
                 # syntax error if value begins or ends with "
                 value = eval('""" '+str(value)+' """')
-                value = repr(value[1:-1]) # trim off the spaces
+                value = repr(value[1:-1])  # trim off the spaces
                 value = value.replace('\\011', '\\t')
                 value = value.replace('\\012', '\\n')
                 return value
@@ -812,7 +792,7 @@ class StringAttr(object):
 class AnyDateTimeAttr(object):
 
     def sqlType(self):
-        return self['Type'] # e.g., date, time and datetime
+        return self['Type']  # e.g., date, time and datetime
 
     def sqlForNonNoneSampleInput(self, input):
         return repr(input)
@@ -822,7 +802,7 @@ class ObjRefAttr(object):
 
     def sqlName(self):
         if self.setting('UseBigIntObjRefColumns', False):
-            return self.name() + 'Id' # old way: one 64 bit column
+            return self.name() + 'Id'  # old way: one 64 bit column
         else:
             # new way: 2 int columns for class id and obj id
             name = self.name()
@@ -894,7 +874,6 @@ class ObjRefAttr(object):
         This is useful so that you can look at the sample later and know
         what the obj ref value is referring to without having to look it up.
         MiddleKit only looks at the first part ("User.3").
-
         """
         if self.refByAttr:
             # the column was spec'ed as "foo by bar".
@@ -997,7 +976,6 @@ class EnumAttr(object):
         """Return the tuple (tableName, valueColName, nameColName).
 
         This is derived from the model setting ExternalEnumsSQLNames.
-
         """
         names = getattr(self, '_externalEnumsSQLNames', None)
         if names is None:
@@ -1022,7 +1000,6 @@ class PrimaryKey(object):
     This class is not a 'standard' attribute, but just a helper class for the
     writeInsertSamplesSQLForLines method, in case the samples.csv file contains
     a primary key column (i.e. the serial numbers are specified explicitly).
-
     """
 
     def __init__(self, name, klass):

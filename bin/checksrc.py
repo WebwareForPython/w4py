@@ -114,11 +114,11 @@ Maybe: Experiment with including the name of the last seen method/function
 with the error messages to help guide the user to where the error occurred.
 
 Consider using the parser or tokenize modules of the standard library.
-
 """
 
-
-import re, sys, os
+import re
+import sys
+import os
 
 
 class NoDefault(object):
@@ -219,7 +219,6 @@ class CheckSrc(object):
 
         It can either be an object which must respond to write() or
         a string which is a filename used for one invocation of check().
-
         """
         if isinstance(output, basestring):
             self._out = open(output, 'w')
@@ -242,7 +241,6 @@ class CheckSrc(object):
         """Set whether or not to print extra information during check.
 
         For instance, print every directory and file name scanned.
-
         """
         self._verbose = flag
 
@@ -254,7 +252,6 @@ class CheckSrc(object):
 
         You can pass your own args if you like, otherwise sys.argv is used.
         Returns True on success; False otherwise.
-
         """
         setDir = setOut = False
         for arg in args[1:]:
@@ -327,7 +324,6 @@ Error codes and their messages:
         """Invoked by self for all printing.
 
         This allows output to be easily redirected.
-
         """
         write = self._out.write
         for arg in args:
@@ -338,7 +334,6 @@ Error codes and their messages:
 
         Prints the error message and its location.
         Does not raise exceptions or halt the program.
-
         """
         # Implement the DisableErrors option
         disableNames = self.setting('DisableErrors', {}).get(msgCode, [])
@@ -356,7 +351,6 @@ Error codes and their messages:
         """Report a fatal error and raise CheckSrcError.
 
         For instance, handle an invalid configuration file.
-
         """
         self.write('FATAL ERROR: %s\n' % msg)
         raise CheckSrcError
@@ -366,7 +360,6 @@ Error codes and their messages:
 
         The string format is "fileName:lineNum:charNum:".
         The string may be shorter if the latter components are undefined.
-
         """
         s = ''
         if self._fileName is not None:
@@ -430,7 +423,6 @@ Error codes and their messages:
         """Invoked by os.path.walk() which is kicked off by check().
 
         Recursively checks the given directory and all its subdirectories.
-
         """
         # Initialize location attributes.
         # These are updated while processing and
@@ -497,7 +489,7 @@ Error codes and their messages:
     def checkFileLines(self, lines):
         self._lineNum = 1
         self._blankLines = 2
-        self._inMLS = None # MLS = multi-line string
+        self._inMLS = None  # MLS = multi-line string
         for line in lines:
             self.checkFileLine(line)
 
@@ -608,14 +600,14 @@ Error codes and their messages:
             self.error('WrongIndent')
 
     def checkClassName(self, parts):
-        if 'class' in parts: # e.g. if 'class' is a standalone word
-            if parts[0] == 'class': # e.g. if start of the line
+        if 'class' in parts:  # e.g. if 'class' is a standalone word
+            if parts[0] == 'class':  # e.g. if start of the line
                 name = parts[1]
                 if name and name[0] != name[0].upper():
                     self.error('ClassNotCap')
 
     def checkMethodName(self, parts, indent):
-        if 'def' in parts: # e.g. if 'def' is a standalone word
+        if 'def' in parts:  # e.g. if 'def' is a standalone word
             if parts[0] == 'def' and indent:
                 # e.g. if start of the line, and indented
                 # (indicating method and not function)
@@ -689,7 +681,7 @@ Error codes and their messages:
             self.error('ObsExpr', {'old': '<>', 'new': '!='})
         for match in self._assignRE.findall(line):
             if not match[0] and not match[1] and not match[2]:
-                continue # allow this style for keyword arguments
+                continue  # allow this style for keyword arguments
             if match[0] != ' ' or match[2] != ' ':
                 self.error('OpNoSpace', {'op': match[1] + '='})
         for match in self._compareRE.findall(line):

@@ -1,7 +1,6 @@
 """Automated tests for PSPUtils
 
 (c) Copyright by Winston Wolff, 2004 http://www.stratolab.com
-
 """
 
 import unittest

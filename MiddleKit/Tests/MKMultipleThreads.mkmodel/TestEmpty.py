@@ -2,7 +2,7 @@ from threading import Thread, Semaphore, Event
 from Person import Person
 import time
 
-# from Python docs on random module
+
 def create_generators(num, delta, firstseed=None):
     """Return list of num distinct generators.
 
@@ -10,7 +10,6 @@ def create_generators(num, delta, firstseed=None):
     from Random.random()'s full period.
     Seed the first generator with optional arg firstseed (default
     is None, to seed from current time).
-
     """
 
     from random import Random
@@ -31,7 +30,6 @@ def test(store):
     This tests that the ObjectStore can track new, changed and deleted objects
     on a per-thread basis, so that one thread calling store.saveChanges()
     doesn't commit objects which a different thread added.
-
     """
 
     # store.hasChangesForCurrentThread()
@@ -96,7 +94,6 @@ def test(store):
             store.saveChanges()
             assert not store.hasChangesForCurrentThread()
 
-
         def run(self):
             for i in range(self._numCycles):
                 p = self.create()
@@ -108,12 +105,11 @@ def test(store):
             p.setFirstName('bobbie')
             p.setFirstName('Roberta')
 
-            self._finished.release() # signal the main thread that we're done
+            self._finished.release()  # signal the main thread that we're done
             self.debug('waiting for main thread to save changes')
-            self._saveEvent.wait() # wait until the main thread has saved all changes
+            self._saveEvent.wait()  # wait until the main thread has saved all changes
             assert not p.isChanged(), "Modifications didn't get saved."
             assert not self._store.hasChangesForCurrentThread()
-
 
     numthreads = 5
     workers = []

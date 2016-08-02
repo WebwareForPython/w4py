@@ -1,7 +1,6 @@
 """WDGValidator.py
 
 HTML validation using Web Design Group's HTML validator.
-
 """
 
 import os
@@ -28,7 +27,6 @@ def validateHTML(html):
 
     If no errors are found, an empty string is returned.
     Otherwise, the HTML with the error messages is returned.
-
     """
 
     input, output = os.popen4('validate')

@@ -30,9 +30,7 @@ class AbstractError(NotImplementedError):
 
     Note that adding the self.__class__ makes the resulting exception
     *much* more useful.
-
     """
-    pass
 
 
 class NoDefault(object):
@@ -46,7 +44,7 @@ class NoDefault(object):
         from MiscUtils import NoDefault
         def bar(self, name, default=NoDefault):
             if default is NoDefault:
-                return self._bars[name] # will raise exception for invalid key
+                return self._bars[name]  # will raise exception for invalid key
             else:
                 return self._bars.get(name, default)
 
@@ -65,9 +63,7 @@ class NoDefault(object):
     It's also useful if one method that uses "default=NoDefault" relies
     on another object and method to which it must pass the default.
     (This is similar to the subclassing situation.)
-
     """
-    pass
 
 
 def InstallInWebKit(appServer):

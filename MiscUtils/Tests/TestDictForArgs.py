@@ -75,7 +75,7 @@ x=5 'y'=6
         try:
             result = DictForArgs(input)
         except DictForArgsError:
-            return # success
+            return  # success
         except Exception:
             self.fail('Expecting DictForArgError.\nGot: %s.\n' % sys.exc_info())
         else:

@@ -1,6 +1,9 @@
-# CGIWrapper package
-# Webware for Python
-# See Docs/index.html
+"""CGIWrapper package
+
+A Webware for Python plugin. See Docs/index.html.
+
+"""
+
 
 def InstallInWebKit(appServer):
     pass

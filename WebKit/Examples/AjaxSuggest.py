@@ -25,7 +25,7 @@ for i in range(maxWords):
 
 class AjaxSuggest(AjaxPage):
 
-    _clientPolling = None # we have no long-running queries
+    _clientPolling = None  # we have no long-running queries
 
     def writeJavaScript(self):
         AjaxPage.writeJavaScript(self)
@@ -69,7 +69,6 @@ and get random words starting with these characters suggested:</p>''')
 
         Note: to pass more general Python objects to the client side, use JSON,
         e.g. using json-py's (sourceforge.net/projects/json-py/) JsonWriter.
-
         """
         s = filter(lambda w, prefix=prefix:
             w.startswith(prefix), suggestions) or ['none']

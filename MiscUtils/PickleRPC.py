@@ -19,10 +19,10 @@ UNDER THE HOOD
 Requests look like this:
     {
         'version':    1,  # default
-        'action':     'call', # default
+        'action':     'call',  # default
         'methodName': 'NAME',
-        'args':       (A, B, ...), # default = (,)
-        'keywords':   {'A': A, 'B': B, ...} # default = {}
+        'args':       (A, B, ...),  # default = (,)
+        'keywords':   {'A': A, 'B': B, ...}  # default = {}
     }
 
 Only 'methodName' is required since that is the only key without a
@@ -75,10 +75,9 @@ xmlrpclib and then transformed from XML-orientation to Pickle-orientation.
 
 The zlib compression was adapted from code by Skip Montanaro that I found
 here: http://manatee.mojam.com/~skip/python/
-
 """
 
-__version__ = 1 # PickleRPC protocol version (not the pickle protocol used)
+__version__ = 1  # PickleRPC protocol version (not the pickle protocol used)
 
 try:
     from cPickle import dumps, Unpickler, UnpicklingError
@@ -104,7 +103,6 @@ class ResponseError(Error):
       * exception in the actual target method on the server
       * malformed responses
       * non "200 OK" status code responses
-
     """
 
 
@@ -118,7 +116,7 @@ class ProtocolError(ResponseError, _PE):
 
 
 class RequestError(Error):
-    """Errors originally raised by the server complaining about malformed requests."""
+    """Errors originally raised by the server caused by malformed requests."""
 
 
 class InvalidContentTypeError(ResponseError):
@@ -149,7 +147,6 @@ class SafeUnpickler(object):
 
     Note that the PickleRPCServlet class in WebKit is derived from this class
     and uses its load() and loads() methods to do all unpickling.
-
     """
 
     def allowedGlobals(self):
@@ -161,7 +158,6 @@ class SafeUnpickler(object):
         Example:
             return [('datetime', 'date')]
         allows datetime.date instances to be unpickled.
-
         """
         return []
 
@@ -203,7 +199,6 @@ class Server(object):
     "/PickleRPC" is assumed.
 
     See the module doc string for more information.
-
     """
 
     def __init__(self, uri, transport=None, verbose=False, binary=True,
@@ -271,18 +266,16 @@ class Server(object):
 
         Note: to call a remote object with an non-standard name,
         use result getattr(server, "strange-python-name")(args)
-
         """
         return _Method(self._requestValue, name)
 
-ServerProxy = Server # be like xmlrpclib for those who might guess or expect it
+ServerProxy = Server  # be like xmlrpclib for those who might guess/expect it
 
 
 class _Method(object):
     """Some magic to bind a Pickle-RPC method to an RPC server.
 
     Supports "nested" methods (e.g. examples.getStateName).
-
     """
 
     def __init__(self, send, name):
@@ -292,7 +285,7 @@ class _Method(object):
     def __getattr__(self, name):
         return _Method(self._send, '%s.%s' % (self._name, name))
 
-    def __call__(self, *args, **keywords): # note that keywords are supported
+    def __call__(self, *args, **keywords):  # note that keywords are supported
         return self._send(self._name, args, keywords)
 
 

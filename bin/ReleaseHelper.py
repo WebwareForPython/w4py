@@ -38,10 +38,11 @@ because permissions and EOLs can be problematic for other platforms.
 Use the option pgk=zip to create a zip archive instead of a tarball.
 
 For more information, see the Release Procedures in the Webware docs.
-
 """
 
-import os, sys, time
+import os
+import sys
+import time
 
 
 class ReleaseHelper(object):
@@ -65,7 +66,6 @@ class ReleaseHelper(object):
         This means the release will match exactly what is in the SVN,
         and reduces the risk of local changes, modified files, or new
         files which are not in SVN from showing up in the release.
-
         """
 
         url = self._args.get('url', ' http://svn.w4py.org/Webware/tags')
@@ -162,7 +162,7 @@ class ReleaseHelper(object):
             if not os.path.exists(pkgPath):
                 self.error('Could not create %s.' % pkgType)
 
-        finally: # Clean up
+        finally:  # Clean up
             for path in cleanup:
                 if os.path.exists(path):
                     self.run('rm -rf ' + path)

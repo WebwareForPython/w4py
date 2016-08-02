@@ -32,7 +32,6 @@ that save the raw requests.
 
 Caveat: HTTP cookies are blown away from the raw requests. Mostly due to
 the fact that they will contain stale session ids.
-
 """
 
 
@@ -51,11 +50,11 @@ def usage():
     print '%s usage:' % name
     print '  %s numRequests [minParallelRequests [maxParallelRequests [delay [slowconn]]]]' % name
     print 'Examples:'
-    print '  %s 100            # run 100 sequential requests' % name
-    print '  %s 100 5          # run 100 requests, 5 at a time' % name
-    print '  %s 100 5 10       # run 100 requests, 5-10 at a time' % name
-    print '  %s 100 10 10 0.01 # run 100 requests, 10 at a time, with delay between each set' % name
-    print '  %s 5 1 1 0.1 1    # run 5 sequential requests, simulating a very bad connection' % name
+    print '  %s 100             # run 100 sequential requests' % name
+    print '  %s 100 5           # run 100 requests, 5 at a time' % name
+    print '  %s 100 5 10        # run 100 requests, 5-10 at a time' % name
+    print '  %s 100 10 10 0.01  # run 100 requests, 10 at a time, with delay between each set' % name
+    print '  %s 5 1 1 0.1 1     # run 5 sequential requests, simulating a very bad connection' % name
     print
     sys.exit(1)
 
@@ -65,7 +64,6 @@ def request(names, dicts, host, port, count, delay=0, slowconn=0):
 
     This includes sending the request and receiving the response.
     slowconn simulates a slowed connection from the client.
-
     """
     complete = 0
     filecount = len(names)
@@ -103,7 +101,7 @@ def request(names, dicts, host, port, count, delay=0, slowconn=0):
         except Exception:
             status = 'no status'
             code = 0
-        if code not in (200,): # accepted status codes
+        if code not in (200,):  # accepted status codes
             status = dicts[i]['environ']['PATH_INFO'] + ' ' + status
             raise Exception(status)
         if data.rstrip()[-7:].lower() != '</html>':

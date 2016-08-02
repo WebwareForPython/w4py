@@ -29,7 +29,6 @@ class Error(dict):
         >>> err = Error(None, 'Too bad.', info)
 
     Or you could even do both if you needed to.
-
     """
 
     def __init__(self, obj, message, valueDict={}, **valueArgs):
@@ -38,7 +37,6 @@ class Error(dict):
         Takes the object the error occurred for, and the user-readable
         error message. The message should be self sufficient such that
         if printed by itself, the user would understand it.
-
         """
         dict.__init__(self)
         self._object = obj

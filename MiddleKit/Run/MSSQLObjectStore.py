@@ -23,7 +23,6 @@ class MSSQLObjectStore(SQLObjectStore):
     See alsO: http://www.connectionstrings.com
 
     MSSQL defaults to autocommit on. If you want it off, set autocommit=False.
-
     """
 
     def __init__(self, **kwargs):
@@ -46,7 +45,7 @@ class MSSQLObjectStore(SQLObjectStore):
 
     def setting(self, name, default=NoDefault):
         if name == 'SQLConnectionPoolSize':
-            return 0 # pyodbc comes already with pooling
+            return 0  # pyodbc comes already with pooling
         return SQLObjectStore.setting(self, name, default)
 
     def dbapiModule(self):
@@ -101,4 +100,4 @@ class ObjRefAttr(object):
 class StringAttr(object):
 
     def sqlForNonNone(self, value):
-        return "'%s'" % value.replace("'", "''") # do the right thing
+        return "'%s'" % value.replace("'", "''")  # do the right thing

@@ -49,7 +49,6 @@ class Request(object):
 
     Encapsulates the request/response I/O objects and CGI-Environment.
     An instance of this class is returned.
-
     """
     def __init__(self, lrwp):
         self.inp = lrwp.inp
@@ -86,7 +85,6 @@ class LRWP(object):
             filter  A space separated list of file extenstions that should
                     be directed to this handler in filter mode.
                     (Not yet supported.)
-
         """
         self.name = name
         self.host = host
@@ -105,7 +103,6 @@ class LRWP(object):
 
         Establishes the connection to the web server, using the parameters
         given at construction.
-
         """
         try:
             self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -125,20 +122,19 @@ class LRWP(object):
         Wait for, and accept a new request from the web server. Reads the
         name=value pairs that comprise the CGI environment, followed by the
         post data, if any. Constructs and returns a Request object.
-
         """
         if self.out:
             self.finish()
         try:
             # get the length of the environment data
             data = self.recvBlock(LENGTHSIZE)
-            if not data: # server closed down
+            if not data:  # server closed down
                 raise ConnectionClosed
             length = int(data)
 
             # and then the environment data
             data = self.recvBlock(length)
-            if not data: # server closed down
+            if not data:  # server closed down
                 raise ConnectionClosed
             data = data.split('\000')
             self.env = {}
@@ -149,14 +145,14 @@ class LRWP(object):
 
             # now get the size of the POST data
             data = self.recvBlock(LENGTHSIZE)
-            if not data: # server closed down
+            if not data:  # server closed down
                 raise ConnectionClosed
             length = int(data)
 
             # and the POST data...
             if length:
                 data = self.recvBlock(length)
-                if not data: # server closed down
+                if not data:  # server closed down
                     raise ConnectionClosed
                 self.inp = StringIO(data)
             else:
@@ -182,7 +178,6 @@ class LRWP(object):
 
         Pull an exact number of bytes from the socket, taking into
         account the possibility of multiple packets...
-
         """
         numRead = 0
         data = []
@@ -246,7 +241,7 @@ def _test():
     lrwp.connect()
 
     count = 0
-    while count < 5: # exit after servicing 5 requests
+    while count < 5:  # exit after servicing 5 requests
         req = lrwp.acceptRequest()
 
         doc = ['<HTML><HEAD><TITLE>LRWP TestApp (%s)</TITLE></HEAD>\n'

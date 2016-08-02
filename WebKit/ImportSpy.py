@@ -16,7 +16,6 @@ with the use of ImportSpy. Otherwise, ImportSpy will not have much benefit.
 Note that ImportSpy is based on the new import hooks of Python described
 in PEP 302. It is possible to suppress the use of ImportSpy by setting
 `UseImportSpy` in AppServer.config to False.
-
 """
 
 from os.path import isdir

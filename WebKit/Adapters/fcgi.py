@@ -72,10 +72,10 @@ FCGI_KEEP_CONN = 1
 FCGI_RESPONDER = 1 ; FCGI_AUTHORIZER = 2 ; FCGI_FILTER = 3
 
 # Values for protocolStatus component of FCGI_END_REQUEST
-FCGI_REQUEST_COMPLETE = 0 # Request completed nicely
-FCGI_CANT_MPX_CONN    = 1 # This app can't multiplex
-FCGI_OVERLOADED       = 2 # New request rejected; too busy
-FCGI_UNKNOWN_ROLE     = 3 # Role value not known
+FCGI_REQUEST_COMPLETE = 0  # Request completed nicely
+FCGI_CANT_MPX_CONN    = 1  # This app can't multiplex
+FCGI_OVERLOADED       = 2  # New request rejected; too busy
+FCGI_UNKNOWN_ROLE     = 3  # Role value not known
 
 
 class FCGIError(Exception):
@@ -145,7 +145,7 @@ class Record(object):
             content += chr(self.protocolStatus) + 3*'\000'
 
         cLen = len(content)
-        eLen = (cLen + 7) & (0xFFFF - 7) # align to an 8-byte boundary
+        eLen = (cLen + 7) & (0xFFFF - 7)  # align to an 8-byte boundary
         padLen = eLen - cLen
 
         hdr = [
@@ -217,7 +217,7 @@ def HandleManTypes(r, conn):
 #---------------------------------------------------------------------------
 #---------------------------------------------------------------------------
 
-_isFCGI = 1 # assume it is until we find out for sure
+_isFCGI = 1  # assume it is until we find out for sure
 
 def isFCGI():
     global _isFCGI
@@ -243,7 +243,7 @@ class FCGI(object):
 
         if 'FCGI_WEB_SERVER_ADDRS' in os.environ:
             good_addrs = os.environ['FCGI_WEB_SERVER_ADDRS'].split(',')
-            good_addrs = map(good_addrs.strip()) # remove whitespace
+            good_addrs = map(good_addrs.strip())  # remove whitespace
         else:
             good_addrs = None
 
@@ -271,7 +271,7 @@ class FCGI(object):
                 r2.recType = FCGI_UNKNOWN_TYPE
                 r2.unknownType = r.recType
                 r2.writeRecord(self.conn)
-                continue # charge onwards
+                continue  # charge onwards
 
             # Ignore requests that aren't active
             elif (r.reqId != self.requestId
@@ -336,7 +336,7 @@ class FCGI(object):
                 r.content = chunk
                 r.writeRecord(self.conn)
             r.content = ""
-            r.writeRecord(self.conn) # Terminate stream
+            r.writeRecord(self.conn)  # Terminate stream
 
             r.recType = FCGI_STDOUT
             data = self.out.read()
@@ -345,7 +345,7 @@ class FCGI(object):
                 r.content = chunk
                 r.writeRecord(self.conn)
             r.content = ""
-            r.writeRecord(self.conn) # Terminate stream
+            r.writeRecord(self.conn)  # Terminate stream
 
             r = Record()
             r.recType = FCGI_END_REQUEST
@@ -379,7 +379,7 @@ def _startup():
             socket.AF_INET, socket.SOCK_STREAM)
         s.getpeername()
     except socket.error, (err, errmsg):
-        if err != errno.ENOTCONN: # must be a non-fastCGI environment
+        if err != errno.ENOTCONN:  # must be a non-fastCGI environment
             global _isFCGI
             _isFCGI = False
             return

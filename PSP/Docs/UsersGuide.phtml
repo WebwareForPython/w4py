@@ -113,7 +113,7 @@ of the block begun within the previous script tag. To end the block, insert a ne
 <h5>Example of Script/HTML block</h5>
 
 <pre class="py">
-&lt;% for i in range(5): %&gt; # the blocks starts here, no need for indenting the following HTML
+&lt;% for i in range(5): %&gt;  # the blocks starts here, no need for indenting the following HTML
 &lt;tr&gt;&lt;td&gt;&lt;%= i%&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;% end %&gt; The "end" statement ends the block</pre>
 
@@ -133,9 +133,9 @@ To end this level of indentation, just start another script tag. Easy.</p>
 
 <pre class="py">
 &lt;% for i in range(5):
-    icubed = i*i $%&gt; ## The following lines of straight HTML will be included in the same block this line is on
+    icubed = i*i $%&gt;  # The following lines of straight HTML will be included in the same block this line is on
   &lt;tr&gt;&lt;td&gt;&lt;%= icubed%&gt;&lt;/td&gt;&lt;/tr&gt;
- &lt;% pass %&gt; ## Any new script statement resets the HTML indentation level</pre>
+ &lt;% pass %&gt;  # Any new script statement resets the HTML indentation level</pre>
 
 <p>You could also start a new script block that just continues at the same indentation level that the HTML and the previous scipt block were at.</p>
 
@@ -156,7 +156,7 @@ Tabs and spaces at the start of lines will be ignored and removed!</p>
 <pre class="py">
 This is &lt;i&gt;Straight HTML&lt;/i&gt;&lt;br&gt;
 &lt;%
-  for i in range(5): { %&gt; # Now I'm starting a block for this loop
+  for i in range(5): { %&gt;  # Now I'm starting a block for this loop
   z = i*i
 %&gt;
 &lt;!-- Now I'm ending the scripting tag that started the block,
@@ -168,7 +168,7 @@ Now I will process it again.&lt;br&gt;
   v = z*z
 %&gt;
 Now it is &lt;%=v %&gt;
-&lt;% } %&gt; # End the block
+&lt;% } %&gt;  # End the block
 </pre>
 
 <a name="ScriptTags"></a><h3>File and Class Level Code &ndash; &lt;psp:file&gt; and &lt;psp:class&gt;</h3>

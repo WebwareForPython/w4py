@@ -1,7 +1,6 @@
 """HTTPStatusCodes.py
 
 Dictionary of HTTP status codes (see RFC2616, section 10).
-
 """
 
 import re
@@ -75,7 +74,6 @@ def HTMLTableOfHTTPStatusCodes(codes=HTTPStatusCodeList,
     Returns an HTML string containing all the status code information
     as provided by this module. It's highly recommended that if you
     pass arguments to this function, that you do so by keyword.
-
     """
     res = ['<table %s>\n' % tableArgs]
     th = '<%s %s>' % (headingTag, headingArgs)

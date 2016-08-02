@@ -24,7 +24,6 @@ class UserManagerToFile(UserManager):
 
     The default user directory is the current working directory,
     but relying on the current directory is often a bad practice.
-
     """
 
 
@@ -56,7 +55,6 @@ class UserManagerToFile(UserManager):
         """Set the directory where user information is stored.
 
         You should strongly consider invoking initNextSerialNum() afterwards.
-
         """
         self._userDir = userDir
 
@@ -65,7 +63,6 @@ class UserManagerToFile(UserManager):
 
         If there is no such user, a KeyError will be raised unless
         a default value was passed, in which case that value is returned.
-
         """
         filename = str(serialNum) + '.user'
         filename = os.path.join(self.userDir(), filename)
@@ -86,7 +83,6 @@ class UserManagerToFile(UserManager):
         """Return a list of all the serial numbers of users found on disk.
 
         Serial numbers are always integers.
-
         """
         return [int(os.path.basename(num[:-5]))
             for num in glob(os.path.join(self.userDir(), '*.user'))]
@@ -110,7 +106,7 @@ class UserManagerToFile(UserManager):
     def addUser(self, user):
         assert isinstance(user, User)
         user.setSerialNum(self.nextSerialNum())
-        user.externalId() # set unique id
+        user.externalId()  # set unique id
         super(UserManagerToFile, self).addUser(user)
         user.save()
 

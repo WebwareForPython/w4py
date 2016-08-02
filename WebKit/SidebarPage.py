@@ -23,7 +23,6 @@ class SidebarPage(Page):
     TO DO
       * More consequent use style sheets; get rid of tables completely.
       * The header, corner and colors are not easy to customize via subclasses.
-
     """
 
 
@@ -118,7 +117,6 @@ table.NiceTable th a:link, table.NiceTable th a:visited {
 
         This way we avoid having to care about where an external style
         sheet should be located when this class is used in another context.
-
         """
         self.writeln('<style type="text/css">%s</style>' % self._styleSheet)
 
@@ -173,7 +171,6 @@ table.NiceTable th a:link, table.NiceTable th a:visited {
         This method (and consequently the methods it invokes)
         are provided for WebKit's example and admin pages.
         It writes sections such as contexts, e-mails, exits and versions.
-
         """
         self.writeContextsMenu()
         self.writeWebwareEmailMenu()

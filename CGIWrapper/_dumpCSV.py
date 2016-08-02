@@ -11,7 +11,6 @@ def LoadCSV(filename):
 
     Loads a CSV (comma-separated value) file from disk and returns it as a
     list of rows where each row is a list of values (which are always strings).
-
     """
     try:
         f = open(filename)
@@ -45,15 +44,16 @@ class _dumpCSV(AdminPage):
     def writeBody(self):
         rows = LoadCSV(self._filename)
 
-        self.writeln('<table align="center"'
-            ' border="0" cellpadding="2" cellspacing="2">')
+        self.writeln('<table align="center" border="0"'
+                     ' cellpadding="2" cellspacing="2">')
 
         # Head row gets special formatting
         self._headings = map(lambda name: name.strip(), rows[0])
         self.writeln('<tr>')
         for value in self._headings:
             self.writeln('<th style="color:white;'
-                'font-family:Arial,Helvetica,sans-serif" bgcolor="#101040">',
+                         'font-family:Arial,Helvetica,sans-serif"'
+                         ' bgcolor="#101040">',
             value, '</th>')
         self.writeln('</tr>')
 
@@ -76,6 +76,5 @@ class _dumpCSV(AdminPage):
 
         This is a hook for subclasses to customize the contents of a cell
         based on any criteria (including location).
-
         """
         return htmlEncode(value)

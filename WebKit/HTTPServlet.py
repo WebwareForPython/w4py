@@ -21,7 +21,6 @@ class HTTPServlet(Servlet):
 
     FUTURE
       * Document methods (take hints from Java HTTPServlet documentation)
-
     """
 
 
@@ -29,7 +28,7 @@ class HTTPServlet(Servlet):
 
     def __init__(self):
         Servlet.__init__(self)
-        self._methodForRequestType = {} # a cache; see respond()
+        self._methodForRequestType = {}  # a cache; see respond()
 
 
     ## Transactions ##
@@ -39,7 +38,6 @@ class HTTPServlet(Servlet):
 
         Invokes the appropriate respondToSomething() method depending on the
         type of request (e.g., GET, POST, PUT, ...).
-
         """
         request = trans.request()
         httpMethodName = request.method()
@@ -74,7 +72,6 @@ class HTTPServlet(Servlet):
 
         Return this object's Last-Modified time (as a float),
         or None (meaning don't know or not applicable).
-
         """
         return None
 
@@ -82,7 +79,6 @@ class HTTPServlet(Servlet):
         """Respond to a HEAD request.
 
         A correct but inefficient implementation.
-
         """
         res = trans.response()
         w = res.write

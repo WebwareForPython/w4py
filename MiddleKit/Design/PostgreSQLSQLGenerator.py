@@ -1,12 +1,12 @@
 
-try: # psycopg2 version 2
+try:  # psycopg2 version 2
     from psycopg2 import Warning, DatabaseError
     from psycopg2.extensions import QuotedString
-except ImportError: # psycopg version 1
+except ImportError:  # psycopg version 1
     try:
         from psycopg import Warning, DatabaseError
         from psycopg.extensions import QuotedString
-    except ImportError: # PyGreSQL
+    except ImportError:  # PyGreSQL
         from pgdb import Warning, DatabaseError
         def QuotedString(s):
             return "'%s'" % s.replace("\\", "\\\\").replace("'", "''")
@@ -104,7 +104,7 @@ class StringAttr(object):
         # @@ 2000-11-11 ce: cache this
         if not self.get('Max'):
             return 'varchar(100) /* WARNING: NO LENGTH SPECIFIED */'
-        max = int(self['Max']) # @@ 2000-11-12 ce: won't need int() after using types
+        max = int(self['Max'])  # @@ 2000-11-12 ce: won't need int() after using types
         if max > 255:
             return 'text'
         if self.get('Min') and int(self['Min']) == max:

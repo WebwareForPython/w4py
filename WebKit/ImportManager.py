@@ -8,7 +8,6 @@ imported, ImportManager can use ImportSpy to keep track of them. This can
 be used to detect changes in source files, templates or config files in order
 to reload them automatically by the AutoReloadingAppServer. The use of
 ImportSpy can be suppressed with the``UseImportSpy`` setting.
-
 """
 
 import imp
@@ -21,7 +20,6 @@ class ImportManager(object):
 
     Keeps track of the Python modules and other system files that have been
     imported and are used by Webware.
-
     """
 
     _imp = _spy = None
@@ -82,7 +80,6 @@ class ImportManager(object):
 
         Called by someone else to register that they'd like to be know
         when a new file is imported.
-
         """
         self._notifyHook = hook
 
@@ -158,7 +155,7 @@ class ImportManager(object):
             if modfile == filename:
                 mod = sys.modules.get(modname)
                 return not mod or not getattr(mod, '__donotreload__', False)
-        return True # it's not a module, we must reload
+        return True  # it's not a module, we must reload
 
     def updatedFile(self, update=True, getmtime=os.path.getmtime):
         """Check whether one of the files has been updated."""
@@ -176,9 +173,9 @@ class ImportManager(object):
                     mod = sys.modules.get(modname)
                     if mod and getattr(mod, '__donotreload__', False):
                         break
-                    return filename # it's a module that needs to be reloaded
+                    return filename  # it's a module that needs to be reloaded
             else:
-                return filename # it's not a module, we must reload
+                return filename  # it's not a module, we must reload
 
     def delModules(self, includePythonModules=False, excludePrefixes=None):
         """Delete imported modules.
@@ -186,7 +183,6 @@ class ImportManager(object):
         Deletes all the modules that the ImportSpy has ever imported unless
         they are part of WebKit. This in support of DebugAppServer's useful
         (yet imperfect) support for AutoReload.
-
         """
         moduleFiles = self._moduleFiles
         fileList = self._fileList

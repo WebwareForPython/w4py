@@ -41,8 +41,7 @@ You can download the latest version from the SVN repository
 COPYRIGHT
 
 Copyright (c) 2005 by Christoph Zwerschke.
-Licensed under the Open Software License version 2.1.
-
+Licensed und
 """
 
 __version__ = '0.2'
@@ -116,14 +115,12 @@ class AutoToC(object):
     """Main class for automatic creation of table(s) of contents.
 
     Provides only one method process().
-
     """
 
     def __init__(self, depth=6):
         """Initialize the AutoToC processor.
 
         You may define a maximum depth here already.
-
         """
         if depth not in range(1, 7):
             depth = 6
@@ -141,12 +138,11 @@ class AutoToC(object):
         """Create table(s) of contents and put them where indicated.
 
         Input and output are strings.
-
         """
         # Read in all contents directives:
         tocs_found = self._toc_directive.findall(input)
         if not tocs_found:
-            return input # no table of contents directive in the input
+            return input  # no table of contents directive in the input
         maxdepth = 0
         tocs = []
         group = self._toc_directive.groupindex
@@ -162,7 +158,7 @@ class AutoToC(object):
         # Read in all headings:
         headings_found = self._heading_pattern.findall(input)
         if not headings_found:
-            return input # no headings in the input
+            return input  # no headings in the input
         mindepth = 6
         headings = []
         names = {}
@@ -186,9 +182,9 @@ class AutoToC(object):
             name = heading_found[group['name'] - 1]
             if name:
                 name_created = False
-            else: # no name given
-                name = self._make_name(title) # create one
-                if name in names: # make sure it is unique
+            else:  # no name given
+                name = self._make_name(title)  # create one
+                if name in names:  # make sure it is unique
                     n = names[name] + 1
                     while '%s-%d' % (name, n) in names:
                         n += 1

@@ -30,7 +30,7 @@ put them in another file and include that file in httpd.conf
 
     FastCgiExternalServer ../cgi-bin/FCGIWebKit.py -host localhost:33333
 
-    <Location /FCGIWebKit.py> # or whatever name you chose for the file above
+    <Location /FCGIWebKit.py>  # or whatever name you chose for the file above
      SetHandler fastcgi-script
      Options ExecCGI FollowSymLinks
     </Location>
@@ -75,7 +75,6 @@ CHANGES
 
 *2001-03-14 jsl:
   * Fixed problem with post data
-
 """
 
 # If the Webware installation is located somewhere else,
@@ -148,7 +147,6 @@ def htmlEncode(s, codes=htmlCodes):
     This is useful to display a plain ASCII text string on a web page.
     (We could get this from WebUtils, but we're keeping FCGIAdapter
     independent of everything but standard Python.)
-
     """
     for c, e in codes:
         s = s.replace(c, e)

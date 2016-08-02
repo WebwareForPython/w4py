@@ -7,7 +7,6 @@ class IncludeURLTest2(IncludeURLTest):
 
     It gets included into the IncludeURLTest, and calls methods
     on other servlets to verify the references continue to work.
-
     """
 
     def writeBody(self):

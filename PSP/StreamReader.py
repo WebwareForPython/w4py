@@ -12,7 +12,6 @@ supporting documentation or portions thereof, including modifications,
 that you make.
 
 This software is based in part on work done by the Jakarta group.
-
 """
 
 from copy import copy
@@ -66,7 +65,6 @@ class StreamReader(object):
 
     It provides the characters to the other parts of the system.
     It can move forward and backwards in a file and remember locactions.
-
     """
 
     def __init__(self, filename, ctxt):
@@ -102,7 +100,7 @@ class StreamReader(object):
                 self._ctxt.getBaseUri(), encoding)
         else:
             self.current.pushStream(fileId, stream,
-                self._ctxt.getBaseUri(), encoding) # don't use yet
+                self._ctxt.getBaseUri(), encoding)  # don't use yet
 
     def popFile(self):
         if self.current is None:
@@ -125,7 +123,6 @@ class StreamReader(object):
         """Greedy search.
 
         Return the point before the string, but move reader past it.
-
         """
         new_cursor = self.current.stream.find(s, self.current.cursor)
         if new_cursor < 0:

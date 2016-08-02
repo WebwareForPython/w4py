@@ -1,7 +1,6 @@
 """TestCommon.py
 
 This is just a convenience module for the various test modules (TestFoo.py).
-
 """
 
 import os, sys, time

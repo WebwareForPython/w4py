@@ -1,7 +1,6 @@
 """Automated tests for the PSP BraceConverter
 
 Contributed 2000-09-04 by Dave Wallace
-
 """
 
 import sys
@@ -18,7 +17,7 @@ class DummyWriter(ServletWriter):
 
     def __init__(self):
         self._filehandle = StringIO()
-        self._tabcnt = 3 # base indentation of our test examples
+        self._tabcnt = 3  # base indentation of our test examples
         self._blockcount = 0
         self._indentSpaces = ServletWriter._spaces
         self._useTabs = False

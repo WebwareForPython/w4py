@@ -48,8 +48,8 @@ class PickleRPCServlet(RPCServlet, SafeUnpickler):
     To make a PickleRPC call from another Python program, do this:
         from MiscUtils.PickleRPC import Server
         server = Server('http://localhost/WebKit.cgi/Context/Math')
-        print server.multiply(3, 4)    # 12
-        print server.multiply('-', 10) # ----------
+        print server.multiply(3, 4)     # 12
+        print server.multiply('-', 10)  # ----------
 
     If a request error is raised by the server, then
     MiscUtils.PickleRPC.RequestError is raised. If an unhandled
@@ -70,7 +70,6 @@ class PickleRPCServlet(RPCServlet, SafeUnpickler):
 
     For the dictionary formats and more information see the docs
     for MiscUtils.PickleRPC.
-
     """
 
     def respondToPost(self, trans):
@@ -128,7 +127,7 @@ class PickleRPCServlet(RPCServlet, SafeUnpickler):
                 response['exception'] = self.resultForException(e, trans)
                 self.sendResponse(trans, response)
                 self.handleException(trans)
-            except: # if it's a string exception, this gets triggered
+            except:  # if it's a string exception, this gets triggered
                 response['exception'] = self.resultForException(
                     sys.exc_info()[0], trans)
                 self.sendResponse(trans, response)
@@ -181,6 +180,5 @@ class PickleRPCServlet(RPCServlet, SafeUnpickler):
         When this returns True, the highest available binary pickling format
         will be used. Override this to return False to use the less-efficient
         text pickling format.
-
         """
         return True
