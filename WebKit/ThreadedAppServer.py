@@ -890,32 +890,34 @@ class Handler(object):
         Utility function to receive a marshalled dictionary from the socket.
         Returns None if the request was empty.
         """
-        chunk = ''
+        chunks = []
         missing = intLength
         while missing > 0:
             block = self._sock.recv(missing)
             if not block:
                 self._sock.close()
-                if not chunk:
+                if not chunks:
                     # We probably awakened due to awakeSelect being called.
                     return None
                 # We got a partial request -- something went wrong.
-                raise NotEnoughDataError('received only %d of %d bytes'
-                    ' when receiving dictLength' % (len(chunk), intLength))
-            chunk += block
+                raise NotEnoughDataError(
+                    'received only %d of %d bytes when expecting dict length' %
+                    (intLength - missing, intLength))
+            chunks.append(block)
             missing -= len(block)
+        chunks = ''.join(chunks)
         try:
-            dictLength = loads(chunk)
+            dictLength = loads(chunks)
         except (ValueError, EOFError), msg:
-            if chunk[:3] == 'GET':
+            if chunks[:3] == 'GET':
                 # Common error: client is speaking HTTP.
-                while msg and len(chunk) < 8192:
+                while msg and len(chunks) < 8192:
                     block = self._sock.recv(1)
                     if not block:
                         break
-                    chunk += block
-                    if (chunk.endswith('\r\r') or chunk.endswith('\n\n')
-                            or chunk.endswith('\r\n\r\n')):
+                    chunks += block
+                    if (chunks.endswith('\r\r') or chunks.endswith('\n\n')
+                            or chunks.endswith('\r\n\r\n')):
                         msg = None
             if msg:
                 print "ERROR:", msg
@@ -930,22 +932,24 @@ Sorry, I don't speak HTTP. You must connect via an adapter.\r
 See the Troubleshooting section of the WebKit Install Guide.\r''')
             self._sock.close()
             print ("       You can only connect to %s via an adapter"
-                " like mod_webkit or wkcgi." % self._serverAddress[1])
+                   " like mod_webkit or wkcgi.") % (self._serverAddress[1],)
             return None
         if not isinstance(dictLength, int):
             self._sock.close()
             raise ProtocolError("Invalid AppServer protocol")
-        chunk = ''
+        chunks = []
         missing = dictLength
         while missing > 0:
             block = self._sock.recv(missing)
             if not block:
                 self._sock.close()
-                raise NotEnoughDataError('received only %d of %d bytes'
-                    ' when receiving dict' % (len(chunk), dictLength))
-            chunk += block
+                raise NotEnoughDataError(
+                    'received only %d of %d bytes when expecting dict' %
+                    (dictLength - missing, dictLength))
+            chunks.append(block)
             missing -= len(block)
-        return loads(chunk)
+        chunks = ''.join(chunks)
+        return loads(chunks)
 
     def handleRequest(self):
         """Handle a raw request.

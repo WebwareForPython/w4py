@@ -39,12 +39,13 @@ WebwareChunkSize  69
 (or whatever your new chunksize is)
 """
 
-import mod_snake
 import os
 try:
     from cStringIO import StringIO
 except ImportError:
     from StringIO import StringIO
+
+import mod_snake
 
 # Keys into the server-config dictionary
 PER_SVR_SERVER    = 0      # server_rec

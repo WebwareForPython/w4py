@@ -1,32 +1,26 @@
 #!/usr/bin/env python
 
-#-----------------------------------------------------------------------------
-# Name:        LRWPAdapter.py
-#
-# Purpose:     LRWP Adapter for the WebKit AppServer and the Xitami Web Server.
-#              Adapted from the CGI Adapter for WebKit.
-#
-# Author:      Jim Madsen
-#
-# Created:     09/27/02
-#-----------------------------------------------------------------------------
+"""LRWPAdapter.py
 
-# Set Program Parameters
+LRWP Adapter for the WebKit AppServer and the Xitami Web Server.
+Adapted from the CGI Adapter for WebKit.
+
+Created by Jim Madsen 09/27/02
+"""
+
+# Set program parameters
 
 webwareDir = None
 
 LRWPappName = 'testing'
-
 LRWPhost = 'localhost'
-
 LRWPport = 81
 
-#-----------------------------------------------------------------------------
+import os
+import sys
 
-import os, sys
 from lrwplib import LRWP
 from Adapter import Adapter
-
 
 if not webwareDir:
     webwareDir = os.path.dirname(os.path.dirname(os.getcwd()))
@@ -43,7 +37,8 @@ class LRWPAdapter(Adapter):
             msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
             msvcrt.setmode(sys.stdin.fileno(), os.O_BINARY)
         # Get Host and Port information for WebKit AppServer
-        (self.host, self.port) = open(os.path.join(self._webKitDir, 'adapter.address')).read().split(':')
+        address = open(os.path.join(self._webKitDir, 'adapter.address')).read()
+        self.host, self.port = address.split(':', 1)
         self.port = int(self.port)
 
     def lrwpConnect(self, LRWPappName, LRWPhost, LRWPport):
@@ -63,18 +58,22 @@ class LRWPAdapter(Adapter):
             try:
                 # Accept requests
                 self.request = self.lrwp.acceptRequest()
+                env = self.request.env
                 # Read input from request object
                 self.myInput = ''
-                if 'CONTENT_LENGTH' in self.request.env:
-                    length = int(self.request.env['CONTENT_LENGTH'])
-                    self.myInput = self.myInput + self.request.inp.read(length)
-                # Fix environment variables due to the way Xitami reports them under LRWP
-                self.request.env['SCRIPT_NAME'] = ('/' + self.LRWPappName)
-                self.request.env['REQUEST_URI'] = ('/' + self.LRWPappName + self.request.env['PATH_INFO'])
+                if 'CONTENT_LENGTH' in env:
+                    length = env['CONTENT_LENGTH']
+                    self.myInput += self.request.inp.read(length)
+                # Fix environment variables
+                # due to the way Xitami reports them under LRWP
+                scriptName = '/' + self.LRWPappName
+                env['SCRIPT_NAME'] = scriptName
+                env['REQUEST_URI'] = scriptName + env['PATH_INFO']
                 # Transact with the app server
-                self.response = self.transactWithAppServer(self.request.env, self.myInput, self.host, self.port)
+                self.response = self.transactWithAppServer(
+                    env, self.myInput, self.host, self.port)
                 # Log page handled to the console
-                print self.request.env['REQUEST_URI']
+                print env['REQUEST_URI']
                 # Close request to handle another
                 self.request.finish()
             # Capture Ctrl-C... Shutdown will occur on next request handled

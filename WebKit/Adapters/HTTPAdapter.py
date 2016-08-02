@@ -9,8 +9,11 @@ workDir = None
 webwareDir = None
 
 
-import sys, os
-import BaseHTTPServer, threading, socket
+import sys
+import os
+import threading
+import socket
+import BaseHTTPServer
 
 
 ## Path setup ##

@@ -526,7 +526,7 @@ def main(args=None):
         workDir = args.pop(0)
     except IndexError:
         usage()
-    if args:# too many parameters
+    if args:  # too many parameters
         usage()
     if not contextName:
         if contextDir:

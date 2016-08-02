@@ -25,7 +25,10 @@ or even:
 ...since an empty string is a special case indicating the local host.
 """
 
-import sys, os, time
+import sys
+import os
+import time
+
 from Adapter import Adapter
 
 

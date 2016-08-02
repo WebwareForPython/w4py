@@ -10,7 +10,9 @@ An example, URL:
     http://127.0.0.1/OneShot.cgi/MyPage
 """
 
-import sys, os, time
+import sys
+import os
+import time
 try:
     from cStringIO import StringIO
 except ImportError:

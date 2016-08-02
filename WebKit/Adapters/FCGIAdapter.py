@@ -11,7 +11,7 @@ When a request comes through here, this script collects information
 about the request, puts it into a package, and then invokes the
 WebKit Application to handle it.
 
-Original CGI implementaion by Chuck Esterbrook.
+Original CGI implementation by Chuck Esterbrook.
 
 FastCGI Implementation by Jay Love.
 Based on threaded fcgi example "sz_fcgi" provided by Andreas Jung.
@@ -28,12 +28,12 @@ put them in another file and include that file in httpd.conf
 # the -host is the port it communicates on
 # the path is from the SERVER ROOT
 
-    FastCgiExternalServer ../cgi-bin/FCGIWebKit.py -host localhost:33333
+    FastCgiExternalServer ../fcgi-bin/FCGIAdapter.py -host localhost:33333
 
-    <Location /FCGIWebKit.py>  # or whatever name you chose for the file above
-     SetHandler fastcgi-script
-     Options ExecCGI FollowSymLinks
-    </Location>
+    <Directory ../fcgi-bin>
+        SetHandler fastcgi-script
+        Options ExecCGI FollowSymLinks
+    </Directory>
 
 You could also take an extension oriented approach in Apache using '.fcgi':
 
@@ -50,11 +50,11 @@ FUTURE
 
 # Set various FastCGI constants
 # Maximum number of requests that can be handled
-FCGI_MAX_REQS=1
+FCGI_MAX_REQS = 1
 FCGI_MAX_CONNS = 1
 
 # Boolean: can this application multiplex connections?
-FCGI_MPXS_CONNS=0
+FCGI_MPXS_CONNS = 0
 
 Do these need to be adjusted in order to realize the full benefits of FastCGI?
 
@@ -77,15 +77,29 @@ CHANGES
   * Fixed problem with post data
 """
 
+# If you used the MakeAppWorkDir.py script to make a separate
+# application working directory, specify it here:
+workDir = None
+
 # If the Webware installation is located somewhere else,
 # then set the webwareDir variable to point to it here:
 webwareDir = None
 
+import sys
+import os
+import time
 
-import sys, os, time
-from socket import *
-import fcgi
-from Adapter import Adapter
+if not webwareDir:
+    webwareDir = os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.realpath(__file__))))
+sys.path.insert(1, webwareDir)
+webKitDir = os.path.join(webwareDir, 'WebKit')
+sys.path.insert(1, webKitDir)
+if not workDir:
+    workDir = webKitDir
+
+from WebKit.Adapters import fcgi
+from WebKit.Adapters.Adapter import Adapter
 
 
 class FCGIAdapter(Adapter):
@@ -96,15 +110,18 @@ class FCGIAdapter(Adapter):
             req = fcgi.FCGI()
             self.FCGICallback(req)
 
-    def FCGICallback(self,req):
+    def FCGICallback(self, req):
         """This function is called whenever a request comes in."""
         try:
             # Transact with the app server
-            response = self.transactWithAppServer(req.env, req.inp.read(), host, port)
+            myInput = req.inp.read()
+            response = self.transactWithAppServer(
+                req.env, myInput, host, port)
             # deliver it!
             req.out.write(response)
+            req.out.write(repr(len(myInput)))
             req.out.flush()
-        except:
+        except Exception:
             import traceback
             # Log the problem to stderr
             stderr = req.err
@@ -127,7 +144,7 @@ class FCGIAdapter(Adapter):
     def pr(self, *args):
         """Just a quick and easy print function."""
         try:
-            req=self.req
+            req = self.req
             req.out.write(''.join(map(str, args)) + '\n')
             req.out.flush()
         except Exception:
@@ -142,7 +159,7 @@ htmlCodes = (
 )
 
 def htmlEncode(s, codes=htmlCodes):
-    """Returns the HTML encoded version of the given string.
+    """Return the HTML encoded version of the given string.
 
     This is useful to display a plain ASCII text string on a web page.
     (We could get this from WebUtils, but we're keeping FCGIAdapter
@@ -165,14 +182,9 @@ if not fcgi.isFCGI():
     print "This module cannot be run from the command line"
     sys.exit(1)
 
-if not webwareDir:
-    webwareDir = os.path.dirname(os.path.dirname(os.getcwd()))
-sys.path.insert(1, webwareDir)
-webKitDir = os.path.join(webwareDir, 'WebKit')
-os.chdir(webKitDir)
-
-host, port = open(os.path.join(webKitDir, 'adapter.address')).read().split(':', 1)
+address = open(os.path.join(workDir, 'adapter.address')).read()
+host, port = address.split(':', 1)
 port = int(port)
 
-fcgiloop = FCGIAdapter(webKitDir)
+fcgiloop = FCGIAdapter(workDir)
 fcgiloop.run()

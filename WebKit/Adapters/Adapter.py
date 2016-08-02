@@ -1,5 +1,9 @@
-import os, time, socket
+import os
+import time
+import socket
+
 from marshal import dumps
+
 from MiscUtils.Configurable import Configurable
 
 
@@ -22,7 +26,8 @@ class Adapter(Configurable):
             AdapterPort = 8086)  # the default app server port
 
     def configFilename(self):
-        return os.path.join(self._webKitDir, 'Configs', '%s.config' % self.name())
+        return os.path.join(
+            self._webKitDir, 'Configs', '%s.config' % self.name())
 
     def getChunksFromAppServer(self, env, myInput='',
             host=None, port=None):
@@ -65,6 +70,7 @@ class Adapter(Configurable):
 
     def transactWithAppServer(self, env, myInput='', host=None, port=None):
         """Get the full response from the application server."""
+        self._respData[:] = []
         for data in self.getChunksFromAppServer(env, myInput, host, port):
             self.processResponse(data)
         return ''.join(self._respData)

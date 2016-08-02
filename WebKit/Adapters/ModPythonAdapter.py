@@ -32,24 +32,23 @@ by adding these lines, outside of any location or directory:
     PythonOption AppWorkDir /path/to/dir/with/adapter.address
 """
 
-# Fix the current working directory -- this gets initialized incorrectly
-# for some reason when run using mod_python.
 import os
+import sys
+
+from mod_python import apache
+
+# Fix the current working directory -- this gets initialized incorrectly
+# for some reason when run using mod_python
 try:
     os.chdir(os.path.abspath(os.path.dirname(__file__)))
 except Exception:
     pass
 
-from mod_python import apache
-
-from socket import *
-import sys
-
 from Adapter import Adapter
 
 debug = 0
 __adapter = None
-bufsize = 32*1024
+bufsize = 32 * 1024
 
 
 class ModPythonAdapter(Adapter):
@@ -96,7 +95,7 @@ class ModPythonAdapter(Adapter):
             #   building the environment
             env = apache.build_cgi_env(req)
 
-            #make sure env is a dictionary (may not be for Apache2)
+            # make sure env is a dictionary (may not be for Apache2)
             env = dict(env)
 
             # Special environment setup needed for psp handler

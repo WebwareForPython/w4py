@@ -22,8 +22,10 @@
 #
 #------------------------------------------------------------------------
 
-import sys, socket
-import os, cgi
+import sys
+import socket
+import os
+import cgi
 try:
     from cStringIO import StringIO
 except ImportError:
@@ -35,14 +37,19 @@ __version__ = '1.0'
 LENGTHSIZE  = 9
 LENGTHFMT   = '%09d'
 
-#---------------------------------------------------------------------------
 # Exception objects
 
-ConnectError     = 'lrwp.ConnectError'
-ConnectionClosed = 'lrwp.ConnectionClosed'
-SocketError      = 'lrwp.SocketError'
+class ConnectError(IOError):
+    """LRWP Connect Error"""
 
-#---------------------------------------------------------------------------
+
+class ConnectionClosed(IOError):
+    """LRWP Connection Closed Error"""
+
+
+class SocketError(IOError):
+    """LRWP Socket Error"""
+
 
 class Request(object):
     """Request object.
@@ -67,8 +74,6 @@ class Request(object):
         return cgi.FieldStorage(fp=method != 'GET' and self.inp or None,
             environ=self.env, keep_blank_values=1)
 
-
-#---------------------------------------------------------------------------
 
 class LRWP(object):
 
@@ -97,7 +102,6 @@ class LRWP(object):
         self.inp = None
         self.out = None
 
-    #----------------------------------------
     def connect(self):
         """Connect with the web server.
 
@@ -115,7 +119,6 @@ class LRWP(object):
         except socket.error, val:
             raise SocketError(val)
 
-    #----------------------------------------
     def acceptRequest(self):
         """Accecpt a request from the web server.
 
@@ -171,8 +174,6 @@ class LRWP(object):
         except socket.error, val:
             raise SocketError(val)
 
-
-    #----------------------------------------
     def recvBlock(self, size):
         """Receive a block from the socket.
 
@@ -187,10 +188,8 @@ class LRWP(object):
                 return ''
             data.append(buf)
             numRead += len(buf)
-
         return ''.join(data)
 
-    #----------------------------------------
     def finish(self):
         """Complete the request and send the output back to the web server."""
         doc = self.out.getvalue()
@@ -208,7 +207,6 @@ class LRWP(object):
         self.inp = None
         self.out = None
 
-    #----------------------------------------
     def close(self):
         """Close the LRWP connection to the web server."""
         self.sock.close()
@@ -217,11 +215,9 @@ class LRWP(object):
         self.inp = None
         self.out = None
 
-#---------------------------------------------------------------------------
-
 
 def _test():
-    import os, time
+    import os
 
     eol = '\r\n'
     appname = 'testapp1'
@@ -269,6 +265,5 @@ def _test():
 
 
 if __name__ == '__main__':
-    # import pdb
-    # pdb.run('_test()')
+    # import pdb; pdb.run('_test()')
     _test()

@@ -22,14 +22,15 @@ workDir = None
 # then set the webwareDir variable to point to it here:
 webwareDir = None
 
-import os, sys
+import os
+import sys
 
 if not webwareDir:
-    webwareDir = os.path.dirname(os.path.dirname(
-        os.path.abspath(os.path.dirname(__file__))))
-sys.path.insert(0, webwareDir)
+    webwareDir = os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.realpath(__file__))))
+sys.path.insert(1, webwareDir)
 webKitDir = os.path.join(webwareDir, 'WebKit')
-sys.path.insert(0, webKitDir)
+sys.path.insert(1, webKitDir)
 if not workDir:
     workDir = webKitDir
 
@@ -38,14 +39,17 @@ from WebKit.Adapters.Adapter import Adapter
 
 class StdErr(object):
     """Auxiliary store for temporary redirection of sys.stderr."""
+
     def __init__(self, stderr):
         if stderr:
             self.stderr, sys.stderr = sys.stderr, stderr
         else:
             self.stderr = None
+
     def close(self):
         if self.stderr:
             self.stderr, sys.stderr = None, self.stderr
+
     def __del__(self):
         self.close()
 
