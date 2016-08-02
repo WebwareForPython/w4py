@@ -30,7 +30,7 @@ class UserManagerToFile(UserManager):
     ## Init ##
 
     def __init__(self, userClass=None):
-        super(UserManagerToFile, self).__init__(userClass=None)
+        UserManager.__init__(self, userClass=None)
         self.setEncoderDecoder(dump, load)
         self.setUserDir(os.getcwd())
         self.initNextSerialNum()
@@ -93,7 +93,7 @@ class UserManagerToFile(UserManager):
     def setUserClass(self, userClass):
         """Overridden to mix in UserMixIn to the class that is passed in."""
         MixIn(userClass, UserMixIn)
-        super(UserManagerToFile, self).setUserClass(userClass)
+        UserManager.setUserClass(self, userClass)
 
 
     ## UserManager concrete methods ##
@@ -107,7 +107,7 @@ class UserManagerToFile(UserManager):
         assert isinstance(user, User)
         user.setSerialNum(self.nextSerialNum())
         user.externalId()  # set unique id
-        super(UserManagerToFile, self).addUser(user)
+        UserManager.addUser(self, user)
         user.save()
 
     def userForSerialNum(self, serialNum, default=NoDefault):

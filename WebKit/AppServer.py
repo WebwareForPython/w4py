@@ -274,7 +274,6 @@ class AppServer(ConfigurableForServerSidePath):
         May return None if loading was unsuccessful (in which case this method
         prints a message saying so). Used by `loadPlugIns` (note the **s**).
         """
-        plugIn = None
         path = self.serverSidePath(path)
         try:
             plugIn = PlugIn(self, path)
@@ -402,6 +401,7 @@ def main():
         del server
         sys.exit()
 
+
 def stop(*args, **kw):
     """Stop the AppServer (which may be in a different process)."""
     print "Stopping the AppServer..."
@@ -423,6 +423,7 @@ def stop(*args, **kw):
         from traceback import print_exc
         print_exc(1)
         print "WebKit cannot terminate the running process."
+
 
 if __name__ == '__main__':
     main()

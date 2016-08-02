@@ -29,6 +29,7 @@ _moduleNameRE = re.compile('[^a-zA-Z_]')
 
 _globalApplication = None
 
+
 def application():
     """Returns the global Application."""
     return _globalApplication
@@ -103,13 +104,13 @@ class ContextParser(URLParser):
         # add all contexts except the default, which we save until the end
         contexts = app.setting('Contexts')
         defaultContext = ''
-        for name, dir in contexts.items():
-            dir = os.path.normpath(dir)  # for Windows
+        for name, path in contexts.items():
+            path = os.path.normpath(path)  # for Windows
             if name == 'default':
-                defaultContext = dir
+                defaultContext = path
             else:
                 name = '/'.join(filter(lambda x: x, name.split('/')))
-                self.addContext(name, dir)
+                self.addContext(name, path)
         if not defaultContext:
             # If no default context has been specified, and there is a unique
             # context not built into Webware, use it as the default context.
@@ -132,8 +133,8 @@ class ContextParser(URLParser):
         if defaultContext in self._contexts:
             self._defaultContext = defaultContext
         else:
-            for name, dir in self._contexts.items():
-                if defaultContext == dir:
+            for name, path in self._contexts.items():
+                if defaultContext == path:
                     self._defaultContext = name
                     break
             else:
@@ -170,26 +171,26 @@ class ContextParser(URLParser):
             # The default context has no other name
             return 'default'
 
-    def addContext(self, name, dir):
+    def addContext(self, name, path):
         """Add a context to the system.
 
         The context will be imported as a package, going by `name`,
-        from the given directory. The directory doesn't have to match
+        from the given directory path. The directory doesn't have to match
         the context name.
         """
         if name == 'default':
-            dest = self.resolveDefaultContext(name, dir)
+            dest = self.resolveDefaultContext(name, path)
             self._defaultContext = dest
             if dest != 'default':
                 # in this case default refers to an existing context, so
                 # there's not much to do
-                print 'Default context aliases to: %s' % (dest)
+                print 'Default context aliases to: %s' % (dest,)
                 return
 
         e = None
         try:
             importAsName = name
-            localDir, packageName = os.path.split(dir)
+            localDir, packageName = os.path.split(path)
             if importAsName in sys.modules:
                 mod = sys.modules[importAsName]
             else:
@@ -202,8 +203,8 @@ class ContextParser(URLParser):
                         e = 'Could not import package'
                     # Maybe this happened because it had been forgotten
                     # to add the __init__.py file. So we try to create one:
-                    if os.path.exists(dir):
-                        f = os.path.join(dir, '__init__.py')
+                    if os.path.exists(path):
+                        f = os.path.join(path, '__init__.py')
                         if (not os.path.exists(f)
                                 and not os.path.exists(f + 'c')
                                 and not os.path.exists(f + 'o')):
@@ -228,21 +229,22 @@ class ContextParser(URLParser):
             # when the context path does not exist
             pass
         if e:
-            print 'Error loading context: %s: %s: dir=%s' % (name, e, dir)
+            print 'Error loading context: %s: %s: dir=%s' % (name, e, path)
             return
 
         if hasattr(mod, 'contextInitialize'):
             # @@ gat 2003-07-23: switched back to old method
             # of passing application as first parameter
             # to contextInitialize for backward compatibility
-            result = mod.contextInitialize(application(),
-                os.path.normpath(os.path.join(os.getcwd(), dir)))
+            result = mod.contextInitialize(
+                application(),
+                os.path.normpath(os.path.join(os.getcwd(), path)))
             # @@: funny hack...?
             if result is not None and 'ContentLocation' in result:
-                dir = result['ContentLocation']
+                path = result['ContentLocation']
 
-        print 'Loading context: %s at %s' % (name, dir)
-        self._contexts[name] = dir
+        print 'Loading context: %s at %s' % (name, path)
+        self._contexts[name] = path
 
     def absContextPath(self, path):
         """Get absolute context path.

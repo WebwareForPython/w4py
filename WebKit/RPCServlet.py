@@ -1,6 +1,7 @@
 """RPC servlets."""
 
-import traceback, sys
+import traceback
+import sys
 
 from HTTPServlet import HTTPServlet
 

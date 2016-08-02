@@ -4,7 +4,7 @@ from RoleUserManagerMixIn import RoleUserManagerMixIn
 from UserManagerToFile import UserManagerToFile
 
 
-class RoleUserManagerToFile(UserManagerToFile, RoleUserManagerMixIn):
+class RoleUserManagerToFile(RoleUserManagerMixIn, UserManagerToFile):
     """See the base classes for more information."""
 
     def __init__(self, userClass=None):

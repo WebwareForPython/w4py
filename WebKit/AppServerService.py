@@ -277,5 +277,6 @@ class AppServerService(win32serviceutil.ServiceFramework):
 def main():
     win32serviceutil.HandleCommandLine(AppServerService)
 
+
 if __name__ == '__main__':
     main()

@@ -391,7 +391,7 @@ char* parseHeaders( char* data, LPEXTENSION_CONTROL_BLOCK ecb) {
 
 
 /*******************************************************************
-Process the reponse from the AppServer
+Process the response from the AppServer
 
 Note: The header must be less than buflen bytes long
 ********************************************************************/

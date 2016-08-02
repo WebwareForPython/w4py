@@ -35,8 +35,8 @@ class ASStreamOut(object):
         self._bufferSize = bufferSize
         self._committed = False
         self._needCommit = False
-        self._chunks = []
         self._buffer = ''
+        self._chunks = []
         self._chunkLen = 0
         self._closed = False
 
@@ -78,7 +78,7 @@ class ASStreamOut(object):
             self._buffer += ''.join(self._chunks)
         finally:
             self._chunks = []
-            self._chunkLen = False
+            self._chunkLen = 0
         return True
 
     def buffer(self):
@@ -101,7 +101,7 @@ class ASStreamOut(object):
         if debug:
             print ">>> ASSTreamOut clear called"
         if self._committed:
-            raise InvalidCommandSequence()
+            raise InvalidCommandSequence
         self._buffer = ''
         self._chunks = []
         self._chunkLen = 0
@@ -128,8 +128,8 @@ class ASStreamOut(object):
 
         Invalid if we are already committed.
         """
-        if self.committed() or self.closed():
-            raise InvalidCommandSequence()
+        if self._committed or self._closed:
+            raise InvalidCommandSequence
         if self._buffer:
             self._buffer = charstr + self._buffer
         else:

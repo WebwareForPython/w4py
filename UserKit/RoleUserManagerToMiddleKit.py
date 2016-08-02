@@ -4,7 +4,7 @@ from RoleUserManagerMixIn import RoleUserManagerMixIn
 from UserManagerToMiddleKit import UserManagerToMiddleKit
 
 
-class RoleUserManagerToMiddleKit(UserManagerToMiddleKit, RoleUserManagerMixIn):
+class RoleUserManagerToMiddleKit(RoleUserManagerMixIn, UserManagerToMiddleKit):
     """See the base classes for more information."""
 
     def __init__(self, userClass=None, store=None, useSQL=None):

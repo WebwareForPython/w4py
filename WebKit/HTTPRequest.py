@@ -4,7 +4,7 @@ import cgi
 import os
 import sys
 import traceback
-from operator import attrgetter, itemgetter
+from operator import itemgetter
 from time import time
 
 from MiscUtils import NoDefault

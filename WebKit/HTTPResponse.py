@@ -283,7 +283,7 @@ class HTTPResponse(Response):
     def isCommitted(self):
         """Check whether response is already commited.
 
-        Checks whether the reponse has already been partially or completely sent.
+        Checks whether the response has already been partially or completely sent.
         If this returns true, no new headers/cookies can be added
         to the response.
         """
@@ -304,7 +304,7 @@ class HTTPResponse(Response):
     def commit(self):
         """Commit response.
 
-        Write out all headers to the reponse stream, and tell the underlying
+        Write out all headers to the response stream, and tell the underlying
         response stream it can start sending data.
         """
         if debug:
