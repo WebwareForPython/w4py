@@ -14,18 +14,22 @@ class JSONRPCExample(JSONRPCServlet):
     def __init__(self):
         JSONRPCServlet.__init__(self)
 
-    def echo(self, msg):
+    @staticmethod
+    def echo(msg):
         return msg
 
-    def reverse(self, msg):
+    @staticmethod
+    def reverse(msg):
         return msg[::-1]
 
-    def uppercase(self, msg):
+    @staticmethod
+    def uppercase(msg):
         return msg.upper()
 
-    def lowercase(self, msg):
+    @staticmethod
+    def lowercase(msg):
         return msg.lower()
 
-    def exposedMethods(self):
-        return JSONRPCServlet.exposedMethods(self) + [
-            'echo', 'reverse', 'uppercase', 'lowercase']
+    @staticmethod
+    def exposedMethods():
+        return ['echo', 'reverse', 'uppercase', 'lowercase']

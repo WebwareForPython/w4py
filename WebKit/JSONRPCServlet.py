@@ -5,10 +5,13 @@ Written by Jean-Francois Pieronne
 
 import traceback
 try:
-    import simplejson
-except ImportError:
-    print "ERROR: simplejson is not installed."
-    print "Get it from http://cheeseshop.python.org/pypi/simplejson"
+    import json
+except ImportError:  # Python < 2.6
+    try:
+        import simplejson as json
+    except ImportError:
+        print "ERROR: simplejson is not installed."
+        print "Get it from https://pypi.python.org/pypi/simplejson/"
 
 from MiscUtils import StringIO
 from HTTPContent import HTTPContent
@@ -24,7 +27,7 @@ class JSONRPCServlet(HTTPContent):
     are able to be called by an JSON-RPC-enabled web page. This is very similar
     in functionality to Webware's actions.
 
-    Some basic security measures against JavaScript hijacking are taken     by
+    Some basic security measures against JavaScript hijacking are taken by
     default which can be deactivated if you're not dealing with sensitive data.
     You can further increase security by adding shared secret mechanisms.
     """
@@ -60,11 +63,11 @@ class JSONRPCServlet(HTTPContent):
         return []
 
     def writeError(self, msg):
-        self.write(simplejson.dumps(
+        self.write(json.dumps(
             {'id': self._id, 'code': -1, 'error': msg}))
 
     def writeResult(self, data):
-        data = simplejson.dumps(
+        data = json.dumps(
             {'id': self._id, 'result': data})
         if not self._allowEval:
             data = ('throw new Error'
@@ -77,7 +80,7 @@ class JSONRPCServlet(HTTPContent):
         Returns Javascript function to be executed by the client immediately.
         """
         request = self.request()
-        data = simplejson.loads(request.rawInput().read())
+        data = json.loads(request.rawInput().read())
         self._id, call, params = data['id'], data['method'], data['params']
         if call == 'system.listMethods':
             self.writeResult(self.exposedMethods())
