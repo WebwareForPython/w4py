@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-import os, sys, time
+import os
+import sys
+import time
 from glob import glob
 
 from TestCommon import *
