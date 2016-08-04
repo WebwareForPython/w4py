@@ -932,7 +932,7 @@ Sorry, I don't speak HTTP. You must connect via an adapter.\r
 See the Troubleshooting section of the WebKit Install Guide.\r''')
             self._sock.close()
             print ("       You can only connect to %s via an adapter"
-                   " like mod_webkit or wkcgi.") % (self._serverAddress[1],)
+                " like mod_webkit or wkcgi.") % (self._serverAddress[1],)
             return None
         if not isinstance(dictLength, int):
             self._sock.close()

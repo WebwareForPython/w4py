@@ -24,9 +24,9 @@ class Page(AdminPage):
             asctime(localtime(curTime)), asctime(gmtime(curTime))))
         self.startMenu()
         self.menuItem('Script log contents', '_dumpCSV?filename=%s' %
-                      urlEncode(self._wrapper.setting('ScriptLogFilename')))
+            urlEncode(self._wrapper.setting('ScriptLogFilename')))
         self.menuItem('Error log contents', '_dumpErrors?filename=%s' %
-                      urlEncode(self._wrapper.setting('ErrorLogFilename')))
+            urlEncode(self._wrapper.setting('ErrorLogFilename')))
         self.menuItem('Show config', '_showConfig')
         self.endMenu()
 

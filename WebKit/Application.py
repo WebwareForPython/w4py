@@ -185,7 +185,7 @@ class Application(ConfigurableForServerSidePath):
     def initErrorPage(self):
         """Initialize the error page related attributes."""
         for path in (self._serverSidePath,
-                     os.path.dirname(os.path.abspath(__file__))):
+                os.path.dirname(os.path.abspath(__file__))):
             error404file = os.path.join(path, 'error404.html')
             try:
                 self._error404 = open(error404file).read()
@@ -217,7 +217,7 @@ class Application(ConfigurableForServerSidePath):
             self._sessionPrefix += '-'
         self._sessionTimeout = self.setting('SessionTimeout') * 60
         self._sessionName = (self.setting('SessionName') or
-                             self.defaultConfig()['SessionName'])
+            self.defaultConfig()['SessionName'])
         self._autoPathSessions = self.setting('UseAutomaticPathSessions')
         self._alwaysSaveSessions = self.setting('AlwaysSaveSessions')
         moduleName = self.setting('SessionModule')
@@ -230,7 +230,7 @@ class Application(ConfigurableForServerSidePath):
             self._sessionClass = cls
         except ImportError:
             print ("ERROR: Could not import Session class '%s'"
-                   " from module '%s'") % (className, moduleName)
+                " from module '%s'") % (className, moduleName)
             self._sessionClass = None
         moduleName = self.setting('SessionStore')
         if moduleName in ('Dynamic', 'File', 'Memcached', 'Memory', 'Shelve'):
@@ -246,7 +246,7 @@ class Application(ConfigurableForServerSidePath):
             self._sessions = cls(self)
         except ImportError, err:
             print ("ERROR: Could not import SessionStore class '%s'"
-                   " from module '%s':\n%s") % (className, moduleName, err)
+                " from module '%s':\n%s") % (className, moduleName, err)
             self._sessions = None
 
     def makeDirs(self):
@@ -256,7 +256,7 @@ class Application(ConfigurableForServerSidePath):
         self._errorMessagesDir = self.serverSidePath(
             self.setting('ErrorMessagesDir') or 'ErrorMsgs')
         for path in (self.serverSidePath('Logs'),
-                     self._cacheDir, self._errorMessagesDir, self._sessionDir):
+                self._cacheDir, self._errorMessagesDir, self._sessionDir):
             if path and not os.path.exists(path):
                 os.makedirs(path)
 
@@ -294,7 +294,7 @@ class Application(ConfigurableForServerSidePath):
                 task = SessionTask.SessionTask(self._sessions)
                 sweepinterval = self._sessionTimeout / 10
                 tm.addPeriodicAction(time() + sweepinterval, sweepinterval,
-                                     task, "SessionSweeper")
+                    task, "SessionSweeper")
                 print "Session sweeper has started."
 
     def shutDown(self):

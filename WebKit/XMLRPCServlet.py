@@ -83,7 +83,7 @@ class XMLRPCServlet(RPCServlet):
 
 def _getXmlDeclAttr(xml, attName):
     """Get attribute value from xml declaration (<?xml ... ?>)."""
-    s = xml[6 : xml.find("?>")]  # 'version = "1.0" encoding = "Cp1251"'
+    s = xml[6:xml.find("?>")]  # 'version = "1.0" encoding = "Cp1251"'
     p = s.find(attName)
     if p < 0:
         return None

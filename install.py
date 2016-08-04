@@ -58,11 +58,9 @@ class Installer(object):
 
     ## Debug printing facility ##
 
-    def _nop (self, msg):
-        pass
-
-    def _printMsg (self, msg):
-        print '  ' + msg
+    def printMsg(self, msg):
+        if self._verbose:
+            print '  ' + msg
 
 
     ## Running the installation ##
@@ -70,7 +68,6 @@ class Installer(object):
     def run(self, verbose=False,
             passprompt=True, defaultpass='', keepdocs=False):
         self._verbose = verbose
-        self.printMsg = verbose and self._printMsg or self._nop
         log = []
         stdout, stderr = sys.stdout, sys.stderr
         try:
