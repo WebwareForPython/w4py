@@ -6,10 +6,6 @@
 
 setglobal version X.Y
 
-config use_tidy 0
-config use_BeautifulSoup 0
-config allow_parse_errors 0
-
 go http://127.0.0.1:8080
 follow MKBrowser
 url MKBrowser
