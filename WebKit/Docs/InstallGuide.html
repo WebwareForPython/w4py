@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
 <title>WebKit Install Guide</title>
 <link rel="stylesheet" href="../../Docs/Doc.css" type="text/css" />
 </head>
@@ -240,8 +240,8 @@ check to see if you have the latest version.  This is:</p>
 <p>You can check for the latest version at <a class="reference external" href="https://cito.github.io/w4py/">https://cito.github.io/w4py/</a>.</p>
 <p>If you're feeling adventurous, you can get the latest in-development
 source code from the public repository.  Instructions are located at
-the <a class="reference external" href="http://www.webwareforpython.org/Wiki/subversionrepositoryaccess">Webware SVN page</a>.  You can find more information about SVN in
-general in the <a class="reference external" href="http://svnbook.red-bean.com">Subversion Book</a>.  The SVN version of Webware is
+the <a class="reference external" href="https://github.com/Cito/w4py">Webware GtiHub page</a>.  You can find more information about Git in
+general in the <a class="reference external" href="https://git-scm.com/documentation">Git Documentation</a>.  The master branch of Webware is
 generally fairly stable.</p>
 </div>
 <div class="section" id="operating-systems">
@@ -924,7 +924,7 @@ explained above, the <tt class="docutils literal">webkit</tt> start script will 
 working directory.</p>
 <p>In order to start WebKit at boot time, copy this script to the system
 folder that is destined for start scripts, which is usually <tt class="docutils literal">/etc/init.d/</tt>
-(e.g. for SuSE or Debian Linux or Solaris) or <tt class="docutils literal">/etc/rc.d/init.d/</tt> (e.g. for
+(e.g. for SUSE or Debian Linux or Solaris) or <tt class="docutils literal">/etc/rc.d/init.d/</tt> (e.g. for
 RedHat or Mandrake Linux).  Instead of copying the script, you can also make
 a symbolic link refering to the script located in your working directory.
 If you do this, the script will be able to determine the location of the
@@ -1000,7 +1000,7 @@ is <tt class="docutils literal">/etc/init.d/webkit</tt>, you would create the sy
 </pre>
 <p>Some systems also provide a command line tool for this purpose, which will
 depend on the flavor of Unix you are using.  For instance, you will use
-<tt class="docutils literal">insserv</tt> on SuSE Linux, <tt class="docutils literal">chkconfig</tt> for RedHat (Fedora),
+<tt class="docutils literal">insserv</tt> on SUSE Linux, <tt class="docutils literal">chkconfig</tt> for RedHat (Fedora),
 <tt class="docutils literal"><span class="pre">update-rc.d</span></tt> for Debian (Ubuntu) or <tt class="docutils literal"><span class="pre">rc-update</span></tt> for Gentoo.</p>
 <p>Take care to launch the script after your web server and database and other
 services you are using.  You can do this by using appropriate numbers for the
