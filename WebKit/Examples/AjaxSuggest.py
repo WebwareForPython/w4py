@@ -1,8 +1,9 @@
 #
 # Ajax "Suggest" Example
 #
-# Written by Robert Forkel based on wiki.w4py.org/ajax_in_webware.html
-# and www.dynamicajax.com/fr/AJAX_Suggest_Tutorial-271_290_312.html,
+# Written by Robert Forkel based on
+# https://cito.github.io/w4py-olde-wiki/ajaxinwebware.html
+# and http://www.dynamicajax.com/fr/AJAX_Suggest_Tutorial-271_290_312.html,
 # with minor changes made by Christoph Zwerschke.
 #
 

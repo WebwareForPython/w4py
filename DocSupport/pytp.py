@@ -56,8 +56,8 @@ out whether it is a Python expression or a Python statement.
 DOWNLOAD
 
 This script is part of Webware for Python.
-You can download the latest version from the SVN repository
-(http://svn.w4py.org/Webware/trunk/DocSupport/pytp.py).
+You can download the latest version from the GitHub repository
+(https://github.com/Cito/w4py/blob/master/DocSupport/pytp.py).
 
 Note: Similar template processors have been written by:
   * Christopher A. Craig (http://www.ccraig.org/software/pyhp/)

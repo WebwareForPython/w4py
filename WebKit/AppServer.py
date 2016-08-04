@@ -237,7 +237,6 @@ class AppServer(ConfigurableForServerSidePath):
         print 'Part of Webware for Python.'
         print 'Copyright 1999-2010 by Chuck Esterbrook. All Rights Reserved.'
         print 'WebKit and Webware are open source.'
-        print 'Please visit: http://www.webwareforpython.org'
         print
         print 'Process id is', os.getpid()
         print 'Date/time is', asclocaltime()

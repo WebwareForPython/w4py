@@ -11,14 +11,14 @@ Warning
 =======
 
 You can find more information about known bugs and future work
-in the Wiki__ and in the `SourceForge tracker systems`__,
+in the `SourceForge tickets`__ and `GitHub issues`__
 both accessible from the `Webware Home Page`__.
 The SourceForge task manager is currently not used since these systems should
 be sufficient and we do not want to scatter issues in too many systems.
 
-__ http://wiki.w4py.org
-__ http://sourceforge.net/tracker/?group_id=4866
-__ http://www.webwareforpython.org
+__ https://sourceforge.net/p/webware/_list/tickets
+__ https://github.com/Cito/w4py/issues
+__ https://cito.github.io/w4py/
 
 
 Future Work/Limitations

@@ -293,7 +293,7 @@ class Transport(SafeUnpickler):
     """Handle an HTTP transaction to a Pickle-RPC server."""
 
     # client identifier (may be overridden)
-    user_agent = 'PickleRPC/%s (by http://www.webwareforpython.org)' % __version__
+    user_agent = 'PickleRPC/%s (Webware for Python)' % __version__
 
     def request(self, host, handler, request_body,
             verbose=False, binary=False, compressed=False, acceptCompressedResponse=False):

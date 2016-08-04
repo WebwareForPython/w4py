@@ -34,8 +34,8 @@ By default, title='Contents', depth=6, skip=0 and classname='contents'.
 DOWNLOAD
 
 This script is part of Webware for Python.
-You can download the latest version from the SVN repository
-(http://svn.w4py.org/Webware/trunk/DocSupport/autotoc.py).
+You can download the latest version from the GitHub repository
+(https://github.com/Cito/w4py/blob/master/DocSupport/autotoc.py).
 
 
 COPYRIGHT

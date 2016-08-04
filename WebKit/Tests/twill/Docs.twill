@@ -282,7 +282,7 @@ back
 
 url Docs
 find '<h1 class="titlebar">Webware Documentation</h1>'
-find '<a href="http://www.webwareforpython.org" class="BigLink">Webware</a>'
+find '<a href="https://cito.github.io/w4py/" class="BigLink">Webware</a>'
 find '<a href="http://www.python.org" class="BigLink">Python</a>'
 find '<div class="footer">'
 back

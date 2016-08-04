@@ -28,7 +28,7 @@ used in a productive environment. It is really a very simple solution with
 several drawbacks. For instance, pooled database connections which have
 become invalid are not automatically recovered. For a more sophisticated
 solution, please have a look at the DBUtils package:
-    http://www.webwareforpython.org/DBUtils
+    https://cito.github.io/dbutils/
 
 
 CREDIT

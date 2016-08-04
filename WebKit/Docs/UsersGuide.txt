@@ -109,7 +109,7 @@ written about Webware for Python, particularly the "Introduction to
 Webware for Python" that was presented by Chuck Esterbrook at the
 9th International Python Conference in 2001.
 
-__ http://www.webwareforpython.org/Papers
+__ https://cito.github.io/w4py/#papers
 
 Errors / Uncaught Exceptions
 ============================
@@ -409,10 +409,10 @@ __ InstallGuide.html
   in ``WebKit/Examples``.  You'll need to modify them to suit your
   particular needs.
 
-* The `Webware For Python Wiki`__ provides a lot of useful HowTos,
-  Recipes and other useful informaiton for Application developers.
+* The old `Webware For Python Wiki`__ provided a lot of useful HowTos,
+  Recipes and other useful information for Application developers.
 
-__ http://wiki.webwareforpython.org
+__ https://cito.github.io/w4py-olde-wiki/
 
 * Contribute enhancements and bug fixes back to the project. ``:-)``
 

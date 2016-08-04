@@ -192,16 +192,16 @@ Webware for Python
 :Version: X.Y
 :Released: @@/@@/@@
 
-You can check for the latest version at http://www.webwareforpython.org.
+You can check for the latest version at https://cito.github.io/w4py/.
 
 If you're feeling adventurous, you can get the latest in-development
 source code from the public repository.  Instructions are located at
-the `Webware SVN page`__.  You can find more information about SVN in
-general in the `Subversion Book`__.  The SVN version of Webware is
+the `Webware GtiHub page`__.  You can find more information about Git in
+general in the `Git Documentation`__.  The master branch of Webware is
 generally fairly stable.
 
-__ http://www.webwareforpython.org/Wiki/subversionrepositoryaccess
-__ http://svnbook.red-bean.com
+__ https://github.com/Cito/w4py
+__ https://git-scm.com/documentation
 
 
 Operating Systems
