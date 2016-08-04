@@ -4,9 +4,9 @@
 
 This script creates a compressed tar file named Webware-VER.tar.gz
 in the parent directory of Webware. The package can be built either
-from a live SVN workspace or from a tag in the SVN repository.
+from the current Git workspace or from a tag in the Git repository.
 
-The live SVN workspace will be used if you call the script without
+The current Git workspace will be used if you call the script without
 any arguments, like that:
 
   > bin/ReleaseHelper.py
@@ -21,17 +21,17 @@ The workspace will not be touched in the process.
 The version number for the release tarball is taken from
 Webware/Properties.py like you would expect.
 
-Instead of using the workspace, you can also export the release directly
-from a SVN tag in the repository, for instance:
+Instead of using the workspace, you can also extract the release directly
+from a tag in the Git repository, for instance:
 
-  > bin/ReleaseHelper.py tag=Release-0.9b3
+  > bin/ReleaseHelper.py tag=1.1.2
 
-This will export the SVN files tagged with Release-0_9b3 and build the
-tarball Webware-0.9b3.tar.gz in Webware's parent directory.
+This will extract the files tagged with 1.1.2 and build the
+tarball Webware-1.1.2.tar.gz in Webware's parent directory.
 
-This means the release will match exactly what is in the SVN,
+This means the release will match exactly what is in the repository,
 reducing the risk of local changes, modified files, or new files
-which are not in SVN from showing up in the release.
+which are not in the repository from showing up in the release.
 
 This script only works on Posix. Releases are not created on Windows
 because permissions and EOLs can be problematic for other platforms.
@@ -54,21 +54,20 @@ class ReleaseHelper(object):
         self.buildRelease()
 
     def buildRelease(self):
-        """Prepare a release by using the SVN export approach.
+        """Prepare a release by extracting files from the repository.
 
-        This is used when a tag name is specified on the command line, like
+        You can specify a tag name on the command line, like
 
-          > bin/ReleaseHelper.py tag=Release-0.9b3
+          > bin/ReleaseHelper.py tag=1.1.2
 
-        This will export the SVN files tagged with Release-0_9b3 and build the
-        tarball Webware-0.9b3.tar.gz in your parent directory.
+        This will extract the files tagged with 1.1.2 and build the
+        tarball Webware-1.1.2.tar.gz in your parent directory.
 
-        This means the release will match exactly what is in the SVN,
+        This means the release will match exactly what is in the repository,
         and reduces the risk of local changes, modified files, or new
-        files which are not in SVN from showing up in the release.
+        files which are not in the repository from showing up in the release.
         """
 
-        url = self._args.get('url', ' http://svn.w4py.org/Webware/tags')
         tag = self._args.get('tag')
         pkg = self._args.get('pkg')
         pkgType = pkg == 'zip' and 'zip archive' or 'tarball'
@@ -90,20 +89,22 @@ class ReleaseHelper(object):
             sys.path.insert(1, webwarePath)
         from MiscUtils.PropertiesObject import PropertiesObject
 
-        target = 'ReleaseHelper-Export'
-        if os.path.exists(target):
-            print "There is incomplete ReleaseHelper data in:", target
+        target = 'Release'
+        try:
+            os.mkdir(target)
+        except OSError:
+            print "Staging directory already exists:", target
             print "Please remove this directory."
             return
 
         cleanup = [target]
 
-        source = tag and '%s/%s' % (url, tag) or '.'
+        source = tag and 'tags/%s' % tag or 'HEAD'
 
         try:
-            self.run('svn export -q %s %s' % (source, target))
+            self.run('git archive %s | tar -x -C %s' % (source, target))
             if not os.path.exists(target):
-                print "Unable to export from %r" % source
+                print "Unable to extract from %r" % source
                 if tag:
                     print "Perhaps the tag %r does not exist." % tag
                 self.error()
@@ -141,8 +142,8 @@ class ReleaseHelper(object):
             pkgExt = pkg == 'zip' and '.zip' or '.tar.gz'
             pkgName = os.path.join(pkgDir + pkgExt)
 
-            # cleanup .cvs files
-            self.run("find %s -name '.cvs*' -exec rm {} \;" % pkgDir)
+            # cleanup .git files
+            self.run("find %s -name '.git*' -exec rm {} \;" % pkgDir)
 
             # We could cleanup any other files not part of this release here.
             # (For instance, we could create releases without documentation).
