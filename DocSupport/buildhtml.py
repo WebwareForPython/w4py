@@ -62,10 +62,10 @@ class SettingsSpec(docutils.SettingsSpec):
            'validator': frontend.validate_colon_separated_string_list}),
          ('Recursively ignore files or directories matching any of the given '
           'wildcard (shell globbing) patterns (separated by colons).  '
-          'Default: ".svn:CVS"',
+          'Default: ".git:.hg:.svn"',
           ['--ignore'],
           {'metavar': '<patterns>', 'action': 'append',
-           'default': ['.svn', 'CVS'],
+           'default': ['.git', '.hg', '.svn'],
            'validator': frontend.validate_colon_separated_string_list}),
          ('Work silently (no progress messages).  Independent of "--quiet".',
           ['--silent'],

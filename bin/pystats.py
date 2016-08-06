@@ -126,7 +126,7 @@ class StatsNode(object):
             self._totalStats += node._totalStats
 
     def processDir(self, dirName, extensions, recurse=True):
-        exceptions = (os.curdir, os.pardir, 'CVS', '.svn')
+        exceptions = (os.curdir, os.pardir, '.git', '.hg', '.svn')
         names = os.listdir(dirName)
         for name in names:
             if not os.path.isdir(name):

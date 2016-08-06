@@ -151,7 +151,7 @@ numRequests
 'negatives': 'myClass.py session.py',
 'exceptions': 'Files located in <code>Webware/bin/</code> that are intended solely for command line use are left in all lower case similar to other command line programs such as grep and find.'})%>
 <%= convention({'what': 'Files do not contain <code>\\r</code> (on POSIX systems).',
-'why': "To avoid problems with POSIX tools that don't like <code>\\r</code> and confusion in the SVN repository which is hosted on Unix.<br>This problem typically happens when a Windows file is FTPed in binary mode to a Unix machine from which it is then checked in. Note that the SVN client on Windows properly translates back and forth between <code>\\r\\n</code> and <code>\\n</code> upon check out and check in, since we have set the <code>svn:eol-style</code> property to <code> native</code>."})%>
+'why': "To avoid problems with POSIX tools that don't like <code>\\r</code> and using the same Git repository on different platforms.<br>This problem typically happens when a Windows file is FTPed in binary mode to a Unix machine from which it is then checked in."})%>
 <%= convention({'what': 'Indentation is done with 4 spaces per level.',
 'why': "In the past, Webware for Python used tabs for indentation, but nowadays, 4 spaces per indentation level is the most popular and therefore recommended style.<br>So you will not need to switch your editor any more when working on different projects."}) %>
 <%= convention({'what': 'Tabs are not used at all.',
@@ -193,7 +193,7 @@ def transaction(self):
 def hasValue(self, name):
     return name in self._fields or name in self._cookies''',
 'exceptions': 'No category comment is added when the class implementation is <code>pass</code>.'}) %>
-<%= convention({'what': 'Use docstrings and the <a href="http://www.python.org/dev/peps/pep-0257.html">PEP 257</a> conventions.',
+<%= convention({'what': 'Use docstrings and the <a href="https://www.python.org/dev/peps/pep-0257/">PEP 257</a> conventions.',
 'why': 'This allows for creating appropriate code documentation automatically. Please note that in the past, this has not been heeded very well. But as the project matures and grows, the docstrings should be improved.',
 'examples': '''def function(a, b):
     """Do X and return a list."""''',
@@ -205,7 +205,7 @@ def hasValue(self, name):
 'negatives': '# I think this is bogus !!'}) %>
 <%= convention({'what': 'Limit all lines to a maximum of 100 characters if possible.',
 'why': 'This has been settled as a compromise between the people wanting to utilize their huge monitors with line sizes of 130 characters and those wanting to follow the stricter Python style guide recommendation of only 80 characters.'}) %>
-<%= convention({'what': 'If not specified otherwise, follow the <a href="http://www.python.org/dev/peps/pep-008.html">PEP 008</a> conventions.',
+<%= convention({'what': 'If not specified otherwise, follow the <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a> conventions.',
 'why': "For historical and opinionated reasons of Webware's BDFL, Webware follows its own style guidelines which overrule the standard guidelines for Python. :-)"}) %>
 
 <a name="Structure"></a><h2>Structure and Patterns</h2>
@@ -324,7 +324,7 @@ req['city']
 
 <a name="Misc_Permissions"></a><h3>Permissions</h3>
 
-<p>When creating standalone Python scripts, like those found in Webware/bin, you should set the <code>svn:executable</code> property when you check them in to the SVN repository. Otherwise Unix-based developers will not have execute permissions after checking the scripts out.</p>
+<p>When adding standalone Python scripts, like those found in Webware/bin, you should mark them as executable in to the Git repository with <code>git update-index --chmod=+x</code>. Otherwise Unix-based developers will not have execute permissions after checking the scripts out.</p>
 
 
 <a name="Misc_SendingUpdates"></a><h3>Sending Updates</h3>
@@ -333,7 +333,7 @@ req['city']
 
 <p>The subject should contain the word "update" so that release notes can be easily compiled.</p>
 
-<p>Note that automatic messages from SVN are not a good substitute for these types of messages which are more informative and more easily compiled into interesting release notes.</p>
+<p>Note that automatic messages from the Git repository are not a good substitute for these types of messages which are more informative and more easily compiled into interesting release notes.</p>
 
 
 <a name="Misc_BreakingRules"></a><h3>Breaking the Rules</h3>

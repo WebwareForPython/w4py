@@ -5,4 +5,4 @@ The purpose of the Webware/bin directory is to contain various Webware utility s
 
 Note that we write all the scripts in Python so that they function on both Windows and UNIX; e.g., no batch files or shell scripts.
 
-Note: When creating new scripts, don't forget to set the svn:executable property.
+Note: When adding new scripts, don't forget to mark them as executable with git update-index --chmod=+x.

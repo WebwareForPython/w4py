@@ -216,38 +216,19 @@ Test the released tarball, preferably under Unix and also under Windows.
 <pre>
 [ ] Update <a href="http://webware.sourceforge.net">webware.sourceforge.net</a>:
 
-    * Updates to that home page should go through CVS at SourceForge.
-      In general you should not be editing files directly on the HomePage
-      site because that site only has read-only access to CVS.
-
     * Note that the <a href="http://webware.sourceforge.net">webware.sourceforge.net</a> home page is not really used any more.
-      The index page is redirected via .htaccess to <a href="http://www.w4py.org">www.w4py.org</a>
-      (nevertheless, the site is still available and can still be
-      accessed as <a href="http://webware.sourceforge.net/oldsite/">http://webware.sourceforge.net/oldsite/</a>).
-      So you can skip the following step.
-
-    * Update your own copy of the HomePage:
-      * Checkout the current version:
-        > cvs co HomePage
-      * Update:
-        * Last updated (at top of page)
-        * Version number, including links
-        * File size
-        * Project status
-        * Testimonials
-      * Review all text and links
-      * Checkin the updated version:
-        > cvs ci
+      The index page is redirected via .htaccess to <a href="https://cito.github.io/w4py/">cito.github.io/w4py/</a>.
 
     * We should still copy and install Webware in the <a href="http://webware.sourceforge.net">webware.sourceforge.net</a>
-      web page directory so the documentation can be browsed online there.
+      web page directory so that the documentation can be browsed online there
+      for Webware versions that do not yet use Sphinx.
       Make sure you install this from the tarball.
 
     * Copy the tarball to your SourceForge account.
-      > scp Webware-VER.tar.gz $USER@web.sourceforge.net:
+      > scp Webware-VER.tar.gz $USER@web.sourceforge.net
 
     * Login to the SourceForge account.
-      > ssh -t $USER,webware@shell.sourceforge.net
+      > ssh -t $USER,webware@shell.sourceforge.net create
 
     * Extract the Webware folder and create a symbolic link to it:
       > cd /home/project-web/webware/htdocs/
@@ -258,55 +239,30 @@ Test the released tarball, preferably under Unix and also under Windows.
       > ./install.py --set-password=""
       > chmod -R g+w .
 
-    * Since you probably did not make changes to the home page
-      through CVS, you can skip the following step again:
-
-    * Update the HomePage on SourceForge from CVS:
-      > cvs -q up -dP
-
-    * Verify that the home page changes are correct by browsing to
-      <a href="http://webware.sourceforge.net">Webware.sourceforge.net</a> and double-checking
-      all of the updated links, including the download link.
-      Also check <a href="http://webware.sourceforge.net/Webware/Docs/">Webware.sourceforge.net/Webware/Docs/</a>.
+    * Check <a href="http://webware.sourceforge.net/Webware/Docs/">webware.sourceforge.net/Webware/Docs/</a>.
 
     * Add a news item to the <a href="https://sourceforge.net/projects/webware/">Webware Project Page</a> at SourceForge.
 
-[ ] Update <a href="http://www.w4py.org">www.w4py.org</a>:
+[ ] Update <a href="https://cito.github.io/w4py/">cito.github.io/w4py/</a>:
 
-    * Updates to the home page should go through SVN at svn.w4py.org,
-      again located in the toplevel directory HomePage.
-      This is a Webware working directory with the default context 'Home'.
-      Webware is installed in /usr/local/share/Webware.
-      This should always be the last stable release,
-      so you may have to update it with the current release.
-      You may also have to recreate the working directory and
-      the start scripts if there are major changes in the release.
-
-    * The download link at the top right corner is in SitePage.py.
-
-    * All contexts except the default 'Home' and 'Docs' contexts should be
-      disabled in Application.config.
-
-    * The content of the home page is stored in the Webware Wiki
-      and can be updated via the browser. You should update it
-      and add an announcement for the new release.
+    * Updates to the home page should go through the gh-pages branch of the
+      <a href="https://github.com/Cito/w4py">GitHub repository</a>.
 </pre>
 
 <h2>Notify</h2>
 
 <pre>
 [ ] Create a new announcement text file containing the text for the
-    general announcement, SourceForge news and freshmeat.net update.
+    general announcement and SourceForge news.
     Use the previous releases as examples.
 
     For pre-releases, just the following:
       * To: <a href="webware-discuss@lists.sourceforge.net">webware-discuss@lists.sourceforge.net</a>
-      * http://prdownloads.lists.sourceforge.net/webware/Webware-VER.tar.gz
+      * https://sourceforge.net/projects/webware/files/Webware/VER/Webware-VER.tar.gz
       * Report all problems to webware-discuss@lists.lists.sourceforge.net.
         Please include all appropriate version numbers including Webware,
-        Python, web server, op sys, browser, database, etc. If running
-        the app server, please specify flavor (eg, ThreadedAppServer)
-        and adapter.
+        Python, web server, op sys, browser, database, etc. If running the
+        app server, please specify flavor (e.g. ThreadedAppServer) and adapter.
       * Expected release date for X.Y is MONTH, DAY.
       * Changes since last release date are:
         * ...
@@ -323,8 +279,7 @@ Announce on mailing lists:
 
 Update:
     [ ] <a href="http://wiki.python.org/moin/WebFrameworks">Web Frameworks for Python</a>
-    [ ] <a href="http://www.python.org/pypi/Webware%20for%20Python/">PyPI</a> (aka "Cheese Shop")
-    [ ] <a href="http://freecode.com">free(code)</a>
+    [ ] <a href="https://pypi.python.org/pypi/Webware-for-Python/">Python Package Index</a> (PyPI)
 
 [ ] Review/search for other places where the announcement can be made.
 </pre>
@@ -346,15 +301,11 @@ Update:
       rename ReleaseNotes-X.Y.phtml according to the version set above
       and copy new templates for these files instead.
     * Make sure the release notes have been copied properly.
+    * Commit the changes to the master branch.
 
-[ ] Check that the following were updated:
-    [ ] <a href="http://freecode.com">free(code)</a>
+[ ] Look for follow up messages with feedback and bug reports on the mailing lists.
 
-[ ] Look for follow up messages on <a href="news:comp.lang.python">comp.lang.python</a>
-
-[ ] Test drive the <a href="http://webware.sourceforge.net">home page</a>, <a href="https://sourceforge.net/projects/webware/">project page</a> and <a href="https://sourceforge.net/projects/webware/files/">download</a>.
-
-[ ] Check the <a href="https://sourceforge.net/projects/webware/files/Webware/stats/timeline">download counter</a> and <a href="https://sf.net/project/stats/?group_id=4866">activity statistics</a> on SourceForge.
+[ ] Check the <a href="https://github.com/Cito/w4py">GitHub</a>, <a href="https://sourceforge.net/projects/webware/">SourceForge</a> and the <a href="https://pypi.python.org/pypi/Webware-for-Python/">PyPI</a> pages.
 </pre>
 
 <% footer() %>

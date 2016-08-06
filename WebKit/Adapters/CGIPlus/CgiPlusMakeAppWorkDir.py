@@ -19,7 +19,7 @@ Options:
                           so you can place it outside of the WorkDir.
   -l, --library=...       Other dirs to be included in the search path.
                           You may specify this option multiple times.
-  -i, --cvsignore         This will add .cvsignore files to the WorkDir.
+  -i, --gitignore         This will add .gitignore files to the WorkDir.
   -u, --user=...          The name or uid of the user to own the WorkDir.
                           This option is supported under Unix only.
   -g, --group=...         The name or gid of the group to own the WorkDir.
@@ -30,10 +30,9 @@ WorkDir:
 """
 
 # FUTURE
-# * Add options to immediately import the new directory tree into a
-#   CVS or SVN repository. In the case of a CVS repository, the
-#   .cvsignore files should be created automatically, and in case
-#   of SVN, the corresponding svn propset commands should be issued.
+# * Add an option to immediately create a Git repository in the new directory
+#   and add all relevant files to the repository. The .gitignore files should
+#   be automatically created in this case, and maybe .gitattributes as well.
 # * MakeAppWorkDir.py should set the admin password like install.py does.
 #   At the same time, install.py should be able to do a "app-less" install,
 #   from which the admin can create appdirs using MakeAppWorkDir.py.
@@ -44,7 +43,11 @@ WorkDir:
 # * Contributed to Webware for Python by Robin Dunn
 # * Improved by Christoph Zwerschke
 
-import sys, os, stat, glob, shutil
+import sys
+import os
+import stat
+import glob
+import shutil
 
 
 class MakeAppWorkDir(object):
@@ -58,7 +61,7 @@ class MakeAppWorkDir(object):
 
     def __init__(self, webwareDir, workDir, verbose=True, osType=None,
             contextName='MyContext', contextDir='', libraryDirs=None,
-            cvsIgnore=False, uid=None, gid=None):
+            gitIgnore=False, uid=None, gid=None):
         """Initializer for MakeAppWorkDir.
 
         Pass in at least the Webware directory and the target working
@@ -77,7 +80,7 @@ class MakeAppWorkDir(object):
             libraryDirs = []
         self._libraryDirs = libraryDirs
         self._osType = osType
-        self._cvsIgnore = cvsIgnore
+        self._gitIgnore = gitIgnore
         self._uid = uid
         self._gid = gid
 
@@ -94,8 +97,8 @@ class MakeAppWorkDir(object):
         self.makeLauncherScripts()
         if self._contextName is not None:
             self.makeDefaultContext()
-        if self._cvsIgnore:
-            self.addCvsIgnore()
+        if self._gitIgnore:
+            self.addGitIgnore()
         self.changeOwner()
         self.printCompleted()
 
@@ -103,34 +106,34 @@ class MakeAppWorkDir(object):
         """Create all the needed directories if they don't already exist."""
         self.msg("Creating the directory tree...")
         standardDirs = ('', 'Configs')
-        for dir in standardDirs:
-            dir = os.path.join(self._workDir, dir)
-            if os.path.exists(dir):
-                self.msg("\tWarning: %s already exists." % dir)
+        for path in standardDirs:
+            path = os.path.join(self._workDir, path)
+            if os.path.exists(path):
+                self.msg("\tWarning: %s already exists." % path)
             else:
-                os.mkdir(dir)
-                self.msg("\t%s" % dir)
-        for dir in self._libraryDirs:
-            dir = os.path.join(self._workDir, dir)
-            if not os.path.exists(dir):
-                os.makedirs(dir)
-                open(os.path.join(dir, '__init__.py'), 'w').write('#\n')
-                self.msg("\t%s created." % dir)
+                os.mkdir(path)
+                self.msg("\t%s" % path)
+        for path in self._libraryDirs:
+            path = os.path.join(self._workDir, path)
+            if not os.path.exists(path):
+                os.makedirs(path)
+                open(os.path.join(path, '__init__.py'), 'w').write('#\n')
+                self.msg("\t%s created." % path)
         self.msg()
 
     def copyConfigFiles(self):
         """Make a copy of the config files in the Configs directory."""
         self.msg("Copying config files...")
         configs = glob.glob(os.path.join(self._webKitDir,
-            "Configs", "*.config"))
+            'Configs', '*.config'))
         for name in configs:
-            newname = os.path.join(self._workDir, "Configs",
+            newName = os.path.join(self._workDir, "Configs",
                 os.path.basename(name))
-            self.msg("\t%s" % newname)
-            shutil.copyfile(name, newname)
-            mode = os.stat(newname)[stat.ST_MODE]
+            self.msg("\t%s" % newName)
+            shutil.copyfile(name, newName)
+            mode = os.stat(newName)[stat.ST_MODE]
             # remove public read/write/exec perms
-            os.chmod(newname, mode & 0770)
+            os.chmod(newName, mode & 0770)
         self.msg()
 
     def copyOtherFiles(self):
@@ -148,16 +151,16 @@ class MakeAppWorkDir(object):
                 chmod = True
             else:
                 chmod = False
-            newname = os.path.join(self._workDir, os.path.basename(name))
-            if not os.path.exists(newname):
-                oldname = os.path.join(self._webKitDir, name)
-                if os.path.exists(oldname):
-                    self.msg("\t%s" % newname)
-                    shutil.copyfile(oldname, newname)
+            newName = os.path.join(self._workDir, os.path.basename(name))
+            if not os.path.exists(newName):
+                oldName = os.path.join(self._webKitDir, name)
+                if os.path.exists(oldName):
+                    self.msg("\t%s" % newName)
+                    shutil.copyfile(oldName, newName)
                     if chmod:
-                        os.chmod(newname, 0755)
+                        os.chmod(newName, 0755)
                 else:
-                    self.msg("\tWarning: Cannot find %r." % oldname)
+                    self.msg("\tWarning: Cannot find %r." % oldName)
         self.msg()
 
     def makeLauncherScripts(self):
@@ -182,16 +185,16 @@ class MakeAppWorkDir(object):
         for name in sorted(launcherScripts):
             if name.endswith('Service.py') and self._osType != 'nt':
                 continue
-            newname = os.path.join(workDir, name)
-            if not os.path.exists(newname):
-                oldname = os.path.join(webKitDir, name)
-                if os.path.exists(oldname):
-                    self.msg("\t%s" % newname)
+            newName = os.path.join(workDir, name)
+            if not os.path.exists(newName):
+                oldName = os.path.join(webKitDir, name)
+                if os.path.exists(oldName):
+                    self.msg("\t%s" % newName)
                     script = launcherScripts[name] % locals()
-                    open(newname, "w").write(script)
-                    os.chmod(newname, 0755)
+                    open(newName, "w").write(script)
+                    os.chmod(newName, 0755)
                 else:
-                    self.msg("\tWarning: Cannot find %r." % oldname)
+                    self.msg("\tWarning: Cannot find %r." % oldName)
         self.msg()
 
     def makeDefaultContext(self):
@@ -218,7 +221,7 @@ class MakeAppWorkDir(object):
             'Application.config')
         self.msg("\t%s" % filename)
         content = open(filename).readlines()
-        output  = open(filename, 'w')
+        output = open(filename, 'w')
         foundContext = 0
         configDir = "WebKitPath + '/%s'" % (self._contextName,)
         for line in content:
@@ -234,22 +237,30 @@ class MakeAppWorkDir(object):
             self.msg("\tWarning: Default context could not be set.")
         self.msg()
 
-    def addCvsIgnore(self):
-        self.msg("Creating .cvsignore files...")
-        files = {
-            '.': '*.pyc\n*.pyo\n'
-                'address.*\nhttpd.*\nappserverpid.*\nprofile.pstats',
-            'Cache': '[a-zA-Z0-9]*',
-            'ErrorMsgs': '[a-zA-Z0-9]*',
-            'Logs': '[a-zA-Z0-9]*',
-            'Sessions': '[a-zA-Z0-9]*',
-            self._contextName: '*.pyc\n*.pyo'
-        }
-        for dir, contents in files.items():
-            filename = os.path.join(self._workDir, dir, '.cvsignore')
+    def addGitIgnore(self):
+        self.msg("Creating .gitignore files...")
+        existed = False
+        ignore = ('*~ *.address *.bak *.default *.log *.patch *.pid'
+            '*.pstats *.pyc *.pyo *.ses *.swp')
+        ignore = '\n'.join(ignore.split()) + '\n'
+        filename = os.path.join(self._workDir, '.gitignore')
+        if os.path.exists(filename):
+            existed = True
+        else:
             f = open(filename, 'w')
-            f.write(contents)
+            f.write(ignore)
             f.close()
+        ignore = '!.gitignore\n'
+        for subDir in 'Cache ErrorMsgs Logs Sessions'.split():
+            filename = os.path.join(self._workDir, subDir, '.gitignore')
+            if os.path.exists(filename):
+                existed = True
+            else:
+                f = open(filename, 'w')
+                f.write(ignore)
+                f.close()
+        if existed:
+            self.msg("\tDid not change existing .gitignore file.")
         self.msg()
 
     def changeOwner(self):
@@ -310,9 +321,11 @@ Have fun!
             else:
                 print
 
+
 launcherScripts = {  # launcher scripts with adjusted parameters
 
 }  # end of launcher scripts
+
 
 exampleContext = {  # files copied to example context
 
@@ -355,23 +368,25 @@ which you can get to from here:</p>
 
 }  # end of example context files
 
+
 def usage():
     """Print the docstring and exit with error."""
     print __doc__
     sys.exit(2)
 
+
 def main(args=None):
     """Evaluate the command line arguments and call MakeAppWorkDir."""
     if args is None:
         args = sys.argv[1:]
-    contextName = contextDir = cvsIgnore = user = group = None
+    contextName = contextDir = gitIgnore = user = group = None
     libraryDirs = []
     # Get all options:
     from getopt import getopt, GetoptError
     try:
         opts, args = getopt(args, 'c:d:l:iu:g:', [
             'context-name=', 'context-dir=', 'library=',
-            'cvsignore', 'user=', 'group='])
+            'gitignore', 'user=', 'group='])
     except GetoptError, error:
         print str(error)
         usage()
@@ -382,8 +397,8 @@ def main(args=None):
             contextDir = arg
         elif opt in ('-l', '--library'):
             libraryDirs.append(arg)
-        elif opt in ('-i', '--cvsignore'):
-            cvsIgnore = 1
+        elif opt in ('-i', '--gitignore'):
+            gitIgnore = 1
         elif opt in ('-u', '--user'):
             user = arg
         elif opt in ('-g', '--group'):
@@ -445,7 +460,7 @@ def main(args=None):
     binDir = os.path.dirname(os.path.abspath(scriptName))
     webwareDir = os.path.abspath(os.path.join(binDir, os.pardir))
     mawd = MakeAppWorkDir(webwareDir, workDir, 1, None,
-        contextName, contextDir, libraryDirs, cvsIgnore, uid, gid)
+        contextName, contextDir, libraryDirs, gitIgnore, uid, gid)
     mawd.buildWorkDir()  # go!
 
 

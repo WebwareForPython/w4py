@@ -82,7 +82,7 @@ the version, you're probably unwittingly running the wrong version
 of Python.  Change the ``AppServer`` or ``AppServer.bat`` scripts,
 giving the full path to the correct Python interpreter.  You can also
 try running Webware with PyPy.  The AppServer should work with PyPy 1.5,
-but this has not been thoroughly tested and seems to be less performant.
+but this has not been thoroughly tested and seems to be slower.
 
 Your installation of Python must be multi-threaded.  It's not entirely
 uncommon for third party web host providers to leave this disabled in

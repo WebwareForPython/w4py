@@ -177,7 +177,7 @@ before a user's session will timeout.  When a session times out,
 all data associated with that session is lost.  Default: <tt class="docutils literal">60</tt>.</dd>
 <dt><tt class="docutils literal">AlwaysSaveSessions</tt>:</dt>
 <dd>If False, then sessions will only be saved if they have been changed.
-This is more performant and avoids problems with concurrent requests
+This is more efficient and avoids problems with concurrent requests
 made by the same user if sessions are not shared between these requests,
 as is the case for session stores other than <tt class="docutils literal">Memory</tt> or <tt class="docutils literal">Dynamic</tt>.
 Note that in this case the last access time is not saved either, so
@@ -553,7 +553,7 @@ AppServer.  The value is expected to be a regular expression that is
 compared to the request URI.  For instance, if you want to suppress output
 for images, JavaScript and CSS files, you can set <tt class="docutils literal">SilentURIs</tt> to
 <tt class="docutils literal"><span class="pre">'\.(gif|jpg|jpeg|png|js|css)$'</span></tt> (though we do not recommend serving
-static files with Webware; it's much more performant to deliver them
+static files with Webware; it's much more efficient to deliver them
 directly from the Apache server).  If set to <tt class="docutils literal">None</tt>, messages will be
 printed for all requests handled by Webware.  Default: <tt class="docutils literal">None</tt></dd>
 <dt><tt class="docutils literal">StartServerThreads</tt>:</dt>

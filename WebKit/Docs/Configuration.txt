@@ -158,7 +158,7 @@ which files are hidden, and some of how those files get chosen.
     all data associated with that session is lost.  Default: ``60``.
 ``AlwaysSaveSessions``:
     If False, then sessions will only be saved if they have been changed.
-    This is more performant and avoids problems with concurrent requests
+    This is more efficient and avoids problems with concurrent requests
     made by the same user if sessions are not shared between these requests,
     as is the case for session stores other than ``Memory`` or ``Dynamic``.
     Note that in this case the last access time is not saved either, so
@@ -536,7 +536,7 @@ AppServer.config
     compared to the request URI.  For instance, if you want to suppress output
     for images, JavaScript and CSS files, you can set ``SilentURIs`` to
     ``'\.(gif|jpg|jpeg|png|js|css)$'`` (though we do not recommend serving
-    static files with Webware; it's much more performant to deliver them
+    static files with Webware; it's much more efficient to deliver them
     directly from the Apache server).  If set to ``None``, messages will be
     printed for all requests handled by Webware.  Default: ``None``
 ``StartServerThreads``:

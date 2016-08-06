@@ -34,7 +34,7 @@ We'll first set up a directory dedicated to your application. Run this command::
 
     $ cd ~
     $ python /path/to/Webware/bin/MakeAppWorkDir.py -c Context -l Lib \
-        --cvsignore WebwareTest
+        --gitignore WebwareTest
 
 You'll now have a directory WebwareTest in your home directory (or of course
 you can put it in some other location). Inside this directory will be several
