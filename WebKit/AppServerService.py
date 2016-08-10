@@ -104,8 +104,11 @@ serviceDeps = []
 
 ## Win32 Service ##
 
-import sys, os, time
-import win32service, win32serviceutil
+import sys
+import os
+import time
+import win32service
+import win32serviceutil
 
 # The ThreadedAppServer calls signal.signal which is not possible
 # if it is installed as a service, since signal only works in main thread.

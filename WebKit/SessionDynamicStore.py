@@ -7,7 +7,8 @@ from operator import itemgetter
 from MiscUtils import NoDefault
 
 from SessionStore import SessionStore
-import SessionMemoryStore, SessionFileStore
+import SessionMemoryStore
+import SessionFileStore
 
 debug = False
 

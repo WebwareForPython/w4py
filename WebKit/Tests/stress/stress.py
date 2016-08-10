@@ -35,7 +35,9 @@ the fact that they will contain stale session ids.
 """
 
 
-import sys, os, socket
+import sys
+import os
+import socket
 from glob import glob
 from marshal import dumps
 from random import randint

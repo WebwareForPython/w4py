@@ -49,7 +49,8 @@ __revision__ = "$Revision$"
 __date__ = "$Date$"
 
 
-import sys, re
+import sys
+import re
 
 
 class ToC(object):

@@ -54,7 +54,11 @@ maxStartTime = 120
     before killing it and trying again.
 """
 
-import os, sys, time, socket, signal
+import os
+import sys
+import time
+import socket
+import signal
 from marshal import dumps
 
 # Initialize some more global variables

@@ -3,7 +3,11 @@
 Create HTML for exceptions.
 """
 
-import os, re, sys, traceback, urllib
+import os
+import re
+import sys
+import traceback
+import urllib
 
 from Funcs import htmlEncode
 

@@ -6,7 +6,9 @@ A quick, hacky script to construct a class hierarchy list from a set of Python f
 """
 
 
-import os, re, sys
+import os
+import re
+import sys
 from glob import glob
 from operator import attrgetter
 

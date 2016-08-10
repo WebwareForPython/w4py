@@ -22,7 +22,8 @@ This software is based in part on work done by the Jakarta group.
 
 import os
 
-import PSPUtils, BraceConverter
+import PSPUtils
+import BraceConverter
 
 # This is global so that the ParseEventHandler and this module agree:
 ResponseObject = 'res'

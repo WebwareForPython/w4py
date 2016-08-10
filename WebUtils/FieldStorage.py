@@ -5,7 +5,9 @@ with an extra method that will allow a FieldStorage to parse a query string
 even in a POST request.
 """
 
-import cgi, os, urllib
+import cgi
+import os
+import urllib
 
 
 class FieldStorage(cgi.FieldStorage):

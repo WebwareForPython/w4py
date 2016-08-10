@@ -3,7 +3,9 @@
 This is just a convenience module for the various test modules (TestFoo.py).
 """
 
-import os, sys, time
+import os
+import sys
+import time
 import FixPath
 import MiscUtils
 import MiddleKit

@@ -424,7 +424,8 @@ serviceDescription = ("This is the threaded application server"
     " of the Webware for Python web framework.")
 serviceDeps = []
 
-import sys, os
+import sys
+import os
 sys.path.insert(0, webwareDir)
 
 from WebKit import AppServerService as service

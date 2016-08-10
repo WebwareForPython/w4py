@@ -36,7 +36,8 @@ sublist is not used, hence always None.
 
 __version__ = "0.4"
 
-import re, keyword
+import re
+import keyword
 
 # Build up a regular expression which will match anything interesting,
 # including multi-line triple-quoted strings.

@@ -1,5 +1,6 @@
 
-import os, sys
+import os
+import sys
 
 from Context import PSPCLContext
 from PSPCompiler import Compiler

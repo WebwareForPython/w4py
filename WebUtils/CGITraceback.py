@@ -4,7 +4,13 @@ Original version know as cgitb written By Ka-Ping Yee <ping@lfw.org>
 Modified for Webware by Ian Bicking <ianb@colorstudy.com>
 """
 
-import inspect, keyword, linecache, pydoc, os, sys, tokenize
+import inspect
+import keyword
+import linecache
+import os
+import pydoc
+import sys
+import tokenize
 from types import MethodType
 
 

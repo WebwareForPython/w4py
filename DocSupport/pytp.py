@@ -76,7 +76,8 @@ __revision__ = "$Revision$"
 __date__ = "$Date$"
 
 
-import sys, re
+import sys
+import re
 try:
     from cStringIO import StringIO
 except ImportError:

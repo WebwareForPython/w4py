@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 
 from MiddleKit.Run.MySQLObjectStore import MySQLObjectStore
 from SitePage import SitePage

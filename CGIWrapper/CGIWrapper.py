@@ -12,7 +12,10 @@ from time import time, localtime, asctime
 serverStartTime = time()
 
 # Some imports
-import cgi, os, sys, traceback
+import cgi
+import os
+import sys
+import traceback
 from random import randint
 try:
     from cStringIO import StringIO

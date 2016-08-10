@@ -41,11 +41,13 @@ editorCommands = {
 
 defaultCommand = editor + ' +%(line)s "%(filename)s"'
 
-import os, sys
+import os
+import sys
 try:
     from email import message_from_file
 except ImportError:
     from rfc822 import Message as message_from_file
+
 
 def transform(params):
     """Transform EditFile paramters.
@@ -62,15 +64,18 @@ def transform(params):
         params['filename'] = filename
     return params
 
+
 def openFile(params):
     """Open editor with file specified in parameters."""
     command = editorCommands.get(editor, defaultCommand) % transform(params)
     print command
     os.system(command)
 
+
 def parseFile(filename):
     """Parse the WebKit EditFile."""
     openFile(message_from_file(open(filename)))
+
 
 if __name__ == '__main__':
     parseFile(sys.argv[1])

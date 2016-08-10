@@ -7,7 +7,8 @@ that might have more than one Webware source tree on their file system.
 
 
 # We're located at .../WebKit/Tests/FixPath.py.
-import os, sys
+import os
+import sys
 
 if sys.path[0] not in ('', '.'):
     sys.path.insert(0, '')

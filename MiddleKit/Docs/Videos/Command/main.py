@@ -1,5 +1,6 @@
 # Gain access to the Middle package
-import os, sys
+import os
+import sys
 sys.path.insert(1, os.path.abspath(os.pardir))
 
 from datetime import date

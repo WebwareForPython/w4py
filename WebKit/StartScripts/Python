@@ -11,7 +11,11 @@
 # various Unix flavors in the StartScripts folder.
 #
 
-import os, sys, pwd, grp, signal
+import os
+import sys
+import pwd
+import grp
+import signal
 
 # START LOCAL CONFIGURATION
 

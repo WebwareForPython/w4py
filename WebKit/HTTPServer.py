@@ -1,6 +1,8 @@
 """HTTP servlets"""
 
-import os, socket, errno
+import os
+import socket
+import errno
 import BaseHTTPServer
 
 from ThreadedAppServer import Handler

@@ -5,7 +5,8 @@
 > python Generate.py -h
 """
 
-import os, sys
+import os
+import sys
 from getopt import getopt
 import FixPath
 import MiddleKit

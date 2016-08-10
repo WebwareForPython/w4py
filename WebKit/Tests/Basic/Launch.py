@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-import os, sys
+import os
+import sys
 
 scriptName = sys.argv and sys.argv[0]
 if not scriptName or scriptName == '-c':

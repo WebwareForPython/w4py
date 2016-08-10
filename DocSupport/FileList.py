@@ -6,7 +6,8 @@ A quick, hacky script to construct a file list from a set of Python files.
 """
 
 
-import os, sys
+import os
+import sys
 from glob import glob
 
 

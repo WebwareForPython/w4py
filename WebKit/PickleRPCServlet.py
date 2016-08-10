@@ -1,6 +1,7 @@
 """Dict-RPC servlets."""
 
-import sys, traceback
+import sys
+import traceback
 from time import time
 
 try:

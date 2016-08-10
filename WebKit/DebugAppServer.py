@@ -34,7 +34,8 @@ Tested on:
 
 import sys
 
-import ThreadedAppServer, Profiler
+import ThreadedAppServer
+import Profiler
 
 # We are going to replace ThreadedAppServer with our own class,
 # so we need to save a reference to the original class.

@@ -75,7 +75,8 @@ __cgifooter__ = ('\n<pre># code highlighted using <a href='
     '"http://www.lemburg.com/files/python/">py2html.py</a> '
     'version %s</pre>\n' % __version__)
 
-import sys, re
+import sys
+import re
 
 # Adjust path so that PyFontify is found...
 if '.' not in sys.path:
