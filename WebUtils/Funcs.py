@@ -123,7 +123,7 @@ def requestURI(env):
 def normURL(path):
     """Normalizes a URL path, like os.path.normpath.
 
-    Acts on a URL independant of operating system environment.
+    Acts on a URL independent of operating system environment.
     """
     if not path:
         return

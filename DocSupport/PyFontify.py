@@ -92,8 +92,7 @@ def fontify(pytext, searchfrom=0, searchto=None):
     functionTag = 'function'
     classTag = 'class'
 
-    start = 0
-    end = searchfrom
+    start, end = 0, searchfrom
     while 1:
         matchObject = matchRE.search(pytext, end)
         if not matchObject:

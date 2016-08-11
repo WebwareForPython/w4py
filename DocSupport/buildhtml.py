@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
-# Author: David Goodger <goodger@python.org>
-# Copyright: This module has been placed in the public domain.
-
 """Generate .html from all the .txt files in a directory.
 
 Ordinary .txt files are understood to be standalone reStructuredText.
 Files named ``pep-*.txt`` are interpreted as reStructuredText PEPs.
+
+Author: David Goodger <goodger@python.org>
+
+Copyright: This module has been placed in the public domain.
 """
 
 # Once PySource is here, build .html from .py as well.
@@ -23,7 +24,6 @@ except Exception:
 import sys
 import os
 import os.path
-import copy
 from fnmatch import fnmatch
 
 import docutils

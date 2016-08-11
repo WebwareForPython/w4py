@@ -86,8 +86,7 @@ class PySummary(object):
         package = '%s.%s' % (path, module)
         span = format == 'html'
         settings = self._settings[format]
-        res = []
-        res.append(settings['file'][0] % locals())
+        res = [settings['file'][0] % locals()]
         if self._lines:
             for line in self._lines:
                 lineType = line.type()

@@ -561,12 +561,14 @@ def docType():
         ' "-//W3C//DTD HTML 4.01 Transitional//EN"'
         ' "http://www.w3.org/TR/html4/loose.dtd">')
 
+
 def htTitle(name):
     """Return an HTML section title."""
     return ('<h2 style="color:white;background-color:#993333;'
         'font-size:12pt;padding:1pt;font-weight:bold;'
         'font-family:Tahoma,Verdana,Arial,Helvetica,sans-serif"'
         ' align="center">%s</h2>\n' % name)
+
 
 def htDictionary(d, addSpace=None):
     """Returns an HTML table where each row is a key-value pair."""
@@ -582,6 +584,7 @@ def htDictionary(d, addSpace=None):
             '<td bgcolor="#EEEEEE">%s&nbsp;</td></tr>\n' % (key, value))
     html.append('</table>')
     return '\n'.join(html)
+
 
 def htTable(listOfDicts, keys=None):
     """Return an HTML table for a list of dictionaries.
@@ -613,6 +616,7 @@ def htTable(listOfDicts, keys=None):
         html.append('</tr>')
     html.append('</table>')
     return '\n'.join(html)
+
 
 def osIdTable():
     """Get all OS id information.

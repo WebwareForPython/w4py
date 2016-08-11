@@ -13,8 +13,6 @@ Chuck Esterbrook <echuck@mindspring.com>
 Tavis Rudd <tavis@calrudd.com>
 """
 
-
-from types import MethodType
 from UserDict import UserDict
 
 from MiscUtils import NoDefault

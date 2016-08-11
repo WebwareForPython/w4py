@@ -41,16 +41,13 @@ You can download the latest version from the GitHub repository
 COPYRIGHT
 
 Copyright (c) 2005 by Christoph Zwerschke.
-Licensed und
+Licensed under the Open Software License version 2.1.
 """
-
-__version__ = '0.2'
-__revision__ = "$Revision$"
-__date__ = "$Date$"
-
 
 import sys
 import re
+
+__version__ = '0.2'
 
 
 class ToC(object):

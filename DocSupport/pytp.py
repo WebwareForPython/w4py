@@ -71,17 +71,14 @@ Copyright (c) 2005 by Christoph Zwerschke.
 Licensed under the Open Software License version 2.1.
 """
 
-__version__ = '0.2'
-__revision__ = "$Revision$"
-__date__ = "$Date$"
-
-
 import sys
 import re
 try:
     from cStringIO import StringIO
 except ImportError:
     from StringIO import StringIO
+
+__version__ = '0.2'
 
 
 class PyTP(object):
