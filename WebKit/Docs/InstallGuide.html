@@ -70,14 +70,15 @@
 <li><a class="reference internal" href="#launching-the-appserver-at-unix-boot-up" id="id61">Launching the AppServer at Unix boot up</a><ul>
 <li><a class="reference internal" href="#start-script-configuration" id="id62">Start script configuration</a></li>
 <li><a class="reference internal" href="#activating-the-start-script" id="id63">Activating the start script</a></li>
+<li><a class="reference internal" href="#using-systemd-to-start-the-appserver" id="id64">Using systemd to start the AppServer</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-threadedappserver-as-a-windows-nt-2k-xp-service" id="id64">Running ThreadedAppServer as a Windows NT/2K/XP Service</a></li>
-<li><a class="reference internal" href="#other-notes" id="id65">Other Notes</a></li>
+<li><a class="reference internal" href="#running-threadedappserver-as-a-windows-nt-2k-xp-service" id="id65">Running ThreadedAppServer as a Windows NT/2K/XP Service</a></li>
+<li><a class="reference internal" href="#other-notes" id="id66">Other Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#troubleshooting" id="id66">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#bad-marshal-data" id="id67">Bad Marshal Data</a></li>
+<li><a class="reference internal" href="#troubleshooting" id="id67">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#bad-marshal-data" id="id68">Bad Marshal Data</a></li>
 </ul>
 </li>
 </ul>
@@ -913,9 +914,9 @@ definitions can still exist.  AutoReload is generally the best solution.</p>
 <div class="section" id="launching-the-appserver-at-unix-boot-up">
 <span id="webkit-init-script"></span><h2>Launching the AppServer at Unix boot up</h2>
 <p>The script <tt class="docutils literal">WebKit/webkit</tt> is a Unix shell script launching WebKit
-at boot time through the standard &quot;init&quot; mechanisms.</p>
+at boot time through the standard System V mechanisms.</p>
 <p>There are several variants of this script for various flavors of Unix
-available in the folder <tt class="docutils literal">WebKit/StartScripts</tt>.  The <tt class="docutils literal">install.py</tt>
+available in the folder <tt class="docutils literal">WebKit/StartScripts/SysV</tt>.  The <tt class="docutils literal">install.py</tt>
 script copies the variant that it thinks is the best fit to <tt class="docutils literal">WebKit/webkit</tt>.
 If the script does not fit to your system, you may want to try out other
 variants or the <tt class="docutils literal">Generic</tt> script that should fit on most systems.</p>
@@ -926,7 +927,7 @@ working directory.</p>
 folder that is destined for start scripts, which is usually <tt class="docutils literal">/etc/init.d/</tt>
 (e.g. for SUSE or Debian Linux or Solaris) or <tt class="docutils literal">/etc/rc.d/init.d/</tt> (e.g. for
 RedHat or Mandrake Linux).  Instead of copying the script, you can also make
-a symbolic link refering to the script located in your working directory.
+a symbolic link referring to the script located in your working directory.
 If you do this, the script will be able to determine the location of the
 working directory from the symbolic link and you do not have to set the
 location in the script itself.</p>
@@ -1008,6 +1009,25 @@ symbolic links or setting approriate hints for the command line tools at
 the top of the script.</p>
 <p>See the corresponding <tt class="docutils literal">man</tt> pages or administrator handbook of your Unix
 system for the details of installing start scripts.</p>
+</div>
+<div class="section" id="using-systemd-to-start-the-appserver">
+<h3>Using systemd to start the AppServer</h3>
+<p>Instead of using a System V start script, you can also use systemd to start
+the AppServer.  An example unit file can be found in the folder
+<tt class="docutils literal">WebKit/StartScripts/systemd</tt>.</p>
+<p>In order to install the unit file, it usually suffices to copy it to
+<tt class="docutils literal">/etc/systemd/system</tt> and then run:</p>
+<pre class="literal-block">
+&gt; systemctl daemon-reload
+</pre>
+<p>You need to configure it by editing the file, setting the WORK_DIR environment
+variable properly and changing the options <tt class="docutils literal"><span class="pre">-u</span></tt> and <tt class="docutils literal"><span class="pre">-g</span></tt> for the Launch.py
+script to the user and group that shall run the AppServer on your system.
+After any change to the file, you need to run the above command again.</p>
+<p>In order to manually start the AppServer, you can run the following command:</p>
+<pre class="literal-block">
+&gt; systemctl start webkit.service
+</pre>
 </div>
 </div>
 <div class="section" id="running-threadedappserver-as-a-windows-nt-2k-xp-service">
