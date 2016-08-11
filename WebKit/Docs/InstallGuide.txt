@@ -1025,10 +1025,10 @@ Launching the AppServer at Unix boot up
 ---------------------------------------
 
 The script ``WebKit/webkit`` is a Unix shell script launching WebKit
-at boot time through the standard "init" mechanisms.
+at boot time through the standard System V mechanisms.
 
 There are several variants of this script for various flavors of Unix
-available in the folder ``WebKit/StartScripts``.  The ``install.py``
+available in the folder ``WebKit/StartScripts/SysV``.  The ``install.py``
 script copies the variant that it thinks is the best fit to ``WebKit/webkit``.
 If the script does not fit to your system, you may want to try out other
 variants or the ``Generic`` script that should fit on most systems.
@@ -1041,7 +1041,7 @@ In order to start WebKit at boot time, copy this script to the system
 folder that is destined for start scripts, which is usually ``/etc/init.d/``
 (e.g. for SUSE or Debian Linux or Solaris) or ``/etc/rc.d/init.d/`` (e.g. for
 RedHat or Mandrake Linux).  Instead of copying the script, you can also make
-a symbolic link refering to the script located in your working directory.
+a symbolic link referring to the script located in your working directory.
 If you do this, the script will be able to determine the location of the
 working directory from the symbolic link and you do not have to set the
 location in the script itself.
@@ -1135,6 +1135,26 @@ the top of the script.
 See the corresponding ``man`` pages or administrator handbook of your Unix
 system for the details of installing start scripts.
 
+Using systemd to start the AppServer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instead of using a System V start script, you can also use systemd to start
+the AppServer.  An example unit file can be found in the folder
+``WebKit/StartScripts/systemd``.
+
+In order to install the unit file, it usually suffices to copy it to
+``/etc/systemd/system`` and then run::
+
+    > systemctl daemon-reload
+
+You need to configure it by editing the file, setting the WORK_DIR environment
+variable properly and changing the options ``-u`` and ``-g`` for the Launch.py
+script to the user and group that shall run the AppServer on your system.
+After any change to the file, you need to run the above command again.
+
+In order to manually start the AppServer, you can run the following command::
+
+    > systemctl start webkit.service
 
 Running ThreadedAppServer as a Windows NT/2K/XP Service
 -------------------------------------------------------
