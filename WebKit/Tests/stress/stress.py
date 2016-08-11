@@ -68,10 +68,10 @@ def request(names, dicts, host, port, count, delay=0, slowconn=0):
     slowconn simulates a slowed connection from the client.
     """
     complete = 0
-    filecount = len(names)
-    totalbytes = 0
+    fileCount = len(names)
+    totalBytes = 0
     while complete < count:
-        i = randint(0, filecount-1)
+        i = randint(0, fileCount - 1)
         # taken from CGIAdapter:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((host, port))
@@ -87,11 +87,11 @@ def request(names, dicts, host, port, count, delay=0, slowconn=0):
         s.shutdown(1)
         data = []
         while 1:
-            newdata = s.recv(8192)
-            if not newdata:
+            newData = s.recv(8192)
+            if not newData:
                 break
             else:
-                data.append(newdata)
+                data.append(newData)
         data = ''.join(data)
         # process response
         # sys.stdout.write(data)
@@ -111,7 +111,7 @@ def request(names, dicts, host, port, count, delay=0, slowconn=0):
         if delay:
             sleep(delay)
         complete += 1
-        totalbytes += len(data)
+        totalBytes += len(data)
 
 
 def stress(maxRequests,
@@ -135,8 +135,8 @@ def stress(maxRequests,
         eval(open(filename).read()), requestFilenames)
     # kill the HTTP cookies (which typically have an invalid session id)
     # from when the raw requests were captured
-    for dict in requestDicts:
-        environ = dict['environ']
+    for requestDict in requestDicts:
+        environ = requestDict['environ']
         if 'HTTP_COOKIE' in environ:
             del environ['HTTP_COOKIE']
     requestCount = len(requestFilenames)
