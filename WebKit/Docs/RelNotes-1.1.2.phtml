@@ -1,0 +1,36 @@
+<% header(name + ' 1.1.2 Release Notes') %>
+
+<p><% name %> version 1.1.2 released on 08/12/16</p>
+
+<a name="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>An example systemd unit file has been added in the StartScripts
+  directory.</li>
+</ul>
+
+<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>It is now possible to upload more than one file at once using the
+  <code>multiple</code> attribute of the <code>input</code> element
+  (as suggested by Gary Perez).</li>
+  <li>Make use of <code>socket.sendall()</code> in adapters, which might
+  increase performance and reliability a bit.</li>
+  <li>Made the JSONRPCServlet work with the json module that is available
+  in the standard module since Python 2.6. Also fixed the JSONRPCExample.</li>
+</ul>
+
+<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>We do not auto generate a <span class="filename">__init__.py</span>
+  file any more if a <span class="filename">__init__.pyc</span> file already
+  exists.</li>
+</ul>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>Fixed some issues with the FCGIAdapter and made it compatible with
+  the current Adapter class again.</li>
+  <li>Made start scripts work when they are copies instead of links.</li>
+</ul>
+
+<% footer() %>

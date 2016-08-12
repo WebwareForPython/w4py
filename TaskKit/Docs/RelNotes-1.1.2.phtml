@@ -1,0 +1,14 @@
+<% header(name + ' 1.1.2 Release Notes') %>
+
+<p><% name %> version 1.1.2 released on 08/12/16</p>
+
+<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>Do not put timed actions, i.e. tasks to be run once, on the "on demand"
+  list after they have finished, because this will prevent releasing their
+  resources when they have done their job. Manage an <code>onDemand</code>
+  state on the <code>TaskHandler</code> separately. (Reported as bug #101
+  with fix by Ben Parker.)</li>
+</ul>
+
+<% footer() %>
