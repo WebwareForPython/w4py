@@ -554,7 +554,7 @@ class Installer(object):
                 s = 'Generic'
             print s
             # Copy start script:
-            s = 'WebKit/StartScripts/SysV' + s
+            s = 'WebKit/StartScripts/SysV/' + s
             t = 'WebKit/webkit'
             open(t, 'wb').write(open(s, 'rb').read())
 

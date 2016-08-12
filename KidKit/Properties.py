@@ -1,6 +1,6 @@
 name = 'KidKit'
 
-version = ('X', 'Y', 0)
+version = (1, 1, 2)
 
 docs = [{'name': "User's Guide", 'file': 'UsersGuide.html'}]
 
