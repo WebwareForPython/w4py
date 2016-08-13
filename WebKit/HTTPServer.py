@@ -116,7 +116,7 @@ class HTTPAppServerHandler(Handler, HTTPHandler):
         try:
             self.processResponse(streamOut._buffer)
             self._sock.shutdown(2)
-        except socket.error, e:
+        except socket.error as e:
             if e[0] == errno.EPIPE:  # broken pipe
                 return
             print '%5d  HTTPServer output error: %s' % (

@@ -26,7 +26,7 @@ class TestDateInterval(unittest.TestCase):
         self.assertEqual(timeDecode('(3s-2d-1h)'), 176403)
         try:
             timeDecode('1h5n')
-        except ValueError, e:
+        except ValueError as e:
             self.assertEqual(str(e), 'Invalid unit of time: n')
 
 

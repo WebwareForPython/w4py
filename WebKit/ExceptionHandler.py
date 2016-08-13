@@ -205,7 +205,7 @@ class ExceptionHandler(object):
                 privateErrorPage = self.privateErrorPage()
             try:
                 self.emailException(privateErrorPage)
-            except Exception, e:
+            except Exception as e:
                 print "Could not send error email:", e
 
     def logExceptionToConsole(self, stderr=None):
@@ -321,12 +321,12 @@ class ExceptionHandler(object):
                             if callable(value):
                                 value = value()
                             value = self.repr(value)
-                        except Exception, e:
+                        except Exception as e:
                             value = ('(exception during method call:'
                                 ' %s: %s)' % (e.__class__.__name__, e))
                 else:
                     value = self.repr(value)
-            except Exception, e:
+            except Exception as e:
                 value = ('(exception during value processing:'
                     ' %s: %s)' % (e.__class__.__name__, e))
             attrs[name] = value

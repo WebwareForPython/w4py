@@ -500,7 +500,7 @@ URL: http://starship.python.net/~just/
         network = urllib.URLopener()
         try:
             tempfile, headers = network.retrieve(url)
-        except IOError, reason:
+        except IOError as reason:
             write_html_error('Error opening "%s"' % url,
                 'The given URL could not be opened. Reason: %s' % str(reason))
             sys.exit(1)

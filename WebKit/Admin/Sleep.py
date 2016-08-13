@@ -34,7 +34,7 @@ size="6" maxlength="12" style="text-align: right"> seconds
                     sleep(0.125)
                     count += 1
                 wr('<p>Time over, woke up!</p>')
-            except ThreadAbortedError, e:
+            except ThreadAbortedError as e:
                 duration = int((count+4)/8)
                 wr('<p style="color:red">Sleep aborted with %s after %d seconds!</p>'
                     % (e.__class__.__name__, duration))

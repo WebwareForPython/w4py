@@ -120,11 +120,11 @@ class PickleRPCServlet(RPCServlet, SafeUnpickler):
                 else:
                     response['value'] = self.call(methodName, *args,
                         **req.get('keywords', {}))
-            except RequestError, e:
+            except RequestError as e:
                 response['requestError'] = str(e)
                 self.sendResponse(trans, response)
                 self.handleException(trans)
-            except Exception, e:
+            except Exception as e:
                 response['exception'] = self.resultForException(e, trans)
                 self.sendResponse(trans, response)
                 self.handleException(trans)

@@ -123,7 +123,7 @@ def launchWebKit(appServer=appServer, workDir=None, args=None):
     # Import the app server's main() function:
     try:
         appServerMain = __import__('WebKit.' + appServer, None, None, 'main').main
-    except ImportError, e:
+    except ImportError as e:
         print 'Error: Cannot import the AppServer module.'
         print 'Reason:', str(e)
         sys.exit(1)
@@ -165,7 +165,7 @@ def main(args=None):
         opts, args1 = getopt(args1, 'd:w:l:po:i:u:g:', [
             'work-dir=', 'webware-dir=', 'library=', 'run-profile',
             'log-file=', 'pid-file=', 'user=', 'group='])
-    except GetoptError, error:
+    except GetoptError as error:
         print str(error)
         print
         usage()
@@ -235,7 +235,7 @@ def main(args=None):
         workDir = os.path.dirname(os.path.abspath(scriptName))
     try:
         os.chdir(workDir)
-    except OSError, error:
+    except OSError as error:
         print 'Error: Could not set working directory.'
         print 'The path %r cannot be used.' % workDir
         print error.strerror
@@ -318,7 +318,7 @@ def main(args=None):
                 from signal import SIGTERM, SIGKILL
                 print 'Trying to terminate the server with pid %d...' % pid
                 os.kill(pid, SIGTERM)
-            except OSError, error:
+            except OSError as error:
                 from errno import ESRCH
                 if error.errno == ESRCH:  # no such process
                     print 'The pid file was stale, continuing with startup...'
@@ -336,7 +336,7 @@ def main(args=None):
                     for i in range(100):
                         sleep(0.1)
                         os.kill(pid, SIGTERM)
-                except OSError, error:
+                except OSError as error:
                     from errno import ESRCH
                     if error.errno == ESRCH:
                         print 'Server with pid %d has been terminated.' % pid
@@ -346,7 +346,7 @@ def main(args=None):
                     for i in range(100):
                         sleep(0.1)
                         os.kill(pid, SIGKILL)
-                except OSError, error:
+                except OSError as error:
                     from errno import ESRCH
                     if error.errno == ESRCH:
                         print 'Server with pid %d has been killed by force.' % pid
@@ -405,7 +405,7 @@ def main(args=None):
                 print 'Output has been redirected to %r...' % logFile
                 stdout, stderr = sys.stdout, sys.stderr
                 sys.stdout = sys.stderr = log
-            except IOError, error:
+            except IOError as error:
                 print 'Cannot redirect output to %r.' % logFile
                 print error.strerror
                 log = None

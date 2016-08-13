@@ -514,7 +514,7 @@ def main(args=None):
         opts, args = getopt(args, 'c:d:l:iu:g:', [
             'context-name=', 'context-dir=', 'library=',
             'gitignore', 'user=', 'group='])
-    except GetoptError, error:
+    except GetoptError as error:
         print str(error)
         usage()
     for opt, arg in opts:

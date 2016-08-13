@@ -378,7 +378,7 @@ class ThreadedAppServer(AppServer):
                 try:
                     input, output, exc = select.select(
                         self._sockets.values(), [], [], timeout)
-                except select.error, e:
+                except select.error as e:
                     if e[0] not in self._ignoreErrnos:
                         raise
                     if debug:
@@ -389,7 +389,7 @@ class ThreadedAppServer(AppServer):
 
                     try:
                         client, addr = sock.accept()
-                    except select.error, e:
+                    except select.error as e:
                         if e[0] not in self._ignoreErrnos:
                             raise
                         if debug:
@@ -886,7 +886,7 @@ class Handler(object):
         chunks = ''.join(chunks)
         try:
             dictLength = loads(chunks)
-        except (ValueError, EOFError), msg:
+        except (ValueError, EOFError) as msg:
             if chunks[:3] == 'GET':
                 # Common error: client is speaking HTTP.
                 while msg and len(chunks) < 8192:
@@ -1050,7 +1050,7 @@ class TASStreamOut(ASStreamOut):
                 try:
                     sent += self._socket.send(
                         self._buffer[sent:sent+bufferSize])
-                except socket.error, e:
+                except socket.error as e:
                     if debug or e[0] not in self._ignoreErrnos:
                         print "StreamOut Error:", e
                     self._closed = True
@@ -1147,7 +1147,7 @@ class SCGIHandler(AdapterHandler):
             if len(chunk) > 12 or not chunk.isdigit():
                 raise ValueError('Malformed SCGI netstring')
             dictLength = long(chunk)
-        except ValueError, msg:
+        except ValueError as msg:
             if chunk[:3] == 'GET':
                 # Common error: client is speaking HTTP.
                 while msg and len(chunk) < 8192:
@@ -1251,7 +1251,7 @@ def run(workDir=None):
                         global exitStatus
                         try:
                             server.mainloop()
-                        except SystemExit, e:
+                        except SystemExit as e:
                             exitStatus = e[0]
                     # Run the server thread
                     server._running = 2
@@ -1275,7 +1275,7 @@ def run(workDir=None):
                 sys.stdout.flush()
                 sys.stderr.flush()
                 runAgain = True
-            except SystemExit, e:
+            except SystemExit as e:
                 print
                 print "Exiting AppServer%s." % (
                     ' for reload' if e[0] == 3 else '')
@@ -1284,7 +1284,7 @@ def run(workDir=None):
                 print
                 print "Exiting AppServer due to keyboard interrupt."
                 exitStatus = 0
-            except Exception, e:
+            except Exception as e:
                 if isinstance(e, IOError) and e[0] == errno.EINTR:
                     print
                     print "Exiting AppServer due to interrupt signal."

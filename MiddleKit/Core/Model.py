@@ -95,7 +95,7 @@ class Model(Configurable):
             else:
                 self.readKlassesInModelDir()  # the norm
             self.awakeFromRead()
-        except ModelError, e:
+        except ModelError as e:
             print
             print 'Error while reading model:'
             e.printError(filename)
@@ -341,7 +341,7 @@ class Model(Configurable):
                 pkg += '.'
             try:
                 exec 'import %s%s as module' % (pkg, name) in results
-            except ImportError, exc:
+            except ImportError as exc:
                 raise ModelError("Could not import module for class '%s' due to %r."
                     " If you've added this class recently,"
                     " you need to re-generate your model." % (name, exc.args[0]))

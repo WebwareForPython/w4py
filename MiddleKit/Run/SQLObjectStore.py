@@ -793,7 +793,7 @@ class MiddleObjectMixIn(object):
         for attr in sqlAttrs:
             try:
                 value = attr.sqlValue(self.valueForAttr(attr))
-            except UnknownSerialNumberError, exc:
+            except UnknownSerialNumberError as exc:
                 exc.info.sourceObject = self
                 unknowns.append(exc.info)
                 if self.store().model().setting('UseBigIntObjRefColumns', False):

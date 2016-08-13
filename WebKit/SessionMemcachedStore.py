@@ -117,7 +117,7 @@ class SessionMemcachedStore(SessionStore):
                 if not self._client.set(self.mcKey(key), value,
                         time=self._sessionTimeout):
                     raise ValueError("Setting value in the memcache failed.")
-            except Exception, exc:
+            except Exception as exc:
                 if dirty:
                     value.setDirty()
                 # Not able to store the session is a failure
@@ -138,7 +138,7 @@ class SessionMemcachedStore(SessionStore):
         try:
             if not self._client.delete(self.mcKey(key)):
                 raise ValueError("Deleting value from the memcache failed.")
-        except Exception, exc:
+        except Exception as exc:
             # Not able to delete the session is a failure
             print "Error deleting session '%s' from memcache: %s" % (key, exc)
             self.application().handleException()

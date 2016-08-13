@@ -12,7 +12,7 @@ def typeErrors(obj, value, skipAttrs=[]):
                 obj.setValueForAttr(attr, value)
             except TypeError:
                 pass
-            except Exception, e:
+            except Exception as e:
                 raise Exception('no type error for %s. instead got: %r, %s'
                     % (attr.name(), e, e))
             else:

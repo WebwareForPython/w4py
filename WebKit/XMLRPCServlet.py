@@ -49,12 +49,12 @@ class XMLRPCServlet(RPCServlet):
                     response = self.call(method, *params)
                 if not isinstance(response, tuple):
                     response = (response,)
-            except xmlrpclib.Fault, fault:
+            except xmlrpclib.Fault as fault:
                 response = xmlrpclib.dumps(fault, encoding=encoding,
                     allow_none=self.allow_none)
                 self.sendOK('text/xml', response, transaction)
                 self.handleException(transaction)
-            except Exception, e:
+            except Exception as e:
                 fault = self.resultForException(e, transaction)
                 response = xmlrpclib.dumps(xmlrpclib.Fault(1, fault),
                     encoding=encoding, allow_none=self.allow_none)

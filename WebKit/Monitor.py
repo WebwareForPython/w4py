@@ -170,16 +170,14 @@ def main(args):
     global running
     running = True
 
-    f = open('monitor.pid', 'w')
-    if os.name == 'posix':
-        f.write(str(os.getpid()))
-    f.flush()
-    f.close()
+    with open('monitor.pid', 'w') as f:
+        if os.name == 'posix':
+            f.write(str(os.getpid()))
+        f.flush()
     startServer(False)
     try:
         startupCheck()
-
-    except Exception, e:
+    except Exception as e:
         if debug:
             print "Startup check exception:", e
             print "Exiting monitor..."
@@ -195,7 +193,7 @@ def main(args):
                 print "Checking server..."
             checkServer()
             time.sleep(monitorInterval)
-        except Exception, e:
+        except Exception as e:
             if debug:
                 print "Exception:", e
             if not running:
@@ -228,7 +226,7 @@ def shutDown(signum, frame):
         resp = s.recv(10)
         s.close()
         print "AppServer response to shutdown request:", resp
-    except Exception, e:
+    except Exception as e:
         print e
         print "No Response to shutdown request, performing hard kill."
         os.kill(srvpid, signal.SIGINT)
@@ -300,7 +298,7 @@ if __name__ == '__main__':
             import WebwarePathLocation
             wwdir = os.path.abspath(os.path.join(os.path.dirname(
                 WebwarePathLocation.__file__), '..'))
-        except Exception, e:
+        except Exception as e:
             print e
             usage()
         if not wwdir in sys.path:

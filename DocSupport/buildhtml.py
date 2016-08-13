@@ -217,7 +217,7 @@ class Builder(object):
                 parser_name='restructuredtext',
                 writer_name=pub_struct.writer_name,
                 settings=settings)
-        except ApplicationError, error:
+        except ApplicationError as error:
             print >>sys.stderr, ('        Error (%s): %s'
                 % (error.__class__.__name__, error))
 

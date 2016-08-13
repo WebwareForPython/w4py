@@ -140,7 +140,7 @@ class MiddleObject(object):
             out.append('=')
             try:
                 out.append(repr(valueForName(self, key)))
-            except Exception, exc:
+            except Exception as exc:
                 from MiscUtils.Funcs import excstr
                 out.append('('+excstr(exc)+')')
         out.append(')')
@@ -481,11 +481,11 @@ class MiddleObject(object):
         klassId, objSerialNum = error.args
         try:
             rep = repr(self)
-        except Exception, e:
+        except Exception as e:
             rep = '(exception during repr: %s: %s)' % (e.__class__.__name__, e)
         try:
             klassName = self.store().klassForId(klassId).name()
-        except Exception, e:
+        except Exception as e:
             klassName = '%i (exception during klassName fetch: %s: %s)' % (
                 klassId, e.__class__.__name__, e)
         sys.stdout.flush()

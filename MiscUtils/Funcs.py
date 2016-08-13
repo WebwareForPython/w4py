@@ -221,18 +221,18 @@ def safeDescription(obj, what='what'):
     """
     try:
         xRepr = repr(obj)
-    except Exception, e:
+    except Exception as e:
         xRepr = _descExc('obj', e)
     if hasattr(obj, '__class__'):
         try:
             cRepr = repr(obj.__class__)
-        except Exception, e:
+        except Exception as e:
             cRepr = _descExc('obj.__class__', e)
         return '%s=%s class=%s' % (what, xRepr, cRepr)
     else:
         try:
             cRepr = repr(type(obj))
-        except Exception, e:
+        except Exception as e:
             cRepr = _descExc('type(obj)', e)
         return '%s=%s type=%s' % (what, xRepr, cRepr)
 

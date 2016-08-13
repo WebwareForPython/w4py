@@ -60,10 +60,10 @@ class Servlet(object):
         try:
             trans.awake()
             trans.respond()
-        except Exception, first:
+        except Exception as first:
             try:
                 trans.sleep()
-            except Exception, second:
+            except Exception as second:
                 # The first exception is more important than the *second* one
                 # that comes from sleep(). In fact, without this little trick
                 # the first exception gets hidden by the second which is often

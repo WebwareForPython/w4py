@@ -393,7 +393,7 @@ def main():
         print "Use one of the adapters such as WebKit.cgi (with ThreadedAppServer)"
         print "or OneShot.cgi"
         server.shutDown()
-    except Exception, exc:  # need to kill the sweeper thread somehow
+    except Exception as exc:  # need to kill the sweeper thread somehow
         print "Caught exception:", exc
         print "Exiting AppServer..."
         server.shutDown()

@@ -61,7 +61,7 @@ class PidFile(object):
         """Check whether process with given pid is running."""
         try:
             os.kill(pid, 0)
-        except OSError, e:
+        except OSError as e:
             if e.errno == 3:  # no such process
                 return False
         except AttributeError:
@@ -69,7 +69,7 @@ class PidFile(object):
                 try:
                     if not win32api.OpenProcess(1024, False, pid):
                         return False
-                except win32api.error, e:
+                except win32api.error as e:
                     if e.winerror == 87:  # wrong parameter (no such process)
                         return False
         return True

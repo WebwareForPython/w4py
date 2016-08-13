@@ -133,7 +133,7 @@ class Configurable(object):
             # open the config file in universal newline mode,
             # in case it has been edited on a different platform
             contents = open(filename, 'rU').read()
-        except IOError, e:
+        except IOError as e:
             print 'WARNING:', \
                 'Config file', filename, 'not loaded:', e.strerror
             print
@@ -159,7 +159,7 @@ class Configurable(object):
                 for name in config.keys():  # keys() since dict is changed
                     if name.startswith('_'):
                         del config[name]
-        except Exception, e:
+        except Exception as e:
             raise ConfigurationError(
                 'Invalid configuration file, %s (%s).' % (filename, e))
         if not isinstance(config, dict):

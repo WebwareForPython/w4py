@@ -198,7 +198,7 @@ class ContextParser(URLParser):
                     res = self._imp.find_module(packageName, [localDir])
                     if not res:
                         raise ImportError
-                except ImportError, e:
+                except ImportError as e:
                     if not str(e):
                         e = 'Could not import package'
                     # Maybe this happened because it had been forgotten
@@ -224,7 +224,7 @@ class ContextParser(URLParser):
                     if e:
                         raise
                 mod = self._imp.load_module(name, *res)
-        except (ImportError, TypeError), e:
+        except (ImportError, TypeError) as e:
             # TypeError can be raised by imp.load_module()
             # when the context path does not exist
             pass

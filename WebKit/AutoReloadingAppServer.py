@@ -45,7 +45,7 @@ def getFAM(modules):
             fam = __import__(module)
         except ImportError:
             fam = None
-        except Exception, e:
+        except Exception as e:
             print "Error loading %s: %s" % (module, str(e))
             fam = None
         if not fam:
@@ -216,7 +216,7 @@ def getFAM(modules):
         if FAM:
             try:
                 return FAM()
-            except Exception, e:
+            except Exception as e:
                 print "Error starting %s: %s" % (FAM.name(), str(e))
             FAM = None
         fam = None
@@ -287,7 +287,7 @@ class AutoReloadingAppServer(AppServer):
                 try:
                     self._fam = getFAM(famModules)
                     self._pipe = None
-                except Exception, e:
+                except Exception as e:
                     print "Error loading FAM: %s" % str(e)
                     self._fam = None
                 if not self._fam:
@@ -425,7 +425,7 @@ class AutoReloadingAppServer(AppServer):
                 # We block here until a file has been changed, or until
                 # we receive word that we should shutdown (via the pipe).
                 select.select(*fds)
-            except select.error, e:
+            except select.error as e:
                 if not self._runFileMonitor:
                     break
                 if e[0] == errno.EINTR:

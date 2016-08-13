@@ -102,7 +102,7 @@ class PropertiesObject(dict):
                 methodName = 'check' + key[0].upper() + key[1:]
                 method = getattr(self, methodName)
                 method()
-        except WillNotRunError, msg:
+        except WillNotRunError as msg:
             self['willNotRunReason'] = msg
             return
         self['willRun'] = 1  # we passed all the tests

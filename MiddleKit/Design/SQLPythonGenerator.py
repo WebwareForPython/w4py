@@ -26,7 +26,7 @@ class ObjRefAttr(object):
         if self._%(name)s is not None and not isinstance(self._%(name)s, MiddleObject):
             try:
                 self.__dict__['_%(name)s'] = self._mk_store.fetchObjRef(self._%(name)s)
-            except ObjRefError, e:
+            except ObjRefError as e:
                 self.__dict__['_%(name)s'] = self.objRefErrorWasRaised(e, %(klassName)r, %(name)r)
         return self._%(name)s
 ''' % locals())

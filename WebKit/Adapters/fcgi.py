@@ -381,8 +381,8 @@ def _startup():
         s = socket.fromfd(sys.stdin.fileno(),
             socket.AF_INET, socket.SOCK_STREAM)
         s.getpeername()
-    except socket.error, (err, errmsg):
-        if err != errno.ENOTCONN:  # must be a non-fastCGI environment
+    except socket.error as err:
+        if err.errno != errno.ENOTCONN:  # must be a non-fastCGI environment
             global _isFCGI
             _isFCGI = False
             return

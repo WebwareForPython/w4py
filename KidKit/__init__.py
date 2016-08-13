@@ -39,7 +39,7 @@ def InstallInWebKit(appServer):
             from traceback import print_exc
             print_exc()
             raise PlugInError('Cannot install Kid servlet factory.')
-    except PlugInError, e:
+    except PlugInError as e:
         print e
         print "KidKit will not be loaded, '.kid' extension will be ignored."
         # We need to disable the '.kid' extension because otherwise the kid

@@ -32,7 +32,7 @@ class SQLiteObjectStore(SQLObjectStore):
         except sqlite.Warning:
             if not self.setting('IgnoreSQLWarnings', False):
                 raise
-        except sqlite.OperationalError, e:
+        except sqlite.OperationalError as e:
             if 'database is locked' in str(e):
                 print ('Please consider installing a newer SQLite version'
                     ' or increasing the timeout.')

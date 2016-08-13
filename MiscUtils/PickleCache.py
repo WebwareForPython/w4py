@@ -108,7 +108,7 @@ class PickleCacheReader(PickleCache):
                     if v:
                         print 'About to open for read %r.' % picklePath
                     file = open(picklePath, 'rb')
-                except IOError, e:
+                except IOError as e:
                     if v:
                         print 'Cannot open cache file: %s: %s.' % (
                             e.__class__.__name__, e)
@@ -121,7 +121,7 @@ class PickleCacheReader(PickleCache):
                         if v:
                             print 'EOFError - not loading'
                         shouldDeletePickle = True
-                    except Exception, exc:
+                    except Exception as exc:
                         print 'WARNING: %s: %s: %s' % (self.__class__.__name__,
                             exc.__class__.__name__, exc)
                         shouldDeletePickle = True
@@ -161,7 +161,7 @@ class PickleCacheReader(PickleCache):
                 if v:
                     print 'Attempting to remove pickle cache file.'
                 os.remove(picklePath)
-            except OSError, exc:
+            except OSError as exc:
                 if v:
                     print 'Failed to remove: %s: %s' % (
                         exc.__class__.__name__, exc)
@@ -204,7 +204,7 @@ class PickleCacheWriter(PickleCache):
             if v:
                 print 'About to open for write %r.' % picklePath
             pickleFile = open(picklePath, 'wb')
-        except IOError, e:
+        except IOError as e:
             if v:
                 print 'error. not writing. %s: %s' % (
                     e.__class__.__name__, e)

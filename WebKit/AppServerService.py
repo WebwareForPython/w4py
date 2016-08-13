@@ -240,7 +240,7 @@ class AppServerService(win32serviceutil.ServiceFramework):
                     Profiler.dumpStats()
                     print 'WARNING: Applications run much slower when profiled,'
                     print 'so turn off profiling the service when you are done.'
-            except SystemExit, e:
+            except SystemExit as e:
                 if log and logFile:
                     print
                     errorlevel = e[0]
@@ -251,7 +251,7 @@ class AppServerService(win32serviceutil.ServiceFramework):
                     else:
                         print 'The AppServer has been signaled to terminate.'
                     print
-            except Exception, e:
+            except Exception as e:
                 if log and logFile:
                     print
                     try:

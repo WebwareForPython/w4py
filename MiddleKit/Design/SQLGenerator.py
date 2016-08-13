@@ -128,7 +128,7 @@ class Model(object):
                 lines = open(filename).readlines()
                 try:
                     self.writeInsertSamplesSQLForLines(lines, generator, file, filename)
-                except SampleError, s:
+                except SampleError as s:
                     s.write(filename)
                     sys.exit(1)
 
@@ -160,7 +160,7 @@ class Model(object):
                 linenum += 1
                 try:
                     fields = parse(line)
-                except CSVParser.ParseError, err:
+                except CSVParser.ParseError as err:
                     raise SampleError(linenum, 'Syntax error: %s' % err)
                 if fields is None:
                     # parser got embedded newline; continue with next line
@@ -709,7 +709,7 @@ class IntAttr(object):
                 value = value[:-2]
             try:
                 int(value)  # raises exception if value is invalid
-            except ValueError, e:
+            except ValueError as e:
                 raise ValueError('%s (attr is %s)' (e, self.name()))
             return str(value)
 

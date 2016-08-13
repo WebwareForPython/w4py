@@ -111,7 +111,7 @@ class Klasses(dict, ModelObject):
                         pyClass = self._model.coreClass(pyClassName)
                         klass.addAttr(pyClass(row))
                 line += 1
-        except ModelError, e:
+        except ModelError as e:
             e.setLine(line)
             raise
 

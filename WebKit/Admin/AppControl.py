@@ -64,7 +64,7 @@ class AppControl(AdminSecurity):
                     wr("Reloading %s...<br>" % self.htmlEncode(str(m)))
                     try:
                         reload(m)
-                    except Exception, e:
+                    except Exception as e:
                         wr('<span style="color:red">Could not reload, '
                             'error was "%s".</span><br>' % e)
             wr('</p>')

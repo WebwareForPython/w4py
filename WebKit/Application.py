@@ -244,7 +244,7 @@ class Application(ConfigurableForServerSidePath):
             if not isinstance(cls, type):
                 raise ImportError
             self._sessions = cls(self)
-        except ImportError, err:
+        except ImportError as err:
             print ("ERROR: Could not import SessionStore class '%s'"
                 " from module '%s':\n%s") % (className, moduleName, err)
             self._sessions = None
@@ -546,7 +546,7 @@ class Application(ConfigurableForServerSidePath):
                     self.runTransaction(trans)
                     try:
                         trans.response().deliver()
-                    except ConnectionAbortedError, err:
+                    except ConnectionAbortedError as err:
                         trans.setError(err)
                     response.clearTransaction()
                     # release possible servlets on the stack
@@ -610,7 +610,7 @@ class Application(ConfigurableForServerSidePath):
             self.runTransactionViaServlet(servlet, trans)
         except EndResponse:
             pass
-        except ConnectionAbortedError, err:
+        except ConnectionAbortedError as err:
             trans.setError(err)
         except Exception:
             errClass, err = sys.exc_info()[:2]
@@ -647,7 +647,7 @@ class Application(ConfigurableForServerSidePath):
                     self.forward(trans, url)
                 except EndResponse:
                     pass
-                except ConnectionAbortedError, err:
+                except ConnectionAbortedError as err:
                     trans.setError(err)
                 except Exception:
                     # If the custom error page itself throws an exception,
