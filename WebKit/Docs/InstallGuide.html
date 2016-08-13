@@ -13,72 +13,68 @@
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#introduction" id="id19">Introduction</a></li>
-<li><a class="reference internal" href="#quick-start" id="id20">Quick Start</a></li>
-<li><a class="reference internal" href="#prerequisites" id="id21">Prerequisites</a><ul>
-<li><a class="reference internal" href="#python" id="id22">Python</a></li>
-<li><a class="reference internal" href="#web-server" id="id23">Web Server</a><ul>
-<li><a class="reference internal" href="#apache" id="id24">Apache</a></li>
-<li><a class="reference internal" href="#iis" id="id25">IIS</a></li>
-<li><a class="reference internal" href="#aolserver" id="id26">AOLserver</a></li>
-<li><a class="reference internal" href="#xitami" id="id27">Xitami</a></li>
-<li><a class="reference internal" href="#other-servers" id="id28">Other Servers</a></li>
+<li><a class="reference internal" href="#introduction" id="id14">Introduction</a></li>
+<li><a class="reference internal" href="#quick-start" id="id15">Quick Start</a></li>
+<li><a class="reference internal" href="#prerequisites" id="id16">Prerequisites</a><ul>
+<li><a class="reference internal" href="#python" id="id17">Python</a></li>
+<li><a class="reference internal" href="#web-server" id="id18">Web Server</a><ul>
+<li><a class="reference internal" href="#apache" id="id19">Apache</a></li>
+<li><a class="reference internal" href="#iis" id="id20">IIS</a></li>
+<li><a class="reference internal" href="#other-servers" id="id21">Other Servers</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#webware-version" id="id29">Webware Version</a></li>
-<li><a class="reference internal" href="#operating-systems" id="id30">Operating Systems</a></li>
+<li><a class="reference internal" href="#webware-version" id="id22">Webware Version</a></li>
+<li><a class="reference internal" href="#operating-systems" id="id23">Operating Systems</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#installing-webware" id="id31">Installing Webware</a></li>
-<li><a class="reference internal" href="#updating-webware" id="id32">Updating Webware</a></li>
-<li><a class="reference internal" href="#architecture" id="id33">Architecture</a><ul>
-<li><a class="reference internal" href="#id6" id="id34">Permissions</a></li>
-<li><a class="reference internal" href="#adapters" id="id35">Adapters</a></li>
-<li><a class="reference internal" href="#wsgi-based-adapters" id="id36">WSGI-based Adapters</a></li>
-<li><a class="reference internal" href="#scgi-based-adapters" id="id37">SCGI-based Adapters</a></li>
-<li><a class="reference internal" href="#cgi-based-adapters" id="id38">CGI-based Adapters</a><ul>
-<li><a class="reference internal" href="#id10" id="id39">wkcgi</a></li>
-<li><a class="reference internal" href="#python-cgi-adapter" id="id40">Python CGI Adapter</a></li>
-<li><a class="reference internal" href="#mod-webkit" id="id41">mod_webkit</a><ul>
-<li><a class="reference internal" href="#posix-installation" id="id42">Posix Installation</a></li>
-<li><a class="reference internal" href="#windows-installation" id="id43">Windows Installation</a></li>
-<li><a class="reference internal" href="#apache-configuration" id="id44">Apache Configuration</a></li>
+<li><a class="reference internal" href="#installing-webware" id="id24">Installing Webware</a></li>
+<li><a class="reference internal" href="#updating-webware" id="id25">Updating Webware</a></li>
+<li><a class="reference internal" href="#architecture" id="id26">Architecture</a><ul>
+<li><a class="reference internal" href="#id4" id="id27">Permissions</a></li>
+<li><a class="reference internal" href="#adapters" id="id28">Adapters</a></li>
+<li><a class="reference internal" href="#wsgi-based-adapters" id="id29">WSGI-based Adapters</a></li>
+<li><a class="reference internal" href="#scgi-based-adapters" id="id30">SCGI-based Adapters</a></li>
+<li><a class="reference internal" href="#cgi-based-adapters" id="id31">CGI-based Adapters</a><ul>
+<li><a class="reference internal" href="#id8" id="id32">wkcgi</a></li>
+<li><a class="reference internal" href="#python-cgi-adapter" id="id33">Python CGI Adapter</a></li>
+<li><a class="reference internal" href="#mod-webkit" id="id34">mod_webkit</a><ul>
+<li><a class="reference internal" href="#posix-installation" id="id35">Posix Installation</a></li>
+<li><a class="reference internal" href="#windows-installation" id="id36">Windows Installation</a></li>
+<li><a class="reference internal" href="#apache-configuration" id="id37">Apache Configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id13" id="id45">AOLServer</a></li>
-<li><a class="reference internal" href="#lrwp-adapter-for-xitami" id="id46">LRWP Adapter (for Xitami)</a></li>
-<li><a class="reference internal" href="#fastcgi" id="id47">FastCGI</a></li>
-<li><a class="reference internal" href="#mod-python" id="id48">mod_python</a></li>
-<li><a class="reference internal" href="#mod-snake" id="id49">mod_snake</a></li>
-<li><a class="reference internal" href="#oneshot" id="id50">OneShot</a></li>
-<li><a class="reference internal" href="#isapi" id="id51">ISAPI</a></li>
+<li><a class="reference internal" href="#fastcgi" id="id38">FastCGI</a></li>
+<li><a class="reference internal" href="#mod-python" id="id39">mod_python</a></li>
+<li><a class="reference internal" href="#mod-snake" id="id40">mod_snake</a></li>
+<li><a class="reference internal" href="#oneshot" id="id41">OneShot</a></li>
+<li><a class="reference internal" href="#isapi" id="id42">ISAPI</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#renaming-adapters" id="id52">Renaming Adapters</a></li>
-<li><a class="reference internal" href="#adapter-problems-not-cgi" id="id53">Adapter Problems (not CGI)</a></li>
+<li><a class="reference internal" href="#renaming-adapters" id="id43">Renaming Adapters</a></li>
+<li><a class="reference internal" href="#adapter-problems-not-cgi" id="id44">Adapter Problems (not CGI)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration" id="id54">Configuration</a><ul>
-<li><a class="reference internal" href="#sessions" id="id55">Sessions</a></li>
-<li><a class="reference internal" href="#contexts" id="id56">Contexts</a></li>
-<li><a class="reference internal" href="#creating-a-working-directory" id="id57">Creating a Working Directory</a></li>
+<li><a class="reference internal" href="#configuration" id="id45">Configuration</a><ul>
+<li><a class="reference internal" href="#sessions" id="id46">Sessions</a></li>
+<li><a class="reference internal" href="#contexts" id="id47">Contexts</a></li>
+<li><a class="reference internal" href="#creating-a-working-directory" id="id48">Creating a Working Directory</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#appserver-notes" id="id58">AppServer Notes</a><ul>
-<li><a class="reference internal" href="#stopping-the-app-server" id="id59">Stopping the App Server</a></li>
-<li><a class="reference internal" href="#reloading-servlets" id="id60">Reloading Servlets</a></li>
-<li><a class="reference internal" href="#launching-the-appserver-at-unix-boot-up" id="id61">Launching the AppServer at Unix boot up</a><ul>
-<li><a class="reference internal" href="#start-script-configuration" id="id62">Start script configuration</a></li>
-<li><a class="reference internal" href="#activating-the-start-script" id="id63">Activating the start script</a></li>
-<li><a class="reference internal" href="#using-systemd-to-start-the-appserver" id="id64">Using systemd to start the AppServer</a></li>
+<li><a class="reference internal" href="#appserver-notes" id="id49">AppServer Notes</a><ul>
+<li><a class="reference internal" href="#stopping-the-app-server" id="id50">Stopping the App Server</a></li>
+<li><a class="reference internal" href="#reloading-servlets" id="id51">Reloading Servlets</a></li>
+<li><a class="reference internal" href="#launching-the-appserver-at-unix-boot-up" id="id52">Launching the AppServer at Unix boot up</a><ul>
+<li><a class="reference internal" href="#start-script-configuration" id="id53">Start script configuration</a></li>
+<li><a class="reference internal" href="#activating-the-start-script" id="id54">Activating the start script</a></li>
+<li><a class="reference internal" href="#using-systemd-to-start-the-appserver" id="id55">Using systemd to start the AppServer</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-threadedappserver-as-a-windows-nt-2k-xp-service" id="id65">Running ThreadedAppServer as a Windows NT/2K/XP Service</a></li>
-<li><a class="reference internal" href="#other-notes" id="id66">Other Notes</a></li>
+<li><a class="reference internal" href="#running-threadedappserver-as-a-windows-nt-2k-xp-service" id="id56">Running ThreadedAppServer as a Windows NT/2K/XP Service</a></li>
+<li><a class="reference internal" href="#other-notes" id="id57">Other Notes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#troubleshooting" id="id67">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#bad-marshal-data" id="id68">Bad Marshal Data</a></li>
+<li><a class="reference internal" href="#troubleshooting" id="id58">Troubleshooting</a><ul>
+<li><a class="reference internal" href="#bad-marshal-data" id="id59">Bad Marshal Data</a></li>
 </ul>
 </li>
 </ul>
@@ -164,9 +160,8 @@ an exception, all is well.</p>
 <p>Webware's built-in web server is adequate for development and casual use.
 Beyond that, you will want to use Webware in concert with another web server.</p>
 <p>Any web server that supports CGI should be usable with Webware.
-Apache is the best supported platform, both on Posix and Windows systems.
-There is some experimental support for Xitami.  For all other web servers
-(IIS included) you should expect to use CGI to interface with the AppServer.</p>
+Web servers that support WSGI or SCGI can also be connected.
+Apache is the best supported platform, both on Posix and Windows systems.</p>
 <div class="section" id="apache">
 <h3>Apache</h3>
 <p>Apache is the best supported web server, both on Posix and Windows
@@ -204,23 +199,10 @@ avoid conflicts with <tt class="docutils literal">WebKit.exe</tt>.</p>
 that needs to be compiled before use.  However, there have been
 problems with memory leaks in this adapter.</p>
 </div>
-<div class="section" id="aolserver">
-<h3>AOLserver</h3>
-<p>The <a class="reference external" href="http://pywx.idyll.org">PyWX</a> project aims to meld Python and AOLserver and as part of
-that, they created an AOLserver &quot;stay resident&quot; WebKit adapter for
-tighter integration.  If you find that this adapter does not work
-with the latest release of Webware, please notify the PyWX project.</p>
-</div>
-<div class="section" id="xitami">
-<h3>Xitami</h3>
-<p>The <a class="reference external" href="http://www.xitami.com">Xitami</a> web server purports to be smaller, and potentially easier
-to install than some of the other web servers.  It can run the CGI
-adapters, but for more speed the <a class="reference internal" href="#lrwp-adapter">LRWP adapter</a> uses a persistent
-process for greater performance.</p>
-</div>
 <div class="section" id="other-servers">
 <h3>Other Servers</h3>
-<p>Other servers should work using a <a class="reference internal" href="#cgi-adapter">CGI adapter</a> or the <a class="reference internal" href="#scgi-connector">SCGI connector</a>.</p>
+<p>Other servers may support the <a class="reference internal" href="#wsgi-adapter">WSGI adapter</a> or <a class="reference internal" href="#scgi-connector">SCGI connector</a>,
+otherwise you must resort to a <a class="reference internal" href="#cgi-adapter">CGI adapter</a>.</p>
 </div>
 </div>
 <div class="section" id="webware-version">
@@ -335,7 +317,7 @@ activate the WebKit app server listener for adapters with the
 <tt class="docutils literal">AppServer.config</tt> setting <tt class="docutils literal">EnableAdapter</tt>.  The port can be specified
 with the setting <tt class="docutils literal">AdapterPort</tt> and will be <tt class="docutils literal">8086</tt> by default.
 You can use several app servers listenting on different ports.</p>
-<div class="section" id="id6">
+<div class="section" id="id4">
 <span id="permissions"></span><h2>Permissions</h2>
 <p>Webware runs as whatever user you run the AppServer as.  So, while
 Apache might be running as nobody, if you start the AppServer as
@@ -379,8 +361,6 @@ still very fast.</p>
 <li><a class="reference internal" href="#mod-webkit">mod_webkit</a> (fastest!)</li>
 <li><a class="reference internal" href="#mod-scgi">mod_scgi</a> (equally fast, not included with Webware)</li>
 <li><a class="reference internal" href="#mod-wsgi">mod_wsgi</a> (with the WSGIAdapter)</li>
-<li><a class="reference internal" href="#id12">AOLServer</a></li>
-<li><a class="reference internal" href="#lrwp">LRWP</a> (Xitami)</li>
 </ul>
 <p>These adapters are not really recommended:</p>
 <ul class="simple">
@@ -399,7 +379,7 @@ that is described <a class="reference external" href="http://www.python.org/dev/
 a very different approach from Webware and its WebKit architecture.  Since it
 has been widely adapted as a Python standard in the last years, Webware now
 comes with an adapter that serves as an interface between any WSGI compliant
-webserver and the Webware application server.  For Apache, the <a class="reference external" href="http://code.google.com/p/modwsgi/">mod_wsgi</a>
+web server and the Webware application server.  For Apache, the <a class="reference external" href="http://code.google.com/p/modwsgi/">mod_wsgi</a>
 module by Graham Dumpleton provides such an WSGI compliant interface.  If the
 module is properly configured, this can be a solution nearly as fast as using
 the native <a class="reference internal" href="#mod-webkit">mod_webkit</a> adapter.  Please see the documentation of mod_wsgi for
@@ -421,8 +401,8 @@ of the fastest solutions for serving Webware applications.</p>
 </div>
 <div class="section" id="cgi-based-adapters">
 <span id="cgi-adapter"></span><h2>CGI-based Adapters</h2>
-<p>CGI-based adapters are the easiest to set up, and outside of Apache,
-Xitami, and AOLServer they are pretty much the only option.</p>
+<p>CGI-based adapters are the easiest to set up, and the only option if none
+of the other adapters are supported by the web server.</p>
 <p>Though these are CGI-based adapters, WebKit still runs as a persistent
 program with the AppServer.  The CGI adapter is a program executed by
 the web server, which then contacts the AppServer and returns the
@@ -431,7 +411,7 @@ again for another request.  This starting up and stopping is what
 makes CGI slow.  Because the adapter is small, this should still be
 faster than a all-CGI application, because most of the work is done in
 the persistent AppServer.</p>
-<div class="section" id="id10">
+<div class="section" id="id8">
 <span id="wkcgi"></span><h3>wkcgi</h3>
 <p>wkcgi is a CGI-based adapter written in C.  It's very small and is
 good at its one and only job of connecting to the AppServer.  While a
@@ -573,17 +553,6 @@ lang = self.request().environ().get('Accept-Language')
 <p>If the client request contains the header <tt class="docutils literal"><span class="pre">Accept-Language:</span> fr</tt>,
 the above code will set <tt class="docutils literal">lang</tt> to <tt class="docutils literal">&quot;fr&quot;</tt>.</p>
 </div>
-</div>
-<div class="section" id="id13">
-<span id="id12"></span><h3>AOLServer</h3>
-<p>This adapter comes with the Python-enhanced AOLserver created by the
-<a class="reference external" href="http://pywx.idyll.org">PyWX project</a> and is described there.</p>
-</div>
-<div class="section" id="lrwp-adapter-for-xitami">
-<span id="lrwp-adapter"></span><span id="lrwp"></span><h3>LRWP Adapter (for Xitami)</h3>
-<p>The LRWP Adapter is meant to be used with the <a class="reference external" href="http://www.xitami.com">Xitami web server</a>.
-It requires the LRWP Python library to be loaded.  We don't know
-a great deal more than that.</p>
 </div>
 <div class="section" id="fastcgi">
 <h3>FastCGI</h3>

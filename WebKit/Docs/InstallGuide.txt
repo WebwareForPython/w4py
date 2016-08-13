@@ -107,9 +107,8 @@ Webware's built-in web server is adequate for development and casual use.
 Beyond that, you will want to use Webware in concert with another web server.
 
 Any web server that supports CGI should be usable with Webware.
+Web servers that support WSGI or SCGI can also be connected.
 Apache is the best supported platform, both on Posix and Windows systems.
-There is some experimental support for Xitami.  For all other web servers
-(IIS included) you should expect to use CGI to interface with the AppServer.
 
 Apache
 ~~~~~~
@@ -155,30 +154,11 @@ There is also an ISAPI module for Webware in ``WebKit/Adapters/wkISAPI``
 that needs to be compiled before use.  However, there have been
 problems with memory leaks in this adapter.
 
-AOLserver
-~~~~~~~~~
-
-The PyWX__ project aims to meld Python and AOLserver and as part of
-that, they created an AOLserver "stay resident" WebKit adapter for
-tighter integration.  If you find that this adapter does not work
-with the latest release of Webware, please notify the PyWX project.
-
-__ http://pywx.idyll.org
-
-Xitami
-~~~~~~
-
-The Xitami__ web server purports to be smaller, and potentially easier
-to install than some of the other web servers.  It can run the CGI
-adapters, but for more speed the `LRWP adapter`_ uses a persistent
-process for greater performance.
-
-__ http://www.xitami.com
-
 Other Servers
 ~~~~~~~~~~~~~
 
-Other servers should work using a `CGI adapter`_ or the `SCGI connector`_.
+Other servers may support the `WSGI adapter`_ or `SCGI connector`_,
+otherwise you must resort to a `CGI adapter`_.
 
 
 Webware Version
@@ -366,8 +346,6 @@ All the adapters:
 * mod_webkit_ (fastest!)
 * mod_scgi_ (equally fast, not included with Webware)
 * mod_wsgi_ (with the WSGIAdapter)
-* AOLServer_
-* LRWP_ (Xitami)
 
 These adapters are not really recommended:
 
@@ -390,7 +368,7 @@ that is described PEP333__.  It was invented much later than Webware and uses
 a very different approach from Webware and its WebKit architecture.  Since it
 has been widely adapted as a Python standard in the last years, Webware now
 comes with an adapter that serves as an interface between any WSGI compliant
-webserver and the Webware application server.  For Apache, the mod_wsgi__
+web server and the Webware application server.  For Apache, the mod_wsgi__
 module by Graham Dumpleton provides such an WSGI compliant interface.  If the
 module is properly configured, this can be a solution nearly as fast as using
 the native mod_webkit_ adapter.  Please see the documentation of mod_wsgi for
@@ -426,8 +404,8 @@ __ http://www.mems-exchange.org/software/scgi/
 CGI-based Adapters
 ------------------
 
-CGI-based adapters are the easiest to set up, and outside of Apache,
-Xitami, and AOLServer they are pretty much the only option.
+CGI-based adapters are the easiest to set up, and the only option if none
+of the other adapters are supported by the web server.
 
 Though these are CGI-based adapters, WebKit still runs as a persistent
 program with the AppServer.  The CGI adapter is a program executed by
@@ -602,28 +580,6 @@ Your servlet code can access the header value like this::
 
 If the client request contains the header ``Accept-Language: fr``,
 the above code will set ``lang`` to ``"fr"``.
-
-.. _AOLServer:
-
-AOLServer
-~~~~~~~~~
-
-This adapter comes with the Python-enhanced AOLserver created by the
-`PyWX project`_ and is described there.
-
-.. _`PyWX project`: http://pywx.idyll.org
-
-.. _LRWP:
-.. _`LRWP Adapter`:
-
-LRWP Adapter (for Xitami)
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The LRWP Adapter is meant to be used with the `Xitami web server`__.
-It requires the LRWP Python library to be loaded.  We don't know
-a great deal more than that.
-
-__ http://www.xitami.com
 
 FastCGI
 ~~~~~~~
