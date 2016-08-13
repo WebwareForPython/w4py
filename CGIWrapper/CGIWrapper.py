@@ -374,10 +374,7 @@ class CGIWrapper(object):
         if not excInfo:
             excInfo = sys.exc_info()
         err, msg = excInfo[:2]
-        if isinstance(err, basestring):  # string exception
-            err, msg = '', str(msg or err)
-        else:
-            err, msg = err.__name__, str(msg)
+        err, msg = err.__name__, str(msg)
         logline = (asctime(localtime(self._scriptEndTime)),
             os.path.split(self._scriptPathname)[1], self._scriptPathname,
             err, msg, errorMsgFilename or '')

@@ -448,10 +448,7 @@ class ExceptionHandler(object):
         if not self.setting('LogErrors'):
             return
         err, msg = self._exc[:2]
-        if isinstance(err, basestring):  # string exception
-            err, msg = '', str(msg or err)
-        else:
-            err, msg = err.__name__, str(msg)
+        err, msg = err.__name__, str(msg)
         logline = (asclocaltime(self._time),
             self.basicServletName(), self.servletPathname(),
             err, msg, errorMsgFilename or '')

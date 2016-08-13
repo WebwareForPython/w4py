@@ -128,7 +128,9 @@ class PickleRPCServlet(RPCServlet, SafeUnpickler):
                 response['exception'] = self.resultForException(e, trans)
                 self.sendResponse(trans, response)
                 self.handleException(trans)
-            except:  # if it's a string exception, this gets triggered
+            except (KeyboardInterrupt, SystemExit):
+                raise  # do not catch these here
+            except:  # if it's an old-style exception, this gets triggered
                 response['exception'] = self.resultForException(
                     sys.exc_info()[0], trans)
                 self.sendResponse(trans, response)

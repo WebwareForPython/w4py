@@ -612,10 +612,12 @@ class Application(ConfigurableForServerSidePath):
             pass
         except ConnectionAbortedError as err:
             trans.setError(err)
-        except Exception:
+        except (KeyboardInterrupt, SystemExit):
+            raise  # do not catch these here
+        except:
+            # For once, we use a bare except here in order to catch
+            # exceptions from legacy code which are old-style classes.
             errClass, err = sys.exc_info()[:2]
-            if not err:  # string exception
-                err, errClass = errClass, None
             urls = {}
             while 1:
                 trans.setError(err)
@@ -649,13 +651,14 @@ class Application(ConfigurableForServerSidePath):
                     pass
                 except ConnectionAbortedError as err:
                     trans.setError(err)
-                except Exception:
+                except (KeyboardInterrupt, SystemExit):
+                    raise  # do not catch these here
+                except:
+                    # Once more, catch all other kinds of exceptions here.
                     # If the custom error page itself throws an exception,
                     # display the new exception instead of the original one,
                     # so we notice that something is broken here.
                     errClass, err = sys.exc_info()[:2]
-                    if not err:  # string exception
-                        err, errClass = errClass, None
                     url = None
                 if url:
                     return  # error has already been handled

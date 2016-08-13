@@ -60,7 +60,9 @@ class XMLRPCServlet(RPCServlet):
                     encoding=encoding, allow_none=self.allow_none)
                 self.sendOK('text/xml', response, transaction)
                 self.handleException(transaction)
-            except:  # if it's a string exception, this gets triggered
+            except (KeyboardInterrupt, SystemExit):
+                raise  # do not catch these here
+            except:  # if it's an old-style exception, this gets triggered
                 fault = self.resultForException(sys.exc_info()[0], transaction)
                 response = xmlrpclib.dumps(xmlrpclib.Fault(1, fault),
                     encoding=encoding, allow_none=self.allow_none)
