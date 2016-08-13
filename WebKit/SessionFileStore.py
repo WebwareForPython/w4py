@@ -50,8 +50,7 @@ class SessionFileStore(SessionStore):
     def __getitem__(self, key):
         """Get a session item, loading it from the session file."""
         filename = self.filenameForKey(key)
-        self._lock.acquire()
-        try:
+        with self._lock:
             try:
                 sessionFile = open(filename, 'rb')
             except IOError:
@@ -69,8 +68,6 @@ class SessionFileStore(SessionStore):
                 except Exception:
                     pass
                 raise KeyError(key)
-        finally:
-            self._lock.release()
         return value
 
     def __setitem__(self, key, value):
@@ -78,8 +75,7 @@ class SessionFileStore(SessionStore):
         dirty = value.isDirty()
         if self._alwaysSave or dirty:
             filename = self.filenameForKey(key)
-            self._lock.acquire()
-            try:
+            with self._lock:
                 if dirty:
                     value.setDirty(False)
                 try:
@@ -98,8 +94,6 @@ class SessionFileStore(SessionStore):
                         value.setDirty()
                     print "Error saving session to disk:", key
                     self.application().handleException()
-            finally:
-                self._lock.release()
 
     def __delitem__(self, key):
         """Delete a session item, removing its session file."""
@@ -146,20 +140,16 @@ class SessionFileStore(SessionStore):
 
     def setdefault(self, key, default=None):
         """Return value if key available, else default (also setting it)."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             try:
                 return self[key]
             except KeyError:
                 self[key] = default
                 return default
-        finally:
-            self._lock.release()
 
     def pop(self, key, default=NoDefault):
         """Return value if key available, else default (also remove key)."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             if default is NoDefault:
                 value = self[key]
                 self.removeKey(key)
@@ -168,8 +158,6 @@ class SessionFileStore(SessionStore):
                 return self[key]
             else:
                 return default
-        finally:
-            self._lock.release()
 
 
     ## Application support ##

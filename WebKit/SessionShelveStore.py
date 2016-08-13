@@ -48,8 +48,7 @@ class SessionShelveStore(SessionStore):
         # concurrent write access is not supported
         dirty = value.isDirty()
         if self._alwaysSave or dirty:
-            self._lock.acquire()
-            try:
+            with self._lock:
                 if dirty:
                     value.setDirty(False)
                 try:
@@ -58,19 +57,14 @@ class SessionShelveStore(SessionStore):
                     if dirty:
                         value.setDirty()
                     raise  # raise original exception
-            finally:
-                self._lock.release()
 
     def __delitem__(self, key):
         """Delete a session item from the store."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             session = self[key]
             if not session.isExpired():
                 session.expiring()
             del self._store[key]
-        finally:
-            self._lock.release()
 
     def __contains__(self, key):
         """Check whether the session store has a given key."""
@@ -90,22 +84,16 @@ class SessionShelveStore(SessionStore):
 
     def setdefault(self, key, default=None):
         """Return value if key available, else default (also setting it)."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             return self._store.setdefault(key, default)
-        finally:
-            self._lock.release()
 
     def pop(self, key, default=NoDefault):
         """Return value if key available, else default (also remove key)."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             if default is NoDefault:
                 return self._store.pop(key)
             else:
                 return self._store.pop(key, default)
-        finally:
-            self._lock.release()
 
 
     ## Application support ##

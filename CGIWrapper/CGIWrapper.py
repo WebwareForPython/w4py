@@ -344,11 +344,8 @@ class CGIWrapper(object):
             os.makedirs(dir)
         filename = os.path.join(dir, self.htmlErrorPageFilename())
         try:
-            f = open(filename, 'w')
-            try:
+            with open(filename, 'w') as f:
                 f.write(html)
-            finally:
-                f.close()
         except IOError:
             sys.stderr.write('[%s] [error] CGI Wrapper: Cannot save error page (%s)\n'
                 % (asctime(localtime(time())), filename))

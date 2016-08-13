@@ -13,16 +13,13 @@ def LoadCSV(filename):
     list of rows where each row is a list of values (which are always strings).
     """
     try:
-        f = open(filename)
-        try:
+        with open(filename) as f:
             rows = []
             while 1:
                 line = f.readline()
                 if not line:
                     break
                 rows.append(line.split(','))
-        finally:
-            f.close()
     except IOError:
         rows = []
     return rows

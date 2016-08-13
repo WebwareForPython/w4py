@@ -73,11 +73,8 @@ class SessionDynamicStore(SessionStore):
 
     def __len__(self):
         """Return the number of sessions in the store."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             return len(self._memoryStore) + len(self._fileStore)
-        finally:
-            self._lock.release()
 
     def __getitem__(self, key):
         """Get a session item from the store."""
@@ -87,14 +84,11 @@ class SessionDynamicStore(SessionStore):
         try:
             return self._memoryStore[key]
         except KeyError:
-            self._lock.acquire()
-            try:
+            with self._lock:
                 if key in self._fileStore:
                     self.moveToMemory(key)
                 # let it raise a KeyError otherwise
                 return self._memoryStore[key]
-            finally:
-                self._lock.release()
 
     def __setitem__(self, key, value):
         """Set a sessing item, saving it to the memory store for now."""
@@ -105,8 +99,7 @@ class SessionDynamicStore(SessionStore):
         """Delete a session item from the memory and the file store."""
         if key not in self:
             raise KeyError(key)
-        self._lock.acquire()
-        try:
+        with self._lock:
             try:
                 del self._memoryStore[key]
             except KeyError:
@@ -115,8 +108,6 @@ class SessionDynamicStore(SessionStore):
                 del self._fileStore[key]
             except KeyError:
                 pass
-        finally:
-            self._lock.release()
 
     def __contains__(self, key):
         """Check whether the session store has a given key."""
@@ -125,11 +116,8 @@ class SessionDynamicStore(SessionStore):
         # look in the file store.
         if key in self._memoryStore:
             return True
-        self._lock.acquire()
-        try:
+        with self._lock:
             return key in self._memoryStore or key in self._fileStore
-        finally:
-            self._lock.release()
 
     def __iter__(self):
         """Return an iterator over the stored session keys."""
@@ -138,37 +126,27 @@ class SessionDynamicStore(SessionStore):
 
     def keys(self):
         """Return a list with all keys of all the stored sessions."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             return self._memoryStore.keys() + self._fileStore.keys()
-        finally:
-            self._lock.release()
 
     def clear(self):
         """Clear the session store in memory and remove all session files."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             self._memoryStore.clear()
             self._fileStore.clear()
-        finally:
-            self._lock.release()
 
     def setdefault(self, key, default=None):
         """Return value if key available, else default (also setting it)."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             try:
                 return self[key]
             except KeyError:
                 self[key] = default
                 return default
-        finally:
-            self._lock.release()
 
     def pop(self, key, default=NoDefault):
         """Return value if key available, else default (also remove key)."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             try:
                 return self._memoryStore.pop(key)
             except Exception:
@@ -176,28 +154,20 @@ class SessionDynamicStore(SessionStore):
                     return self._fileStore.pop(key)
                 else:
                     return self._fileStore.pop(key, default)
-        finally:
-            self._lock.release()
 
     def moveToMemory(self, key):
         """Move the value for a session from file to memory."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             if debug:
                 print ">> Moving %s to Memory" % key
             self._memoryStore[key] = self._fileStore.pop(key)
-        finally:
-            self._lock.release()
 
     def moveToFile(self, key):
         """Move the value for a session from memory to file."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             if debug:
                 print ">> Moving %s to File" % key
             self._fileStore[key] = self._memoryStore.pop(key)
-        finally:
-            self._lock.release()
 
     def setEncoderDecoder(self, encoder, decoder):
         """Set the serializer and deserializer for the store."""
@@ -211,8 +181,7 @@ class SessionDynamicStore(SessionStore):
         """Save potentially changed session in the store."""
         if self._alwaysSave or session.isDirty():
             key = session.identifier()
-            self._lock.acquire()
-            try:
+            with self._lock:
                 if key in self:
                     if key in self._memoryStore:
                         if self._memoryStore[key] is not session:
@@ -221,17 +190,12 @@ class SessionDynamicStore(SessionStore):
                         self._fileStore[key] = session
                 else:
                     self[key] = session
-            finally:
-                self._lock.release()
 
     def storeAllSessions(self):
         """Permanently save all sessions in the store."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             for key in self._memoryStore.keys():
                 self.moveToFile(key)
-        finally:
-            self._lock.release()
 
     def cleanStaleSessions(self, task=None):
         """Clean stale sessions.

@@ -417,11 +417,8 @@ class ExceptionHandler(object):
         filename = os.path.join(self._app._errorMessagesDir,
             self.errorPageFilename())
         try:
-            f = open(filename, 'w')
-            try:
+            with open(filename, 'w') as f:
                 f.write(html)
-            finally:
-                f.close()
         except IOError:
             sys.stderr.write('[%s] [error] WebKit: Cannot save error page (%s)\n'
                 % (asclocaltime(self._time), filename))

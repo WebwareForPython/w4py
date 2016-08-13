@@ -222,8 +222,7 @@ class ServletFactory(object):
                 or mtime != self._classCache[path]['mtime']):
             # Use a lock to prevent multiple simultaneous
             # imports of the same module:
-            self._importLock.acquire()
-            try:
+            with self._importLock:
                 if (path not in self._classCache
                         or mtime != self._classCache[path]['mtime']):
                     theClass = self.loadClass(transaction, path)
@@ -232,8 +231,6 @@ class ServletFactory(object):
                             'mtime': mtime, 'class': theClass}
                 else:
                     theClass = self._classCache[path]['class']
-            finally:
-                self._importLock.release()
         else:
             theClass = self._classCache[path]['class']
 
@@ -257,8 +254,7 @@ class ServletFactory(object):
 
         # Use a lock to prevent multiple simultaneous imports of the same
         # module. Note that (only) the import itself is already threadsafe.
-        self._importLock.acquire()
-        try:
+        with self._importLock:
             mtime = os.path.getmtime(path)
             if path not in self._classCache:
                 self._classCache[path] = {
@@ -271,8 +267,6 @@ class ServletFactory(object):
             theClass = self._classCache[path]['class']
             if not self._cacheClasses:
                 del self._classCache[path]
-        finally:
-            self._importLock.release()
 
         # No adequate cached servlet exists, so create a new servlet instance
         servlet = theClass()

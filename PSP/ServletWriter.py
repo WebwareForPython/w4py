@@ -72,11 +72,8 @@ class ServletWriter(object):
             # The operation may fail on some Unix flavors
             # if the files are on different filesystems.
             # In this case, we try to move the files manually:
-            f = open(self._pyfilename, 'wb')
-            try:
+            with open(self._pyfilename, 'wb') as f:
                 f.write(open(self._temp, 'rb').read())
-            finally:
-                f.close()
             os.remove(self._temp)
 
     def pushIndent(self):

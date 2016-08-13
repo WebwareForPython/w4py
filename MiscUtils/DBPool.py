@@ -154,8 +154,7 @@ class DBPool(object):
 
     def _threadsafe_get_connection(self):
         """Get a connection from the pool."""
-        self._lock.acquire()
-        try:
+        with self._lock:
             next = self._nextCon
             con = PooledConnection(self, self._connections[next])
             next += 1
@@ -163,8 +162,6 @@ class DBPool(object):
                 next = 0
             self._nextCon = next
             return con
-        finally:
-            self._lock.release()
 
     def _threadsafe_add_connection(self, con):
         """"Add a connection to the pool."""
