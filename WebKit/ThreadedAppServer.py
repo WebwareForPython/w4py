@@ -1357,17 +1357,6 @@ def shutDown(signum, frame):
     else:
         print "No running app server was found."
 
-try:
-    currentFrames = sys._current_frames
-except AttributeError:  # Python < 2.5
-    # Use the threadframe module for dumping thread stack frames:
-    # http://www.majid.info/mylos/stories/2004/06/10/threadframe.html
-    try:
-        import threadframe
-    except ImportError:  # threadframe module not installed
-        currentFrames = None
-    else:
-        currentFrames = threadframe.dict
 
 def threadDump(signum, frame):
     """Signal handler for dumping thread stack frames to stdout."""
@@ -1376,7 +1365,7 @@ def threadDump(signum, frame):
     print
     print "Thread stack frame dump at", asclocaltime()
     sys.stdout.flush()
-    frames = currentFrames()
+    frames = sys._current_frames()
     print
     print "-" * 79
     print
@@ -1409,21 +1398,19 @@ try:
 except AttributeError:
     SIGINT = None
 
-if currentFrames:
+# Signals for creating a thread dump
 
-    # Signals for creating a thread dump
-
-    try:
-        SIGQUIT = signal.SIGQUIT
-        signal.signal(SIGQUIT, threadDump)
-    except AttributeError:
-        SIGQUIT = None
-    try:
-        # this is Ctrl-Break on Windows (not Cygwin)
-        SIGBREAK = signal.SIGBREAK
-        signal.signal(SIGBREAK, threadDump)
-    except AttributeError:
-        SIGBREAK = None
+try:
+    SIGQUIT = signal.SIGQUIT
+    signal.signal(SIGQUIT, threadDump)
+except AttributeError:
+    SIGQUIT = None
+try:
+    # this is Ctrl-Break on Windows (not Cygwin)
+    SIGBREAK = signal.SIGBREAK
+    signal.signal(SIGBREAK, threadDump)
+except AttributeError:
+    SIGBREAK = None
 
 
 # Command line interface

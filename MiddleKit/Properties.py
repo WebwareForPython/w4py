@@ -11,6 +11,6 @@ docs = [
 
 status = 'stable'
 
-requiredPyVersion = (2, 4, 0)
+requiredPyVersion = (2, 6, 0)
 
 synopsis = """For building the "middle tier" of an application, that is, the domain-specific objects in between the front end and the database/datastore. MiddleKit is roughly analogous to NeXT/Apple's Enterprise Objects and Sun's Enterprise Java Beans."""

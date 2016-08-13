@@ -13,11 +13,7 @@ import textwrap
 
 from struct import calcsize
 
-try:
-    from hashlib import md5, sha1
-except ImportError:  # Python < 2.5
-    from md5 import new as md5
-    from sha import new as sha1
+from hashlib import md5, sha1
 
 __all__ = [
     'commas', 'charWrap', 'wordWrap', 'excstr', 'hostName', 'localIP',

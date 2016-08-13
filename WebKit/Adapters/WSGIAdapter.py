@@ -95,16 +95,7 @@ class WSGIAdapter(Adapter):
                         header = None
                         if chunk:
                             yield chunk
-        except:
-            # This is a workaround for Python 2.4 which does not allow a
-            # yield statement to live in a try block with a finally clause.
-            # Note that this also works if the generator is simply abandoned
-            # even though Python 2.4 does not raise a GeneratorExit, because
-            # if the generator is deleted, the local variable err also gets
-            # deleted and its close() method will be called by its destructor.
-            err.close()
-            raise  # re-raise the original exception
-        else:
+        finally:
             err.close()
 
 

@@ -4,14 +4,7 @@ Written by Jean-Francois Pieronne
 """
 
 import traceback
-try:
-    import json
-except ImportError:  # Python < 2.6
-    try:
-        import simplejson as json
-    except ImportError:
-        print "ERROR: simplejson is not installed."
-        print "Get it from https://pypi.python.org/pypi/simplejson/"
+import json
 
 from MiscUtils import StringIO
 from HTTPContent import HTTPContent

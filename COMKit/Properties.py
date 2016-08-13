@@ -10,7 +10,7 @@ status = 'stable'
 
 synopsis = """COMKit allows COM objects to be used in the multi-threaded versions of WebKit. Especially useful for data access using ActiveX Data Objects. Requires Windows and Python win32 extensions."""
 
-requiredPyVersion = (2, 4, 0)
+requiredPyVersion = (2, 6, 0)
 
 requiredOpSys = 'nt'
 

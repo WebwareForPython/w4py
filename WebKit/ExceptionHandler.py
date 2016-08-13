@@ -8,12 +8,8 @@ import traceback
 from random import randint
 from time import time, localtime
 
-try:
-    from email.message import Message
-    from email.Utils import formatdate
-except ImportError:  # Python < 2.5
-    from email.Message import Message
-    from email.Utils import formatdate
+from email.message import Message
+from email.Utils import formatdate
 
 from MiscUtils import StringIO
 from MiscUtils.Funcs import asclocaltime

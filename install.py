@@ -112,7 +112,7 @@ class Installer(object):
         self.printKeyValue('Platform', sys.platform)
         self.printKeyValue('Cur Dir', os.getcwd())
 
-    def checkPyVersion(self, minver=(2, 4)):
+    def checkPyVersion(self, minver=(2, 6)):
         """Check for minimum required Python version."""
         try:
             ver = sys.version_info[:len(minver)]

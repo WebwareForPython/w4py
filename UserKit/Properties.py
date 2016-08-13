@@ -9,6 +9,6 @@ docs = [
 
 status = 'beta'
 
-requiredPyVersion = (2, 4, 0)
+requiredPyVersion = (2, 6, 0)
 
 synopsis = """UserKit provides for the management of users including passwords, user data, server-side archiving and caching."""

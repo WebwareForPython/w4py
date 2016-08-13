@@ -35,13 +35,7 @@ except ImportError:  # dateutil not available
 
     except ImportError:  # mx.DateTime not available
 
-        try:
-            strpdatetime = datetime.strptime
-        except AttributeError:  # Python < 2.5
-            from time import strptime
-            # needs to be converted to datetime
-            strpdatetime = lambda s, format: datetime(
-                *strptime(s, format)[:6])
+        strpdatetime = datetime.strptime
 
         def parseDateTime(s):
             """Return a datetime object corresponding to the given string."""

@@ -990,7 +990,7 @@ class LongAttr(object):
 class DecimalAttr(object):
 
     def sqlForNonNone(self, value):
-        return str(value)  # repr() can give Decimal("3.4") in Python 2.4
+        return str(value)  # repr() will give Decimal("3.4")
 
 
 class BoolAttr(object):

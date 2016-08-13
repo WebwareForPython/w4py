@@ -2,14 +2,6 @@
 # JSON-RPC demo client contributed by Christoph Zwerschke
 #
 
-try:
-    import json
-except ImportError:  # Python < 2.6
-    try:
-        import simplejson as json
-    except ImportError:
-        json = None
-
 from ExamplePage import ExamplePage
 
 
@@ -18,8 +10,6 @@ class JSONRPCClient(ExamplePage):
 
     def writeJavaScript(self):
         ExamplePage.writeJavaScript(self)
-        if not json:
-            return
         self.write('''\
             <script type="text/javascript" src="jsonrpc.js"></script>
             <script type="text/javascript">
@@ -53,10 +43,6 @@ class JSONRPCClient(ExamplePage):
             such as <a href="http://dojotoolkit.org">dojo</a> or
             <a href="http://pyjamas.pyworks.org">pyjamas</a>
             for that purpose.</p>''')
-        if not json:
-            self.write(''' <span style="color:red">
-            Unfortunately, simplejson is not installed.</span>''')
-            return
         self.write('''</p>
             <p>Type in any example text to be used as input parameter,
             choose one of the available methods to be invoked by the

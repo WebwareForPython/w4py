@@ -219,14 +219,11 @@ more powerful versions of the ``print`` statement. For example::
 Dumping Thread Stack Frames
 -----------------------------
 
-If you are using Python 2.5 or newer, of if you have the `threadframe`__
-module installed, you can dump the stack frames of all running Webware
-application server threads to standard output by simply sending a ``SIGQUIT``
-or ``SIGBREAK`` signal to the application server. On Windows, this can be
-achieved by pressing Ctrl-Break or Shift-Ctrl-Break, or by trying to close
-the console window.
-
-__ http://www.majid.info/mylos/stories/2004/06/10/threadframe.html
+You can dump the stack frames of all running Webware application server
+threads to standard output by simply sending a ``SIGQUIT`` or ``SIGBREAK``
+signal to the application server. On Windows, this can be achieved by
+pressing Ctrl-Break or Shift-Ctrl-Break, or by trying to close the console
+window.
 
 Restarting the Server
 ---------------------

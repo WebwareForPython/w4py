@@ -612,14 +612,7 @@ class Application(ConfigurableForServerSidePath):
             pass
         except ConnectionAbortedError, err:
             trans.setError(err)
-        except (KeyboardInterrupt, SystemExit):
-            raise  # do not catch these here
-        except:
-            # For once, we use a bare except here in order to catch
-            # string and non standard exceptions from legacy code
-            # (starting with Python 2.5 you can simply catch Exception;
-            # KeyboardInterrupt, SystemExit will be excluded already
-            # and string exceptions will output deprecation warnings).
+        except Exception:
             errClass, err = sys.exc_info()[:2]
             if not err:  # string exception
                 err, errClass = errClass, None
@@ -656,10 +649,7 @@ class Application(ConfigurableForServerSidePath):
                     pass
                 except ConnectionAbortedError, err:
                     trans.setError(err)
-                except (KeyboardInterrupt, SystemExit):
-                    raise  # do not catch these here
-                except:
-                    # Once more, catch all other kinds of exceptions here.
+                except Exception:
                     # If the custom error page itself throws an exception,
                     # display the new exception instead of the original one,
                     # so we notice that something is broken here.

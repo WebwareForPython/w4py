@@ -8,6 +8,6 @@ docs = [
 
 status = 'stable'
 
-requiredPyVersion = (2, 4, 0)
+requiredPyVersion = (2, 6, 0)
 
 synopsis = """WebUtils contains functions for common web related programming tasks such as encoding/decoding HTML, etc."""
