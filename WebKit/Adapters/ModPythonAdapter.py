@@ -16,7 +16,7 @@ Here's how I set up my Apache conf:
        PythonDebug On
     </Location>
 
-If you used the MakeAppWorkDir.py script to make a seperate
+If you used the MakeAppWorkDir.py script to make a separate
 application working directory, specify that path for the AppWorkDir
 option, otherwise it should be in your WebKit directory in which case
 you should use /path/to/WebKit/adapter.address
@@ -76,11 +76,7 @@ class ModPythonAdapter(Adapter):
                 env['PATH_INFO'] = req.path_info
 
             # Communicate with the app server
-            respdict = self.transactWithAppServer(env, myInput, self.host, self.port)
-
-            # Respond back to Apache
-            # self.respond(req, respdict)
-
+            self.transactWithAppServer(env, myInput, self.host, self.port)
         except:
             self.handleException(req)
         return apache.OK
@@ -106,11 +102,7 @@ class ModPythonAdapter(Adapter):
                 env['PATH_INFO'] = req.path_info
 
             # Communicate with the app server
-            respdict = self.transactWithAppServer(env, myInput, self.host, self.port)
-
-            # Respond back to Apache
-            self.respond(req, respdict)
-
+            self.transactWithAppServer(env, myInput, self.host, self.port)
         except Exception:
             self.handleException(req)
         return apache.OK
@@ -163,10 +155,10 @@ class ModPythonAdapter(Adapter):
             return
         headerData = self.headerData() + data
         self.setHeaderData(headerData)
-        headerend = headerData.find('\r\n\r\n')
-        if headerend < 0:
+        headerEnd = headerData.find('\r\n\r\n')
+        if headerEnd < 0:
             return
-        headers = headerData[:headerend]
+        headers = headerData[:headerEnd]
         for header in headers.split('\r\n'):
             colon = header.find(':')
             name = header[:colon]
@@ -177,7 +169,7 @@ class ModPythonAdapter(Adapter):
             if name.lower() == 'status':
                 req.status = int(value.lstrip().split(None, 1)[0])
         req.send_http_header()
-        req.write(headerData[headerend+4:])
+        req.write(headerData[headerEnd+4:])
         self.setDoneHeader(1)
 
     def handleException(self, req):
@@ -206,7 +198,7 @@ class ModPythonAdapter(Adapter):
     # These methods are non-thread-safe. On platforms like NT where Apache
     # runs multi-threaded, and the same ModPythonAdapter instance may be
     # called simultaneously for different requests, they need to replaced
-    # with threadsafe versions. See WinModPythonAdapter below.
+    # with thread-safe versions. See WinModPythonAdapter below.
 
     def doneHeader(self):
         return self._doneHeader
