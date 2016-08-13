@@ -11,24 +11,26 @@ than traditional CGI programming. Everything gets cached.
 CGIPlusAppServer takes the following command line arguments:
 
 start: start the AppServer (default argument)
-stop: stop the currently running Apperver
+stop: stop the currently running AppServer
 ClassName.SettingName=value: change configuration settings
 
 When started, the app server records its pid in appserver.pid.
 """
 
 import os
+import re
+import signal
 import sys
 import traceback
 
-from time import time
+from CgiPlusServer import CgiPlusAppServerHandler
 
-from MiscUtils import StringIO
+from WebKit.ASStreamOut import ASStreamOut
+import WebKit.AppServer as AppServerModule
+from WebKit.AutoReloadingAppServer import AutoReloadingAppServer as AppServer
+
+from MiscUtils import Configurable, StringIO
 from MiscUtils.Funcs import asclocaltime
-
-import AppServer as AppServerModule
-from AutoReloadingAppServer import AutoReloadingAppServer as AppServer
-
 
 debug = False
 
@@ -45,9 +47,6 @@ class CgiPlusAppServer(AppServer):
         self.recordPID()
         self._wasd_running = None
 
-        # temporaire
-        from WebKit import Profiler
-        Profiler.startTime = time()
         self.readyForRequests()
 
     def addInputHandler(self, handlerClass):
@@ -67,34 +66,37 @@ class CgiPlusAppServer(AppServer):
     def mainloop(self, timeout=1):
         import wasd
         wasd.init()
-        stderr_ini = sys.stderr
-        sys.stderr = StringIO()
-        self._wasd_running = True
-        environ_ini = os.environ
-        while 1:
-            if not self._running or not self._wasd_running:
-                return
-            # init environment cgi variables
-            os.environ = environ_ini.copy()
-            wasd.init_environ()
-            print >> sys.__stdout__, "Script-Control: X-stream-mode"
-            self._requestID += 1
-            self._app._sessions.cleanStaleSessions()
-            self.handler = handler = self._handler(self)
-            handler.activate(self._requestID)
-            handler.handleRequest()
-            self.restartIfNecessary()
-            self.handler = None
-            sys.__stdout__.flush()
-            if not self._running or not self._wasd_running:
-                return
-            # when we want to exit don't send the eof, so
-            # WASD don't try to send the next request to the server
-            wasd.cgi_eof()
-            sys.stderr.close()
-            # block until next request
-            wasd.cgi_info("")
+        stderr = sys.stderr
+        try:
             sys.stderr = StringIO()
+            self._wasd_running = True
+            environ_ini = os.environ
+            while 1:
+                if not self._running or not self._wasd_running:
+                    return
+                # init environment cgi variables
+                os.environ = environ_ini.copy()
+                wasd.init_environ()
+                print >> sys.__stdout__, 'Script-Control: X-stream-mode'
+                self._requestID += 1
+                self._app._sessions.cleanStaleSessions()
+                self.handler = handler = self._handler(self)
+                handler.activate(self._requestID)
+                handler.handleRequest()
+                self.restartIfNecessary()
+                self.handler = None
+                sys.__stdout__.flush()
+                if not self._running or not self._wasd_running:
+                    return
+                # when we want to exit don't send the eof, so
+                # WASD don't try to send the next request to the server
+                wasd.cgi_eof()
+                sys.stderr.close()
+                # block until next request
+                wasd.cgi_info('')
+                sys.stderr = StringIO()
+        finally:
+            sys.stderr = stderr
 
     def shutDown(self):
         self._running = 0
@@ -127,7 +129,6 @@ class Handler(object):
         pass
 
 
-from WebKit.ASStreamOut import ASStreamOut
 class CPASStreamOut(ASStreamOut):
     """Response stream for CgiPLusAppServer.
 
@@ -163,7 +164,6 @@ class RestartAppServerError(Exception):
 
 def run(workDir=None):
     global server
-    from WebKit.CgiPlusServer import CgiPlusAppServerHandler
     runAgain = True
     while runAgain:  # looping in support of RestartAppServerError
         try:
@@ -209,17 +209,15 @@ def shutDown(arg1, arg2):
     else:
         print 'WARNING: No server reference to shutdown.'
 
-import signal
 signal.signal(signal.SIGINT, shutDown)
 signal.signal(signal.SIGTERM, shutDown)
 
 
 # Command line interface
 
-import re
 usage = re.search('\n.* arguments:\n\n(.*\n)*?\n', __doc__).group(0)
 settingRE = re.compile(r'^--([a-zA-Z][a-zA-Z0-9]*\.[a-zA-Z][a-zA-Z0-9]*)=')
-from MiscUtils import Configurable
+
 
 def main(args):
     function = run

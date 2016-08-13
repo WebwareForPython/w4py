@@ -2,14 +2,11 @@
 
 import os
 
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
-
 from time import time
 
-from WebKit.CgiPlusAppServer import Handler, CPASStreamOut
+from CgiPlusAppServer import Handler, CPASStreamOut
+
+from MiscUtils import StringIO
 
 
 class CgiPlusHandler(object):
