@@ -894,8 +894,7 @@ class Handler(object):
                     if not block:
                         break
                     chunks += block
-                    if (chunks.endswith('\r\r') or chunks.endswith('\n\n')
-                            or chunks.endswith('\r\n\r\n')):
+                    if chunks.endswith(('\r\r', '\n\n', '\r\n\r\n')):
                         msg = None
             if msg:
                 print "ERROR:", msg
@@ -1156,8 +1155,7 @@ class SCGIHandler(AdapterHandler):
                     if not block:
                         break
                     chunk += block
-                    if (chunk.endswith('\r\r') or chunk.endswith('\n\n')
-                            or chunk.endswith('\r\n\r\n')):
+                    if chunk.endswith(('\r\r', '\n\n', '\r\n\r\n')):
                         msg = None
             if msg:
                 print "ERROR:", msg

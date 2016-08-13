@@ -578,9 +578,7 @@ Error codes and their messages:
             what = 'Category comments'
             separator = 'two blank lines'
         elif (line.startswith('class ') and blankLines < minLines + 1
-                and not line.endswith('Exception):')
-                and not line.endswith('Error):')
-                and not line.endswith('pass')):
+                and not line.endswith(('Exception):', 'Error):', 'pass'))):
             what = 'Class definitions'
             separator = 'two blank lines'
         elif (line.startswith('def ') and blankLines < minLines
