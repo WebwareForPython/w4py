@@ -34,14 +34,7 @@ from marshal import dumps, loads
 from threading import Thread, currentThread
 from time import time, localtime, sleep
 
-try:
-    from ctypes import pythonapi, c_long, py_object
-except ImportError:
-    py_object = c_long = pythonapi = None
-try:
-    PyThreadState_SetAsyncExc = pythonapi.PyThreadState_SetAsyncExc
-except (TypeError, AttributeError):
-    PyThreadState_SetAsyncExc = None
+from ctypes import pythonapi, c_long, py_object
 
 try:
     import fcntl
@@ -128,8 +121,6 @@ class WorkerThread(Thread):
     (Idea taken from: http://sebulba.wikispaces.com/recipe+thread2)
     """
 
-    _canAbort = PyThreadState_SetAsyncExc is not None
-
     def threadID(self):
         """Return the thread's internal id."""
         try:
@@ -147,10 +138,6 @@ class WorkerThread(Thread):
         a value of zero means the thread could not be found,
         any other value indicates that an error has occurred.
         """
-        if not self._canAbort:
-            if debug:
-                print "Error: Aborting threads is not possible"
-            return -1
         if debug:
             print "Aborting worker thread..."
         try:
@@ -168,12 +155,13 @@ class WorkerThread(Thread):
         if debug:
             print "Worker thread id is", threadID
         try:
-            ret = PyThreadState_SetAsyncExc(
+            ret = pythonapi.PyThreadState_SetAsyncExc(
                 c_long(threadID), py_object(exception))
             # If it returns a number greater than one, we're in trouble,
             # and should call it again with exc=NULL to revert the effect
             if ret > 1:
-                PyThreadState_SetAsyncExc(c_long(threadID), py_object())
+                pythonapi.PyThreadState_SetAsyncExc(
+                    c_long(threadID), py_object())
         except Exception:
             ret = -1
         if debug:
@@ -247,10 +235,6 @@ class ThreadedAppServer(AppServer):
             self._requestQueue = Queue.Queue(self._requestQueueSize)
 
             maxRequestTime = self.setting('MaxRequestTime') or None
-            if maxRequestTime and not self._canAbortRequest:
-                print ("Warning: MaxRequestTime setting ineffective"
-                    " (cannot abort requests)")
-                maxRequestTime = None
             self._maxRequestTime = maxRequestTime
             self._checkRequestTime = None
 
@@ -561,8 +545,6 @@ class ThreadedAppServer(AppServer):
                 if debug:
                     print "Thread absorbed, real threadCount =", len(self._threadPool)
 
-    _canAbortRequest = WorkerThread._canAbort
-
     def abortRequest(self, requestID, exception=RequestAbortedError):
         """Abort a request by raising an exception in its worker thread.
 
@@ -573,10 +555,6 @@ class ThreadedAppServer(AppServer):
         verbose = self._verbose
         if verbose:
             print "Aborting request", requestID
-        if not self._canAbortRequest:
-            if verbose:
-                print "Error: Cannot abort requests"
-            return -1
         for t, h in self._threadHandler.items():
             try:
                 handlerRequestID = h._requestID
@@ -766,7 +744,7 @@ class ThreadedAppServer(AppServer):
                 break
         else:
             running = False
-        if running and self._canAbortRequest:
+        if running:
             # Abort all remaining threads:
             print "Aborting hanging worker threads..."
             for t in self._threadPool:

@@ -20,13 +20,8 @@ class ThreadControl(AdminSecurity):
         myRequestID = request.requestID()
         wr = self.writeln
 
-        try:
-            threadHandler = server._threadHandler
-            abortRequest = server._canAbortRequest and server.abortRequest
-        except AttributeError:
-            threadHandler = {}
-            abortRequest = None
-
+        threadHandler = server._threadHandler
+        abortRequest = server.abortRequest
         maxRequestTime = server.setting('MaxRequestTime', 0) or 0
 
         try:
@@ -39,32 +34,23 @@ class ThreadControl(AdminSecurity):
             ' the <tt>AppServer.config</tt> setting <tt>MaxRequestTime</tt>.</p>')
 
         if maxRequestTime:
-            if abortRequest:
-                wr('<p>Currently, this is set to <b>%d</b> seconds.</p>'
-                    % maxRequestTime)
-            else:
-                wr('<p>Currently, this is set to %d seconds, but inactive.</p>'
-                    % maxRequestTime)
+            wr('<p>Currently, this is set to <b>%d</b> seconds.</p>'
+                % maxRequestTime)
         else:
             wr('<p>Currently, this setting is disabled.</p>')
 
         wr('<form action="ThreadControl" method="post">', '<p>')
-        if abortRequest:
-            wr('<input name="cancel_all" type="submit"'
-                ' value="Cancel all requests below">')
-            wr('<input name="cancel_selected" type="submit"'
-                ' value="Cancel all selected requests">')
-        else:
-            wr('<p>You need Python 2.3 with <code>ctypes</code> or a'
-                ' newer Python version to enable cancelation of threads.</p>')
+        wr('<input name="cancel_all" type="submit"'
+            ' value="Cancel all requests below">')
+        wr('<input name="cancel_selected" type="submit"'
+            ' value="Cancel all selected requests">')
         wr('<input name="refresh_view" type="submit"'
             ' value="Refresh view">', '</p>')
-        if abortRequest:
-            wr('<p><input name="cancel_long" type="submit"'
-                ' value="Cancel all long-running requests">'
-                ' (longer than <input type="text" name="duration" value="%d"'
-                ' size="6" maxlength="12" style="text-align: right">'
-                ' seconds)</p>' % max_duration)
+        wr('<p><input name="cancel_long" type="submit"'
+            ' value="Cancel all long-running requests">'
+            ' (longer than <input type="text" name="duration" value="%d"'
+            ' size="6" maxlength="12" style="text-align: right">'
+            ' seconds)</p>' % max_duration)
         wr('<p>You can <a href="Sleep" target="_blank">create a long-running'
             ' request</a> in a separate browser window for testing.</p>'
             '<p>(Your web browser may get stuck if it is waiting for more'
@@ -96,12 +82,9 @@ class ThreadControl(AdminSecurity):
             if (not requestID or requestID == myRequestID
                     or requestID not in activeIDs):
                 continue
-            if abortRequest:
-                try:
-                    killed = abortRequest(requestID) == 1
-                except Exception:
-                    killed = 0
-            else:
+            try:
+                killed = abortRequest(requestID) == 1
+            except Exception:
                 killed = 0
             if killed:
                 killedIDs.append(requestID)
@@ -182,8 +165,7 @@ class ThreadControl(AdminSecurity):
                 wr('<th><a href="ThreadControl?sort=%s">%s</a></th>'
                     % (sort_key, heading))
                 column += 1
-            if abortRequest:
-                wr('<th>Cancel</th>')
+            wr('<th>Cancel</th>')
             wr('</tr>')
             if sort_column:
                 def key(t):
@@ -215,7 +197,7 @@ class ThreadControl(AdminSecurity):
                     duration = '%s&nbsp;ms' % duration
             else:
                 duration = startTime = '-'
-            if abortRequest and requestID and requestID != myRequestID:
+            if requestID and requestID != myRequestID:
                 checkbox = ('<input type="hidden" name="allIDs" value="%d">'
                     '<input type="checkbox" name="selectedIDs" value="%d">'
                     % (requestID, requestID))
@@ -235,14 +217,12 @@ class ThreadControl(AdminSecurity):
                 '</td><td align="right">', requestID,
                 '</td><td>', startTime, '</td><td align="right">', duration,
                 '</td><td>', client, '</td><td>', uri, '</td>')
-            if abortRequest:
-                wr('<td align="center">', checkbox, '</td>')
+            wr('<td align="center">', checkbox, '</td>')
             wr('</tr>')
         if activeThreads:
             wr('</table>')
-        if abortRequest:
-            longIDs = ','.join(map(str, longIDs))
-            wr('<input type="hidden" name="longIDs" value="%s">' % longIDs)
+        longIDs = ','.join(map(str, longIDs))
+        wr('<input type="hidden" name="longIDs" value="%s">' % longIDs)
         wr('</form>')
 
         if threadCount > len(activeThreads):
