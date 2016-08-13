@@ -352,7 +352,6 @@ These adapters are not really recommended:
 * `Python CGI Adapter`_
 * FastCGI_
 * mod_python_ (with the ModPythonAdapter)
-* mod_snake_ (with the ModSnakeAdapter)
 * ISAPI_ (*alpha*, for IIS)
 * OneShot_ (unusual to use, sometimes buggy)
 
@@ -616,22 +615,6 @@ return incorrect responses under heavy load.
 
 More information about mod_python can be found at
 http://www.modpython.org.
-
-mod_snake
-~~~~~~~~~
-
-In most cases the mod_snake adapter will not be significantly faster
-than wkcgi_ (and may be slower!), and the mod_snake adapter is
-considerably slower than mod_webkit_.  At the same time it is also
-much more difficult to configure.  Its use is *not* recommended.
-
-This adapter is similar to ModPython, but written for the mod_snake
-Apache module.  mod_snake is another method of embedding a python
-interpreter into Apache.
-
-A doc string is included at the top of
-``WebKit/Adapters/ModSnakeAdapter.py`` which describes the
-configuration steps to use this adapter.
 
 OneShot
 ~~~~~~~
