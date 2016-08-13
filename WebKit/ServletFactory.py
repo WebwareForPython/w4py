@@ -186,9 +186,8 @@ class ServletFactory(object):
                 if os.path.exists(initPy + ext):
                     break
             else:  # if it does not exist, make an empty one
-                file = open(initPy, 'w')
-                file.write('#')
-                file.close()
+                with open(initPy, 'w') as initPyFile:
+                    initPyFile.write('#')
         fp, pathname, stuff = self._imp.find_module(moduleName, [directory])
         module = self._imp.load_module(fullModuleName, fp, pathname, stuff)
         module.__donotreload__ = self._reloadClasses

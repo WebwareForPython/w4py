@@ -313,9 +313,8 @@ class ThreadedAppServer(AppServer):
                     sys.stdout.flush()
                     raise
         try:
-            f = open(adrFile, 'w')
-            f.write(adrStr)
-            f.close()
+            with open(adrFile, 'w') as f:
+                f.write(adrStr)
         except IOError:
             print "Error: Could not write", adrFile
             sys.stdout.flush()

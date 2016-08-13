@@ -128,9 +128,8 @@ def fontify(pytext, searchfrom=0, searchto=None):
 
 
 def test(path):
-    f = open(path)
-    text = f.read()
-    f.close()
+    with open(path) as f:
+        text = f.read()
     tags = fontify(text)
     for tag, start, end, sublist in tags:
         print tag, repr(text[start:end]), start, end

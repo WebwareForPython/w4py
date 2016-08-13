@@ -1,9 +1,8 @@
 import os
 
 def test(store):
-    samples = open('Dump.csv', 'w')
-    store.dumpObjectStore(samples)
-    samples.close()
+    with open('Dump.csv', 'w') as samples:
+        store.dumpObjectStore(samples)
 
     command = 'diff -u ../MKDump.mkmodel/Samples.csv Dump.csv'
     print command

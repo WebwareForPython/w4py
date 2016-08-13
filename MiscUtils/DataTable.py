@@ -376,9 +376,8 @@ class DataTable(object):
             if self._filename.lower().endswith('.xls'):
                 self.readExcel(worksheet, row, column)
             else:
-                file = open(self._filename, 'r')
-                self.readFile(file, delimiter, allowComments, stripWhite)
-                file.close()
+                with open(self._filename) as f:
+                    self.readFile(f, delimiter, allowComments, stripWhite)
             if self._usePickleCache:
                 writePickleCache(self, filename, source='MiscUtils.DataTable')
         else:
@@ -489,9 +488,8 @@ class DataTable(object):
         self.writeFileNamed(self._filename)
 
     def writeFileNamed(self, filename):
-        file = open(filename, 'w')
-        self.writeFile(file)
-        file.close()
+        with open(filename, 'w') as f:
+            self.writeFile(f)
 
     def writeFile(self, file):
         """Write the table out as a file.

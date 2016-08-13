@@ -434,9 +434,9 @@ def _test():
             req.Finish()
     except Exception:
         import traceback
-        f = open('traceback', 'w')
-        traceback.print_exc(file=f)
-        # f.write('%s' % doc)
+        with open('traceback', 'w') as f:
+            traceback.print_exc(file=f)
+            # f.write('%s' % doc)
 
 
 if __name__ == '__main__':

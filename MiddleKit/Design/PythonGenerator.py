@@ -68,9 +68,8 @@ class Klass(object):
             superclassName = 'Gen' + name
 
             # Write file
-            file = open(filename, 'w')
-            file.write(PyStubTemplate % locals())
-            file.close()
+            with open(filename, 'w') as f:
+                f.write(PyStubTemplate % locals())
 
     def _writePy(self, generator, out):
         self._pyGenerator = generator

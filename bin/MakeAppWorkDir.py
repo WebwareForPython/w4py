@@ -228,7 +228,7 @@ class MakeAppWorkDir(object):
             oldName = os.path.join(webKitDir, os.path.join('Adapters', name))
             if os.path.exists(oldName):
                 self.msg("\t%s" % newName)
-                script = open(oldName, 'r').read()
+                script = open(oldName).read()
                 script = re.sub('^#!/usr/bin/env python\n',
                     '#!%s\n' % executable, script, 1)
                 parameter = (('workDir', workDir), ('webwareDir', webwareDir))
@@ -273,20 +273,20 @@ class MakeAppWorkDir(object):
             'Application.config')
         self.msg("\t%s" % filename)
         content = open(filename).readlines()
-        output = open(filename, 'w')
         foundContext = 0
-        for line in content:
-            if line.startswith("Contexts[%r] = %r\n"
-                    % (self._contextName, configDir)):
-                foundContext += 1
-            elif line.startswith("Contexts['default'] = "):
-                output.write("Contexts[%r] = %r\n"
-                    % (self._contextName, configDir))
-                output.write("Contexts['default'] = %r\n"
-                    % self._contextName)
-                foundContext += 2
-            else:
-                output.write(line)
+        with open(filename, 'w') as output:
+            for line in content:
+                if line.startswith("Contexts[%r] = %r\n"
+                        % (self._contextName, configDir)):
+                    foundContext += 1
+                elif line.startswith("Contexts['default'] = "):
+                    output.write("Contexts[%r] = %r\n"
+                        % (self._contextName, configDir))
+                    output.write("Contexts['default'] = %r\n"
+                        % self._contextName)
+                    foundContext += 2
+                else:
+                    output.write(line)
         if foundContext < 2:
             self.msg("\tWarning: Default context could not be set.")
         self.msg()
@@ -301,18 +301,16 @@ class MakeAppWorkDir(object):
         if os.path.exists(filename):
             existed = True
         else:
-            f = open(filename, 'w')
-            f.write(ignore)
-            f.close()
+            with open(filename, 'w') as f:
+                f.write(ignore)
         ignore = '!.gitignore\n'
         for subDir in 'Cache ErrorMsgs Logs Sessions'.split():
             filename = os.path.join(self._workDir, subDir, '.gitignore')
             if os.path.exists(filename):
                 existed = True
             else:
-                f = open(filename, 'w')
-                f.write(ignore)
-                f.close()
+                with open(filename, 'w') as f:
+                    f.write(ignore)
         if existed:
             self.msg("\tDid not change existing .gitignore file.")
         self.msg()

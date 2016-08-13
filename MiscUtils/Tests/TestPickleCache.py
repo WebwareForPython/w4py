@@ -72,9 +72,8 @@ class TestPickleCache(unittest.TestCase):
             pass
 
     def writeSource(self):
-        f = open(self._sourcePath, 'w')
-        f.write(str(self._data))
-        f.close()
+        with open(self._sourcePath, 'w') as f:
+            f.write(str(self._data))
 
     def writePickle(self):
         self.assertFalse(os.path.exists(self._picklePath))

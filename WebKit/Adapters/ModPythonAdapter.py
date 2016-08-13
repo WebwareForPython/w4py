@@ -68,7 +68,7 @@ class ModPythonAdapter(Adapter):
             # building the environment
             env = apache.build_cgi_env(req)
 
-            #make sure env is a dictionary (may not be for Apache2)
+            # make sure env is a dictionary (may not be for Apache2)
             env = dict(env)
 
             # Fix up the path
@@ -111,7 +111,7 @@ class ModPythonAdapter(Adapter):
             # Respond back to Apache
             self.respond(req, respdict)
 
-        except:
+        except Exception:
             self.handleException(req)
         return apache.OK
 
@@ -124,24 +124,24 @@ class ModPythonAdapter(Adapter):
         self.reset(req)
         debug = True
         if debug:
-            ot = open("/tmp/log2.txt","a")
+            ot = open('/tmp/log2.txt', 'a')
             ot.write("In type handler\n")
             ot.flush()
 
         if req.filename is None:
             return apache.DECLINED
         fn = req.filename
-        ext = fn[fn.rfind("."):]
+        ext = fn[fn.rfind('.'):]
 
         if debug:
-            ot.write("TH: Filename: %s\n"%fn)
+            ot.write("TH: Filename: %s\n" % fn)
             ot.write("TH: Extension: %s\n" % ext)
             ot.write("Req_Handler = %s\n" % req.handler)
             ot.flush()
             ot.close()
 
-        if ext == ".psp":
-            req.handler = "python-program"
+        if ext == '.psp':
+            req.handler = 'python-program'
             return apache.OK
         else:
             return apache.DECLINED
@@ -163,11 +163,11 @@ class ModPythonAdapter(Adapter):
             return
         headerData = self.headerData() + data
         self.setHeaderData(headerData)
-        headerend = headerData.find("\r\n\r\n")
+        headerend = headerData.find('\r\n\r\n')
         if headerend < 0:
             return
         headers = headerData[:headerend]
-        for header in headers.split("\r\n"):
+        for header in headers.split('\r\n'):
             colon = header.find(':')
             name = header[:colon]
             value = header[colon+1:]
@@ -290,8 +290,10 @@ def _adapter(req):
 def handler(req):
     return _adapter(req).handler(req)
 
+
 def pspHandler(req):
     return _adapter(req).pspHandler(req)
+
 
 def typehandler(req):
     return _adapter(req).typehandler(req)

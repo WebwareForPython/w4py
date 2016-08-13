@@ -51,9 +51,8 @@ class CodeGenerator(ModelUser):
         assert os.path.isdir(dirname)
 
     def writeInfoFile(self, filename):
-        file = open(filename, 'w')
-        self.writeInfoItems(file)
-        file.close()
+        with open(filename, 'w') as f:
+            self.writeInfoItems(f)
 
     def writeInfoItems(self, file):
         wr = self.writeInfoItem

@@ -104,17 +104,18 @@ class Model(object):
         output.write('use %s;\n\n' % databasename)
 
     def writeInsertSamplesSQL(self, generator, dirname):
-        if self._filename is not None:
-            file = open(os.path.join(dirname, 'InsertSamples.sql'), 'w')
-            self.writeConnectToDatabase(generator, file, self.sqlDatabaseName())
+        if self._filename is None:
+            return
+        with open(os.path.join(dirname, 'InsertSamples.sql'), 'w') as f:
+            self.writeConnectToDatabase(generator, f, self.sqlDatabaseName())
 
-            if self.setting('DoNotSortSQLCreateStatementsByDependency', False):
-                allKlasses = self.allKlassesInOrder()
-            else:
-                allKlasses = self.allKlassesInDependencyOrder()
+            allKlasses = (self.allKlassesInOrder
+                if self.setting('DoNotSortSQLCreateStatementsByDependency', False)
+                else self.allKlassesInDependencyOrder)()
+
+            wr = f.write
 
             # delete the existing data
-            wr = file.write
             for klass in reversed(allKlasses):
                 if not klass.isAbstract():
                     wr('delete from %s;\n' % klass.sqlTableName())
@@ -138,11 +139,10 @@ class Model(object):
                 samples = self._klassSamples.get(klass)
                 if samples is not None:
                     for line in samples:
-                        file.write(line)
-                self.writePostKlassSamplesSQL(generator, file)
+                        wr(line)
+                self.writePostKlassSamplesSQL(generator, f)
 
-            self.writePostSamplesSQL(generator, file)
-            file.close()
+            self.writePostSamplesSQL(generator, f)
 
             del self._klassSamples
 

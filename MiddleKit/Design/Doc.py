@@ -59,8 +59,7 @@ class Doc(object):
 
     def generateHTML(self):
         path = os.path.join(self.outDir, self.model.name()+'.html')
-        file = open(path, 'w')
-        wr = file.write
+        wr = open(path, 'w').write
         wr('''
 <html>
 

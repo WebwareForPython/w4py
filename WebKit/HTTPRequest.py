@@ -57,15 +57,14 @@ class HTTPRequest(Request):
 
         # Debugging
         if debug:
-            f = open('env.text', 'a')
-            save = sys.stdout
-            sys.stdout = f
-            print '>> env for request:'
-            for key in sorted(env):
-                print '%s: %s' % (repr(key), repr(env[key]))
-            print
-            sys.stdout = save
-            f.close()
+            with open('env.text', 'a') as f:
+                save = sys.stdout
+                sys.stdout = f
+                print '>> env for request:'
+                for key in sorted(env):
+                    print '%s: %s' % (repr(key), repr(env[key]))
+                print
+                sys.stdout = save
 
         # Get adapter, servlet path and query string
         self._absolutepath = 'WK_ABSOLUTE' in env  # set by adapter

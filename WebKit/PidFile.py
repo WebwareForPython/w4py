@@ -135,7 +135,6 @@ class PidFile(object):
         """Write our pid file."""
         if self._created:
             return
-        pidfile = open(self._path, 'w')
-        pidfile.write(str(self._pid))
-        pidfile.close()
+        with open(self._path, 'w') as pidfile:
+            pidfile.write(str(self._pid))
         self._created = True  # write only one

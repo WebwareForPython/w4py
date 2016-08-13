@@ -34,9 +34,8 @@ class PySummary(object):
 
     def readFileNamed(self, filename):
         self._filename = filename
-        file = open(filename)
-        self.readFile(file)
-        file.close()
+        with open(filename) as f:
+            self.readFile(f)
 
     def readFile(self, file):
         self.invalidateCache()

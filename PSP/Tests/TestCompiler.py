@@ -38,9 +38,8 @@ class TestCompiler(unittest.TestCase):
         tmpInName = moduleName + ".psp"
         tmpOutName = moduleName + ".py"
         _log.debug('Writing PSP source to: "%s"', tmpInName)
-        fp = open(tmpInName, 'w')
-        fp.write(pspSource)
-        fp.close()
+        with open(tmpInName, 'w') as fp:
+            fp.write(pspSource)
         # Compile PSP into .py file
         context = Context.PSPCLContext(tmpInName)
         context.setClassName(classname)
@@ -48,14 +47,9 @@ class TestCompiler(unittest.TestCase):
         clc = PSPCompiler.Compiler(context)
         clc.compile()
         # Have Python import the .py file.
-        fp = open(tmpOutName)
-        if fp:
-            try:
-                description = ('.py', 'r', imp.PY_SOURCE)
-                theModule = imp.load_module(moduleName, fp, tmpOutName, description)
-            finally:
-                # Since we may exit via an exception, close fp explicitly.
-                fp.close()
+        with open(tmpOutName) as fp:
+            description = ('.py', 'r', imp.PY_SOURCE)
+            theModule = imp.load_module(moduleName, fp, tmpOutName, description)
         if not DEBUG:
             os.remove(tmpInName)
             os.remove(tmpOutName)

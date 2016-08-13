@@ -92,15 +92,15 @@ class StreamReader(object):
         if parent is not None and not isAbsolute:
             filepath = os.path.join(parent, filepath)
         fileId = self.registerSourceFile(filepath)
-        handle = open(filepath, 'rU')
-        stream = handle.read()
-        handle.seek(0, 0)
-        if self.current is None:
-            self.current = Mark(self, fileId, stream,
-                self._ctxt.getBaseUri(), encoding)
-        else:
-            self.current.pushStream(fileId, stream,
-                self._ctxt.getBaseUri(), encoding)  # don't use yet
+        with open(filepath, 'rU') as handle:
+            stream = handle.read()
+            handle.seek(0, 0)
+            if self.current is None:
+                self.current = Mark(self, fileId, stream,
+                    self._ctxt.getBaseUri(), encoding)
+            else:
+                self.current.pushStream(fileId, stream,
+                    self._ctxt.getBaseUri(), encoding)  # don't use yet
 
     def popFile(self):
         if self.current is None:
