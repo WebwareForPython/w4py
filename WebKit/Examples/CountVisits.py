@@ -22,4 +22,4 @@ If you close your browser or force the session to
 <a href="CountVisits?expire=1">expire</a>, then your session will end
 and you will see the counter go back to 1 on your next visit.</p>
 <p>Try hitting <a href="javascript:location.reload()">reload</a> now.</p>"""
-            % (count, count > 1 and 's' or ''))
+            % (count, 's' if count > 1 else ''))

@@ -290,7 +290,7 @@ def uniqueId(forObject=None, sha=False):
         r = [time.time(), random.random(), os.times()]
     if forObject is not None:
         r.append(id(forObject))
-    return (sha and sha1 or md5)(str(r)).hexdigest()
+    return (sha1 if sha else md5)(str(r)).hexdigest()
 
 
 def valueForString(s):

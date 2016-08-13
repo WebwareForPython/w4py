@@ -70,7 +70,7 @@ class ReleaseHelper(object):
 
         tag = self._args.get('tag')
         pkg = self._args.get('pkg')
-        pkgType = pkg == 'zip' and 'zip archive' or 'tarball'
+        pkgType = 'zip archive' if pkg == 'zip' else 'tarball'
         if tag:
             print "Creating %s from tag %s ..." % (pkgType, tag)
         else:
@@ -99,7 +99,7 @@ class ReleaseHelper(object):
 
         cleanup = [target]
 
-        source = tag and 'tags/%s' % tag or 'HEAD'
+        source = 'tags/%s' % tag if tag else 'HEAD'
 
         try:
             self.run('git archive %s | tar -x -C %s' % (source, target))
@@ -139,7 +139,7 @@ class ReleaseHelper(object):
 
             cleanup.append(pkgDir)
 
-            pkgExt = pkg == 'zip' and '.zip' or '.tar.gz'
+            pkgExt = '.zip' if pkg == 'zip' else '.tar.gz'
             pkgName = os.path.join(pkgDir + pkgExt)
 
             # cleanup .git files
@@ -157,7 +157,7 @@ class ReleaseHelper(object):
             if os.path.exists(pkgPath):
                 self.error("%s is in the way, please remove it." % pkgPath)
 
-            tarCmd = pkg == 'zip' and 'zip -qr' or 'tar -czf'
+            tarCmd = 'zip -qr' if pkg == 'zip' else 'tar -czf'
             self.run('%s %s %s' % (tarCmd, pkgPath, pkgDir))
 
             if not os.path.exists(pkgPath):

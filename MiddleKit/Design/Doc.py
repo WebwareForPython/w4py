@@ -281,8 +281,8 @@ class Values(dict):
 
     def __init__(self, data):
         dict.__init__(self, data)
-        self['isRequired'] = self.get('isRequired') not in (
-            False, '0', 0, 0.0, None) and 'required' or ''
+        self['isRequired'] = 'required' if self.get('isRequired') not in (
+            False, '0', 0, 0.0, None) else ''
 
     def __getitem__(self, key):
         try:

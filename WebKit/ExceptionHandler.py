@@ -554,7 +554,7 @@ class ExceptionHandler(object):
             # SMTP after POP
             if popssl is None and popport == 995:
                 popssl = True
-            popssl = popssl and poplib.POP3_SSL or poplib.POP3
+            popssl = poplib.POP3_SSL if popssl else poplib.POP3
             if popport:
                 popserver = popssl(popserver, popport)
             else:

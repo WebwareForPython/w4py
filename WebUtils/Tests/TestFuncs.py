@@ -77,7 +77,7 @@ class TestFuncs(unittest.TestCase):
             '</table>')
         self.assertEqual(f(dict(foo='zing', bar='zang'),
                 filterValueCallBack=lambda v, k, d:
-                    k == 'bar' and 'zung' or v),
+                'zung' if k == 'bar' else v),
             '<table class="NiceTable">\n'
             '<tr><th align="left">bar</th><td>zung</td></tr>\n'
             '<tr><th align="left">foo</th><td>zing</td></tr>\n'

@@ -364,7 +364,7 @@ class FCGI(object):
         method = 'GET'
         if 'REQUEST_METHOD' in self.env:
             method = self.env['REQUEST_METHOD'].upper()
-        return cgi.FieldStorage(fp=method != 'GET' and self.inp or None,
+        return cgi.FieldStorage(fp=self.inp if method != 'GET' else None,
             environ=self.env, keep_blank_values=1)
 
     def getNextChunk(self, data):

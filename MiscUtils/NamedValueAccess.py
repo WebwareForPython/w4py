@@ -81,7 +81,7 @@ def valueForKey(obj, key, default=NoDefault):
             method = getattr(klass, key, None)
         if not method:
             underKey = '_' + key
-            method = klass and getattr(klass, underKey, None) or None
+            method = getattr(klass, underKey, None) if klass else None
             if not method:
                 attr = getattr(obj, key, NoDefault)
                 if attr is NoDefault:

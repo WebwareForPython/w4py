@@ -35,7 +35,7 @@ for r in range(11):
             # Compute brightness given RGB
             brightness = (0.3*r**gamma + 0.6*g**gamma + 0.1*b**gamma)**(1/gamma)
             # We then use brightness to determine a good font color for high contrast
-            textcolor = brightness < 0.5 and 'white' or 'black'
+            textcolor = 'white' if brightness < 0.5 else 'black'
             print '<td style="color:%s;background-color:%s;">%s</td>' % (textcolor, color, color)
         print '</tr>'
 

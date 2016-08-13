@@ -972,7 +972,7 @@ See the Troubleshooting section of the WebKit Install Guide.\r''')
         self._requestDict = requestDict
         if self._verbose:
             env = requestDict.get('environ')
-            uri = env and requestURI(env) or '-'
+            uri = requestURI(env) if env else '-'
             if not self._silentURIs or not self._silentURIs.search(uri):
                 requestDict['verbose'] = True
                 requestTime = localtime(requestTime)[:6]
@@ -991,7 +991,7 @@ See the Troubleshooting section of the WebKit Install Guide.\r''')
                 duration = round((time() - requestDict['time'])*1000)
                 if not error:
                     env = requestDict.get('environ')
-                    error = env and requestURI(env) or '-'
+                    error = requestURI(env) if env else '-'
                 print '%5d  %14.0f msec  %s\n' % (
                     requestID, duration, error)
 
@@ -1302,7 +1302,7 @@ def run(workDir=None):
             except SystemExit, e:
                 print
                 print "Exiting AppServer%s." % (
-                    e[0] == 3 and ' for reload' or '')
+                    ' for reload' if e[0] == 3 else '')
                 exitStatus = e[0]
             except KeyboardInterrupt:
                 print

@@ -159,11 +159,11 @@ class ClassList(object):
             closeFile = False
         name = self._name
         title = 'Class %s of %s' % (
-            hierarchic and 'Hierarchy' or 'List', name)
+            'Hierarchy' if hierarchic else 'List', name)
         other = ('<a href="Class%s.html">%s class list<a>'
             ' and the <a href="FileList.html">list of files<a> of %s'
-            % (hierarchic and 'List' or 'Hierarchy',
-                hierarchic and 'alphabetical' or 'hierarchical', name))
+            % ('List' if hierarchic else 'Hierarchy',
+               'alphabetical' if hierarchic else 'hierarchical', name))
         file.write('''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <head>
 <title>%s</title>

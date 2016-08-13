@@ -37,8 +37,8 @@ class View(AdminSecurity):
             self.writeError('The requested file %r does not exist'
                 ' in the server side directory.' % fn)
             return
-        self._type = 'text/%s' % (splitext(fn)[1] in ('.htm', '.html')
-            and 'html' or 'plain')
+        self._type = 'text/%s' % (
+            'html' if splitext(fn)[1] in ('.htm', '.html') else 'plain')
         try:
             self._data = open(fn).read()
         except Exception:

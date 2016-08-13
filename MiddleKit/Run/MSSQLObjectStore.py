@@ -40,7 +40,7 @@ class MSSQLObjectStore(SQLObjectStore):
         args = self._dbArgs.copy()
         self.augmentDatabaseArgs(args)
         arg = args.get('ConnectionString')
-        arg = arg and [arg] or []
+        arg = [arg] if arg else []
         return self.dbapiModule().connect(*arg, **args)
 
     def setting(self, name, default=NoDefault):

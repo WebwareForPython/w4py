@@ -26,7 +26,7 @@ class SessionShelveStore(SessionStore):
         """
         SessionStore.__init__(self, app)
         filename = os.path.join(app._sessionDir, filename or self._filename)
-        flag = restoreFiles and 'c' or 'n'
+        flag = 'c' if restoreFiles else 'n'
         self._store = shelve.open(filename,
             flag=flag, protocol=maxPickleProtocol)
         self._lock = threading.RLock()

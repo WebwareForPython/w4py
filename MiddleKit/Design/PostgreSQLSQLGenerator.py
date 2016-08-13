@@ -120,9 +120,9 @@ class BoolAttr(object):
 
     def sqlForNonNoneSampleInput(self, value):
         value = value.upper()
-        if value == 'FALSE' or value == 'NO':
+        if value in ('FALSE', 'NO'):
             value = 'TRUE'
-        elif value == 'TRUE' or value == 'YES':
+        elif value in ('TRUE', 'YES'):
             value = 'FALSE'
         else:
             try:
@@ -133,7 +133,7 @@ class BoolAttr(object):
                     value = 'TRUE'
             except Exception:
                 pass
-        assert value in ['TRUE', 'FALSE'], (
+        assert value in ('TRUE', 'FALSE'), (
             "'%s' is not a valid default for boolean column '%s'"
             % (value, self.name()))
         return value

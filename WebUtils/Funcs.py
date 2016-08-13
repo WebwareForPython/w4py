@@ -80,8 +80,8 @@ def htmlForDict(d, addSpace=None, filterValueCallBack=None,
     html = ['<table class="NiceTable">\n']
     if topHeading:
         html.append('<tr class="TopHeading"><th')
-        html.append((isinstance(topHeading, tuple)
-            and '>%s</th><th>%s' or ' colspan="2">%s') % topHeading)
+        html.append(('>%s</th><th>%s' if isinstance(topHeading, tuple)
+            else ' colspan="2">%s') % topHeading)
         html.append('</th></tr>\n')
     for key in sorted(d):
         value = d[key]

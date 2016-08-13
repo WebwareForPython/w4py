@@ -332,7 +332,7 @@ class HTTPResponse(Response):
             del self._headers['Status']
         else:
             # invent meaningful status
-            status = 'Location' in self._headers and '302 Found' or '200 OK'
+            status = '302 Found' if 'Location' in self._headers else '200 OK'
         head = ['Status: %s' % status]
         head.extend(map(lambda h: '%s: %s' % h, self._headers.items()))
         self._headers['Status'] = status  # restore status

@@ -118,7 +118,7 @@ def fontify(pytext, searchfrom=0, searchto=None):
                 if idMatchObject:
                     start, end = idMatchObject.span()
                     match = idMatchObject.group(0)
-                    tags.append((match == 'def' and functionTag or classTag,
+                    tags.append((functionTag if match == 'def' else classTag,
                         start, end, None))
         elif c == "#":
             tags.append((commentTag, start, end, None))

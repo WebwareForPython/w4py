@@ -170,7 +170,7 @@ ceremony!\""""
 
         def checkId(i, sha, past):
             self.assertTrue(isinstance(i, str), type(i))
-            self.assertEqual(len(i), sha and 40 or 32)
+            self.assertEqual(len(i), 40 if sha else 32)
             for c in i:
                 self.assertTrue(c in '0123456789abcdef')
             self.assertFalse(i in past)

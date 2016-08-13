@@ -159,9 +159,9 @@ class ThreadControl(AdminSecurity):
                     raise AttributeError
                 startTime = requestDict.get('time')
                 env = requestDict.get('environ')
-                client = env and (env.get('REMOTE_NAME')
-                    or env.get('REMOTE_ADDR')) or None
-                uri = env and requestURI(env) or None
+                client = (env.get('REMOTE_NAME')
+                    or env.get('REMOTE_ADDR')) if env else None
+                uri = requestURI(env) if env else None
                 activeThreads.append((name, requestID,
                     startTime, curTime - startTime, client, uri))
             except AttributeError:

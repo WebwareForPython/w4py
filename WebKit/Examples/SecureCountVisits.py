@@ -7,7 +7,7 @@ class SecureCountVisits(SecurePage):
     def writeContent(self):
         count = self.session().value('secure_count', 0) + 1
         self.session().setValue('secure_count', count)
-        plural = count > 1 and 's' or ''
+        plural = 's' if count > 1 else ''
         self.writeln('<h3>Counting Visits on a Secured Page</h3>')
         if self.request().isSessionExpired():
             self.writeln('<p>Your session has expired.</p>')

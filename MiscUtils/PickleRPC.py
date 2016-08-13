@@ -214,7 +214,7 @@ class Server(object):
             self._handler = '/PickleRPC'
 
         if transport is None:
-            transport = (typ == 'https' and SafeTransport or Transport)()
+            transport = (SafeTransport if typ == 'https' else Transport)()
         self._transport = transport
 
         self._verbose = verbose
@@ -231,7 +231,7 @@ class Server(object):
             'args':       args,
             'keywords':   keywords,
         }
-        request = dumps(request, self._binary and -1 or 0)
+        request = dumps(request, -1 if self._binary else 0)
         if zlib is not None and self._compressRequest and len(request) > 1000:
             request = zlib.compress(request, 1)
             compressed = True

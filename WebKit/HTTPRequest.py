@@ -86,7 +86,7 @@ class HTTPRequest(Request):
             # correct servletPath if there was a redirection
             if not (self._uri + '/').startswith(self._servletPath + '/'):
                 i = self._uri.find(self._pathInfo)
-                self._servletPath = i > 0 and self._uri[:i] or ''
+                self._servletPath = self._uri[:i] if i > 0 else ''
         else:
             # REQUEST_URI isn't actually part of the CGI standard and some
             # web servers like IIS don't set it (as of 8/22/2000).
@@ -95,7 +95,7 @@ class HTTPRequest(Request):
                 # correct servletPath if there was a redirection
                 if not (self._uri + '/').startswith(self._servletPath + '/'):
                     i = self._uri.find(self._pathInfo)
-                    self._servletPath = i > 0 and self._uri[:i] or ''
+                    self._servletPath = self._uri[:i] if i > 0 else ''
             else:
                 self._uri = self._servletPath + self._pathInfo
             if self._queryString:
@@ -418,7 +418,7 @@ class HTTPRequest(Request):
 
     def scheme(self):
         """Return the URI scheme of the request (http or https)."""
-        return self.isSecure() and 'https' or 'http'
+        return 'https' if self.isSecure() else 'http'
 
     def hostAndPort(self):
         """Return the hostname and port part from the URL of this request."""
@@ -430,7 +430,7 @@ class HTTPRequest(Request):
         else:
             host = env.get('SERVER_ADDR', '') or 'localhost'
             port = env.get('SERVER_PORT', '')
-            defaultPort = self.isSecure() and '443' or '80'
+            defaultPort = '443' if self.isSecure() else '80'
             if port and port != defaultPort:
                 host += ':' + port
             return host

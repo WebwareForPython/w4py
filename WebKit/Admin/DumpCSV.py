@@ -25,7 +25,7 @@ class DumpCSV(AdminSecurity):
             self.writeln('<p>File does not exist.</p>')
             return
         table = DataTable(self._filename)
-        plural = len(table) != 1 and 's' or ''
+        plural = 's' if len(table) != 1 else ''
         self.writeln('<p>%d row%s</p>' % (len(table), plural))
         self.writeln('<table class="NiceTable" cellpadding="2" cellspacing="2">')
         # Head row gets special formatting

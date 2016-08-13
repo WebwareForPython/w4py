@@ -30,7 +30,7 @@ class PushServlet(Page):
             self.sendLF()
             # send the currently buffered output now:
             self.response().flush()
-            sleep(i and 5 or 15)
+            sleep(5 if i else 15)
 
     def initialHeader(self):
         self.response().setHeader("Content-Type",
@@ -51,7 +51,7 @@ class PushServlet(Page):
         if count:
             wr('<h3>This page has been replaced'
                 ' <strong style="color:#339">%d</strong> time%s.</h3>'
-                % (count, count > 1 and 's' or ''))
+                % (count, 's' if count > 1 else ''))
             if count == 3:
                 wr('<p>Stopped pushing contents.</p>')
             else:

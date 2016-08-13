@@ -149,7 +149,7 @@ class KidServletFactory(ServletFactory):
             mtime = os.path.getmtime(path)
             classfile = os.path.join(self._cacheDir, classname + ".py")
             if not self._cacheSource:
-                classfile += __debug__ and 'c' or 'o'
+                classfile += 'c' if __debug__ else 'o'
             if (not os.path.exists(classfile)
                     or os.path.getmtime(classfile) != mtime):
                 kidFile = KidFile(path)

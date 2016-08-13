@@ -189,7 +189,7 @@ class Klass(object):
     def writeIndexSQLDefsAfterTable(self, wr):
         for attr in self.allAttrs():
             if attr.boolForKey('isIndexed') and attr.hasSQLColumn():
-                unique = self.boolForKey('isUnique') and ' unique' or ''
+                unique = ' unique' if self.boolForKey('isUnique') else ''
                 indexName = cleanConstraintName('IX__%s__%s' % (
                     self.name(), attr.name()))
                 wr('create%s index [%s] on %s(%s);\n' % (

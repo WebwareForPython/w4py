@@ -273,7 +273,7 @@ class BoolAttr(object):
             value = False
         else:
             value = int(string)
-            assert value == 0 or value == 1, value
+            assert value in (0, 1), value
             value = bool(value)
         return value
 
@@ -605,7 +605,8 @@ class ListAttr(object):
         raise AssertionError('Lists do not have a set method.')
 
     def writePyAddTo(self, out, names):
-        names['getParens'] = self.setting('AccessorStyle', 'methods') == 'methods' and '()' or ''
+        names['getParens'] = '()' if self.setting(
+            'AccessorStyle', 'methods') == 'methods' else ''
         out.write('''
     def addTo%(capName)s(self, value):
         assert value is not None
@@ -621,7 +622,8 @@ class ListAttr(object):
         del names['getParens']
 
     def writePyDelFrom(self, out, names):
-        names['getParens'] = self.setting('AccessorStyle', 'methods') == 'methods' and '()' or ''
+        names['getParens'] = '()' if self.setting(
+            'AccessorStyle', 'methods') == 'methods' else ''
         out.write('''
     def delFrom%(capName)s(self, value):
         assert value is not None

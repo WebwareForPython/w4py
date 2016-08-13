@@ -672,7 +672,7 @@ class Attr(object):
 
     def uniqueSQL(self):
         """Return SQL to use within a column definition to make it unique."""
-        return self.boolForKey('isUnique') and ' unique' or ''
+        return ' unique' if self.boolForKey('isUnique') else ''
 
 
 class BoolAttr(object):

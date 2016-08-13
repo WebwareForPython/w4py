@@ -830,8 +830,8 @@ class Application(ConfigurableForServerSidePath):
         `ExceptionHandler.ExceptionHandler`.
         """
         request = trans.request()
-        editlink = (self.setting('IncludeEditLink')
-            and request.adapterName() + "/Admin/EditFile" or None)
+        editlink = (request.adapterName() + '/Admin/EditFile'
+            if self.setting('IncludeEditLink') else None)
         self._exceptionHandlerClass(self, trans, excInfo,
             dict(editlink=editlink))
 
@@ -947,7 +947,7 @@ class Application(ConfigurableForServerSidePath):
             request.hostAndPort(), request.servletPath(),
             self.sessionName(trans), trans.session().identifier(),
             request.pathInfo(), request.extraURLPath() or '',
-            request.queryString() and '?' + request.queryString() or '')
+            '?' + request.queryString() if request.queryString() else '')
         if self.setting('Debug')['Sessions']:
             print ('>> [sessions] handling UseAutomaticPathSessions, '
                 'redirecting to', url)
@@ -965,7 +965,7 @@ class Application(ConfigurableForServerSidePath):
         url = '%s://%s%s%s%s%s' % (request.scheme(),
             request.hostAndPort(), request.servletPath(),
             request.pathInfo(), request.extraURLPath() or '',
-            request.queryString() and '?' + request.queryString() or '')
+            '?' + request.queryString() if request.queryString() else '')
         if self.setting('Debug')['Sessions']:
             print ('>> [sessions] handling unnecessary path session, '
                 'redirecting to', url)

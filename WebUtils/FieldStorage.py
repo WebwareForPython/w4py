@@ -28,8 +28,8 @@ class FieldStorage(cgi.FieldStorage):
     def __init__(self, fp=None, headers=None, outerboundary='',
             environ=os.environ, keep_blank_values=False, strict_parsing=False):
         method = environ.get('REQUEST_METHOD', 'GET').upper()
-        qs_on_post = method not in ('GET', 'HEAD') and environ.get(
-            'QUERY_STRING', None) or None
+        qs_on_post = (environ.get('QUERY_STRING', None)
+            if method not in ('GET', 'HEAD') else None)
         if qs_on_post:
             environ['QUERY_STRING'] = ''
         try:

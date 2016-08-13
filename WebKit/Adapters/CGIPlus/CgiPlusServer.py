@@ -63,7 +63,7 @@ class CgiPlusHandler(object):
         status = headers.pop('Status', '200 OK')
         status = status.split(None, 1)
         code = int(status[0])
-        message = len(status) > 1 and status[1].rstrip() or ''
+        message = status[1].rstrip() if len(status) > 1 else ''
         self.wfile.write("Status: %d %s\n" % (code, message))
 
     def sendHeaders(self, headers):

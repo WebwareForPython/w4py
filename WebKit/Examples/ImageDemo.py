@@ -18,7 +18,7 @@ except ImportError:
 
 def image_lib_link(lib=None):
     if not lib:
-        lib = gdImage and 'gd' or 'pil'
+        lib = 'gd' if gdImage else 'pil'
     name, src = dict(
         gd = ('GD module',
             'newcenturycomputers.net/projects/gdmodule.html'),

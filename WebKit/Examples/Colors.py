@@ -13,7 +13,7 @@ def brightness(r, g, b):
 
 def textcolor(r, g, b):
     """Determine a good text font color for high contrast."""
-    return brightness(r, g, b) < 0.5 and 'white' or 'black'
+    return 'white' if brightness(r, g, b) < 0.5 else 'black'
 
 def RGBToHTMLColor(r, g, b):
     """Convert r, g, b to #RRGGBB."""

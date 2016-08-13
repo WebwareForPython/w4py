@@ -996,7 +996,7 @@ class DecimalAttr(object):
 class BoolAttr(object):
 
     def sqlForNonNone(self, value):
-        return value and '1' or '0'  # MySQL and MS SQL will take 1 and 0 for bools
+        return '1' if value else '0'  # MySQL and MS SQL will take 1 and 0 for bools
 
 
 class ObjRefAttr(object):

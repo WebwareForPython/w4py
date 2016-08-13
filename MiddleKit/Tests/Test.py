@@ -119,7 +119,7 @@ class Test(object):
     def testRun(self, pyFile, deleteData):
         if os.path.exists(os.path.join(self._modelName, pyFile)):
             print '%s:' % pyFile
-            deleteData = deleteData and 'yes' or 'no'
+            deleteData = 'yes' if deleteData else 'no'
             self.run('python TestRun.py %s %s %s delete=%s' % (
                 self._modelName, self._configFilename, pyFile, deleteData))
         else:

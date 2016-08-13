@@ -74,7 +74,7 @@ class StorePage(SitePage):
         names = sorted(klasses)
         for name in names:
             urlName = self.urlEncode(name)
-            style = name == curClassName and 'CurClassLink' or 'ClassLink'
+            style = 'CurClassLink' if name == curClassName else 'ClassLink'
             self.writeln('<p><a href="BrowseObjects?class=%s" class"=%s">'
                 '%s</a></p>' % (name, style, urlName))
 

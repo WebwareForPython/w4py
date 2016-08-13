@@ -26,8 +26,8 @@ class TestIMS(SidebarPage):
         import httplib
         sd = self.request().serverDictionary()
         self._host = sd['HTTP_HOST']  # includes the port
-        self._httpconnection = (sd.get('HTTPS', '').lower() == 'on'
-            and httplib.HTTPSConnection or httplib.HTTPConnection)
+        self._httpconnection = (httplib.HTTPSConnection
+            if sd.get('HTTPS', '').lower() == 'on' else httplib.HTTPConnection)
         servletPath = self.request().servletPath()
         self.write('<h2>Test If-Modified-Since support in Webware</h2>')
         # pick a static file which is served up by Webware's UnknownFileHandler

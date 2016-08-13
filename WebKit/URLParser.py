@@ -382,7 +382,7 @@ class _FileParser(URLParser):
 
             parts = requestPath[1:].split('/', 1)
             nextPart = parts[0]
-            restPart = len(parts) > 1 and '/' + parts[1] or ''
+            restPart = '/' + parts[1] if len(parts) > 1 else ''
 
             baseName = os.path.join(self._path, nextPart)
             if restPart and not self._extraPathInfo:
