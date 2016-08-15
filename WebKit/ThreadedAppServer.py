@@ -14,7 +14,7 @@ The ThreadedAppServer/AppServer distinction is thus largely historical.
 ThreadedAppServer takes the following command line arguments:
 
 start: start the AppServer (default argument)
-stop: stop the currently running Apperver
+stop: stop the currently running AppServer
 daemon: run as a daemon
 ClassName.SettingName=value: change configuration settings
 

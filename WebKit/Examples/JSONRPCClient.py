@@ -54,10 +54,10 @@ class JSONRPCClient(ExamplePage):
             <a href="http://pyjamas.pyworks.org">pyjamas</a>
             for that purpose.</p>''')
         if not json:
-            self.write(''' <span style="color:red">
-            Unfortunately, simplejson is not installed.</span>''')
+            self.write('''<p style="color:red">
+            Unfortunately, simplejson is not installed.</p>''')
             return
-        self.write('''</p>
+        self.write('''
             <p>Type in any example text to be used as input parameter,
             choose one of the available methods to be invoked by the
             example servlet and press the button to display the result.</p>

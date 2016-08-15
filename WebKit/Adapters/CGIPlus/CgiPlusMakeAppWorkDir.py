@@ -13,7 +13,7 @@ USAGE
 MakeAppWorkDir.py [Options] WorkDir
 
 Options:
-  -c, --context-name=...  The name for the preinstalled context.
+  -c, --context-name=...  The name for the pre-installed context.
                           By default, it will be "MyContext".
   -d, --context-dir=...   The directory where the context will be located,
                           so you can place it outside of the WorkDir.

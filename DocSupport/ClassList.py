@@ -160,8 +160,8 @@ class ClassList(object):
         name = self._name
         title = 'Class %s of %s' % (
             hierarchic and 'Hierarchy' or 'List', name)
-        other = ('<a href="Class%s.html">%s class list<a>'
-            ' and the <a href="FileList.html">list of files<a> of %s'
+        other = ('<a href="Class%s.html">%s class list</a>'
+            ' and the <a href="FileList.html">list of files</a> of %s'
             % (hierarchic and 'List' or 'Hierarchy',
                 hierarchic and 'alphabetical' or 'hierarchical', name))
         file.write('''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -210,7 +210,7 @@ td { background-color: #EEF; }
         name = self._name
         filename = klass.filename()
         links = []
-        # souce file
+        # source file
         if os.path.exists(filename):
             links.append('<a href="../../%s">%s</a>' % (filename, filename))
         else:

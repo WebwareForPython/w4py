@@ -73,9 +73,9 @@ class ToC(object):
         level = 0
         for heading in headings[self._skip:]:
             depth = heading._depth
+            if not mindepth <= depth <= maxdepth:
+                continue
             if depth != curdepth:
-                if not mindepth <= depth <= maxdepth:
-                    continue
                 if depth > curdepth:
                     toc.append('\n<ul>')
                     level += 1

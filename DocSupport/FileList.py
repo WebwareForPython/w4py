@@ -60,7 +60,7 @@ class FileList(object):
             closeFile = False
         name = self._name
         title = 'File List of %s' % name
-        other = ('<a href="ClassList.html">alphabetical class list<a>'
+        other = ('<a href="ClassList.html">alphabetical class list</a>'
             ' and <a href="ClassHierarchy.html">class hierarchy</a>'
             ' of %s' % name)
         file.write('''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

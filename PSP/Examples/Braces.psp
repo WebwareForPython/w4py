@@ -24,7 +24,7 @@ return "Braces Test"
 
 <p>This module allows you to use braces where you would normally be hitting <tt>&lt;return&gt;&lt;tab&gt;</tt>. You can put the opening brace (<tt style="background-color:#f0f0f8">{</tt>) on the line befoe the block starts, or on the first line of the block.  Same kind of deal for the closing brace (<tt style="background-color:#f0f0f8">}</tt>). You still need to have the colon (<tt style="background-color:#f0f0f8">:</tt>) on the line right before the block starts. That's just part of Python.</p>
 
-<p>To enable this funtionality in PSP, you have to set braces as the indent type for your page. So you add this directive to your PSP page:<br>
+<p>To enable this functionality in PSP, you have to set braces as the indent type for your page. So you add this directive to your PSP page:<br>
 
 <blockquote><tt style="background-color:#f0f0f8">&lt;%@ page indentType="braces" %&gt;</tt></blockquote>
 

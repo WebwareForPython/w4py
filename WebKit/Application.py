@@ -946,7 +946,7 @@ class Application(ConfigurableForServerSidePath):
         http://gandalf/a/_SID_=2001080221301877755/Examples/
         _SID_ is extracted and removed from path in HTTPRequest.py
 
-        This is for convinient building of webapps that must not
+        This is for convenient building of webapps that must not
         depend on cookie support.
 
         Note that we create an absolute URL with scheme and hostname
