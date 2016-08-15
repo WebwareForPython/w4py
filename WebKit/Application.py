@@ -233,7 +233,8 @@ class Application(ConfigurableForServerSidePath):
                 " from module '%s'") % (className, moduleName)
             self._sessionClass = None
         moduleName = self.setting('SessionStore')
-        if moduleName in ('Dynamic', 'File', 'Memcached', 'Memory', 'Shelve'):
+        if moduleName in (
+                'Dynamic', 'File', 'Memcached', 'Memory', 'Redis', 'Shelve'):
             moduleName = 'Session%sStore' % moduleName
         self._sessionDir = self.serverSidePath(
             self.setting('SessionStoreDir') or 'Sessions')

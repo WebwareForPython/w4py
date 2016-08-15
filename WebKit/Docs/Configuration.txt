@@ -120,7 +120,7 @@ which files are hidden, and some of how those files get chosen.
     The namespace used to prefix all keys from the Webware application
     when accessing Memcached servers for storing sessions.  You should
     change this if you are using the same memcache for different applications.
-    Default: ``WebwareSession``.
+    Default: ``'WebwareSession:'``.
 ``MemcachedOnIteration``:
     This setting determines how Webware behaves when attempting to iterate
     over the sessions or clear the session store, when using ``Memcached``.
@@ -131,20 +131,38 @@ which files are hidden, and some of how those files get chosen.
 ``MemcachedServers``:
     This sets the list of Memcached servers used when setting ``SessionStore``
     to ``Memcached``.  Default: ``['localhost:11211']``.
+``RedisNamespace``:
+    The namespace used to prefix all keys from the Webware application
+    when accessing Redis servers for storing sessions.  You should change
+    this if you are using the same Redis instance for different applications.
+    Default: ``'WebwareSession:'``.
+``RedisHost``:
+    This sets the Redis host that shall be used when setting ``SessionStore``
+    to ``Redis``.  Default: ``'localhost'``.
+``RedisPort``:
+    This sets the port for the Redis connection that shall be used when
+    setting ``SessionStore`` to ``Redis``.  Default: ``6379``.
+``RedisDb``:
+    This sets the database number for the Redis connection that shall be
+    used when setting ``SessionStore`` to ``Redis``.  Default: ``0``.
+``RedisPassword``:
+    This sets the password for the Redis connection that shall be
+    used when setting ``SessionStore`` to ``Redis``.  Default: ``None``.
 ``SessionModule``:
     Can be used to replace the standard WebKit Session module with
     something else.  Default: ``Session``
 ``SessionStore``:
     This setting determines which of five possible session stores is used
-    by the application: ``Dynamic``, ``File``, ``Memcached``, ``Memory``
-    or ```Shelve``.  The ``File`` store always gets sessions from disk and
-    puts them back when finished.  ``Memory`` always keeps all sessions in
-    memory, but will periodically back them up to disk.  ``Dynamic`` is a
-    good cross between the two, which pushes excessive or inactive sessions
-    out to disk.  ``Shelve`` stores the sessions in a database file
-    using the Python ``shelve`` module,  ``Memcached`` stores them on
-    a Memcached system using the ``python-memcached`` interface.  You can
-    choose your own session store module as well.  Default: ``Dynamic``.
+    by the application: ``Dynamic``, ``File``, ``Memcached``, ``Memory``,
+    ``Redis`` or ```Shelve``.  The ``File`` store always gets sessions from
+    disk and puts them back when finished.  ``Memory`` always keeps all
+    sessions in memory, but will periodically back them up to disk.
+    ``Dynamic`` is a good cross between the two, which pushes excessive or
+    inactive sessions out to disk.  ``Shelve`` stores the sessions in a
+    database file using the Python ``shelve`` module,  ``Memcached`` stores
+    them on a Memcached system using the ``python-memcached`` interface,
+    and ``Redis`` stores them on a Redis system using the ``redis-py`` client.
+    You can use a custom session store module as well.  Default: ``Dynamic``.
 ``SessionStoreDir``:
     If ``SessionStore`` is set to ``File``, ``Dynamic`` or ``Shelve``,
     then this setting determines the directory where the files for the

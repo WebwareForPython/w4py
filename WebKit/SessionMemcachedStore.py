@@ -70,7 +70,7 @@ class SessionMemcachedStore(SessionStore):
         # the memcached "namespace" used by our store
         # you can add an integer counter for expiration
         self._namespace = app.setting(
-            'MemcachedNamespace', 'WebwareSession') or ''
+            'MemcachedNamespace', 'WebwareSession:') or ''
 
         # when trying to iterate over the Memcached store,
         # you can trigger an error or a warning

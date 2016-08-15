@@ -12,6 +12,7 @@ from WebKit.SessionFileStore import SessionFileStore
 from WebKit.SessionDynamicStore import SessionDynamicStore
 from WebKit.SessionShelveStore import SessionShelveStore
 from WebKit.SessionMemcachedStore import SessionMemcachedStore
+from WebKit.SessionRedisStore import SessionRedisStore
 
 
 class Application(object):
@@ -359,7 +360,7 @@ class SessionMemcachedStoreTest(SessionMemoryStoreTest):
         keys = [key for key in self._store]
         self.assertEqual(keys, [])
         self.setOnIteration('Error')
-        keys = lambda:  [key for key in self._store]
+        keys = lambda: [key for key in self._store]
         self.assertRaises(NotImplementedError, keys)
 
     def testKeys(self):
@@ -398,6 +399,20 @@ class SessionMemcachedStoreTest(SessionMemoryStoreTest):
         self._store.clear()
         self.setOnIteration('Error')
         self.assertRaises(NotImplementedError, self._store.clear)
+
+    def testCleanStaleSessions(self):
+        self._store.cleanStaleSessions()
+
+
+class SessionRedisStoreTest(SessionMemoryStoreTest):
+
+    _storeclass = SessionRedisStore
+
+    def setUp(self):
+        SessionMemoryStoreTest.setUp(self)
+
+    def tearDown(self):
+        SessionMemoryStoreTest.tearDown(self)
 
     def testCleanStaleSessions(self):
         self._store.cleanStaleSessions()
