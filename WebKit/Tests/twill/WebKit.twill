@@ -11,7 +11,7 @@ setglobal version X.Y
 go http://127.0.0.1:8080
 code 200
 title Welcome
-find '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'
+find '<!DOCTYPE html>'
 find 'background-color: white;'
 find "Welcome to WebKit ${version}!"
 find Examples
@@ -122,11 +122,11 @@ find "ExamplePage"
 follow Colors
 title Colors
 find "Color Table Demo"
-find 'bgcolor="#FFFFFF"'
+find 'background-color:#FFFFFF'
 fv 1 bgcolor "#33CC66"
 submit
 code 200
-find 'bgcolor="#33CC66"'
+find 'background-color:#33CC66'
 
 follow ListBox
 title ListBox

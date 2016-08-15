@@ -301,7 +301,7 @@ class CGIWrapper(object):
         html = ['''%s
 <html>
 <title>Error</title>
-<body text="black" bgcolor="white">
+<body style="color:black;background-color:white">
 %s<p>%s</p>
 ''' % (docType(), htTitle('Error'), self.setting('UserErrorMessage'))]
 
@@ -551,31 +551,30 @@ class CGIWrapper(object):
 
 def docType():
     """Return a standard HTML document type"""
-    return ('<!DOCTYPE HTML PUBLIC'
-        ' "-//W3C//DTD HTML 4.01 Transitional//EN"'
-        ' "http://www.w3.org/TR/html4/loose.dtd">')
+    return ('<!DOCTYPE html>')
 
 
 def htTitle(name):
     """Return an HTML section title."""
     return ('<h2 style="color:white;background-color:#993333;'
         'font-size:12pt;padding:1pt;font-weight:bold;'
-        'font-family:Tahoma,Verdana,Arial,Helvetica,sans-serif"'
-        ' align="center">%s</h2>\n' % name)
+        'font-family:Tahoma,Verdana,Arial,Helvetica,sans-serif;'
+        'text-align:center">%s</h2>\n' % name)
 
 
 def htDictionary(d, addSpace=None):
     """Returns an HTML table where each row is a key-value pair."""
     if not d:
         return '\n'
-    html = ['<table border="0" cellpadding="2" cellspacing="2">']
+    html = ['<table>']
     for key in sorted(d):
         value = d[key]
         if addSpace is not None and key in addSpace:
             target = addSpace[key]
             value = (target + ' ').join(value.split(target))
-        html.append('<tr><td bgcolor="#BBBBBB">%s</td>'
-            '<td bgcolor="#EEEEEE">%s&nbsp;</td></tr>\n' % (key, value))
+        html.append('<tr><td style="background-color:#BBBBBB">%s</td>'
+            '<td style="background-color:#EEEEEE">%s&nbsp;</td></tr>\n'
+            % (key, value))
     html.append('</table>')
     return '\n'.join(html)
 
@@ -598,15 +597,15 @@ def htTable(listOfDicts, keys=None):
         return ''
     if keys is None:
         keys = sorted(listOfDicts[0])
-    html = ['<table border="0" cellpadding="2" cellspacing="2">']
-    html.append('<tr>')
+    html = ['<table>', '<tr>']
     for key in keys:
-        html.append('<th bgcolor="#BBBBBB">%s</th>' % key)
+        html.append('<th style="background-color:#BBBBBB">%s</th>' % key)
     html.append('</tr>')
     for row in listOfDicts:
         html.append('<tr>')
         for key in keys:
-            html.append('<td bgcolor="#EEEEEE">%s</td>' % row[key])
+            html.append(
+                '<td style="background-color:#EEEEEE">%s</td>' % row[key])
         html.append('</tr>')
     html.append('</table>')
     return '\n'.join(html)

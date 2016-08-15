@@ -8,8 +8,7 @@ class RequestInformation(ExamplePage):
         self.writeln('<h3>Request Variables</h3>')
         self.writeln('<p>The following table'
             ' shows the values for various request variables.</p>')
-        self.writeln('<table style="font-size:small;width:100%"'
-            ' border="0" cellpadding="2" cellspacing="2" width="100%">')
+        self.writeln('<table style="font-size:small;width:100%">')
         request = self.request()
         self.showDict('fields()', request.fields())
         self.showDict('environ()', request.environ())
@@ -20,11 +19,12 @@ class RequestInformation(ExamplePage):
         setCookie('TestExpire1', 'expires in 1 minute', expires='+1m')
 
     def showDict(self, name, d):
-        self.writeln('<tr valign="top">'
+        self.writeln('<tr style="vertical-align:top">'
             '<td style="background-color:#CCF" colspan="2">%s</td>'
             '</tr>' % name)
         for key in sorted(d):
-            self.writeln('<tr valign="top" style="background-color:#EEF">'
+            self.writeln(
+                '<tr style="vertical-align:top;background-color:#EEF">'
                 '<td>%s</td><td>%s</td></tr>' % (key, self.htmlEncode(
                 str(d[key])).replace('\n', '<br>').replace(
                 ',', ',<wbr>').replace(';', ';<wbr>').replace(':/', ':<wbr>/')))

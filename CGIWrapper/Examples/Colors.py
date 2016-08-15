@@ -1,24 +1,24 @@
 
 if 'bgcolor' in fields:
     bgcolor = fields['bgcolor'].value
-    bgcolorArg = 'bgcolor="%s"' % bgcolor
+    bgcolorArg = 'style="background-color=%s"' % bgcolor
 else:
     bgcolor = ''
     bgcolorArg = ''
 
-print '''<!DOCTYPE HTML SYSTEM>
+print '''<!DOCTYPE html>
 <html>
     <head>
         <title>Colors</title>
     </head>
     <body %s>
-        <h1 align="center">Colors</h1>
+        <h1 style="text-align:center">Colors</h1>
         <center>
         <form action="Colors">
             bgcolor: <input type="text" name="bgcolor" value="%s">
             <input type="submit" value="Go">
         </form>
-        <table cellspacing="2" cellpadding="2">
+        <table>
 ''' % (bgcolorArg, bgcolor)
 
 space = '&nbsp;'*10

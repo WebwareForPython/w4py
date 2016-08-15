@@ -51,13 +51,13 @@ find '<td>Expectation</td>'
 
 go Dir/File.html
 title "Testing/Dir/File\.html"
-find "This is <tt.*>File\.html</tt> in <tt.*>/Testing/Dir/</tt>"
+find "This is <code.*>File\.html</code> in <code.*>/Testing/Dir/</code>"
 back
 
 go Dir
 title "Testing/Dir/"
 title "Testing/Dir/"
-find "This is <tt.*>index.html</tt> in <tt.*>/Testing/Dir/</tt>"
+find "This is <code.*>index.html</code> in <code.*>/Testing/Dir/</code>"
 back
 
 go Welcome/
@@ -138,21 +138,21 @@ back
 go Forward1
 code 200
 title Forward1Target
-find "<h2><tt>Forward1Target</tt></h2>"
+find "<h2><code>Forward1Target</code></h2>"
 notfind "Test cases"
 back
 
 go Forward2
 code 200
 title Forward2Target
-find "<h2><tt>Forward2Target</tt></h2>"
+find "<h2><code>Forward2Target</code></h2>"
 notfind "Test cases"
 back
 
 go Dir/Forward3
 code 200
 title Forward3Target
-find "<h2><tt>Forward3Target</tt></h2>"
+find "<h2><code>Forward3Target</code></h2>"
 notfind "Test cases"
 back
 

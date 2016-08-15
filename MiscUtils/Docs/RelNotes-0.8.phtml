@@ -2,7 +2,7 @@
 
 <p>Webware for Python 0.8</p>
 
-<a name="Changes"></a><h2>Changes</h2>
+<a id="Changes"></a><h2>Changes</h2>
 <ul>
   <li>New <a href="Source/Files/PickleCache.html">PickleCache</a> module
   which is now used by <a href="Source/Files/DataTable.html">DataTable</a>
@@ -29,8 +29,8 @@
   <p>Accesses the values of settings passed through <span class="name">addCommandLineSetting</span>.
   Typically, you would use it by calling AppServer like</p>
   <pre>./AppServer --Context.Root=/WK</pre>
-  <p>where <tt>Context</tt> is not necessarily the name of a configurable class.
-  Other classes can use this setting to retrieve <tt>"/WK"</tt>, like</p>
+  <p>where <code>Context</code> is not necessarily the name of a configurable class.
+  Other classes can use this setting to retrieve <code>"/WK"</code>, like</p>
   <pre>Configurable.commandLineSetting("Context", "Root")</pre></li>
   </ul></li>
 </ul>

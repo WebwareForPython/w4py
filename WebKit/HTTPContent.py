@@ -369,7 +369,7 @@ class HTTPContent(HTTPServlet):
         """
         handler.writeln('''
 <p>Servlets can provide debugging information here by overriding
-<tt>writeExceptionReport()</tt>.</p><p>For example:</p>
+<code>writeExceptionReport()</code>.</p><p>For example:</p>
 <pre>
 exceptionReportAttrs = 'foo bar baz'.split()
 def writeExceptionReport(self, handler):

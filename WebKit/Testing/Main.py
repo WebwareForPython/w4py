@@ -25,8 +25,7 @@ class Main(SidebarPage):
         servletPath = req.servletPath()
         filename = self.serverSidePath('TestCases.data')
         self._cases = self.readFileNamed(filename)
-        wr('<table align="center" style="margin-left:auto;margin-right:auto"'
-            ' border="0" cellpadding="3" cellspacing="2">')
+        wr('<table style="margin-left:auto;margin-right:auto">')
         wr('<tr style="color:white;background-color:#555">'
             '<td>#</td><td>URL</td><td>Expectation</td></tr>')
         caseNum = 1
@@ -40,7 +39,7 @@ class Main(SidebarPage):
                     urls.append((url, urlName))
             if not urls:
                 continue
-            expectation = case['Expectation']  # self.htmlEncode(case['Expectation'])
+            expectation = case['Expectation']
             bgcolor = ['EEE', 'DDD'][caseNum % 2]
             wr('<tr style="background-color:#%s">'
                 '<td>%d.</td><td>' % (bgcolor, caseNum))

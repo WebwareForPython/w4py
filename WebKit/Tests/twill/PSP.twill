@@ -10,7 +10,7 @@ go http://127.0.0.1:8080
 follow PSP
 url PSP
 title "PSP Hello"
-find '<h1 align="center" style="color:navy">Hello from PSP!</h1>'
+find '<h1 style="text-align:center;color:navy">Hello from PSP!</h1>'
 find '<img src="psplogo.png" alt="Python Server Pages">'
 find 'This is <strong>PSP</strong>\.'
 find 'Here are some examples\.'
@@ -21,15 +21,15 @@ find '<td id="CornerTitle">PSP Examples</td>'
 
 follow Braces
 title "Braces Test"
-find '<h4 align="center" style="color:navy">Python Server Pages</h4>'
-find '<h2 align="center">Braces Test</h2>'
+find '<h4 style="text-align:center;color:navy">Python Server Pages</h4>'
+find '<h2 style="text-align:center">Braces Test</h2>'
 find "just use <strong>braces</strong>"
 find "<li>I'm number 5</li>"
 notfind "<li>I'm number 6</li>"
 
 follow PSPTests
 title "PSP Tests Page"
-find '<h1 align="center" style="color:navy">Hello from PSP!</h1>'
+find '<h1 style="text-align:center;color:navy">Hello from PSP!</h1>'
 find "This is the sample/test page"
 notfind 'test page uses <a href="Braces"><b>braces</b></a>'
 find "<p>Hello from included file!<p>"
@@ -39,7 +39,7 @@ find '<p style="color:purple">\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</p>'
 find "<ul><li>Outer loop: 1"
 find "<li>Inner loop: 2"
 find '<a href="PSPTests-Braces">braces</a> can make things easier here.</p>'
-find '<th align="left">Path Info:</th><td>.*PSP/Examples/PSPTests</td>'
+find '<th style="text-align:left">Path Info:</th><td>.*PSP/Examples/PSPTests</td>'
 find '<h4>Request Variables:</h4>'
 notfind 'not even in Python file'
 find '<p>I\'m a method. <b style="color:maroon">Howdy!</b></p>'
@@ -48,7 +48,7 @@ find "<p><b>That's all, folks.</b></p>"
 
 follow PSPTests-Braces
 title "PSP Tests Page - Braces"
-find '<h1 align="center" style="color:navy">Hello from PSP!</h1>'
+find '<h1 style="text-align:center;color:navy">Hello from PSP!</h1>'
 find "This is the sample/test page"
 find 'test page uses <a href="Braces"><b>braces</b></a>'
 find "<p>Hello from included file!<p>"
@@ -58,7 +58,7 @@ find '<p style="color:purple">\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</p>'
 find "<ul><li>Outer loop: 1"
 find "<li>Inner loop: 2"
 find 'The use of braces.* does make things easier here'
-find '<th align="left">Path Info:</th><td>.*PSP/Examples/PSPTests-Braces</td>'
+find '<th style="text-align:center">Path Info:</th><td>.*PSP/Examples/PSPTests-Braces</td>'
 find '<h4>Request Variables:</h4>'
 notfind 'not even in Python file'
 find '<p>I\'m a method. <b style="color:maroon">Howdy!</b></p>'

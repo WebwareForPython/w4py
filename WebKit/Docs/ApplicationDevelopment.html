@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.13: http://docutils.sourceforge.net/" />
 <title>Application Development With Webware</title>
 <link rel="stylesheet" href="../../Docs/Doc.css" type="text/css" />
 </head>
@@ -11,28 +11,28 @@
 <h1 class="title">Application Development With Webware</h1>
 
 <p>Webware for Python</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Version:</th><td class="field-body">X.Y</td>
-</tr>
-<tr class="field"><th class="field-name">Released:</th><td class="field-body">&#64;&#64;/&#64;&#64;/&#64;&#64;</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt>Version</dt>
+<dd><p>X.Y</p>
+</dd>
+<dt>Released</dt>
+<dd><p>&#64;&#64;/&#64;&#64;/&#64;&#64;</p>
+</dd>
+</dl>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#synopsis" id="id3">Synopsis</a></li>
-<li><a class="reference internal" href="#setting-up-your-application" id="id4">Setting up your application</a><ul>
-<li><a class="reference internal" href="#creating-a-working-directory" id="id5">Creating a Working Directory</a></li>
-<li><a class="reference internal" href="#using-a-version-control-system-for-your-application" id="id6">Using a version control system for your application</a></li>
-<li><a class="reference internal" href="#using-the-working-directory-from-multiple-accounts" id="id7">Using the working directory from multiple accounts</a></li>
+<li><p><a class="reference internal" href="#synopsis" id="id3">Synopsis</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-your-application" id="id4">Setting up your application</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-a-working-directory" id="id5">Creating a Working Directory</a></p></li>
+<li><p><a class="reference internal" href="#using-a-version-control-system-for-your-application" id="id6">Using a version control system for your application</a></p></li>
+<li><p><a class="reference internal" href="#using-the-working-directory-from-multiple-accounts" id="id7">Using the working directory from multiple accounts</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#structuring-your-code" id="id8">Structuring your Code</a><ul>
-<li><a class="reference internal" href="#sitepage" id="id9">SitePage</a></li>
+<li><p><a class="reference internal" href="#structuring-your-code" id="id8">Structuring your Code</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sitepage" id="id9">SitePage</a></p></li>
 </ul>
 </li>
 </ul>
@@ -45,92 +45,104 @@
 <h1>Setting up your application</h1>
 <p>The first task in developing an application is to set up the file structure in
 which you will be working.</p>
-<p>It is possible to put your application in a subdirectory under <tt class="docutils literal">WebKit/</tt> and
-change <tt class="docutils literal">WebKit/Configs/Application.config</tt> to add another context.
+<p>It is possible to put your application in a subdirectory under <span class="docutils literal">WebKit/</span> and
+change <span class="docutils literal">WebKit/Configs/Application.config</span> to add another context.
 But <em>do not do this</em>.  Your application will be entwined with the Webware
 installation, making it difficult to upgrade Webware, and difficult to identify
 your own files from Webware files.</p>
 <div class="section" id="creating-a-working-directory">
 <h2>Creating a Working Directory</h2>
-<p>Instead you should use the script <tt class="docutils literal">bin/MakeAppWorkDir.py</tt>.
+<p>Instead you should use the script <span class="docutils literal">bin/MakeAppWorkDir.py</span>.
 You should run it like:</p>
-<pre class="literal-block">
-$ python Webware/bin/MakeAppWorkDir -c Context -l Lib --gitignore WorkDir
-</pre>
-<p>This will create a directory <tt class="docutils literal">WorkDir</tt> that will contain a directory structure
+<pre class="literal-block">$ python Webware/bin/MakeAppWorkDir -c Context -l Lib --gitignore WorkDir</pre>
+<p>This will create a directory <span class="docutils literal">WorkDir</span> that will contain a directory structure
 for your application.  The options are:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">-c</span> Context</tt>:</dt>
-<dd>Use <tt class="docutils literal">Context</tt> as the name for the application default context.
+<dl class="simple">
+<dt><span class="docutils literal"><span class="pre">-c</span> Context</span>:</dt>
+<dd><p>Use <span class="docutils literal">Context</span> as the name for the application default context.
 A subdirectory with the same name will be created in the work dir (you can
-change that with the <tt class="docutils literal"><span class="pre">-d</span></tt> option).
-If you do not use the <tt class="docutils literal"><span class="pre">-c</span></tt> option, the context name will be <tt class="docutils literal">MyContext</tt>.
-I like the name <tt class="docutils literal">Context</tt> for all my applications.</dd>
-<dt><tt class="docutils literal"><span class="pre">-l</span> Lib</tt>:</dt>
-<dd>Create a <tt class="docutils literal">Lib</tt> directory in the work dir which will be added to the Python
-path.  You can use the <tt class="docutils literal"><span class="pre">-l</span></tt> option multiple times; and you can also add
-already existent library directories outside of the work dir.</dd>
-<dt><tt class="docutils literal"><span class="pre">--gitignore</span></tt>:</dt>
-<dd>Create a <tt class="docutils literal">.gitignore</tt> file for use with Git.</dd>
-<dt><tt class="docutils literal">WorkDir</tt>:</dt>
-<dd>The files will be put here.  Name if after your application, place it where
+change that with the <span class="docutils literal"><span class="pre">-d</span></span> option).
+If you do not use the <span class="docutils literal"><span class="pre">-c</span></span> option, the context name will be <span class="docutils literal">MyContext</span>.
+I like the name <span class="docutils literal">Context</span> for all my applications.</p>
+</dd>
+<dt><span class="docutils literal"><span class="pre">-l</span> Lib</span>:</dt>
+<dd><p>Create a <span class="docutils literal">Lib</span> directory in the work dir which will be added to the Python
+path.  You can use the <span class="docutils literal"><span class="pre">-l</span></span> option multiple times; and you can also add
+already existent library directories outside of the work dir.</p>
+</dd>
+<dt><span class="docutils literal"><span class="pre">--gitignore</span></span>:</dt>
+<dd><p>Create a <span class="docutils literal">.gitignore</span> file for use with Git.</p>
+</dd>
+<dt><span class="docutils literal">WorkDir</span>:</dt>
+<dd><p>The files will be put here.  Name if after your application, place it where
 it is convenient for you -- it doesn't need to be located close to the
-Webware installation.</dd>
+Webware installation.</p>
+</dd>
 </dl>
-<p>You can see all available options if you run <tt class="docutils literal">Webware/bin/MakeAppWorkDir.py</tt>
+<p>You can see all available options if you run <span class="docutils literal">Webware/bin/MakeAppWorkDir.py</span>
 without any parameters.</p>
 <p>When you do this, you'll see this directory structure:</p>
-<pre class="literal-block">
-AppServer*  Configs/  error404.html  Launch.py  Logs/      WebKit.cgi
-Cache/      Context/  ErrorMsgs/     Lib/       Sessions/  webkit*
-</pre>
+<pre class="literal-block">AppServer*  Configs/  error404.html  Launch.py  Logs/      WebKit.cgi
+Cache/      Context/  ErrorMsgs/     Lib/       Sessions/  webkit*</pre>
 <p>Here's what the files and directories are for:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal">AppServer</tt>:</dt>
-<dd>The script to start up the AppServer for this application.
+<dl class="simple">
+<dt><span class="docutils literal">AppServer</span>:</dt>
+<dd><p>The script to start up the AppServer for this application.
 Each application will have its own AppServer, and its own process.
-If you are running under Windows, you will see a <tt class="docutils literal">AppServer.bat</tt>
-instead and additionally, you will find a <tt class="docutils literal">AppServerService.py</tt>
-script that can be used to start the AppServer as a service.</dd>
-<dt><tt class="docutils literal">Cache</tt>:</dt>
-<dd>A directory containing cache files.  You won't need to look in here.</dd>
-<dt><tt class="docutils literal">Configs</tt>:</dt>
-<dd>Configuration files for the application.  These files are copied from
-<tt class="docutils literal">WebKit/Configs</tt>, but are specific to this application/AppServer.</dd>
-<dt><tt class="docutils literal">Context</tt>:</dt>
-<dd>The directory for your default context.  This is where you put your servlets.
-you can change its name and location with the <tt class="docutils literal"><span class="pre">`-c</span></tt> and <tt class="docutils literal"><span class="pre">-d</span></tt> options.
-You can also change this subsequently in the <tt class="docutils literal">Application.config</tt> file
-in the <tt class="docutils literal">Configs</tt> directory, where you can also configure more than one
+If you are running under Windows, you will see a <span class="docutils literal">AppServer.bat</span>
+instead and additionally, you will find a <span class="docutils literal">AppServerService.py</span>
+script that can be used to start the AppServer as a service.</p>
+</dd>
+<dt><span class="docutils literal">Cache</span>:</dt>
+<dd><p>A directory containing cache files.  You won't need to look in here.</p>
+</dd>
+<dt><span class="docutils literal">Configs</span>:</dt>
+<dd><p>Configuration files for the application.  These files are copied from
+<span class="docutils literal">WebKit/Configs</span>, but are specific to this application/AppServer.</p>
+</dd>
+<dt><span class="docutils literal">Context</span>:</dt>
+<dd><p>The directory for your default context.  This is where you put your servlets.
+you can change its name and location with the <span class="docutils literal"><span class="pre">`-c</span></span> and <span class="docutils literal"><span class="pre">-d</span></span> options.
+You can also change this subsequently in the <span class="docutils literal">Application.config</span> file
+in the <span class="docutils literal">Configs</span> directory, where you can also configure more than one
 context.  You may also want to remove the other standard contexts that come
-with Webware from the config file.</dd>
-<dt><tt class="docutils literal">error404.html</tt>:</dt>
-<dd>The static HTML page to be displayed when a page is not found.  You can
+with Webware from the config file.</p>
+</dd>
+<dt><span class="docutils literal">error404.html</span>:</dt>
+<dd><p>The static HTML page to be displayed when a page is not found.  You can
 remove this to display a standard error message, modify the page according
 to your preferences, or use a custom error servlet instead by setting
-<tt class="docutils literal">ErrorPage</tt> in the <tt class="docutils literal">Application.config</tt> file appropriately.</dd>
-<dt><tt class="docutils literal">ErrorMsgs</tt>:</dt>
-<dd>HTML pages for any errors that occur.  These can pile up and take up
+<span class="docutils literal">ErrorPage</span> in the <span class="docutils literal">Application.config</span> file appropriately.</p>
+</dd>
+<dt><span class="docutils literal">ErrorMsgs</span>:</dt>
+<dd><p>HTML pages for any errors that occur.  These can pile up and take up
 considerable size (even just during development), so you'll want to
-purge these every so often.</dd>
-<dt><tt class="docutils literal">Launch.py</tt>:</dt>
-<dd>Called by the <tt class="docutils literal">AppServer</tt> script to launch the AppServer.</dd>
-<dt><tt class="docutils literal">Lib</tt>:</dt>
-<dd>An example for an application-specific library package that can be created
-<tt class="docutils literal"><span class="pre">-l</span></tt> option (in this case, <tt class="docutils literal"><span class="pre">-l</span> Lib</tt>.  Import modules from this directory
-like <tt class="docutils literal">from Lib.SitePage import SitePage</tt>.</dd>
-<dt><tt class="docutils literal">Logs</tt>:</dt>
-<dd>Logs of accesses.</dd>
-<dt><tt class="docutils literal">Sessions</tt>:</dt>
-<dd>Users sessions.  These should be cleaned out automatically, you won't
-have to look in this directory.</dd>
-<dt><tt class="docutils literal">WebKit.cgi</tt>:</dt>
-<dd>A CGI script/adapter for accessing the AppServer here.  You can still use
+purge these every so often.</p>
+</dd>
+<dt><span class="docutils literal">Launch.py</span>:</dt>
+<dd><p>Called by the <span class="docutils literal">AppServer</span> script to launch the AppServer.</p>
+</dd>
+<dt><span class="docutils literal">Lib</span>:</dt>
+<dd><p>An example for an application-specific library package that can be created
+<span class="docutils literal"><span class="pre">-l</span></span> option (in this case, <span class="docutils literal"><span class="pre">-l</span> Lib</span>.  Import modules from this directory
+like <span class="docutils literal">from Lib.SitePage import SitePage</span>.</p>
+</dd>
+<dt><span class="docutils literal">Logs</span>:</dt>
+<dd><p>Logs of accesses.</p>
+</dd>
+<dt><span class="docutils literal">Sessions</span>:</dt>
+<dd><p>Users sessions.  These should be cleaned out automatically, you won't
+have to look in this directory.</p>
+</dd>
+<dt><span class="docutils literal">WebKit.cgi</span>:</dt>
+<dd><p>A CGI script/adapter for accessing the AppServer here.  You can still use
 the other adapters, but most of them don't need to be configured for the
-individual applications.  I still recommend <tt class="docutils literal">mod_webkit</tt> or <tt class="docutils literal">wkcgi</tt>.</dd>
-<dt><tt class="docutils literal">webkit*</tt>:</dt>
-<dd>If you are running under Unix, you can use this as a start script
-(see the <a class="reference external" href="InstallGuide.html">WebKit Install Guide</a>).</dd>
+individual applications.  I still recommend <span class="docutils literal">mod_webkit</span> or <span class="docutils literal">wkcgi</span>.</p>
+</dd>
+<dt><span class="docutils literal">webkit*</span>:</dt>
+<dd><p>If you are running under Unix, you can use this as a start script
+(see the <a class="reference external" href="InstallGuide.html">WebKit Install Guide</a>).</p>
+</dd>
 </dl>
 </div>
 <div class="section" id="using-a-version-control-system-for-your-application">
@@ -146,34 +158,28 @@ can be very helpful.</p>
 <p>The working directory is a good place to start for creating a versioned project.
 Assuming you're using Git, you can get started by creating a repository and
 importing your project into the repository simply by running:</p>
-<pre class="literal-block">
-$ cd WorkDir
+<pre class="literal-block">$ cd WorkDir
 $ git init
 $ git add .
-$ git commit -m 'initial import'
-</pre>
-<p>You should use the option <tt class="docutils literal"><span class="pre">--gitignore</span></tt> when running <tt class="docutils literal">MakeAppWorkDir.py</tt>
-if you plan to do this.  If you do, then <tt class="docutils literal">.gitignore</tt> files will be added
+$ git commit -m 'initial import'</pre>
+<p>You should use the option <span class="docutils literal"><span class="pre">--gitignore</span></span> when running <span class="docutils literal">MakeAppWorkDir.py</span>
+if you plan to do this.  If you do, then <span class="docutils literal">.gitignore</span> files will be added
 to the working directory.  This tells Git to ignore files with certain
-extensions (such as <tt class="docutils literal">.pyc</tt> files), and all the files in certain directories
-(<tt class="docutils literal">Cache</tt>, <tt class="docutils literal">ErrorMsgs</tt>, <tt class="docutils literal">Logs</tt>, and <tt class="docutils literal">Sessions</tt>).
+extensions (such as <span class="docutils literal">.pyc</span> files), and all the files in certain directories
+(<span class="docutils literal">Cache</span>, <span class="docutils literal">ErrorMsgs</span>, <span class="docutils literal">Logs</span>, and <span class="docutils literal">Sessions</span>).
 You shouldn't otherwise notice these files, even if you aren't using Git.</p>
 <p>The command to import your project into a SVN repository is very similar:</p>
-<pre class="literal-block">
-$ cd WorkDir
-$ svn import  -m 'initial import' https://myserver/myrepos/MyWebWareProject
-</pre>
-<p>Replace <tt class="docutils literal"><span class="pre">https://myserver/myrepos/</span></tt> with the URL of your SVN repository.
-The <tt class="docutils literal">.gitignore</tt> file will not be used in this case. Instead, you have to set
-the <tt class="docutils literal">svn:ignore</tt> property on the respective directory.  You can still use the
-<tt class="docutils literal">.gitignore</tt> files to generate the necessary <tt class="docutils literal">svn propset</tt> commands:</p>
-<pre class="literal-block">
-$ find . -name .gitignore | while read f; \
-&gt;   do echo svn propset svn:ignore -F $f $(dirname $f); done
-</pre>
-<p>After importing <tt class="docutils literal">WorkDir</tt> to the SVN repository, note that it is not
+<pre class="literal-block">$ cd WorkDir
+$ svn import  -m 'initial import' https://myserver/myrepos/MyWebWareProject</pre>
+<p>Replace <span class="docutils literal"><span class="pre">https://myserver/myrepos/</span></span> with the URL of your SVN repository.
+The <span class="docutils literal">.gitignore</span> file will not be used in this case. Instead, you have to set
+the <span class="docutils literal">svn:ignore</span> property on the respective directory.  You can still use the
+<span class="docutils literal">.gitignore</span> files to generate the necessary <span class="docutils literal">svn propset</span> commands:</p>
+<pre class="literal-block">$ find . -name .gitignore | while read f; \
+&gt;   do echo svn propset svn:ignore -F $f $(dirname $f); done</pre>
+<p>After importing <span class="docutils literal">WorkDir</span> to the SVN repository, note that it is not
 automatically under version control.  To start working, you first need to
-explicitly check it out from the repository using <tt class="docutils literal">svn checkout</tt>.</p>
+explicitly check it out from the repository using <span class="docutils literal">svn checkout</span>.</p>
 </div>
 <div class="section" id="using-the-working-directory-from-multiple-accounts">
 <h2>Using the working directory from multiple accounts</h2>
@@ -182,13 +188,12 @@ your application code, you may find that it is difficult to manage the
 differences between accounts.  For instance, in different accounts on different
 machines Webware may be installed in different locations.  You may have the
 actual directory in a different location as well -- it may be in
-<tt class="docutils literal">~/webware/WorkDir</tt> for your active development, but <tt class="docutils literal">/var/webware/WorkDir</tt>
+<span class="docutils literal">~/webware/WorkDir</span> for your active development, but <span class="docutils literal">/var/webware/WorkDir</span>
 for the production version.  And if there are multiple development copies on the
 same machine, you have to be sure they each use different adapter ports.</p>
 <p>To solve these problems I recommend creating a shell script to handle startup.
-I generally call this script <tt class="docutils literal">start</tt>, and it looks something like this:</p>
-<pre class="literal-block">
-#!/bin/sh
+I generally call this script <span class="docutils literal">start</span>, and it looks something like this:</p>
+<pre class="literal-block">#!/bin/sh
 
 # lothlorien.colorstudy.com is my development machine
 if [ `hostname` = lothlorien.colorstudy.com ] ; then
@@ -210,27 +215,31 @@ if [ &quot;$WORKING&quot; = &quot;&quot; ] ; then
 fi
 
 cd $WORKING
-./AppServer --work-dir=$WORKING --webware-dir=$WEBWARE $OPS $*
-</pre>
+./AppServer --work-dir=$WORKING --webware-dir=$WEBWARE $OPS $*</pre>
 <p>You can add this to your project in the repository, and the script should
 automatically detect what environment it is being used in.  You can use options
 to change configuration parameters, like setting some parameters depending on
 whether the environment is a development or production environment.</p>
 <p>Some options that you may be particularly interested in:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal">AppServer.AutoReload</tt>:</dt>
-<dd>Setting this to <tt class="docutils literal">1</tt> will make the AppServer restart if there have been
-changes to any loaded files.  This is very nice during development.</dd>
-<dt><tt class="docutils literal">AppServer.AdapterPort</tt>:</dt>
-<dd>If you want multiple applications running on the same machine (e.g., one
-for development, one for production), you have to use different ports.</dd>
-<dt><tt class="docutils literal">Application.ShowDebugInfoOnErrors</tt>:</dt>
-<dd>You probably don't want to have this on in production, but it's nice
-during development.</dd>
-<dt><tt class="docutils literal">Application.SaveErrorMessages</tt>:</dt>
-<dd>During development you probably want this off.</dd>
-<dt><tt class="docutils literal">Application.EmailErrors</tt>:</dt>
-<dd>Turn on for production.</dd>
+<dl class="simple">
+<dt><span class="docutils literal">AppServer.AutoReload</span>:</dt>
+<dd><p>Setting this to <span class="docutils literal">1</span> will make the AppServer restart if there have been
+changes to any loaded files.  This is very nice during development.</p>
+</dd>
+<dt><span class="docutils literal">AppServer.AdapterPort</span>:</dt>
+<dd><p>If you want multiple applications running on the same machine (e.g., one
+for development, one for production), you have to use different ports.</p>
+</dd>
+<dt><span class="docutils literal">Application.ShowDebugInfoOnErrors</span>:</dt>
+<dd><p>You probably don't want to have this on in production, but it's nice
+during development.</p>
+</dd>
+<dt><span class="docutils literal">Application.SaveErrorMessages</span>:</dt>
+<dd><p>During development you probably want this off.</p>
+</dd>
+<dt><span class="docutils literal">Application.EmailErrors</span>:</dt>
+<dd><p>Turn on for production.</p>
+</dd>
 </dl>
 <p>For more settings, see the <a class="reference external" href="Configuration.html">Configuration</a> document.</p>
 </div>
@@ -243,27 +252,26 @@ application how you choose, but here are some common patterns that have proven
 useful for Webware applications.</p>
 <div class="section" id="sitepage">
 <h2>SitePage</h2>
-<p>Subclass a <tt class="docutils literal">SitePage</tt> from <tt class="docutils literal">WebKit.Page</tt> for your application.  This subclass
+<p>Subclass a <span class="docutils literal">SitePage</span> from <span class="docutils literal">WebKit.Page</span> for your application.  This subclass
 will change some methods and add some new methods.  It serves as the basis and
 as a template for all the pages that follow.</p>
-<p>Some code you may wish to include in your <tt class="docutils literal">SitePage</tt>:</p>
+<p>Some code you may wish to include in your <span class="docutils literal">SitePage</span>:</p>
 <ul class="simple">
-<li>Authentication and security</li>
-<li>Accessing common objects (e.g., a user object, or a document object)</li>
-<li>Page header and footer</li>
-<li>Common layout commands, like <tt class="docutils literal">writeHeader</tt></li>
-<li>Database access</li>
+<li><p>Authentication and security</p></li>
+<li><p>Accessing common objects (e.g., a user object, or a document object)</p></li>
+<li><p>Page header and footer</p></li>
+<li><p>Common layout commands, like <span class="docutils literal">writeHeader</span></p></li>
+<li><p>Database access</p></li>
 </ul>
 <p>I also typically add other functions to the SitePage module, and then do
-<tt class="docutils literal">from Lib.SitePage import *</tt> in each servlet -- this might include functions
+<span class="docutils literal">from Lib.SitePage import *</span> in each servlet -- this might include functions
 like htmlEncode, or some other select functions that I use constantly in
 web applications.  Whether you want to use functions or methods is up to you --
 in many cases methods can be more easily extended or customized later, but
 sometimes method use can become excessive and create unnecessary dependences
 in your code.</p>
 <p>A basic framework for your SitePage might be:</p>
-<pre class="literal-block">
-from WebKit.Page import Page
+<pre class="literal-block">from WebKit.Page import Page
 
 class SitePage(Page):
 
@@ -281,8 +289,7 @@ class SitePage(Page):
 
     def respondLogin(self):
         # Here we should deal with logging in...
-        pass
-</pre>
+        pass</pre>
 <p>Obviously there are a lot of details to add in on your own which are specific
 to your application and the security and user model you are using.</p>
 </div>

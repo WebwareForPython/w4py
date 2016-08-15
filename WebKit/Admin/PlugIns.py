@@ -14,8 +14,8 @@ class PlugIns(AdminSecurity):
             wr('<h4 style="text-align:center">'
                 'The following Plug-ins were found:</h4>')
             path = self.request().servletPath()
-            wr('<table cellspacing="2" cellpadding="2" align="center"'
-                ' class="NiceTable" style="margin-left:auto;margin-right:auto">')
+            wr('<table  class="NiceTable"'
+                ' style="margin-left:auto;margin-right:auto">')
             wr('<tr class="TopHeading"><th colspan="3">Plug-ins</th></tr>')
             wr('<tr class="SubHeading">'
                 '<th>Name</th><th>Version</th><th>Directory</th></tr>')

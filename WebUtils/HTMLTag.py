@@ -263,7 +263,7 @@ class HTMLTag(object):
         the given value. If the tag cannot be found, a KeyError will be raised
         *unless* a default value was specified, which is then returned.
 
-            tag = tag.tagWithMatchingAttr('bgcolor', '#FFFF', None)
+            tag = tag.tagWithMatchingAttr('bgcolor', '#FFFFFF', None)
         """
         tag = self._tagWithMatchingAttr(name, value)
         if tag is None:

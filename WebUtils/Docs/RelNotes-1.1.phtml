@@ -2,14 +2,14 @@
 
 <p><% name %> version 1.1 released on 08/03/11</p>
 
-<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<a id="MinorChanges"></a><h2>Minor API Changes</h2>
 <ul>
   <li>To conform with Webwares naming conventions and because it now deviates
   pretty much from the original <code>cgitb</code>, renamed
   <code>WebUtils.cgitb</code> to <code>WebUtils.CGITraceback</code>.</li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
   <li>The modified <code>FieldStorage</code> class did not work as before with
   Python 2.6 and newer. These Python versions already add query string parameters
@@ -21,7 +21,7 @@
   bringing this up).</li>
 </ul>
 
-<a name="Deprecations"></a><h2>Deprecations</h2>
+<a id="Deprecations"></a><h2>Deprecations</h2>
 <ul>
   <li>The methods and objects which have been marked as deprecated
   in version 1.0 and modules that are now available in the standard library

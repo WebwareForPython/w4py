@@ -34,7 +34,7 @@ class TestIMS(SidebarPage):
         self.runTest('%s/PSP/Examples/psplogo.png' % servletPath)
 
     def runTest(self, path):
-        self.writeTest('Opening <tt>%s</tt>' % path)
+        self.writeTest('Opening <code>%s</code>' % path)
         rsp = self.getDoc(path)
         originalSize = size = len(rsp.read())
         if rsp.status != 200:
@@ -53,7 +53,7 @@ class TestIMS(SidebarPage):
             self.error('No Last-Modified header found.')
             return
         # Retrieve document again with IMS and expect a 304 not modified
-        self.writeTest('Opening <tt>%s</tt><br>with If-Modified-Since: %s'
+        self.writeTest('Opening <code>%s</code><br>with If-Modified-Since: %s'
             % (path, lm))
         rsp = self.getDoc(path, {'If-Modified-Since': lm})
         size = len(rsp.read())
@@ -70,7 +70,7 @@ class TestIMS(SidebarPage):
         t = list(time.strptime(lm, arpaformat))
         t[0] -= 1  # last year
         newlm = time.strftime(arpaformat, time.gmtime(time.mktime(t)))
-        self.writeTest('Opening <tt>%s</tt><br>with If-Modified-Since: %s'
+        self.writeTest('Opening <code>%s</code><br>with If-Modified-Since: %s'
             % (path, newlm))
         rsp = self.getDoc(path, {'If-Modified-Since': newlm})
         size = len(rsp.read())

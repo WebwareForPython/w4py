@@ -11,10 +11,10 @@
 return "PSP Hello"
 </psp:method>
 
-<h1 align="center" style="color:navy">Hello from PSP!</h1>
+<h1 style="text-align:center;color:navy">Hello from PSP!</h1>
 
 <%-- This image is served by WebKit --%>
-<p align="center"><img src="psplogo.png" alt="Python Server Pages"></p>
+<p style="text-align:center"><img src="psplogo.png" alt="Python Server Pages"></p>
 
 <p>This is <strong>PSP</strong>. You can browse through the <a href="PSPDocs.psp">docs</a> here.</p>
 

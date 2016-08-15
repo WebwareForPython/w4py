@@ -87,7 +87,6 @@ class ExamplePage(SidebarPage):
 
     def writeOtherMenu(self):
         self.menuHeading('Other')
-        viewPath = self.request().uriWebKitRoot() + "Examples/View"
         self.menuItem(
             'View source of<br>%s' % self.title(),
             self.request().uriWebKitRoot() + 'Examples/View?filename=%s'
@@ -103,6 +102,6 @@ class ExamplePage(SidebarPage):
         wr('<div style="padding-left:2em"><table>')
         for page in self.examplePages(
                 self.request().contextName().split('/', 1)[0]):
-            wr('<tr><td bgcolor="#E8E8F0"><a href=%s>%s</a>'
+            wr('<tr><td style="background-color:#E8E8F0"><a href=%s>%s</a>'
                 '</td></tr>' % (page, page))
         wr('</table></div>')

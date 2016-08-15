@@ -15,7 +15,7 @@ class AppControl(AdminSecurity):
                 wr('<p><b>You are running the <i>OneShot</i> version of WebKit.'
                     ' None of the options below are applicable.</b><p>')
             wr('''<form action="AppControl" method="post">
-<table cellspacing="4" cellpadding="4">
+<table>
 <tr><td><input type="submit" name="action" value="Shutdown"></td>
 <td>Shut down the AppServer. You need to restart it manually afterwards.</td>
 </tr><tr>

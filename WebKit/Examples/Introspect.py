@@ -9,8 +9,7 @@ class Introspect(ExamplePage):
             " Python expressions, all of which are related to <em>introspection</em>."
             " That is to say, all the expressions examine the environment such as"
             " the object, the object's class, the module and so on.</p>")
-        self.writeln('<table align="center" bgcolor="#EEEEFF" border="0"'
-            ' cellpadding="2" cellspacing="2" width="100%">')
+        self.writeln('<table style="width:100%;background-color:#EEEEFF">')
         self.pair('locals().keys()', locals().keys())
         self.list('globals().keys()')
         self.list('dir(self)')
@@ -22,8 +21,8 @@ class Introspect(ExamplePage):
     def pair(self, key, value):
         if isinstance(value, (list, tuple)):
             value = ', '.join(map(str, value))
-        self.writeln('<tr valign="top"><td>%s</td><td>%s</td></tr>'
-            % (key, self.htmlEncode(str(value))))
+        self.writeln('<tr style="vertical-align:top"><td>%s</td>'
+            '<td>%s</td></tr>' % (key, self.htmlEncode(str(value))))
 
     def list(self, codeString):
         value = eval(codeString)

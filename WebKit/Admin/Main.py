@@ -27,12 +27,11 @@ class Main(AdminSecurity):
         )
         self.writeln('''
 <h2 style="text-align:center">WebKit Administration Pages</h2>
-<table cellspacing="2" cellpadding="4" align="center"
-style="margin-left:auto;margin-right:auto" class="NiceTable">
+<table style="margin-left:auto;margin-right:auto" class="NiceTable">
 <tr class="TopHeading"><th colspan="2">Application Info</th></tr>''')
         for label, value in info:
-            self.writeln('<tr><th align="left">%s:</th><td>%s</td></tr>'
-                % (label, value))
+            self.writeln('<tr><th style="text-align:left">%s:</th>'
+                '<td>%s</td></tr>' % (label, value))
         self.writeln('</table>')
 
     def writeSignature(self):

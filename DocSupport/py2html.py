@@ -91,8 +91,7 @@ if '.' not in sys.path:
 INPUT_FORM = None
 
 # HTML DOCTYPE and XML namespace
-HTML_DOCTYPE = ('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'
-    ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">')
+HTML_DOCTYPE = '<!DOCTYPE html>'
 HTML_XMLNS = ' xmlns="http://www.w3.org/1999/xhtml"'
 
 
@@ -199,7 +198,7 @@ padding: 3pt; }
             'keyword': ('<span class="PY_KEYWORD">', '</span>'),
             'parameter': ('<span class="PY_PARAMETER">', '</span>'),
             'identifier': (lambda x:
-                '<a name="%s"><span class="PY_IDENTIFIER">' % x.strip(),
+                '<a id="%s"><span class="PY_IDENTIFIER">' % x.strip(),
                 '</span></a>'),
             'string': ('<span class="PY_STRING">', '</span>')
             }
@@ -227,7 +226,7 @@ padding: 3pt; }
             'keyword': ('<span class="PY_KEYWORD">', '</span>'),
             'parameter': ('<span class="PY_PARAMETER">', '</span>'),
             'identifier': (lambda x:
-                '<a name="%s"><span class="PY_IDENTIFIER">' % x.strip(),
+                '<a id="%s"><span class="PY_IDENTIFIER">' % x.strip(),
                 '</span></a>'),
             'string': ('<span class="PY_STRING">', '</span>')
             }

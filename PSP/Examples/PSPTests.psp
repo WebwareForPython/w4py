@@ -14,31 +14,31 @@
 return "PSP Tests Page"
 </psp:method>
 
-<h1 align="center" style="color:navy">Hello from PSP!</h1>
+<h1 style="text-align:center;color:navy">Hello from PSP!</h1>
 
 <%-- This image is served by WebKit --%>
-<p align="center"><img src="psplogo.png" alt="Python Server Pages"></p>
+<p style="text-align:center"><img src="psplogo.png" alt="Python Server Pages"></p>
 
-<h4 align="center">This is the sample/test page<br>
+<h4 style="text-align:center">This is the sample/test page<br>
 for an implementation of<br>
 <span style="color:navy">Python Server Pages</span>.</h4>
 
-<p align="center">Read the <a href="PSPDocs.psp"><strong>PSP documentation</strong></a>.
+<p style="text-align:center">Read the <a href="PSPDocs.psp"><strong>PSP documentation</strong></a>.
 See the <a href="View.py?filename=<%=os.path.basename(self.request().serverSidePath())%>"><strong>source for this page</strong></a>.</p>
 
 <p>The syntax for Python Server Pages is almost identical to that of Java Server Pages (JSP).  Just the scripting language is different! And obviously better.  In fact, just about anything you can do with JSP, you can do with PSP, and more.  With PSP, not only can you create template text that will be inerted in one method when the page is run as a servlet, but you can choose which base class to inherit from, you can choose which method of the base class to over-ride with your template text, and you can add additional methods to the servlet class, all from the PSP template code.</p>
 
 <hr>
 
-<p>The text below comes from another psp page which was inserted into this one with the <tt>&lt;%@&nbsp;include&nbsp;%&gt;</tt> directive.</p>
+<p>The text below comes from another psp page which was inserted into this one with the <code>&lt;%@&nbsp;include&nbsp;%&gt;</code> directive.</p>
 
 <div style="color:red"><%@ include file="my_include.psp" %></div>
 
 <p>There are actually two ways to insert the contents of another file into a PSP page:</p>
 
-<p>If you use <tt>&lt;%@&nbsp;include&nbsp;file="somefile"&nbsp;%&gt;</tt>, it will effectively insert the contents of the other file before class creation time.</p>
+<p>If you use <code>&lt;%@&nbsp;include&nbsp;file="somefile"&nbsp;%&gt;</code>, it will effectively insert the contents of the other file before class creation time.</p>
 
-<p>Using <tt>&lt;psp:include&nbsp;path="somefile"&gt;</tt> will insert the output of the specified WebKit URL into the page <em>dynamically</em>.</p>
+<p>Using <code>&lt;psp:include&nbsp;path="somefile"&gt;</code> will insert the output of the specified WebKit URL into the page <em>dynamically</em>.</p>
 
 <div style="color:red"><psp:insert file="APSPinclude.html"></div>
 
@@ -62,7 +62,7 @@ See the <a href="View.py?filename=<%=os.path.basename(self.request().serverSideP
 <hr>
 
 <h4>Unix system info:</h4>
-<table bgcolor="gray"><%
+<table style="background-color:gray"><%
 if os.name == 'posix':
     for info, value in zip(('OS name', 'Hostname',
         'OS release', 'OS version', 'Hardware'), os.uname()):
@@ -76,13 +76,13 @@ else:
 <hr>
 
 <table>
-<tr><th align="left">Path Info:</th><td><%=req.pathInfo()%></td></tr>
-<tr><th align="left">extraURLPath:</th><td><%=req.extraURLPath()%></td></tr>
-<tr><th align="left">Fields:</th><td><%= req.fields() %></td></tr>
-<tr><th align="left">servletURI:</th><td><%= req.servletURI()%></td></tr>
-<tr><th align="left">uriWebKitRoot:&nbsp;</th><td><%= req.uriWebKitRoot() %></td></tr>
-<tr><th align="left">serverURL:</th><td><%= req.serverURL() %></td></tr>
-<tr><th align="left">serverURLDir:</th><td><%= req.serverURLDir() %></td></tr>
+<tr><th style="text-align:left">Path Info:</th><td><%=req.pathInfo()%></td></tr>
+<tr><th style="text-align:left">extraURLPath:</th><td><%=req.extraURLPath()%></td></tr>
+<tr><th style="text-align:left">Fields:</th><td><%= req.fields() %></td></tr>
+<tr><th style="text-align:left">servletURI:</th><td><%= req.servletURI()%></td></tr>
+<tr><th style="text-align:left">uriWebKitRoot:&nbsp;</th><td><%= req.uriWebKitRoot() %></td></tr>
+<tr><th style="text-align:left">serverURL:</th><td><%= req.serverURL() %></td></tr>
+<tr><th style="text-align:left">serverURLDir:</th><td><%= req.serverURLDir() %></td></tr>
 </table>
 
 <hr>
@@ -90,7 +90,7 @@ else:
 <h4>Request Variables:</h4>
 
 <table><% for i in self.request()._environ:
-    res.write('<tr valign="top"><td style="color:red;font-size:small">'
+    res.write('<tr style="vertical-align:top"><td style="color:red;font-size:small">'
         +str(i)+'&nbsp;</td><td style="color:blue;font-size:small">'
         +self.request()._environ[i].replace(
             ',', ',<wbr>').replace(';', ';<wbr>').replace(':/', ':<wbr>/')
@@ -120,7 +120,7 @@ self._response.write('<p>I\'m a method. <b style="color:maroon">%s</b></p>' % va
 
 <hr>
 
-<p><tt>pass</tt> can be used to end a block, so test that it can be used by itself too!</p>
+<p><code>pass</code> can be used to end a block, so test that it can be used by itself too!</p>
 
 <% pass %>
 

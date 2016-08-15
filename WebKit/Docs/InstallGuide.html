@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.13: http://docutils.sourceforge.net/" />
 <title>WebKit Install Guide</title>
 <link rel="stylesheet" href="../../Docs/Doc.css" type="text/css" />
 </head>
@@ -13,68 +13,76 @@
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#introduction" id="id14">Introduction</a></li>
-<li><a class="reference internal" href="#quick-start" id="id15">Quick Start</a></li>
-<li><a class="reference internal" href="#prerequisites" id="id16">Prerequisites</a><ul>
-<li><a class="reference internal" href="#python" id="id17">Python</a></li>
-<li><a class="reference internal" href="#web-server" id="id18">Web Server</a><ul>
-<li><a class="reference internal" href="#apache" id="id19">Apache</a></li>
-<li><a class="reference internal" href="#iis" id="id20">IIS</a></li>
-<li><a class="reference internal" href="#other-servers" id="id21">Other Servers</a></li>
+<li><p><a class="reference internal" href="#introduction" id="id14">Introduction</a></p></li>
+<li><p><a class="reference internal" href="#quick-start" id="id15">Quick Start</a></p></li>
+<li><p><a class="reference internal" href="#prerequisites" id="id16">Prerequisites</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python" id="id17">Python</a></p></li>
+<li><p><a class="reference internal" href="#web-server" id="id18">Web Server</a></p>
+<ul>
+<li><p><a class="reference internal" href="#apache" id="id19">Apache</a></p></li>
+<li><p><a class="reference internal" href="#iis" id="id20">IIS</a></p></li>
+<li><p><a class="reference internal" href="#other-servers" id="id21">Other Servers</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#webware-version" id="id22">Webware Version</a></li>
-<li><a class="reference internal" href="#operating-systems" id="id23">Operating Systems</a></li>
+<li><p><a class="reference internal" href="#webware-version" id="id22">Webware Version</a></p></li>
+<li><p><a class="reference internal" href="#operating-systems" id="id23">Operating Systems</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#installing-webware" id="id24">Installing Webware</a></li>
-<li><a class="reference internal" href="#updating-webware" id="id25">Updating Webware</a></li>
-<li><a class="reference internal" href="#architecture" id="id26">Architecture</a><ul>
-<li><a class="reference internal" href="#id4" id="id27">Permissions</a></li>
-<li><a class="reference internal" href="#adapters" id="id28">Adapters</a></li>
-<li><a class="reference internal" href="#wsgi-based-adapters" id="id29">WSGI-based Adapters</a></li>
-<li><a class="reference internal" href="#scgi-based-adapters" id="id30">SCGI-based Adapters</a></li>
-<li><a class="reference internal" href="#cgi-based-adapters" id="id31">CGI-based Adapters</a><ul>
-<li><a class="reference internal" href="#id8" id="id32">wkcgi</a></li>
-<li><a class="reference internal" href="#python-cgi-adapter" id="id33">Python CGI Adapter</a></li>
-<li><a class="reference internal" href="#mod-webkit" id="id34">mod_webkit</a><ul>
-<li><a class="reference internal" href="#posix-installation" id="id35">Posix Installation</a></li>
-<li><a class="reference internal" href="#windows-installation" id="id36">Windows Installation</a></li>
-<li><a class="reference internal" href="#apache-configuration" id="id37">Apache Configuration</a></li>
+<li><p><a class="reference internal" href="#installing-webware" id="id24">Installing Webware</a></p></li>
+<li><p><a class="reference internal" href="#updating-webware" id="id25">Updating Webware</a></p></li>
+<li><p><a class="reference internal" href="#architecture" id="id26">Architecture</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id27">Permissions</a></p></li>
+<li><p><a class="reference internal" href="#adapters" id="id28">Adapters</a></p></li>
+<li><p><a class="reference internal" href="#wsgi-based-adapters" id="id29">WSGI-based Adapters</a></p></li>
+<li><p><a class="reference internal" href="#scgi-based-adapters" id="id30">SCGI-based Adapters</a></p></li>
+<li><p><a class="reference internal" href="#cgi-based-adapters" id="id31">CGI-based Adapters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id8" id="id32">wkcgi</a></p></li>
+<li><p><a class="reference internal" href="#python-cgi-adapter" id="id33">Python CGI Adapter</a></p></li>
+<li><p><a class="reference internal" href="#mod-webkit" id="id34">mod_webkit</a></p>
+<ul>
+<li><p><a class="reference internal" href="#posix-installation" id="id35">Posix Installation</a></p></li>
+<li><p><a class="reference internal" href="#windows-installation" id="id36">Windows Installation</a></p></li>
+<li><p><a class="reference internal" href="#apache-configuration" id="id37">Apache Configuration</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#fastcgi" id="id38">FastCGI</a></li>
-<li><a class="reference internal" href="#mod-python" id="id39">mod_python</a></li>
-<li><a class="reference internal" href="#mod-snake" id="id40">mod_snake</a></li>
-<li><a class="reference internal" href="#oneshot" id="id41">OneShot</a></li>
-<li><a class="reference internal" href="#isapi" id="id42">ISAPI</a></li>
+<li><p><a class="reference internal" href="#fastcgi" id="id38">FastCGI</a></p></li>
+<li><p><a class="reference internal" href="#mod-python" id="id39">mod_python</a></p></li>
+<li><p><a class="reference internal" href="#oneshot" id="id40">OneShot</a></p></li>
+<li><p><a class="reference internal" href="#isapi" id="id41">ISAPI</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#renaming-adapters" id="id43">Renaming Adapters</a></li>
-<li><a class="reference internal" href="#adapter-problems-not-cgi" id="id44">Adapter Problems (not CGI)</a></li>
+<li><p><a class="reference internal" href="#renaming-adapters" id="id42">Renaming Adapters</a></p></li>
+<li><p><a class="reference internal" href="#adapter-problems-not-cgi" id="id43">Adapter Problems (not CGI)</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration" id="id45">Configuration</a><ul>
-<li><a class="reference internal" href="#sessions" id="id46">Sessions</a></li>
-<li><a class="reference internal" href="#contexts" id="id47">Contexts</a></li>
-<li><a class="reference internal" href="#creating-a-working-directory" id="id48">Creating a Working Directory</a></li>
+<li><p><a class="reference internal" href="#configuration" id="id44">Configuration</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sessions" id="id45">Sessions</a></p></li>
+<li><p><a class="reference internal" href="#contexts" id="id46">Contexts</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-working-directory" id="id47">Creating a Working Directory</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#appserver-notes" id="id49">AppServer Notes</a><ul>
-<li><a class="reference internal" href="#stopping-the-app-server" id="id50">Stopping the App Server</a></li>
-<li><a class="reference internal" href="#reloading-servlets" id="id51">Reloading Servlets</a></li>
-<li><a class="reference internal" href="#launching-the-appserver-at-unix-boot-up" id="id52">Launching the AppServer at Unix boot up</a><ul>
-<li><a class="reference internal" href="#start-script-configuration" id="id53">Start script configuration</a></li>
-<li><a class="reference internal" href="#activating-the-start-script" id="id54">Activating the start script</a></li>
-<li><a class="reference internal" href="#using-systemd-to-start-the-appserver" id="id55">Using systemd to start the AppServer</a></li>
+<li><p><a class="reference internal" href="#appserver-notes" id="id48">AppServer Notes</a></p>
+<ul>
+<li><p><a class="reference internal" href="#stopping-the-app-server" id="id49">Stopping the App Server</a></p></li>
+<li><p><a class="reference internal" href="#reloading-servlets" id="id50">Reloading Servlets</a></p></li>
+<li><p><a class="reference internal" href="#launching-the-appserver-at-unix-boot-up" id="id51">Launching the AppServer at Unix boot up</a></p>
+<ul>
+<li><p><a class="reference internal" href="#start-script-configuration" id="id52">Start script configuration</a></p></li>
+<li><p><a class="reference internal" href="#activating-the-start-script" id="id53">Activating the start script</a></p></li>
+<li><p><a class="reference internal" href="#using-systemd-to-start-the-appserver" id="id54">Using systemd to start the AppServer</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-threadedappserver-as-a-windows-nt-2k-xp-service" id="id56">Running ThreadedAppServer as a Windows NT/2K/XP Service</a></li>
-<li><a class="reference internal" href="#other-notes" id="id57">Other Notes</a></li>
+<li><p><a class="reference internal" href="#running-threadedappserver-as-a-windows-nt-2k-xp-service" id="id55">Running ThreadedAppServer as a Windows NT/2K/XP Service</a></p></li>
+<li><p><a class="reference internal" href="#other-notes" id="id56">Other Notes</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#troubleshooting" id="id58">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#bad-marshal-data" id="id59">Bad Marshal Data</a></li>
+<li><p><a class="reference internal" href="#troubleshooting" id="id57">Troubleshooting</a></p>
+<ul>
+<li><p><a class="reference internal" href="#bad-marshal-data" id="id58">Bad Marshal Data</a></p></li>
 </ul>
 </li>
 </ul>
@@ -111,19 +119,17 @@ install python,
 unpack your Webware distribution,
 and do the following
 (use backslashes instead of slashes if you are using Windows):</p>
-<pre class="literal-block">
-$ cd path/to/Webware
+<pre class="literal-block">$ cd path/to/Webware
 $ python install.py
 (enter password)
-$ WebKit/AppServer
-</pre>
+$ WebKit/AppServer</pre>
 <p>You should now be able to go to your browser and open up the URL
-<tt class="docutils literal"><span class="pre">http://localhost:8080</span></tt>.
-The page you see is generated by <tt class="docutils literal">WebKit/Examples/Welcome.py</tt>.</p>
-<p>If the AppServer fails with the error message <tt class="docutils literal">Address already in use</tt>,
+<span class="docutils literal"><span class="pre">http://localhost:8080</span></span>.
+The page you see is generated by <span class="docutils literal">WebKit/Examples/Welcome.py</span>.</p>
+<p>If the AppServer fails with the error message <span class="docutils literal">Address already in use</span>,
 you will need to tell it to use a different port number.
-Edit <tt class="docutils literal">WebKit/Configs/AppServer.config</tt>, set <tt class="docutils literal">AdapterPort</tt>
-and <tt class="docutils literal">HTTPPort</tt> to unused port numbers, restart AppServer,
+Edit <span class="docutils literal">WebKit/Configs/AppServer.config</span>, set <span class="docutils literal">AdapterPort</span>
+and <span class="docutils literal">HTTPPort</span> to unused port numbers, restart AppServer,
 and alter your URL accordingly.</p>
 <p>The AppServer has to be running anytime you want to access a
 Webware application or example.  The last line of the instructions
@@ -139,7 +145,7 @@ automatically at boot up, see <a class="reference internal" href="#webkit-init-s
 version ranging from 2.4 to 2.7.  For older Python versions, you can
 still use the Webware 1.0 branch.  If you get an error message about
 the version, you're probably unwittingly running the wrong version
-of Python.  Change the <tt class="docutils literal">AppServer</tt> or <tt class="docutils literal">AppServer.bat</tt> scripts,
+of Python.  Change the <span class="docutils literal">AppServer</span> or <span class="docutils literal">AppServer.bat</span> scripts,
 giving the full path to the correct Python interpreter.  You can also
 try running Webware with PyPy.  The AppServer should work with PyPy 1.5,
 but this has not been thoroughly tested and seems to be slower.</p>
@@ -152,7 +158,7 @@ provider in this situation, you may be able to install it yourself
 into your home directory via a telnet or ssh account.  See the
 <a class="reference external" href="http://www.python.org/download/">Python site</a> for instructions.</p>
 <p>To determine if threading is enabled, start the Python interpreter
-from the command line and enter <tt class="docutils literal">import thread</tt>.  If you don't get
+from the command line and enter <span class="docutils literal">import thread</span>.  If you don't get
 an exception, all is well.</p>
 </div>
 <div class="section" id="web-server">
@@ -168,7 +174,7 @@ Apache is the best supported platform, both on Posix and Windows systems.</p>
 systems.  The <a class="reference internal" href="#mod-webkit">mod_webkit</a> adapter is the fastest way to connect to
 Webware, and is only supported for Apache.  CGI is also available to
 Apache users through <a class="reference internal" href="#wkcgi">wkcgi</a>.  For Windows users compiled versions of
-mod_webkit and wkcgi (named <tt class="docutils literal">wkcgi.exe</tt>) are also available.
+mod_webkit and wkcgi (named <span class="docutils literal">wkcgi.exe</span>) are also available.
 There are also other adapter options, see <a class="reference internal" href="#adapters">Adapters</a>.</p>
 <p>Most of the Webware developers use Apache.</p>
 </div>
@@ -179,23 +185,21 @@ configuration due to its default non-standard CGI behavior.  You have
 to do two things:</p>
 <p>For IIS 4.0 to 6.0, configure it to handle PATH_INFO and PATH_TRANSLATED
 according to the CGI specification, by running the following command:</p>
-<pre class="literal-block">
-&gt; cscript adsutil.vbs SET W3SVC/1/AllowPathInfoForScriptMappings 1
-</pre>
+<pre class="literal-block">&gt; cscript adsutil.vbs SET W3SVC/1/AllowPathInfoForScriptMappings 1</pre>
 <p>This is lightly documented in
 <a class="reference external" href="http://msdn.microsoft.com/en-us/library/ms525840.aspx">http://msdn.microsoft.com/en-us/library/ms525840.aspx</a></p>
 <p>A <a class="reference internal" href="#cgi-adapter">CGI adapter</a>, written in C, is available in
-<tt class="docutils literal">WebKit/Adapters/wkcgi/wkcgi.exe</tt>.  The standard <a class="reference internal" href="#python-cgi-adapter">Python CGI adapter</a>
+<span class="docutils literal">WebKit/Adapters/wkcgi/wkcgi.exe</span>.  The standard <a class="reference internal" href="#python-cgi-adapter">Python CGI adapter</a>
 also works, but you must either configure IIS to run Python CGI scripts,
 or you must use PyInstaller or some other program to create an
 executable from the Python script.</p>
 <p>In order to convert WebKit.cgi into WebKit.exe using PyInstaller,
-you first have to rename it to WebKit.py, and add <tt class="docutils literal">import socket</tt>
+you first have to rename it to WebKit.py, and add <span class="docutils literal">import socket</span>
 to the top of the file (you could use a configuration file
-instead, but this is easier).  After creating the <tt class="docutils literal">.exe</tt> file, delete
-<tt class="docutils literal">WebKit.pyc</tt> and rename <tt class="docutils literal">WebKit.py</tt> to <tt class="docutils literal">_WebKit.py</tt>.  This will
-avoid conflicts with <tt class="docutils literal">WebKit.exe</tt>.</p>
-<p>There is also an ISAPI module for Webware in <tt class="docutils literal">WebKit/Adapters/wkISAPI</tt>
+instead, but this is easier).  After creating the <span class="docutils literal">.exe</span> file, delete
+<span class="docutils literal">WebKit.pyc</span> and rename <span class="docutils literal">WebKit.py</span> to <span class="docutils literal">_WebKit.py</span>.  This will
+avoid conflicts with <span class="docutils literal">WebKit.exe</span>.</p>
+<p>There is also an ISAPI module for Webware in <span class="docutils literal">WebKit/Adapters/wkISAPI</span>
 that needs to be compiled before use.  However, there have been
 problems with memory leaks in this adapter.</p>
 </div>
@@ -210,16 +214,14 @@ otherwise you must resort to a <a class="reference internal" href="#cgi-adapter"
 <p>Unless you just downloaded Webware (and therefore WebKit), you should
 check to see if you have the latest version.  This is:</p>
 <p>Webware for Python</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Version:</th><td class="field-body">X.Y</td>
-</tr>
-<tr class="field"><th class="field-name">Released:</th><td class="field-body">&#64;&#64;/&#64;&#64;/&#64;&#64;</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt>Version</dt>
+<dd><p>X.Y</p>
+</dd>
+<dt>Released</dt>
+<dd><p>&#64;&#64;/&#64;&#64;/&#64;&#64;</p>
+</dd>
+</dl>
 <p>You can check for the latest version at <a class="reference external" href="https://cito.github.io/w4py/">https://cito.github.io/w4py/</a>.</p>
 <p>If you're feeling adventurous, you can get the latest in-development
 source code from the public repository.  Instructions are located at
@@ -238,18 +240,20 @@ server setup is different, but in most cases the application itself
 will require no porting (unless you specifically use non-portable
 Python code in your application).</p>
 <p>What follows are some OS specific notes:</p>
-<dl class="docutils">
+<dl>
 <dt>Posix/Unix:</dt>
-<dd>Nothing special to report.  Both Linux and BSD have been used
-with WebKit.</dd>
+<dd><p>Nothing special to report.  Both Linux and BSD have been used
+with WebKit.</p>
+</dd>
 <dt>Windows 9x:</dt>
-<dd>Although a lot of the development of both WebKit and various web
+<dd><p>Although a lot of the development of both WebKit and various web
 sites that use it has been done on Windows 9x, we don't recommend
 that you use this operating system to actually serve your users.
 Unix and NT are generally more robust and secure and therefore, more
-appropriate for deployment.</dd>
+appropriate for deployment.</p>
+</dd>
 <dt>Windows:</dt>
-<dd><p class="first">Some Windows users are surprised that URLs passed to WebKit are case
+<dd><p>Some Windows users are surprised that URLs passed to WebKit are case
 sensitive.  While it's true that the various Windows file systems are
 case insensitive, the data structures that WebKit uses internally
 are not.</p>
@@ -258,14 +262,14 @@ you are editing a Python dictionary populated with Python
 strings.  Therefore your paths must either use double backslashes
 (\) (since the backslash is a special character), use forward
 slashes or use &quot;r-strings&quot;.  An example of a bad string is
-<tt class="docutils literal"><span class="pre">'C:\All\Web\'</span></tt>.  Good examples include:</p>
+<span class="docutils literal"><span class="pre">'C:\All\Web\'</span></span>.  Good examples include:</p>
 <ul class="simple">
-<li><tt class="docutils literal">'/All/Web'</tt></li>
-<li><tt class="docutils literal"><span class="pre">'C:/All/Web'</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">'C:\\All\\Web'</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">'C:\All\Web'</span></tt></li>
+<li><p><span class="docutils literal">'/All/Web'</span></p></li>
+<li><p><span class="docutils literal"><span class="pre">'C:/All/Web'</span></span></p></li>
+<li><p><span class="docutils literal"><span class="pre">'C:\\All\\Web'</span></span></p></li>
+<li><p><span class="docutils literal"><span class="pre">'C:\All\Web'</span></span></p></li>
 </ul>
-<p class="last">It's generally recommended to simply use forward slashes (/) for all
+<p>It's generally recommended to simply use forward slashes (/) for all
 your file paths.</p>
 </dd>
 </dl>
@@ -273,7 +277,7 @@ your file paths.</p>
 </div>
 <div class="section" id="installing-webware">
 <h1>Installing Webware</h1>
-<p>Webware's main directory contains an <tt class="docutils literal">install.py</tt> script that
+<p>Webware's main directory contains an <span class="docutils literal">install.py</span> script that
 should always be run first.</p>
 <p>Note that the install program doesn't actually copy the Webware files
 to any separate directory.  It copies files within the Webware
@@ -281,7 +285,7 @@ directory tree, modifies permissions, generates documentation, etc.</p>
 <p>Also, you can run the install program as many times as you like with
 no ill effect, so if you're not sure whether or not it has been run,
 feel free to do so again.  If you're debugging a problem with the
-installation, you can run <tt class="docutils literal">install.py <span class="pre">-v</span></tt> for verbose output.</p>
+installation, you can run <span class="docutils literal">install.py <span class="pre">-v</span></span> for verbose output.</p>
 </div>
 <div class="section" id="updating-webware">
 <h1>Updating Webware</h1>
@@ -293,9 +297,9 @@ directories of your Webware applications.</p>
 <h1>Architecture</h1>
 <p>The WebKit architecture involves three main entities at the top level:</p>
 <ul class="simple">
-<li>The web browser</li>
-<li>The web server</li>
-<li>The app server</li>
+<li><p>The web browser</p></li>
+<li><p>The web server</p></li>
+<li><p>The app server</p></li>
 </ul>
 <p>The browser will be something like Microsoft Internet Explorer or
 Mozilla.  The web server will be something like Apache or IIS.
@@ -308,14 +312,14 @@ server which in turn makes a request to the app server.  The response
 then goes from the app server to the web server to the browser.</p>
 <p>For development and casual use, you can replace Apache with
 the WebKit built-in web server that can be activated with the
-<tt class="docutils literal">AppServer.config</tt> setting <tt class="docutils literal">EnableHTTP</tt>.  The port can be specified
-with the setting <tt class="docutils literal">HTTPPort</tt> and will be <tt class="docutils literal">8080</tt> by default.</p>
+<span class="docutils literal">AppServer.config</span> setting <span class="docutils literal">EnableHTTP</span>.  The port can be specified
+with the setting <span class="docutils literal">HTTPPort</span> and will be <span class="docutils literal">8080</span> by default.</p>
 <p>If you are not using the built-in web server, you will have to
 get your web server and app server talking to each other.
 For this purpose, you must use a WebKit <a class="reference internal" href="#adapter">adapter</a>.  You must also
 activate the WebKit app server listener for adapters with the
-<tt class="docutils literal">AppServer.config</tt> setting <tt class="docutils literal">EnableAdapter</tt>.  The port can be specified
-with the setting <tt class="docutils literal">AdapterPort</tt> and will be <tt class="docutils literal">8086</tt> by default.
+<span class="docutils literal">AppServer.config</span> setting <span class="docutils literal">EnableAdapter</span>.  The port can be specified
+with the setting <span class="docutils literal">AdapterPort</span> and will be <span class="docutils literal">8086</span> by default.
 You can use several app servers listenting on different ports.</p>
 <div class="section" id="id4">
 <span id="permissions"></span><h2>Permissions</h2>
@@ -323,22 +327,19 @@ You can use several app servers listenting on different ports.</p>
 Apache might be running as nobody, if you start the AppServer as
 root then your application will be run as root.  You may wish to set
 up another user specifically for running the AppServer.  On Unix:</p>
-<pre class="literal-block">
-$ adduser --no-create-home --system webkit
+<pre class="literal-block">$ adduser --no-create-home --system webkit
 $ cd path/to/Webware/WebKit
-$ sudo -u webkit ./AppServer
-</pre>
+$ sudo -u webkit ./AppServer</pre>
 <p>Whatever user you run the AppServer as, there are some directories
 under Webware/WebKit/ that must be writable by that user:</p>
 <ul class="simple">
-<li>Cache</li>
-<li>ErrorMsgs</li>
-<li>Logs</li>
-<li>Sessions</li>
+<li><p>Cache</p></li>
+<li><p>ErrorMsgs</p></li>
+<li><p>Logs</p></li>
+<li><p>Sessions</p></li>
 </ul>
 <p>The easiest way to do this is to make these directories writeable by
-all (on Unix, that would be <tt class="docutils literal">cd Webware/WebKit; chmod <span class="pre">-R</span> a+rwX
-Cache ErrorMsgs Logs Sessions</tt>).</p>
+all (on Unix, that would be <span class="docutils literal">cd Webware/WebKit; chmod <span class="pre">-R</span> a+rwX Cache ErrorMsgs Logs Sessions</span>).</p>
 <p>You may wish to set it up this way at first, and review the
 permissions and create a new user later.</p>
 </div>
@@ -357,19 +358,18 @@ is easy to install.  Because it's small and written in C, wkcgi is
 still very fast.</p>
 <p>All the adapters:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#wkcgi">wkcgi</a> (C-based CGI script)</li>
-<li><a class="reference internal" href="#mod-webkit">mod_webkit</a> (fastest!)</li>
-<li><a class="reference internal" href="#mod-scgi">mod_scgi</a> (equally fast, not included with Webware)</li>
-<li><a class="reference internal" href="#mod-wsgi">mod_wsgi</a> (with the WSGIAdapter)</li>
+<li><p><a class="reference internal" href="#wkcgi">wkcgi</a> (C-based CGI script)</p></li>
+<li><p><a class="reference internal" href="#mod-webkit">mod_webkit</a> (fastest!)</p></li>
+<li><p><a class="reference internal" href="#mod-scgi">mod_scgi</a> (equally fast, not included with Webware)</p></li>
+<li><p><a class="reference internal" href="#mod-wsgi">mod_wsgi</a> (with the WSGIAdapter)</p></li>
 </ul>
 <p>These adapters are not really recommended:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#python-cgi-adapter">Python CGI Adapter</a></li>
-<li><a class="reference internal" href="#fastcgi">FastCGI</a></li>
-<li><a class="reference internal" href="#mod-python">mod_python</a> (with the ModPythonAdapter)</li>
-<li><a class="reference internal" href="#mod-snake">mod_snake</a> (with the ModSnakeAdapter)</li>
-<li><a class="reference internal" href="#isapi">ISAPI</a> (<em>alpha</em>, for IIS)</li>
-<li><a class="reference internal" href="#oneshot">OneShot</a> (unusual to use, sometimes buggy)</li>
+<li><p><a class="reference internal" href="#python-cgi-adapter">Python CGI Adapter</a></p></li>
+<li><p><a class="reference internal" href="#fastcgi">FastCGI</a></p></li>
+<li><p><a class="reference internal" href="#mod-python">mod_python</a> (with the ModPythonAdapter)</p></li>
+<li><p><a class="reference internal" href="#isapi">ISAPI</a> (<em>alpha</em>, for IIS)</p></li>
+<li><p><a class="reference internal" href="#oneshot">OneShot</a> (unusual to use, sometimes buggy)</p></li>
 </ul>
 </div>
 <div class="section" id="wsgi-based-adapters">
@@ -383,7 +383,7 @@ web server and the Webware application server.  For Apache, the <a class="refere
 module by Graham Dumpleton provides such an WSGI compliant interface.  If the
 module is properly configured, this can be a solution nearly as fast as using
 the native <a class="reference internal" href="#mod-webkit">mod_webkit</a> adapter.  Please see the documentation of mod_wsgi for
-details.  You can use <tt class="docutils literal">WebKit/Adapters/WSGIAdapter.py</tt> as the so called WSGI
+details.  You can use <span class="docutils literal">WebKit/Adapters/WSGIAdapter.py</span> as the so called WSGI
 application script file for mod_wsgi.</p>
 </div>
 <div class="section" id="scgi-based-adapters">
@@ -391,8 +391,8 @@ application script file for mod_wsgi.</p>
 <p>Instead of using the standard WebKit adapter, you can also use any
 <a class="reference external" href="http://www.mems-exchange.org/software/scgi/">SCGI</a> adapter such as mod_scgi (not part of Webware for Python).
 You can activate the SCGI connector, i.e. an WebKit app server listener
-for SCGI connections, with the <tt class="docutils literal">AppServer.config</tt> setting <tt class="docutils literal">EnableSCGI</tt>.
-The port can be specified with the setting <tt class="docutils literal">SCGIPort</tt> and will be <tt class="docutils literal">8084</tt>
+for SCGI connections, with the <span class="docutils literal">AppServer.config</span> setting <span class="docutils literal">EnableSCGI</span>.
+The port can be specified with the setting <span class="docutils literal">SCGIPort</span> and will be <span class="docutils literal">8084</span>
 by default (SCGI often uses port 4000 or 9999, you may want to change that).
 The SCGI connector is actually very similar to the original Webware connector,
 but since Webware predates the SCGI protocol, it was added only later as an
@@ -420,46 +420,41 @@ not a bad compromise -- it's quite fast.  The only other adapter that
 is enough faster to be interesting is <a class="reference internal" href="#mod-webkit">mod_webkit</a>.  You should choose
 one of these options.</p>
 <p>On Windows systems you should find a file
-<tt class="docutils literal">WebKit/Adapters/wkcgi/wkcgi.exe</tt>.  You'll need to build the
+<span class="docutils literal">WebKit/Adapters/wkcgi/wkcgi.exe</span>.  You'll need to build the
 executable yourself on Posix systems -- just do:</p>
-<pre class="literal-block">
-$ cd /path/to/Webware/WebKit/Adapters/wkcgi
-$ make
-</pre>
-<p>There will be a file <tt class="docutils literal">wkcgi</tt>.  You may want to rename it to
-<tt class="docutils literal">wkcgi.cgi</tt>, since in some configurations files ending in <tt class="docutils literal">.cgi</tt>
+<pre class="literal-block">$ cd /path/to/Webware/WebKit/Adapters/wkcgi
+$ make</pre>
+<p>There will be a file <span class="docutils literal">wkcgi</span>.  You may want to rename it to
+<span class="docutils literal">wkcgi.cgi</span>, since in some configurations files ending in <span class="docutils literal">.cgi</span>
 will automatically be treated as CGI scripts.</p>
 <p>To use the script, make sure you put it somewhere where CGI scripts
-can be executed.  This may be in a <tt class="docutils literal"><span class="pre">cgi-bin</span></tt> directory, or in some
+can be executed.  This may be in a <span class="docutils literal"><span class="pre">cgi-bin</span></span> directory, or in some
 configurations it can be located anywhere so long as the filename ends
-in <tt class="docutils literal">.cgi</tt> and it's executable.  Check your error log if you are
+in <span class="docutils literal">.cgi</span> and it's executable.  Check your error log if you are
 (quickly) getting Internal Error when you try to access the script,
 and for Apache see the document <a class="reference external" href="http://httpd.apache.org/docs/2.2/howto/cgi.html">Dynamic Content with CGI</a> for
 configuration help.</p>
 <p>If you get an Internal Error after a couple seconds, you don't have
-the AppServer running.  Start the AppServer (<tt class="docutils literal">cd WebKit;
-./AppServer</tt>) and try again.</p>
+the AppServer running.  Start the AppServer (<span class="docutils literal">cd WebKit; ./AppServer</span>) and try again.</p>
 <p>The AppServer may also be running on a non-standard host (i.e., not
-<tt class="docutils literal">localhost</tt>) or a non-standard port (not 8086).  If this is the
-case, you must put a file <tt class="docutils literal">webkit.cfg</tt> in the same directory as the
+<span class="docutils literal">localhost</span>) or a non-standard port (not 8086).  If this is the
+case, you must put a file <span class="docutils literal">webkit.cfg</span> in the same directory as the
 wkcgi executable.  This file looks like:</p>
-<pre class="literal-block">
-Host = localhost
+<pre class="literal-block">Host = localhost
 AdapterPort = 8086
 MaxConnectAttempts = 10
-ConnectRetryDelay = 1
-</pre>
+ConnectRetryDelay = 1</pre>
 </div>
 <div class="section" id="python-cgi-adapter">
 <h3>Python CGI Adapter</h3>
 <p>Though it's not recommended, there is an equivalent CGI script written
 in Python.  This script is substantially slower, as it requires a
 Python interpreter to be started for each request.  It is located in
-<tt class="docutils literal">WebKit/Adapters/WebKit.cgi</tt> -- you may wish to point the first line
-(<tt class="docutils literal"><span class="pre">#!/usr/bin/env</span> python</tt>) to the actual path of the Python
-interpreter (e.g., <tt class="docutils literal"><span class="pre">#!/usr/local/bin/python</span></tt>).</p>
+<span class="docutils literal">WebKit/Adapters/WebKit.cgi</span> -- you may wish to point the first line
+(<span class="docutils literal"><span class="pre">#!/usr/bin/env</span> python</span>) to the actual path of the Python
+interpreter (e.g., <span class="docutils literal"><span class="pre">#!/usr/local/bin/python</span></span>).</p>
 <p>Otherwise, follow the instructions for <a class="reference internal" href="#wkcgi">wkcgi</a>.  Particularly, make sure
-that the script is executable.  There is no configuration, and <tt class="docutils literal">WebKit.cgi</tt>
+that the script is executable.  There is no configuration, and <span class="docutils literal">WebKit.cgi</span>
 should be able to find the host and port of the AppServer automatically.</p>
 </div>
 <div class="section" id="mod-webkit">
@@ -472,86 +467,73 @@ It is relatively easy to install, but you probably will need administrator
 or root access to the machine.</p>
 <p>The source code and a README file describing how to configure, build and
 install mod_webkit as a DSO module for Apache 2.2 are located in the
-<tt class="docutils literal">Webware/WebKit/Adapters/mod_webkit2</tt> directory.  You can also find an
-older version for Apache 1.3 in <tt class="docutils literal">Webware/WebKit/Adapters/mod_webkit1</tt>,
+<span class="docutils literal">Webware/WebKit/Adapters/mod_webkit2</span> directory.  You can also find an
+older version for Apache 1.3 in <span class="docutils literal">Webware/WebKit/Adapters/mod_webkit1</span>,
 but in the following we are assuming you are using Apache 2.2.</p>
 <div class="section" id="posix-installation">
 <h4>Posix Installation</h4>
 <p>To install:</p>
-<pre class="literal-block">
-$ cd /path/to/Webware/WebKit/Adapters/mod_webkit2
+<pre class="literal-block">$ cd /path/to/Webware/WebKit/Adapters/mod_webkit2
 $ make
-$ make install
-</pre>
+$ make install</pre>
 <p>The most common error you will get in this process is an error
-<tt class="docutils literal">make: /usr/sbin/apxs: Command not found</tt>.  This means the
-<tt class="docutils literal">apxs</tt> utility is probably located somewhere else, or you do not
+<span class="docutils literal">make: /usr/sbin/apxs: Command not found</span>.  This means the
+<span class="docutils literal">apxs</span> utility is probably located somewhere else, or you do not
 have it installed.  It should be in one of these locations:</p>
 <blockquote>
 <ul class="simple">
-<li>/usr/bin/apxs</li>
-<li>/usr/local/bin/apxs</li>
-<li>/usr/local/sbin/apxs</li>
-<li>/usr/local/Apache-.../.../apxs</li>
+<li><p>/usr/bin/apxs</p></li>
+<li><p>/usr/local/bin/apxs</p></li>
+<li><p>/usr/local/sbin/apxs</p></li>
+<li><p>/usr/local/Apache-.../.../apxs</p></li>
 </ul>
 </blockquote>
-<p>If you have an Apache directory under <tt class="docutils literal">/usr/local</tt>, you should
-search it for the file.  Execute the command <tt class="docutils literal">find
-<span class="pre">/usr/local/Apache...</span> <span class="pre">-name</span> apxs</tt> to search for it.</p>
+<p>If you have an Apache directory under <span class="docutils literal">/usr/local</span>, you should
+search it for the file.  Execute the command <span class="docutils literal">find <span class="pre">/usr/local/Apache...</span> <span class="pre">-name</span> apxs</span> to search for it.</p>
 <p>If you cannot find it in any of these locations there is a good chance
 you don't have it installed.  You should install an apache-devel
 package.</p>
 <p>Once you've found or attained the apxs utility, change the
-<tt class="docutils literal">Makefile</tt> file in the mod_webkit directory.  Where it says
-<tt class="docutils literal"><span class="pre">APXS=/usr/sbin/apxs</span></tt>, change it to the appropriate location.</p>
-<p><tt class="docutils literal">make install</tt> will copy the compiled module to the appropriate
+<span class="docutils literal">Makefile</span> file in the mod_webkit directory.  Where it says
+<span class="docutils literal"><span class="pre">APXS=/usr/sbin/apxs</span></span>, change it to the appropriate location.</p>
+<p><span class="docutils literal">make install</span> will copy the compiled module to the appropriate
 location and add a line to your httpd.conf file to load the module
 (but not activate it, see <a class="reference internal" href="#apache-configuration">Apache Configuration</a> below).</p>
 </div>
 <div class="section" id="windows-installation">
 <h4>Windows Installation</h4>
-<p>Copy <tt class="docutils literal">WebKit/Adapters/mod_webkit2/mod_webkit.dll</tt> into your Apache 2.2
+<p>Copy <span class="docutils literal">WebKit/Adapters/mod_webkit2/mod_webkit.dll</span> into your Apache 2.2
 module directory (usually located at
-<tt class="docutils literal"><span class="pre">C:\Program</span> Files\Apache Software Foundation\Apache2.2\modules\mod_webkit.so</tt>).
-You should also change the extension of the file to <tt class="docutils literal">.so</tt> according
+<span class="docutils literal"><span class="pre">C:\Program</span> Files\Apache Software Foundation\Apache2.2\modules\mod_webkit.so</span>).
+You should also change the extension of the file to <span class="docutils literal">.so</span> according
 to the Apache convention.</p>
-<p>Edit <tt class="docutils literal">httpd.conf</tt> to include the line:</p>
-<pre class="literal-block">
-LoadModule webkit_module modules/mod_webkit.so
-</pre>
+<p>Edit <span class="docutils literal">httpd.conf</span> to include the line:</p>
+<pre class="literal-block">LoadModule webkit_module modules/mod_webkit.so</pre>
 <p>Then, add the configuration below to activate the module.</p>
 </div>
 <div class="section" id="apache-configuration">
 <h4>Apache Configuration</h4>
 <p>You must also add something like this to your httpd.conf:</p>
-<pre class="literal-block">
-&lt;Location /WK&gt;
+<pre class="literal-block">&lt;Location /WK&gt;
     WKServer localhost 8086
     SetHandler webkit-handler
-&lt;/Location&gt;
-</pre>
+&lt;/Location&gt;</pre>
 <p>Some Apache 2.2 users have found that they must use &quot;127.0.0.1&quot; instead
 of &quot;localhost&quot;, since Apache 2.2 defaults to using ipv6 addresses first.</p>
-<p>With these lines, any URL that starts with <tt class="docutils literal">/WK/</tt> will be directed to the
+<p>With these lines, any URL that starts with <span class="docutils literal">/WK/</span> will be directed to the
 AppServer on port 8086.  You can also use:</p>
-<pre class="literal-block">
-AddHandler psp-handler .psp
-</pre>
+<pre class="literal-block">AddHandler psp-handler .psp</pre>
 <p>to run PSP files that are found anywhere (similar to how PHP would
-work, for example).  You still need the <tt class="docutils literal">/WK</tt> portion to tell
+work, for example).  You still need the <span class="docutils literal">/WK</span> portion to tell
 mod_webkit where to find the AppServer.</p>
 <p>To pass additional client HTTP headers through to the AppServer,
-use the <tt class="docutils literal">PassHeader</tt> Apache directive.
+use the <span class="docutils literal">PassHeader</span> Apache directive.
 For example:</p>
-<pre class="literal-block">
-PassHeader Accept-Language
-</pre>
+<pre class="literal-block">PassHeader Accept-Language</pre>
 <p>Your servlet code can access the header value like this:</p>
-<pre class="literal-block">
-lang = self.request().environ().get('Accept-Language')
-</pre>
-<p>If the client request contains the header <tt class="docutils literal"><span class="pre">Accept-Language:</span> fr</tt>,
-the above code will set <tt class="docutils literal">lang</tt> to <tt class="docutils literal">&quot;fr&quot;</tt>.</p>
+<pre class="literal-block">lang = self.request().environ().get('Accept-Language')</pre>
+<p>If the client request contains the header <span class="docutils literal"><span class="pre">Accept-Language:</span> fr</span>,
+the above code will set <span class="docutils literal">lang</span> to <span class="docutils literal">&quot;fr&quot;</span>.</p>
 </div>
 </div>
 <div class="section" id="fastcgi">
@@ -563,7 +545,7 @@ configure.  Its use is <em>not</em> recommended.</p>
 <p>Your web server will have to be FastCGI enabled, which you may be able
 to accomplish by downloading software at <a class="reference external" href="http://www.FastCGI.com">http://www.FastCGI.com</a> where
 you can also learn more about FastCGI.</p>
-<p>The top of <tt class="docutils literal">WebKit/Adapters/FCGIAdapter.py</tt> contains a doc string
+<p>The top of <span class="docutils literal">WebKit/Adapters/FCGIAdapter.py</span> contains a doc string
 explaining its setup.</p>
 <p>Note that to date, we have only gotten this to work on Unix.</p>
 </div>
@@ -573,7 +555,7 @@ explaining its setup.</p>
 than <a class="reference internal" href="#wkcgi">wkcgi</a> (and may be slower!), and the mod_python adapter is
 considerably slower than <a class="reference internal" href="#mod-webkit">mod_webkit</a>.  At the same time it is also
 much more difficult to configure.  Its use is <em>not</em> recommended.</p>
-<p>The top of <tt class="docutils literal">WebKit/Adapters/ModPythonAdapter.py</tt> contains a doc
+<p>The top of <span class="docutils literal">WebKit/Adapters/ModPythonAdapter.py</span> contains a doc
 string explaining the setup.</p>
 <p>This has been tested on both Unix and Windows.  On Windows you should
 use mod_python 2.7.4 or later because there is a bug in earlier
@@ -581,19 +563,6 @@ versions of mod_python for Windows that can cause Apache to crash or
 return incorrect responses under heavy load.</p>
 <p>More information about mod_python can be found at
 <a class="reference external" href="http://www.modpython.org">http://www.modpython.org</a>.</p>
-</div>
-<div class="section" id="mod-snake">
-<h3>mod_snake</h3>
-<p>In most cases the mod_snake adapter will not be significantly faster
-than <a class="reference internal" href="#wkcgi">wkcgi</a> (and may be slower!), and the mod_snake adapter is
-considerably slower than <a class="reference internal" href="#mod-webkit">mod_webkit</a>.  At the same time it is also
-much more difficult to configure.  Its use is <em>not</em> recommended.</p>
-<p>This adapter is similar to ModPython, but written for the mod_snake
-Apache module.  mod_snake is another method of embedding a python
-interpreter into Apache.</p>
-<p>A doc string is included at the top of
-<tt class="docutils literal">WebKit/Adapters/ModSnakeAdapter.py</tt> which describes the
-configuration steps to use this adapter.</p>
 </div>
 <div class="section" id="oneshot">
 <h3>OneShot</h3>
@@ -615,7 +584,7 @@ the user running the web server.</p>
 </div>
 <div class="section" id="isapi">
 <h3>ISAPI</h3>
-<p>The ISAPI module is located in <tt class="docutils literal">WebKit/Adapters/wkISAPI</tt>.
+<p>The ISAPI module is located in <span class="docutils literal">WebKit/Adapters/wkISAPI</span>.
 It currently has some memory leaks and is not well tested.  It is
 looking for a maintainer.  There's no documentation for it, and you
 must compile it yourself.</p>
@@ -625,7 +594,7 @@ must compile it yourself.</p>
 <h2>Renaming Adapters</h2>
 <p>Adapters such as WebKit.cgi and OneShot.cgi do not rely on their
 name.  Consequently, when you deploy your web site, you can rename the
-adapter to something like <tt class="docutils literal">serve.cgi</tt>.  This allows you to switch
+adapter to something like <span class="docutils literal">serve.cgi</span>.  This allows you to switch
 adapters later without affecting the URLs and therefore the bookmarks
 of your users (provided you're still using some form of CGI adapter).
 <a class="reference external" href="http://webware.colorstudy.net/twiki/bin/view/Webware/ModRewriteRecipes">mod_rewrite</a> also offers several possibilities for changing names,
@@ -649,24 +618,24 @@ document root.</p>
 options related to installing and running WebKit.  A full reference to
 these options can be found in the <a class="reference external" href="UsersGuide.html#Configuration">User's Guide</a>.</p>
 <p>The settings referenced below are found in the configuration file,
-<tt class="docutils literal">WebKit/Configs/Application.config</tt>.</p>
+<span class="docutils literal">WebKit/Configs/Application.config</span>.</p>
 <div class="section" id="sessions">
 <h2>Sessions</h2>
 <p>WebKit provides a Session utility class for storing data on the server
 side that relates to an individual user's session with your site.  The
-<tt class="docutils literal">SessionStore</tt> setting determines where the data is stored and can currently
-be set to <tt class="docutils literal">Dynamic</tt>, <tt class="docutils literal">File</tt>, <tt class="docutils literal">Memcached</tt>, <tt class="docutils literal">Memory</tt> or <tt class="docutils literal">Shelve</tt>.</p>
+<span class="docutils literal">SessionStore</span> setting determines where the data is stored and can currently
+be set to <span class="docutils literal">Dynamic</span>, <span class="docutils literal">File</span>, <span class="docutils literal">Memcached</span>, <span class="docutils literal">Memory</span> or <span class="docutils literal">Shelve</span>.</p>
 <p>Storing to the Dynamic session store is the fastest solution and is
 the default.  This session storage method keeps the most recently used
 sessions in memory, and moves older sessions to disk periodocally.
 All sessions will be moved to disk when the server is stopped.
 This storage mechanism works with both the persistant, long running
 AppServers and <a class="reference internal" href="#oneshot">OneShot</a>.  There are two settings in
-<tt class="docutils literal">Application.config</tt> relating to this Dynamic session store.
-<tt class="docutils literal">MaxDynamicMemorySessions</tt> specifies the maximum number of sessions
-that can be in memory at any one time.  <tt class="docutils literal">DynamicSessionTimeout</tt>
+<span class="docutils literal">Application.config</span> relating to this Dynamic session store.
+<span class="docutils literal">MaxDynamicMemorySessions</span> specifies the maximum number of sessions
+that can be in memory at any one time.  <span class="docutils literal">DynamicSessionTimeout</span>
 specifies after what period of time sessions will be moved from memory
-to file.  (Note: this setting is unrelated to the <tt class="docutils literal">SessionTimeout</tt>
+to file.  (Note: this setting is unrelated to the <span class="docutils literal">SessionTimeout</span>
 setting below.  Sessions which are moved to disk by the Dynamic
 Session store are not deleted).  Alternatively to the Dynamic store,
 you can try out the Shelve session store which stores the sessions
@@ -683,24 +652,24 @@ balancing.  In this scenario, each individual session is stored in its
 own file, loaded for every request and saved when delivering the
 corresponding response.</p>
 <p>All on-disk session information is located in WebKit/Sessions.</p>
-<p>Also, the <tt class="docutils literal">SessionTimeout</tt> setting lets you set the number of
+<p>Also, the <span class="docutils literal">SessionTimeout</span> setting lets you set the number of
 minutes of inactivity before a user's session becomes invalid and is
 deleted.  The default is 60.  The Session Timeout value can also be
 changed dynamically on a per session basis.</p>
-<p><tt class="docutils literal">Activity Log</tt></p>
+<p><span class="docutils literal">Activity Log</span></p>
 <p>Three options let you control:</p>
 <blockquote>
 <ul class="simple">
-<li>Whether or not to log activity (<tt class="docutils literal">LogActivity</tt>, defaults to 0,
-i.e. off)</li>
-<li>The name of the file to store the log (<tt class="docutils literal">ActivityLogFilename</tt>,
-defaults to <tt class="docutils literal">Logs/Activity.csv</tt>)</li>
-<li>The fields to store in the log (<tt class="docutils literal">ActivityLogColumns</tt>) &lt;/ul&gt;</li>
+<li><p>Whether or not to log activity (<span class="docutils literal">LogActivity</span>, defaults to 0,
+i.e. off)</p></li>
+<li><p>The name of the file to store the log (<span class="docutils literal">ActivityLogFilename</span>,
+defaults to <span class="docutils literal">Logs/Activity.csv</span>)</p></li>
+<li><p>The fields to store in the log (<span class="docutils literal">ActivityLogColumns</span>) &lt;/ul&gt;</p></li>
 </ul>
 </blockquote>
 <p>See <a class="reference external" href="UsersGuide.html#Configuration">Configuration</a> in the User's Guide for more information.</p>
 <p>E-mail Errors</p>
-<p><tt class="docutils literal">EmailErrors</tt>, <tt class="docutils literal">ErrorEmailServer</tt> and <tt class="docutils literal">ErrorEmailHeaders</tt> let
+<p><span class="docutils literal">EmailErrors</span>, <span class="docutils literal">ErrorEmailServer</span> and <span class="docutils literal">ErrorEmailHeaders</span> let
 you configure the app server so that uncaught exceptions land in your
 mailbox in real time.  You should definitely set these options when
 deploying a web site.</p>
@@ -711,12 +680,12 @@ deploying a web site.</p>
 <p>WebKit divides the world into <em>contexts</em>, each of which is a directory
 with its own files and servlets.  WebKit will only serve files out of
 its list of known contexts.</p>
-<p>Some of the contexts you will find out of the box are <tt class="docutils literal">Examples</tt>,
-<tt class="docutils literal">Documentation</tt> and <tt class="docutils literal">Admin</tt>.  When viewing either an example or
+<p>Some of the contexts you will find out of the box are <span class="docutils literal">Examples</span>,
+<span class="docutils literal">Documentation</span> and <span class="docutils literal">Admin</span>.  When viewing either an example or
 admin page, you will see a sidebar that links to all the contexts.</p>
 <p>Another way to look at contexts is a means for &quot;directory
 partitioning&quot;.  If you have two distinct web applications (for example,
-<tt class="docutils literal">PythonTutor</tt> and <tt class="docutils literal">DayTrader</tt>), you will likely put each of these
+<span class="docutils literal">PythonTutor</span> and <span class="docutils literal">DayTrader</span>), you will likely put each of these
 in their own context.  In this configuration, both web applications
 would be served by the same appserver instance.  Note that there may
 be also reasons to run multiple appserver instances for serving your
@@ -727,22 +696,20 @@ individually among the web applications.</p>
 <p>Instead of adding your own contexts you may wish to use
 <a class="reference internal" href="#makeappworkdir">MakeAppWorkDir</a>, which will partition your application from the
 Webware installation.</p>
-<p>To add a new context, add to the <tt class="docutils literal">Contexts</tt> dictionary of
-<tt class="docutils literal">Application.config</tt>.  The key is the name of the context as it
+<p>To add a new context, add to the <span class="docutils literal">Contexts</span> dictionary of
+<span class="docutils literal">Application.config</span>.  The key is the name of the context as it
 appears in the URL and the value is the path (absolute or relative to
 the WebKit directory).  Often the name of the context and the name of
 the directory will be the same:</p>
-<pre class="literal-block">
-'DayTrader': '/All/Web/Apps/DayTrader',
-</pre>
+<pre class="literal-block">'DayTrader': '/All/Web/Apps/DayTrader',</pre>
 <p>The URL to access DayTrader would then be something like:
-<tt class="docutils literal"><span class="pre">http://localhost/WebKit.cgi/DayTrader/</span></tt></p>
-<p>The special name <tt class="docutils literal">default</tt> is reserved to specify what context is
+<span class="docutils literal"><span class="pre">http://localhost/WebKit.cgi/DayTrader/</span></span></p>
+<p>The special name <span class="docutils literal">default</span> is reserved to specify what context is
 served when none is specified (as in
-<tt class="docutils literal"><span class="pre">http://localhost/WebKit.cgi/</span></tt>).  Upon installation, this is the
-<tt class="docutils literal">Examples</tt> context, which is convenient during development since it
+<span class="docutils literal"><span class="pre">http://localhost/WebKit.cgi/</span></span>).  Upon installation, this is the
+<span class="docutils literal">Examples</span> context, which is convenient during development since it
 provides links to all the other contexts.</p>
-<p>Note that a context can contain an <tt class="docutils literal">__init__.py</tt> which will be
+<p>Note that a context can contain an <span class="docutils literal">__init__.py</span> which will be
 executed when the context is loaded at app server startup.  You can put
 any kind of initialization code you deem appropriate there.</p>
 </div>
@@ -750,10 +717,8 @@ any kind of initialization code you deem appropriate there.</p>
 <span id="makeappworkdir"></span><h2>Creating a Working Directory</h2>
 <p>You can create a working directory for your applications that is
 separate from the Webware installation.  To do this you will use the
-script <tt class="docutils literal">bin/MakeAppWorkDir.py</tt>.  You should run it like:</p>
-<pre class="literal-block">
-$ python Webware/bin/MakeAppWorkDir.py WorkDir
-</pre>
+script <span class="docutils literal">bin/MakeAppWorkDir.py</span>.  You should run it like:</p>
+<pre class="literal-block">$ python Webware/bin/MakeAppWorkDir.py WorkDir</pre>
 <p>This will create a directory <em>WorkDir</em> that will contain a
 directory structure for your application.  Name if after your
 application, place it where it is convenient for you --
@@ -761,60 +726,70 @@ it doesn't need to be located close to the Webware installation.</p>
 <p>You have a couple of options available, e.g. for chosing the name
 and location of the default context or creating additional library
 directories that will be added to the Python seach path.
-You can see all of these options if you run <tt class="docutils literal">bin/MakeAppWorkDir.py</tt>
+You can see all of these options if you run <span class="docutils literal">bin/MakeAppWorkDir.py</span>
 without any parameters.</p>
 <p>When you list the created directory, you will see something like this:</p>
-<pre class="literal-block">
-AppServer*  Configs/       ErrorMsgs/  Lib/   MyContext/  WebKit.cgi
-Cache/      error404.html  Launch.py   Logs/  Sessions/   webkit*
-</pre>
+<pre class="literal-block">AppServer*  Configs/       ErrorMsgs/  Lib/   MyContext/  WebKit.cgi
+Cache/      error404.html  Launch.py   Logs/  Sessions/   webkit*</pre>
 <p>Here's what the files and directories are for:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal">AppServer</tt>:</dt>
-<dd>The script to start up the AppServer for this application.
+<dl class="simple">
+<dt><span class="docutils literal">AppServer</span>:</dt>
+<dd><p>The script to start up the AppServer for this application.
 Each application will have its own AppServer, and its own process.
-If you are running under Windows, you will see a <tt class="docutils literal">AppServer.bat</tt>
-instead and additionally, you will find a <tt class="docutils literal">AppServerService.py</tt>
-script that can be used to start the AppServer as a service.</dd>
-<dt><tt class="docutils literal">Cache</tt>:</dt>
-<dd>A directory containing cache files.  You won't need to look in here.</dd>
-<dt><tt class="docutils literal">Configs</tt>:</dt>
-<dd>Configuration files for the application.  These files are copied from
-<tt class="docutils literal">WebKit/Configs</tt>, but are specific to this application/AppServer.</dd>
-<dt><tt class="docutils literal">error404.html</tt>:</dt>
-<dd>The static HTML page to be displayed when a page is not found.  You can
+If you are running under Windows, you will see a <span class="docutils literal">AppServer.bat</span>
+instead and additionally, you will find a <span class="docutils literal">AppServerService.py</span>
+script that can be used to start the AppServer as a service.</p>
+</dd>
+<dt><span class="docutils literal">Cache</span>:</dt>
+<dd><p>A directory containing cache files.  You won't need to look in here.</p>
+</dd>
+<dt><span class="docutils literal">Configs</span>:</dt>
+<dd><p>Configuration files for the application.  These files are copied from
+<span class="docutils literal">WebKit/Configs</span>, but are specific to this application/AppServer.</p>
+</dd>
+<dt><span class="docutils literal">error404.html</span>:</dt>
+<dd><p>The static HTML page to be displayed when a page is not found.  You can
 remove this to display a standard error message, modify the page according
 to your preferences, or use a custom error servlet instead by setting
-<tt class="docutils literal">ErrorPage</tt> in the <tt class="docutils literal">Application.config</tt> file appropriately.</dd>
-<dt><tt class="docutils literal">ErrorMsgs</tt>:</dt>
-<dd>HTML pages for any errors that occur.  These can pile up and take up
+<span class="docutils literal">ErrorPage</span> in the <span class="docutils literal">Application.config</span> file appropriately.</p>
+</dd>
+<dt><span class="docutils literal">ErrorMsgs</span>:</dt>
+<dd><p>HTML pages for any errors that occur.  These can pile up and take up
 considerable size (even just during development), so you'll want to
-purge these every so often.</dd>
-<dt><tt class="docutils literal">Launch.py</tt>:</dt>
-<dd>Called by the <tt class="docutils literal">AppServer</tt> script to launch the AppServer.</dd>
-<dt><tt class="docutils literal">Lib</tt>:</dt>
-<dd>An example for an application-specific library package that can be
-created with the <tt class="docutils literal"><span class="pre">-l</span></tt> option (in this case, <tt class="docutils literal"><span class="pre">-l</span> Lib</tt>).  Import
-modules from this directory like <tt class="docutils literal">from Lib.SitePage import SitePage</tt>.</dd>
-<dt><tt class="docutils literal">Logs</tt>:</dt>
-<dd>Logs of accesses.</dd>
-<dt><tt class="docutils literal">MyContext</tt>:</dt>
-<dd>The directory for your default context.  This is where you put your servlets.
-you can change its name and location with the <tt class="docutils literal"><span class="pre">`-c</span></tt> and <tt class="docutils literal"><span class="pre">-d</span></tt> options.
-You can also change this subsequently in the <tt class="docutils literal">Application.config</tt> file
-in the <tt class="docutils literal">Configs</tt> directory, where you can also configure more than one
+purge these every so often.</p>
+</dd>
+<dt><span class="docutils literal">Launch.py</span>:</dt>
+<dd><p>Called by the <span class="docutils literal">AppServer</span> script to launch the AppServer.</p>
+</dd>
+<dt><span class="docutils literal">Lib</span>:</dt>
+<dd><p>An example for an application-specific library package that can be
+created with the <span class="docutils literal"><span class="pre">-l</span></span> option (in this case, <span class="docutils literal"><span class="pre">-l</span> Lib</span>).  Import
+modules from this directory like <span class="docutils literal">from Lib.SitePage import SitePage</span>.</p>
+</dd>
+<dt><span class="docutils literal">Logs</span>:</dt>
+<dd><p>Logs of accesses.</p>
+</dd>
+<dt><span class="docutils literal">MyContext</span>:</dt>
+<dd><p>The directory for your default context.  This is where you put your servlets.
+you can change its name and location with the <span class="docutils literal"><span class="pre">`-c</span></span> and <span class="docutils literal"><span class="pre">-d</span></span> options.
+You can also change this subsequently in the <span class="docutils literal">Application.config</span> file
+in the <span class="docutils literal">Configs</span> directory, where you can also configure more than one
 context.  You may also want to remove the other standard contexts that come
-with Webware from the config file.</dd>
-<dt><tt class="docutils literal">Sessions</tt>:</dt>
-<dd>Users sessions.  These should be cleaned out automatically, you won't
-have to look in this directory.</dd>
-<dt><tt class="docutils literal">WebKit.cgi</tt>:</dt>
-<dd>A CGI script/adapter for accessing the AppServer here.  You can still use
+with Webware from the config file.</p>
+</dd>
+<dt><span class="docutils literal">Sessions</span>:</dt>
+<dd><p>Users sessions.  These should be cleaned out automatically, you won't
+have to look in this directory.</p>
+</dd>
+<dt><span class="docutils literal">WebKit.cgi</span>:</dt>
+<dd><p>A CGI script/adapter for accessing the AppServer here.  You can still use
 the other adapters, but most of them don't need to be configured for the
-individual applications.  I still recommend <tt class="docutils literal">mod_webkit</tt> or <tt class="docutils literal">wkcgi</tt>.</dd>
-<dt><tt class="docutils literal">webkit*</tt>:</dt>
-<dd>If you are running under Unix, you can use this as a start script
-(see <a class="reference internal" href="#webkit-init-script">webkit init script</a>).</dd>
+individual applications.  I still recommend <span class="docutils literal">mod_webkit</span> or <span class="docutils literal">wkcgi</span>.</p>
+</dd>
+<dt><span class="docutils literal">webkit*</span>:</dt>
+<dd><p>If you are running under Unix, you can use this as a start script
+(see <a class="reference internal" href="#webkit-init-script">webkit init script</a>).</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -829,8 +804,8 @@ back to the adapter.</p>
 <p>The recommended method of stopping the AppServer is through the
 Application Control interface.  This is a servlet located in the Admin
 context.  A username and password are required -- the username is
-always <tt class="docutils literal">admin</tt>, and the password is set when you run <tt class="docutils literal">install.py</tt>.
-(You can change the password through the <tt class="docutils literal">WebKit/Configs/Application.config</tt>
+always <span class="docutils literal">admin</span>, and the password is set when you run <span class="docutils literal">install.py</span>.
+(You can change the password through the <span class="docutils literal">WebKit/Configs/Application.config</span>
 file).  This shutdown method is safer than doing a Control-C from a terminal,
 as described below.</p>
 <p>On all OSs, stopping the app server may also be accomplished by simply
@@ -839,14 +814,14 @@ server is designed to intercept this interruption and shut down as
 gracefully as possible.  This includes saving session data to disk, if
 necessary.</p>
 <p>On Unix, a running appserver may be stopped from a terminal by typing
-<tt class="docutils literal">./AppServer stop</tt>.</p>
+<span class="docutils literal">./AppServer stop</span>.</p>
 <p>On Windows Control-C normally shuts the app server down <em>gracefully</em>,
 where as Control-Break does not.  Keep that in mind and use Control-C,
 unless the server is unresponsive to it.</p>
 <p>On Unix if you don't have access to the terminal window of the app
 server (perhaps because you used rlogin, telnet or ssh to remotely
 access the machine), and &quot;AppServer stop&quot; doesn't work, you can use
-<tt class="docutils literal">ps <span class="pre">-ax</span> | grep ThreadedAppServer</tt> to get the pid and <tt class="docutils literal">kill &lt;pid&gt;</tt> to
+<span class="docutils literal">ps <span class="pre">-ax</span> | grep ThreadedAppServer</span> to get the pid and <span class="docutils literal">kill &lt;pid&gt;</span> to
 effect a Control-C.</p>
 </div>
 <div class="section" id="reloading-servlets">
@@ -857,19 +832,17 @@ will detect a change in the timestamp of a servlet's source file and
 automatically reload it for you.</p>
 <p>However, reloading fails in two areas.  The first is that WebKit
 doesn't check ancestor classes of servlets for modifications.
-So if you modify an abstract class (for example, <tt class="docutils literal">SitePage</tt>,
-<tt class="docutils literal">AccountPage</tt>, etc.), it won't be reloaded.  The second is that
+So if you modify an abstract class (for example, <span class="docutils literal">SitePage</span>,
+<span class="docutils literal">AccountPage</span>, etc.), it won't be reloaded.  The second is that
 WebKit can't check non-servlet classes.  So if you modify a utility
-class (for example, <tt class="docutils literal">ShoppingCart</tt>, <tt class="docutils literal">Story</tt>, etc.), it won't be
+class (for example, <span class="docutils literal">ShoppingCart</span>, <span class="docutils literal">Story</span>, etc.), it won't be
 reloaded.</p>
 <p>While developing this will happen quite often.  There is a setting in
-<tt class="docutils literal">WebKit/Configs/AppServer.config</tt> that you should turn on early in
+<span class="docutils literal">WebKit/Configs/AppServer.config</span> that you should turn on early in
 your experimentations.</p>
 <p>The line:</p>
-<pre class="literal-block">
-'AutoReload':      0,
-</pre>
-<p>in <tt class="docutils literal">AppServer.config</tt> controls a feature where the AppServer stops
+<pre class="literal-block">'AutoReload':      0,</pre>
+<p>in <span class="docutils literal">AppServer.config</span> controls a feature where the AppServer stops
 and restarts itself if any loaded modules have been changed.</p>
 <p>You can also deal with reloading problems by stopping the app server
 (Control-C in its terminal/command window) and restarting it.
@@ -882,19 +855,19 @@ definitions can still exist.  AutoReload is generally the best solution.</p>
 </div>
 <div class="section" id="launching-the-appserver-at-unix-boot-up">
 <span id="webkit-init-script"></span><h2>Launching the AppServer at Unix boot up</h2>
-<p>The script <tt class="docutils literal">WebKit/webkit</tt> is a Unix shell script launching WebKit
+<p>The script <span class="docutils literal">WebKit/webkit</span> is a Unix shell script launching WebKit
 at boot time through the standard System V mechanisms.</p>
 <p>There are several variants of this script for various flavors of Unix
-available in the folder <tt class="docutils literal">WebKit/StartScripts/SysV</tt>.  The <tt class="docutils literal">install.py</tt>
-script copies the variant that it thinks is the best fit to <tt class="docutils literal">WebKit/webkit</tt>.
+available in the folder <span class="docutils literal">WebKit/StartScripts/SysV</span>.  The <span class="docutils literal">install.py</span>
+script copies the variant that it thinks is the best fit to <span class="docutils literal">WebKit/webkit</span>.
 If the script does not fit to your system, you may want to try out other
-variants or the <tt class="docutils literal">Generic</tt> script that should fit on most systems.</p>
-<p>If you create a working directory using <tt class="docutils literal">bin/MakeAppWorkDir.py</tt> as
-explained above, the <tt class="docutils literal">webkit</tt> start script will also be copied to the
+variants or the <span class="docutils literal">Generic</span> script that should fit on most systems.</p>
+<p>If you create a working directory using <span class="docutils literal">bin/MakeAppWorkDir.py</span> as
+explained above, the <span class="docutils literal">webkit</span> start script will also be copied to the
 working directory.</p>
 <p>In order to start WebKit at boot time, copy this script to the system
-folder that is destined for start scripts, which is usually <tt class="docutils literal">/etc/init.d/</tt>
-(e.g. for SUSE or Debian Linux or Solaris) or <tt class="docutils literal">/etc/rc.d/init.d/</tt> (e.g. for
+folder that is destined for start scripts, which is usually <span class="docutils literal">/etc/init.d/</span>
+(e.g. for SUSE or Debian Linux or Solaris) or <span class="docutils literal">/etc/rc.d/init.d/</span> (e.g. for
 RedHat or Mandrake Linux).  Instead of copying the script, you can also make
 a symbolic link referring to the script located in your working directory.
 If you do this, the script will be able to determine the location of the
@@ -905,8 +878,7 @@ location in the script itself.</p>
 <p>At the top of the start script, you will find a configuration section where
 you can change several variables that influence the start-up process.
 The main configuration parameters are the following:</p>
-<pre class="literal-block">
-WORK_DIR      the location of your working directory
+<pre class="literal-block">WORK_DIR      the location of your working directory
 
 LOG_FILE      the location of the log file which records the standard
               and error output of the application server
@@ -914,128 +886,109 @@ LOG_FILE      the location of the log file which records the standard
 PID_FILE      the location of the pid file which records the process id
               of the Python application server
 
-WEBWARE_USER  the user to run the application server
-</pre>
-<p>For security reasons, you shouldn't use <tt class="docutils literal">root</tt> as the Webware user, but
-a user with the least possible permissions, maybe even <tt class="docutils literal">nobody</tt>.
-By default, the start script uses the owner of the <tt class="docutils literal">AppServer</tt> script.</p>
+WEBWARE_USER  the user to run the application server</pre>
+<p>For security reasons, you shouldn't use <span class="docutils literal">root</span> as the Webware user, but
+a user with the least possible permissions, maybe even <span class="docutils literal">nobody</span>.
+By default, the start script uses the owner of the <span class="docutils literal">AppServer</span> script.</p>
 <p>For the log file and the pid file, you may either use the standard locations
-on your system, usually something like <tt class="docutils literal">/var/log/webkit.log</tt> and
-<tt class="docutils literal">/var/log/webkit.pid</tt> (use different names for different instances),
-or you may store them in the working directory and its <tt class="docutils literal">Logs</tt> subdirectory.
+on your system, usually something like <span class="docutils literal">/var/log/webkit.log</span> and
+<span class="docutils literal">/var/log/webkit.pid</span> (use different names for different instances),
+or you may store them in the working directory and its <span class="docutils literal">Logs</span> subdirectory.
 In the first case, the files should be written as the root user, because
 other users usually won't have writing permission for the standard locations.
 In the second case, the files should be written as the Webware user, so
-you won't need to be <tt class="docutils literal">root</tt> to restart the application server.
-Therefore, the configuration section has another variable <tt class="docutils literal">LAUNCH_AS_WEBWARE</tt>
-that determines whether Webware will launch as <tt class="docutils literal">root</tt> and then
+you won't need to be <span class="docutils literal">root</span> to restart the application server.
+Therefore, the configuration section has another variable <span class="docutils literal">LAUNCH_AS_WEBWARE</span>
+that determines whether Webware will launch as <span class="docutils literal">root</span> and then
 (after writing the pid and log files) switch to the Webware user, or whether
 Webware will immediately launch and write both files as the Webware user.</p>
 <p>By default, the script will start as the Webware user and will write the files
-to the working directory, so you have to unset <tt class="docutils literal">LAUNCH_AS_WEBWARE</tt> if you
+to the working directory, so you have to unset <span class="docutils literal">LAUNCH_AS_WEBWARE</span> if you
 want to use the standard system locations for the files instead.</p>
 <p>Note that the application server maintains its own pid file, usually called
-<tt class="docutils literal">appserver.pid</tt>.  You should use a different pid file for the start script,
+<span class="docutils literal">appserver.pid</span>.  You should use a different pid file for the start script,
 although it actually records the same pid, i.e. the pid of Webware's Python
-application server, not the pid of the wrapper script <tt class="docutils literal">AppServer</tt> which is
+application server, not the pid of the wrapper script <span class="docutils literal">AppServer</span> which is
 responsible for the AutoReload mechanism.</p>
-<p>The start script also passes the variable <tt class="docutils literal">PYTHONOPTS</tt> to the <tt class="docutils literal">AppServer</tt>
-script.  You can add options <tt class="docutils literal"><span class="pre">-U</span></tt> for unbuffered output (to the log file)
-or <tt class="docutils literal"><span class="pre">-O</span></tt> if you want to use optimized Python files (i.e. <tt class="docutils literal">.pyo</tt> instead
-of <tt class="docutils literal">.pyc</tt>).  You can also add additional Python libraries with <tt class="docutils literal">PYTHONPATH</tt>.</p>
+<p>The start script also passes the variable <span class="docutils literal">PYTHONOPTS</span> to the <span class="docutils literal">AppServer</span>
+script.  You can add options <span class="docutils literal"><span class="pre">-U</span></span> for unbuffered output (to the log file)
+or <span class="docutils literal"><span class="pre">-O</span></span> if you want to use optimized Python files (i.e. <span class="docutils literal">.pyo</span> instead
+of <span class="docutils literal">.pyc</span>).  You can also add additional Python libraries with <span class="docutils literal">PYTHONPATH</span>.</p>
 </div>
 <div class="section" id="activating-the-start-script">
 <h3>Activating the start script</h3>
 <p>First try whether your start script works:</p>
-<pre class="literal-block">
-&gt; ./webkit start
-</pre>
+<pre class="literal-block">&gt; ./webkit start</pre>
 <p>The WebKit application server should now be launched and you should see
-it in the output of the <tt class="docutils literal">ps</tt> command.</p>
+it in the output of the <span class="docutils literal">ps</span> command.</p>
 <p>Also try to stop WebKit by typing:</p>
-<pre class="literal-block">
-&gt; ./webkit stop
-</pre>
+<pre class="literal-block">&gt; ./webkit stop</pre>
 <p>To activate the script for future boots, you still have to put symbolic links
 to the runlevel directories in which you want to launch WebKit.
 On some systems, you have to do this manually.  For example, if the start script
-is <tt class="docutils literal">/etc/init.d/webkit</tt>, you would create the symbolic links like that:</p>
-<pre class="literal-block">
-&gt; cd /etc/rc0.d
+is <span class="docutils literal">/etc/init.d/webkit</span>, you would create the symbolic links like that:</p>
+<pre class="literal-block">&gt; cd /etc/rc0.d
 &gt; ln -s ../init.d/webkit K75webkit
 (repeat for rc1.d and rc6.d)
 &gt; cd /etc/rc2.d
 &gt; ln -s ../init.d/webkit S25webkit
-(repeat for rc3.d, rc4.d, and rc5.d)
-</pre>
+(repeat for rc3.d, rc4.d, and rc5.d)</pre>
 <p>Some systems also provide a command line tool for this purpose, which will
 depend on the flavor of Unix you are using.  For instance, you will use
-<tt class="docutils literal">insserv</tt> on SUSE Linux, <tt class="docutils literal">chkconfig</tt> for RedHat (Fedora),
-<tt class="docutils literal"><span class="pre">update-rc.d</span></tt> for Debian (Ubuntu) or <tt class="docutils literal"><span class="pre">rc-update</span></tt> for Gentoo.</p>
+<span class="docutils literal">insserv</span> on SUSE Linux, <span class="docutils literal">chkconfig</span> for RedHat (Fedora),
+<span class="docutils literal"><span class="pre">update-rc.d</span></span> for Debian (Ubuntu) or <span class="docutils literal"><span class="pre">rc-update</span></span> for Gentoo.</p>
 <p>Take care to launch the script after your web server and database and other
 services you are using.  You can do this by using appropriate numbers for the
 symbolic links or setting approriate hints for the command line tools at
 the top of the script.</p>
-<p>See the corresponding <tt class="docutils literal">man</tt> pages or administrator handbook of your Unix
+<p>See the corresponding <span class="docutils literal">man</span> pages or administrator handbook of your Unix
 system for the details of installing start scripts.</p>
 </div>
 <div class="section" id="using-systemd-to-start-the-appserver">
 <h3>Using systemd to start the AppServer</h3>
 <p>Instead of using a System V start script, you can also use systemd to start
 the AppServer.  An example unit file can be found in the folder
-<tt class="docutils literal">WebKit/StartScripts/systemd</tt>.</p>
+<span class="docutils literal">WebKit/StartScripts/systemd</span>.</p>
 <p>In order to install the unit file, it usually suffices to copy it to
-<tt class="docutils literal">/etc/systemd/system</tt> and then run:</p>
-<pre class="literal-block">
-&gt; systemctl daemon-reload
-</pre>
+<span class="docutils literal">/etc/systemd/system</span> and then run:</p>
+<pre class="literal-block">&gt; systemctl daemon-reload</pre>
 <p>You need to configure it by editing the file, setting the WORK_DIR environment
-variable properly and changing the options <tt class="docutils literal"><span class="pre">-u</span></tt> and <tt class="docutils literal"><span class="pre">-g</span></tt> for the Launch.py
+variable properly and changing the options <span class="docutils literal"><span class="pre">-u</span></span> and <span class="docutils literal"><span class="pre">-g</span></span> for the Launch.py
 script to the user and group that shall run the AppServer on your system.
 After any change to the file, you need to run the above command again.</p>
 <p>In order to manually start the AppServer, you can run the following command:</p>
-<pre class="literal-block">
-&gt; systemctl start webkit.service
-</pre>
+<pre class="literal-block">&gt; systemctl start webkit.service</pre>
 </div>
 </div>
 <div class="section" id="running-threadedappserver-as-a-windows-nt-2k-xp-service">
 <h2>Running ThreadedAppServer as a Windows NT/2K/XP Service</h2>
-<p><tt class="docutils literal">AppServerService</tt> is a script that runs the <tt class="docutils literal">ThreadedAppServer</tt>
+<p><span class="docutils literal">AppServerService</span> is a script that runs the <span class="docutils literal">ThreadedAppServer</span>
 as a Windows NT Service.  This means it can be started and stopped
-from the Control Panel or from the command line using <tt class="docutils literal">net start</tt>
-and <tt class="docutils literal">net stop</tt>, and it can be configured in the Control Panel
+from the Control Panel or from the command line using <span class="docutils literal">net start</span>
+and <span class="docutils literal">net stop</span>, and it can be configured in the Control Panel
 to auto-start when the machine boots.  This is the preferred way
 to deploy WebKit on a Windows NT/2K/XP platform.</p>
-<p><tt class="docutils literal">AppServerService</tt> requires the Python <a class="reference external" href="http://www.python.org/windows/win32all/">win32all</a> extensions to
+<p><span class="docutils literal">AppServerService</span> requires the Python <a class="reference external" href="http://www.python.org/windows/win32all/">win32all</a> extensions to
 have been installed.</p>
 <p>To see the options for installing, removing, starting, and stopping
-the service, just run <tt class="docutils literal">AppServerService.py</tt> with no arguments.
+the service, just run <span class="docutils literal">AppServerService.py</span> with no arguments.
 Typical usage is to install the service to run under a particular
 user account and startup automatically on reboot with:</p>
-<pre class="literal-block">
-&gt; python AppServerService.py ^
+<pre class="literal-block">&gt; python AppServerService.py ^
   --username mydomain\myusername ^
-  --password mypassword --startup auto install
-</pre>
+  --password mypassword --startup auto install</pre>
 <p>(Note: The caret (^) is the line continuation character under Windows.)</p>
 <p>Then, you can start the service from the Services applet in the
 Control Panel, where it will be listed as &quot;WebKit Application Server&quot;.
 Or, from the command line, it can be started with either of
 the following commands:</p>
-<pre class="literal-block">
-&gt; net start WebKit
-&gt; python AppServerService.py start
-</pre>
+<pre class="literal-block">&gt; net start WebKit
+&gt; python AppServerService.py start</pre>
 <p>The service can be stopped from the Control Panel or with:</p>
-<pre class="literal-block">
-&gt; net stop WebKit
-&gt; python AppServerService.py stop
-</pre>
+<pre class="literal-block">&gt; net stop WebKit
+&gt; python AppServerService.py stop</pre>
 <p>And finally, to uninstall the service, stop it and then run:</p>
-<pre class="literal-block">
-&gt; python AppServerService.py remove
-</pre>
+<pre class="literal-block">&gt; python AppServerService.py remove</pre>
 </div>
 <div class="section" id="other-notes">
 <h2>Other Notes</h2>
@@ -1051,11 +1004,13 @@ the following commands:</p>
 in your browser that says &quot;bad marshal data&quot;.  This is always caused by
 pointing the web browser to the app server:</p>
 <blockquote>
-<a class="reference external" href="http://localhost:8086/WebKit.cgi/">http://localhost:8086/WebKit.cgi/</a></blockquote>
+<p><a class="reference external" href="http://localhost:8086/WebKit.cgi/">http://localhost:8086/WebKit.cgi/</a></p>
+</blockquote>
 <p>But the app server hides behind a web server so the correct URL
 would be:</p>
 <blockquote>
-<a class="reference external" href="http://localhost/WebKit.cgi/">http://localhost/WebKit.cgi/</a></blockquote>
+<p><a class="reference external" href="http://localhost/WebKit.cgi/">http://localhost/WebKit.cgi/</a></p>
+</blockquote>
 <p>That requires that web server and app server are set up to talk to
 each other.  And that's what the <a class="reference internal" href="#adapters">Adapters</a> section is all about...</p>
 </div>

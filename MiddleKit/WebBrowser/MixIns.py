@@ -46,8 +46,7 @@ class ObjectStore(object):
         suffix = ('s', '')[len(objs) == 1]
         ht.append('<span class="TablePrefix">%i %s object%s</span>'
             % (len(objs), adjective, suffix))
-        ht.append('<table border="1" cellspacing="0" cellpadding="2"'
-            ' class="ObjectsTable">')
+        ht.append('<table class="ObjectsTable">')
         if objs:
             klass = objs[0].klass()
             ht.append(klass.htHeadingsRow())

@@ -12,7 +12,7 @@ class IncludeURLTest2(IncludeURLTest):
     def writeBody(self):
         self.writeln('<body style="margin:6pt;font-family:sans-serif">')
         self.writeln('<h2>%s</h2>' % self.__class__.__name__)
-        self.writeln('<h3>class = <tt>%s</tt>, module= <tt>%s</tt></h3>' %
+        self.writeln('<h3>class = <code>%s</code>, module= <code>%s</code></h3>' %
             (self.__class__.__name__, self.__module__))
         self.writeln('<p>%s</p>' %
             self.__class__.__doc__.replace('\n\n', '</p><p>'))

@@ -5,15 +5,15 @@
 <!-- contents -->
 
 
-<a name="Synopsis"></a><h2>Synopsis</h2>
+<a id="Synopsis"></a><h2>Synopsis</h2>
 
 <p>The CGI Wrapper is a CGI script used to execute other Python CGI scripts. The wrapper provides convenient access to form fields and headers, exception catching, and usage and performance logging. Hooks are provided for cookies and class-based CGI scripts.</p>
 
 
-<a name="Description"></a><h2>Description</h2>
+<a id="Description"></a><h2>Description</h2>
 
 
-<a name="Overview"></a><h3>Overview</h3>
+<a id="Overview"></a><h3>Overview</h3>
 
 <p>The CGI Wrapper is a single CGI script used to execute other Python CGI scripts. A typical URL for a site that uses the wrapper looks like this:</p>
 
@@ -35,11 +35,11 @@
 <p>You don't have to immediately write code to play with CGI Wrapper. There are several samples included. See <a href="#Running">Running and Testing</a> below.</p>
 
 
-<a name="Globals"></a><h3>Globals</h3>
+<a id="Globals"></a><h3>Globals</h3>
 
 <p>The globals set up by the wrapper for the target CGI script are:</p>
 
-<table align="center" cellspacing="0" cellpadding="4" border="1" width="80%">
+<table style="max-width:80%;border:1px dotted #C0C0C0">
 <tr><th>Global</th> <th>Type/Class</th> <th>Description</th> </tr>
 <tr>
   <td><code>headers</code> </td>
@@ -69,7 +69,7 @@
 </table>
 
 
-<a name="Errors"></a><h3>Errors / Uncaught Exceptions</h3>
+<a id="Errors"></a><h3>Errors / Uncaught Exceptions</h3>
 
 <p>One of the main benefits of the wrapper is the handling of uncaught exceptions raised by target CGI scripts. The typical behavior of the wrapper upon detecting an uncaught exception is:</p>
 
@@ -86,7 +86,7 @@
 <p>Error handling behavior can be configured as described in <a href="#Configuration">Configuration</a>.</p>
 
 
-<a name="Configuration"></a><h3>Configuration</h3>
+<a id="Configuration"></a><h3>Configuration</h3>
 
 <p>There are several configuration parameters through which you can alter how CGI Wrapper behaves. They are described below, including their default values:</p>
 
@@ -252,7 +252,7 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 }</pre>
 
 
-<a name="Running"></a><h3>Running and Testing</h3>
+<a id="Running"></a><h3>Running and Testing</h3>
 
 <p>Let's assume you have a web server running on a Unix box and a public HTML directory in your home directory. First, make a link from your public HTML directory to the source directory of the CGI Wrapper:</p>
 
@@ -271,21 +271,21 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 
 <p>The resulting page will look something like the following. (Note: Those links aren't real!)</p>
 
-<table cellspacing="0" cellpadding="4" border="1" align="center">
-<tr><th align="right">Size</th><th align="left">Script</th><th align="left">View</th></tr>
-<tr><td align="right">96</td><td><a href="Hello">Hello</a></td><td><a href="View?filename=Hello">view</a></td></tr>
-<tr><td align="right">167</td><td><a href="Time">Time</a></td><td><a href="View?filename=Time">view</a></td></tr>
-<tr><td align="right">210</td><td><a href="Error">Error</a></td><td><a href="View?filename=Error">view</a></td></tr>
-<tr><td align="right">565</td><td><a href="View">View</a></td><td><a href="View?filename=View">view</a></td></tr>
-<tr><td align="right">802</td><td><a href="Introspect">Introspect</a></td><td><a href="View?filename=Introspect">view</a></td></tr>
-<tr><td align="right">925</td><td><a href="Colors">Colors</a></td><td><a href="View?filename=Colors">view</a></td></tr>
-<tr><td align="right">1251</td><td><a href="Directory">Directory</a></td><td><a href="View?filename=Directory">view</a></td></tr>
+<table "border:1px dotted #C0C0C0">
+<tr><th class="right">Size</th><th class="right">Script</th><th class="right">View</th></tr>
+<tr><td class="right">96</td><td><a href="Hello">Hello</a></td><td><a href="View?filename=Hello">view</a></td></tr>
+<tr><td class="right">167</td><td><a href="Time">Time</a></td><td><a href="View?filename=Time">view</a></td></tr>
+<tr><td class="right">210</td><td><a href="Error">Error</a></td><td><a href="View?filename=Error">view</a></td></tr>
+<tr><td class="right">565</td><td><a href="View">View</a></td><td><a href="View?filename=View">view</a></td></tr>
+<tr><td class="right">802</td><td><a href="Introspect">Introspect</a></td><td><a href="View?filename=Introspect">view</a></td></tr>
+<tr><td class="right">925</td><td><a href="Colors">Colors</a></td><td><a href="View?filename=Colors">view</a></td></tr>
+<tr><td class="right">1251</td><td><a href="Directory">Directory</a></td><td><a href="View?filename=Directory">view</a></td></tr>
 </table>
 
 <p>The above instructions rely on your web server executing any files that end in <code>.cgi</code>. However, some servers require that executable scripts are also located in a special directory (such as <code>cgi-bin</code>) so you may need to take that into consideration when getting CGI Wrapper to work. Please consult your web server admin or your web server docs. You may also have to specify the exact location of the Python interpreter in the first line of the <code>server.cgi</code> script, particularly under Windows.</p>
 
 
-<a name="Administration"></a><h3>Administration</h3>
+<a id="Administration"></a><h3>Administration</h3>
 
 <p>CGI Wrapper comes with a script for administration purposes. You can access it by specifying the <code>_admin</code> script in the URL. You typically only have to remember <code>_admin</code> because it contains links to the other scripts.</p>
 
@@ -296,12 +296,12 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 <p>The administration scripts are good examples of class-based CGIs so you may wish to read through their code.</p>
 
 
-<a name="ScriptLog"></a><h3>Script Log</h3>
+<a id="ScriptLog"></a><h3>Script Log</h3>
 
 <p>The script log uses the comma-separated-value (CSV) format, which can be easily read by scripts, databases and spreadsheets. The file is located in the same directory as the CGI Wrapper. The columns are fairly self-explanatory especially once you look at actual file. The <a href="#Configuration">Configuration</a> section has more details under the ScriptLogColumns setting.</p>
 
 
-<a name="ClassBasedCGIs"></a><h3>Class-based CGIs</h3>
+<a id="ClassBasedCGIs"></a><h3>Class-based CGIs</h3>
 
 <p>As you write CGI scripts, and especially if they are for the same site, you may find that they have several things in common. For example, the generated pages may all have a common toolbar, heading and/or footing. You might also find that you display programmatically collected data in a similar fashion throughout your pages.</p>
 
@@ -322,26 +322,26 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 <p>On a final note, if you find that you're developing a sophisticated web-based application with accounts, sessions, persistence, etc. then you should consider using the <a href="../../WebKit/Docs/index.html">WebKit</a>, which is analogous to Apple's WebObjects and Sun's Java Servlets.</p>
 
 
-<a name="OtherFileTypes"></a><h3>Other File Types</h3>
+<a id="OtherFileTypes"></a><h3>Other File Types</h3>
 
 <p>CGI Wrapper assumes that a URL with no extension (such .html) is a Python script. However, if the URL does contain an extension, the wrapper simply passes it through via HTTP redirection (e.g., the <code>Location:</code> header).</p>
 
 <p>This becomes important when one of your CGI scripts writes a relative URL to a non-CGI resource. Such a relative URL ends up forcing <code>server.cgi</code> to come into play.</p>
 
 
-<a name="Cookies"></a><h3>Cookies</h3>
+<a id="Cookies"></a><h3>Cookies</h3>
 
 <p>Cookies are often an important part of web programming. CGI Wrapper does not provide explicit support for cookies, however, it provides an easily utilized hook for them.</p>
 
 <p>If upon completion, the target script has a <code>cookies</code> global variable, the CGI Wrapper will print it to stdout. This fits in nicely with the Cookie module written by Timothy O'Malley that is part of the standard library since Python 2.0. There is also a copy of this module in the WebUtils package of Webware for Python.</p>
 
 
-<a name="Subclassing"></a><h3>Subclassing CGI Wrapper</h3>
+<a id="Subclassing"></a><h3>Subclassing CGI Wrapper</h3>
 
 <p>This is just a note that CGI Wrapper is a class with well defined, broken-out methods. If it doesn't behave precisely as you need, you may very well be able to subclass it and override the appropriate methods. See the source which contains numerous doc strings and comments.</p>
 
 
-<a name="PrivateScripts"></a><h3>Private Scripts</h3>
+<a id="PrivateScripts"></a><h3>Private Scripts</h3>
 
 <p>Any script starting with an underscore ('_') is considered private to CGI Wrapper and is expected to be found in the CGI Wrapper's directory (as opposed to the directory named by the <code>ScriptsHomeDir</code> setting).</p>
 
@@ -352,7 +352,7 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 <p>A second script is <code>_dumpCSV</code> which dumps the contents of a CSV file (such as the script log or the error log).</p>
 
 
-<a name="Files"></a><h3>Files</h3>
+<a id="Files"></a><h3>Files</h3>
 
 <p><b>server.cgi</b> - Just a Python script with a generic name (that appears in URLs) that imports CGIWrapper.py. By keeping the CGIWrapper.py file separate we get byte code caching (CGIWrapper.pyc) and syntax highlighting when viewing or editing the script.</p>
 <p><b>CGIWrapper.py</b> - The main script that does the work.</p>
@@ -363,7 +363,7 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 <p><b>_*.py</b> - Administration scripts for CGI Wrapper.</p>
 
 
-<a name="ReleaseNotes"></a><h2>Release Notes</h2>
+<a id="ReleaseNotes"></a><h2>Release Notes</h2>
 
 <ul>
 <li><a href="RelNotes-0.2.html">Version 0.2</a></li>
@@ -374,7 +374,7 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 </ul>
 
 
-<a name="Limitations"></a><h2>Limitations/Future</h2>
+<a id="Limitations"></a><h2>Limitations/Future</h2>
 
 <p>Note: CGI scripts are fine for small features, but if you're developing a full blown web-based application then you typically want more support, persistence and classes. That's where other Webware components like WebKit and MiddleKit come into play.</p>
 
@@ -383,7 +383,7 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 <p>The following are in approximate order of the author's perceived priority, but the numbering is mostly for reference.</p>
 
 
-<a name="ToDo"></a><h3>To Do</h3>
+<a id="ToDo"></a><h3>To Do</h3>
 
 <ol>
   <li>Examples: Make a Cookie example. (In the meantime, just see the main doc string of Cookie.py in WebUtils.)</li>
@@ -404,7 +404,7 @@ A list of IP addresses or networks from which admin scripts can be accessed.
 </ol>
 
 
-<a name="Credit"></a><h2>Credit</h2>
+<a id="Credit"></a><h2>Credit</h2>
 
 <p>Author: Chuck Esterbrook</p>
 

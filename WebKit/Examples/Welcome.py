@@ -28,9 +28,9 @@ class Welcome(ExamplePage):
         of Webware for Python.</p>''' % locals())
         wr('<p>The location of the documentation on the server:</p>')
         wr('<ul>')
-        wr('<li>WebKit: <tt>%s</tt></li>'
+        wr('<li>WebKit: <code>%s</code></li>'
             % join(self.application().webKitPath(), 'Docs'))
-        wr('<li>Webware for Python: <tt>%s</tt></li>'
+        wr('<li>Webware for Python: <code>%s</code></li>'
             % join(self.application().webwarePath(), 'Docs'))
         wr('</ul>')
         req = self.request()
@@ -41,7 +41,7 @@ class Welcome(ExamplePage):
             and a servlet was not found to process it.
             Processing has been delegated to this servlet.</p>''')
             wr('<ul>')
-            wr('<li>serverSidePath: <tt>%s</tt></li>'
+            wr('<li>serverSidePath: <code>%s</code></li>'
                 % req.serverSidePath())
-            wr('<li> extraURLPath: <tt>%s</tt></li>' % extraURLPath)
+            wr('<li> extraURLPath: <code>%s</code></li>' % extraURLPath)
             wr('</ul>')

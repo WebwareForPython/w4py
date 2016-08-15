@@ -51,7 +51,7 @@ class Page(HTTPContent):
         return self.title()
 
     def htBodyArgs(self):
-        """The atrributes for the <body> element.
+        """The attributes for the <body> element.
 
         Returns the arguments used for the HTML <body> tag.
         Invoked by writeBody().
@@ -60,7 +60,7 @@ class Page(HTTPContent):
         this particular HTML feature, but for historical reasons this sets
         the page to black text on white.
         """
-        return 'text="black" bgcolor="white"'
+        return 'style="color:black;background-color:white"'
 
     def writeHTML(self):
         """Write all the HTML for the page.
@@ -87,11 +87,7 @@ class Page(HTTPContent):
 
         Invoked by `writeHTML` to write the ``<!DOCTYPE ...>`` tag.
 
-        By default this gives the HTML 4.01 Transitional DOCTYPE,
-        which is a good guess for what most people send.  Be
-        warned, though, that some browsers render HTML differently
-        based on the DOCTYPE (particular newer browsers, like
-        Mozilla, do this).
+        By default this gives the HTML 5 DOCTYPE.
 
         Subclasses may override to specify something else.
 
@@ -99,9 +95,7 @@ class Page(HTTPContent):
         DOCTYPE on the web, or visiting:
         http://www.htmlhelp.com/tools/validator/doctype.html
         """
-        self.writeln('<!DOCTYPE HTML PUBLIC'
-            ' "-//W3C//DTD HTML 4.01 Transitional//EN"'
-            ' "http://www.w3.org/TR/html4/loose.dtd">')
+        self.writeln('<!DOCTYPE html>')
 
     def writeHead(self):
         """Write the <head> element of the page.

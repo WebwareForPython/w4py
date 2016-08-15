@@ -55,7 +55,7 @@ JSP taglibs or XSLT.</li>
 
 <h2>Configuring KidKit</h2>
 
-<p>There are some configuration parameters in <tt>Application.config</tt>
+<p>There are some configuration parameters in <code>Application.config</code>
 which control the behavior of KidKit.</p>
 
 <ul>
@@ -69,7 +69,7 @@ The default output format for Kid. Some possible values are:
 If nothing is specified, 'default' is used.</li>
 <li><b>CacheKidTemplates</b><br>
 Set this to False if you do not want compiled Kid templates (i.e. the
-<tt>.py</tt> or <tt>.pyc</tt> files) to be cached on disk. Otherwise,
+<code>.py</code> or <code>.pyc</code> files) to be cached on disk. Otherwise,
 Kid templates will be cached (this is the default). Please note that if
 you set this to False, Webware still caches servlets in memory.
 Use the parameters <b>CacheServletClasses</b> and <b>CacheServletInstances</b>
@@ -77,14 +77,14 @@ to control this behavior (set them to False for debugging).
 </li>
 <li><b>UseKidKitCache</b><br>
 Set this to True if you want to use a separate KidKit file cache subdirectory
-<tt>Cache/KidKit</tt> to be used for storing the compiled Kid templates. The
+<code>Cache/KidKit</code> to be used for storing the compiled Kid templates. The
 following two options are only applicable if this is set to True. If this is
 set to False, Kid will cache the compiled modules along with the templates
 (this is the default).</li>
 <li><b>CacheKidSource</b><br>
 Set this to True if you want to store the source code of the compiled templates
-(i.e. the <tt>.py</tt> files) in the cache directory as well. Otherwise, only
-the compiled Python modules (i.e. the <tt>.pyc</tt> files) will be stored on disk
+(i.e. the <code>.py</code> files) in the cache directory as well. Otherwise, only
+the compiled Python modules (i.e. the <code>.pyc</code> files) will be stored on disk
 (this is the default).</li>
 <li><b>ClearKidCacheOnStart</b><br>
 Set this to True in order to clear the Kid cache on disk every time the
@@ -96,9 +96,9 @@ which can give a speedup when templates are called for the first time
 <h2>Writing Kid templates</h2>
 
 <p>In the simplest case, you can just take a Kid template file with the
-extension <tt>.kid</tt> and place it into a directory that is a valid Webware
+extension <code>.kid</code> and place it into a directory that is a valid Webware
 context. For instance, you will find the following file with the name
-<tt>Time2.kid</tt> in the <i>KidKit/Examples</i> context:</p>
+<code>Time2.kid</code> in the <i>KidKit/Examples</i> context:</p>
 
 <pre class="py">
 &lt;?xml version='1.0' encoding='utf-8'?&gt;
@@ -132,17 +132,17 @@ title = "A Kid Template"
 </pre>
 
 <p>You can address this template as any other page in Webware; you
-don't need to type in the <tt>.kid</tt> extension in the URL.</p>
+don't need to type in the <code>.kid</code> extension in the URL.</p>
 
 <p>KidKit automatically compiles the template to a Python module and
 creates a servlet class that will write the serialized template back
-as a response. As base servlet class <tt>WebKit.Page</tt> will be used,
-and the output will be written by replacing the method <tt>respond</tt>.
+as a response. As base servlet class <code>WebKit.Page</code> will be used,
+and the output will be written by replacing the method <code>respond</code>.
 You can configure this response &quot;hook&quot; by setting a variable
-named <tt>hook</tt> in the Kid template on the global level, i.e.
+named <code>hook</code> in the Kid template on the global level, i.e.
 before the root element is opened. For instance, if you want to have
-the Kid template replace the method <tt>writeContent</tt> of the servlet
-class <tt>KidExamplePage</tt>, you would add the following lines to the
+the Kid template replace the method <code>writeContent</code> of the servlet
+class <code>KidExamplePage</code>, you would add the following lines to the
 top of your Kid template:</p>
 
 <pre class="py">
@@ -154,9 +154,9 @@ hook = KidExamplePage.writeContent
 &lt;root&gt;...&lt;/root&gt;
 </pre>
 
-<p>Since the <tt>html</tt> tag has already been written when writeContent
-is called, you must use some other tag for the <tt>root</tt> element or
-add <tt>py:strip=""</tt> to the tag so that it will be stripped away.</p>
+<p>Since the <code>html</code> tag has already been written when writeContent
+is called, you must use some other tag for the <code>root</code> element or
+add <code>py:strip=""</code> to the tag so that it will be stripped away.</p>
 
 <p>Note that Python code that has been placed at the global level of the
 template will be executed only once when the template is loaded for the
@@ -166,10 +166,10 @@ Every time the servlet is instantiated, the &quot;hook&quot; method would
 serialize the template and write the result to the response.</p>
 
 <p>In order to get access to the servlet from code that has been placed
-at the local level of the Kid template, you can access the <tt>servlet</tt>
+at the local level of the Kid template, you can access the <code>servlet</code>
 variable which gives you full access to the servlet instance. From here,
 you can get all other information associated with the servlet. For instance,
-you can get the form fields as <tt>servlet.request().fields()</tt>.</p>
+you can get the form fields as <code>servlet.request().fields()</code>.</p>
 
 <p>Here is a simple example that reads the input from a form input field
 and writes it back on the screen as a greeting:</p>
@@ -212,10 +212,10 @@ Enter your name here: &lt;INPUT TYPE="text" NAME="name"&gt;
 </pre>
 
 <p>However, you can change the default output method with the
-<tt>KidOutputMethod</tt> parameter mentioned above, or you can change
+<code>KidOutputMethod</code> parameter mentioned above, or you can change
 the output method for an individual template by setting the variable
-<tt>output</tt> at the global level. For instance, you could add
-the following line as first line (before the <tt>html</tt> tag) to the
+<code>output</code> at the global level. For instance, you could add
+the following line as first line (before the <code>html</code> tag) to the
 Kid template above:</p>
 
 <pre class="py">

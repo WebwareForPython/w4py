@@ -12,19 +12,20 @@ def color(x,y):
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:py="http://purl.org/kid/ns#">
 <head>
-    <title py:content="title"/>
+<title py:content="title"/>
+<style type="text/css">
+body {color:black; background-color:white; }
+h1 { text-align: center; font-family: sans-serif; }
+table { margin: 1ex auto; empty-cells: show;
+border-collapse: separate; border-spacing: 1px; border-style: none; }
+table td { padding: 3px; }
+</style>
 </head>
-<body bgcolor="black" text="white">
-<table width="100%" height="100%">
-    <tr>
-        <td align="center" valign="middle">
-            <h1 py:content="title"/>
-            <table cellspacing="1" cellpadding="2">
-                <tr py:for="y  in range(-150, 150, 5)">
-                    <td py:for="x in range(-250, 100, 5)" bgcolor="${color(x,y)}"/>
-                </tr>
-            </table>
-        </td>
+<body>
+<h1 py:content="title"/>
+<table>
+    <tr py:for="y in range(-150, 150, 5)">
+        <td py:for="x in range(-250, 100, 5)" style="background-color:${color(x,y)}"/>
     </tr>
 </table>
 </body>

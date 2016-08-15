@@ -138,7 +138,7 @@ Webware calls the servlet like this:
   other than HTML.
 * ``writeDocType()`` would write something like
   ``<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">``
+  "http://www.w3.org/TR/html4/loose.dtd">`` or simply ``<!DOCTYPE html>``.
 * The <head> section of the page is written. ``title()`` gives the title, and
   you probably want to override it.
 * ``writeStyleSheet()`` is called, if you want to write that or anything else

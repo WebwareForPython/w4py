@@ -33,7 +33,7 @@ class SitePage(Page, Configurable):
 
     def writeBodyParts(self):
         wr = self.writeln
-        wr('<table border="0" cellpadding="2" cellspacing="0" width="100%">')
+        wr('<table style="width:100%">')
 
         wr('<tr><td colspan="2" class="TitleBar">')
         self.writeTitleBar()
@@ -44,11 +44,11 @@ class SitePage(Page, Configurable):
         wr('</td></tr>')
 
         wr('<tr>')
-        wr('<td valign="top" width="5%" class="SideBar">')
+        wr('<td style="vertical-align:top;width=5%" class="SideBar">')
         self.writeSideBar()
         wr('</td>')
 
-        wr('<td valign="top" width="95%" class="ContentWell">')
+        wr('<td style="vertical-align:top;width=95%" class="ContentWell">')
         self.writeContent()
         wr('</td>')
         wr('</tr>')

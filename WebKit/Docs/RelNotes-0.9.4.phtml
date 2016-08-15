@@ -2,11 +2,11 @@
 
 <p><% name %> version 0.9.4 released on 07/07/07</p>
 
-<a name="Introduction"></a><h2>Introduction</h2>
+<a id="Introduction"></a><h2>Introduction</h2>
 <p>This release contains a few improvements and fixes, and it adds some more
 configuration options.</p>
 
-<a name="NewFeatures"></a><h2>New Features</h2>
+<a id="NewFeatures"></a><h2>New Features</h2>
 <ul>
   <li>New <span class="filename">Application.config</span> settings
   <code>SessionCookiePath</code>, <code>SessionStoreDir</code>,
@@ -15,7 +15,7 @@ configuration options.</p>
   but also python-gamin.</li>
 </ul>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li>Assume root path as the servlet path if the URL has been completely
   rewritten by the web server.</li>
@@ -33,7 +33,7 @@ configuration options.</p>
   here is now much better.</li>
 </ul>
 
-<a name="Security"></a><h2>Security</h2>
+<a id="Security"></a><h2>Security</h2>
 <ul>
   <li>Implemented <code>HTTPRequest.isSecure()</code> method.</li>
   <li>Use secure session cookies for HTTPS connections. This is configurable
@@ -42,7 +42,7 @@ configuration options.</p>
   Adam Kerrison.)</li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
   <li>Deletion of cookies could lead to problems due to a wrong cookie path
   (report and fix by Adam Kerrison).</li>

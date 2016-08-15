@@ -2,11 +2,11 @@
 
 <p><% name %> version 1.0 released on 11/29/08</p>
 
-<a name="Introduction"></a><h2>Introduction</h2>
+<a id="Introduction"></a><h2>Introduction</h2>
 <p>This release contains a few improvements and bugfixes, and it allows better
 monitoring and handling of long-running threads in the ThreadedAppServer.</p>
 
-<a name="NewFeatures"></a><h2>New Features</h2>
+<a id="NewFeatures"></a><h2>New Features</h2>
 <ul>
   <li>Instead of using the standard WebKit adapter mod_webkit, you can also
   use any SCGI adapter such as mod_scgi (not part of Webware for Python).
@@ -27,7 +27,7 @@ monitoring and handling of long-running threads in the ThreadedAppServer.</p>
   <code>hostAndPort()</code> returning the respective URL parts.</li>
 </ul>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li>If an exception occurs within a Task scheduled by the Application
   task manager (obtained from <code>application.taskManager()</code>),
@@ -41,7 +41,7 @@ monitoring and handling of long-running threads in the ThreadedAppServer.</p>
   of using the deprecated MimeWriter module for Python 2.2 and higher.</li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
   <li>ThreadedAppServer could crash with socket error during nmap scan on
   NetBSD (reported by Patrick TJ McPhee), this should be fixed now.</li>

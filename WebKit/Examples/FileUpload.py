@@ -32,7 +32,7 @@ class FileUpload(ExamplePage):
 </form>''' % self.htmlEncode(self.__doc__)
         else:
             output = '''<h4>Here's the file you submitted:</h4>
-<table border cellspacing="0" cellpadding="6">
+<table>
 <tr><th>name</th><td><strong>%s</strong></td></tr>
 <tr><th>type</th><td>%s</td></tr>
 <tr><th>type_options</th><td>%s</td></tr>
@@ -40,7 +40,7 @@ class FileUpload(ExamplePage):
 <tr><th>disposition_options</th><td>%s</td></tr>
 <tr><th>headers</th><td>%s</td></tr>
 <tr><th>size</th><td>%s bytes</td></tr>
-<tr><th valign="top">contents</th>
+<tr><th style="vertical-align:top">contents</th>
 <td><pre style="font-size:small;margin:0pt">%s</pre></td></tr>
 </table>''' % (
                 f.filename, f.type, f.type_options,

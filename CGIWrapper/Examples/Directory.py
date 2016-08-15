@@ -8,7 +8,7 @@ print '''%s
         <title>Webware CGI Examples Directory</title>
     </head>
     <body>
-        <h1 align="center">Webware CGI Examples</h1>
+        <h1 style="text-align:center">Webware CGI Examples</h1>
 ''' % wrapper.docType()
 
 # Create a list of dictionaries, where each dictionary stores information about
@@ -21,11 +21,11 @@ scripts = sorted((dict(pathname=filename,
 
 
 print '''\
-        <table cellspacing="0" cellpadding="4" border="1" align="center">
+        <table style="margin-left:auto;margin-right:auto">
             <tr>
-                <th align="right">Size</th>
-                <th align="left">Script</th>
-                <th align="left">View</th>
+                <th style="text-align:right">Size</th>
+                <th style="text-align:right">Script</th>
+                <th style="text-align:right">View</th>
             </tr>'''
 
 for script in scripts:

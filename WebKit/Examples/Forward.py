@@ -8,5 +8,5 @@ class Forward(ExamplePage):
         resp = self.response()
         resp.write("<p>This is the Forward servlet speaking. I am now"
             " going to include the output of the <i>Welcome</i> servlet"
-            " via Application's <tt>includeURL()</tt> method:</p>")
+            " via Application's <code>includeURL()</code> method:</p>")
         trans.application().includeURL(trans, 'Welcome.py')

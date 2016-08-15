@@ -31,7 +31,7 @@ class ServletCache(AdminSecurity):
         if len(factories) > 1:
             factories.sort()
             wr('<h3>Servlet Factories:</h3>')
-            wr('<table cellspacing="2" cellpadding="2">')
+            wr('<table>')
             for factory in factories:
                 wr('<tr><td><a href="#%s">%s</a></td></tr>'
                     % ((factory.name(),)*2))
@@ -40,7 +40,7 @@ class ServletCache(AdminSecurity):
         wr('<form action="ServletCache" method="post">')
         for factory in factories:
             name = factory.name()
-            wr('<a name="%s"></a><h4>%s</h4>' % ((name,)*2))
+            wr('<a id="%s"></a><h4>%s</h4>' % ((name,)*2))
             if req.hasField('flush_' + name):
                 factory.flushCache()
                 wr('<p style="color:green">'
@@ -63,7 +63,7 @@ def htCache(factory):
         % (len(keys), factory.name()))
     wr('<p>Click any link to jump to the details for that path.</p>')
     wr('<h5>Filenames:</h5>')
-    wr('<table cellspacing="2" cellpadding="2" class="NiceTable">')
+    wr('<table class="NiceTable">')
     wr('<tr><th>File</th><th>Directory</th></tr>')
     paths = []
     for key in keys:
@@ -79,16 +79,16 @@ def htCache(factory):
             % (id(path['full']), path['base'], path['dir']))
     wr('</table>')
     wr('<h5>Full paths:</h5>')
-    wr('<table cellspacing="2" cellpadding="2" class="NiceTable">')
+    wr('<table class="NiceTable">')
     wr('<tr><th>Servlet path</th></tr>')
     for key in keys:
         wr('<tr><td><a href="#%s">%s</a></td></tr>' % (id(key), key))
     wr('</table>')
     wr('<h5>Details:</h5>')
-    wr('<table cellpadding="2" cellspacing="2" class="NiceTable">')
+    wr('<table class="NiceTable">')
     for path in paths:
         wr('<tr class="NoTable"><td colspan="2">'
-            '<a name="id%s"></a><strong>%s</strong> - %s</td></tr>'
+            '<a id="id%s"></a><strong>%s</strong> - %s</td></tr>'
             % (id(path['full']), path['base'], path['dir']))
         record = cache[path['full']].copy()
         record['path'] = path['full']

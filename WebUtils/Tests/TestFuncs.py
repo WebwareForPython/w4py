@@ -61,45 +61,45 @@ class TestFuncs(unittest.TestCase):
         f = Funcs.htmlForDict
         self.assertEqual(f(dict(foo='bar', answer=42)),
             '<table class="NiceTable">\n'
-            '<tr><th align="left">answer</th><td>42</td></tr>\n'
-            '<tr><th align="left">foo</th><td>bar</td></tr>\n'
+            '<tr><th style="text-align:left">answer</th><td>42</td></tr>\n'
+            '<tr><th style="text-align:left">foo</th><td>bar</td></tr>\n'
             '</table>')
         self.assertEqual(f(dict(foo='ba,zong', bar='ka;woom'),
                 addSpace=dict(foo=',', bar=';')),
             '<table class="NiceTable">\n'
-            '<tr><th align="left">bar</th><td>ka; woom</td></tr>\n'
-            '<tr><th align="left">foo</th><td>ba, zong</td></tr>\n'
+            '<tr><th style="text-align:left">bar</th><td>ka; woom</td></tr>\n'
+            '<tr><th style="text-align:left">foo</th><td>ba, zong</td></tr>\n'
             '</table>')
         self.assertEqual(f(dict(foo='barbarabarbarabarbarabarbara'),
                 maxValueLength=12),
             '<table class="NiceTable">\n'
-            '<tr><th align="left">foo</th><td>barbaraba...</td></tr>\n'
-            '</table>')
+            '<tr><th style="text-align:left">foo</th>'
+            '<td>barbaraba...</td></tr>\n</table>')
         self.assertEqual(f(dict(foo='zing', bar='zang'),
                 filterValueCallBack=lambda v, k, d:
                 'zung' if k == 'bar' else v),
             '<table class="NiceTable">\n'
-            '<tr><th align="left">bar</th><td>zung</td></tr>\n'
-            '<tr><th align="left">foo</th><td>zing</td></tr>\n'
+            '<tr><th style="text-align:left">bar</th><td>zung</td></tr>\n'
+            '<tr><th style="text-align:left">foo</th><td>zing</td></tr>\n'
             '</table>')
         self.assertEqual(f(dict(foo='bar'), topHeading='twinkle'),
             '<table class="NiceTable">\n'
             '<tr class="TopHeading"><th colspan="2">twinkle</th></tr>\n'
-            '<tr><th align="left">foo</th><td>bar</td></tr>\n'
+            '<tr><th style="text-align:left">foo</th><td>bar</td></tr>\n'
             '</table>')
         self.assertEqual(f(dict(foo='bar'), topHeading=('key', 'value')),
             '<table class="NiceTable">\n'
             '<tr class="TopHeading"><th>key</th><th>value</th></tr>\n'
-            '<tr><th align="left">foo</th><td>bar</td></tr>\n'
+            '<tr><th style="text-align:left">foo</th><td>bar</td></tr>\n'
             '</table>')
         self.assertEqual(f({'a & b': 'c & d'}),
             '<table class="NiceTable">\n'
-            '<tr><th align="left">a &amp; b</th><td>c &amp; d</td></tr>\n'
-            '</table>')
+            '<tr><th style="text-align:left">a &amp; b</th>'
+            '<td>c &amp; d</td></tr>\n</table>')
         self.assertEqual(f({'a & b': 'c &amp; d'}, isEncoded=True),
             '<table class="NiceTable">\n'
-            '<tr><th align="left">a &amp; b</th><td>c &amp; d</td></tr>\n'
-            '</table>')
+            '<tr><th style="text-align:left">a &amp; b</th>'
+            '<td>c &amp; d</td></tr>\n</table>')
 
     def testRequestURI(self):
         f = Funcs.requestURI

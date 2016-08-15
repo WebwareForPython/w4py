@@ -83,9 +83,7 @@ class ExceptionHandler(object):
     _addSpace = {'PATH': os.pathsep, 'CLASSPATH': os.pathsep,
         'HTTP_ACCEPT': ',', 'HTTP_ACCEPT_CHARSET': ',',
         'HTTP_ACCEPT_ENCODING': ',', 'HTTP_ACCEPT_LANGUAGE': ','}
-    _docType = ('<!DOCTYPE HTML PUBLIC'
-        ' "-//W3C//DTD HTML 4.01 Transitional//EN"'
-        ' "http://www.w3.org/TR/html4/loose.dtd">')
+    _docType = '<!DOCTYPE html>'
 
 
     ## Init ##
@@ -227,8 +225,9 @@ class ExceptionHandler(object):
         Returns a brief error page telling the user that an error has occurred.
         Body of the message comes from ``UserErrorMessage`` setting.
         """
-        return '\n'.join((docType(), '<html>', '<head>', '<title>Error</title>',
-            htStyle(), '</head>', '<body text="black" bgcolor="white">',
+        return '\n'.join((docType(), '<html>', '<head>',
+            '<title>Error</title>', htStyle(), '</head>',
+            '<body style="color:black;background-color:white">',
             htTitle('Error'), '<p>%s</p>' % self.setting('UserErrorMessage'),
             '</body>', '</html>\n'))
 
@@ -240,12 +239,11 @@ class ExceptionHandler(object):
 
         Most of the contents are generated in `htmlDebugInfo`.
         """
-        html = [docType(), '<html>', '<head>', '<title>Error</title>',
-            htStyle(), '</head>', '<body text="black" bgcolor="white">',
-            htTitle('Error'), '<p>%s</p>' % self.setting('UserErrorMessage')]
-        html.append(self.htmlDebugInfo())
-        html.extend(['</body>', '</html>\n'])
-        return '\n'.join(html)
+        return '\n'.join((docType(), '<html>', '<head>',
+            '<title>Error</title>', htStyle(), '</head>',
+            '<body style="color:black;background-color:white">',
+            htTitle('Error'), '<p>%s</p>' % self.setting('UserErrorMessage'),
+            self.htmlDebugInfo(), '</body>', '</html>\n'))
 
     def htmlDebugInfo(self):
         """Return the debug info.
@@ -635,9 +633,7 @@ class ExceptionHandler(object):
 
 def docType():
     """Return the document type for the page."""
-    return ('<!DOCTYPE HTML PUBLIC'
-        ' "-//W3C//DTD HTML 4.01 Transitional//EN"'
-        ' "http://www.w3.org/TR/html4/loose.dtd">')
+    return '<!DOCTYPE html>'
 
 
 def htStyle():

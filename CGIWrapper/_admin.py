@@ -15,7 +15,7 @@ class Page(AdminPage):
     def writeBody(self):
         curTime = time()
         self.writeln('''
-        <table align="center" cellspacing="2" cellpadding="2" border="0">
+        <table style="margin-left:auto;margin-right:auto">
             <tr><th>Version:</th><td>%s</td></tr>
             <tr><th>Local time:</th><td>%s</td></tr>
             <tr><th>Global time:</th><td>%s</td></tr>
@@ -44,12 +44,12 @@ end-parse
     def startMenu(self):
         self.write('''
         <div style="font-size:12pt;font-family:Arial,Helvetica,sans-serif">
-        <table align="center" border="0" cellspacing="2" cellpadding="2" bgcolor="#E8E8F0">
-            <tr bgcolor="#101040"><th align="center" style="color:white">Menu</th></tr>''')
+        <table style="margin-left:auto;margin-right:auto;background-color:#E8E8F0">
+            <tr style="background-color:#101040"><th style="text-align:center;color:white">Menu</th></tr>''')
 
     def menuItem(self, title, url):
         self.write('''
-            <tr><td align="center"><a href="%s">%s</a></td></tr>''' % (
+            <tr><td style="text-align:center"><a href="%s">%s</a></td></tr>''' % (
                 url, title))
 
     def endMenu(self):

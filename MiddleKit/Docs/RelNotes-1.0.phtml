@@ -2,7 +2,7 @@
 
 <p><% name %> version 1.0 released on 11/29/08</p>
 
-<a name="NewFeatures"></a><h2>New Features</h2>
+<a id="NewFeatures"></a><h2>New Features</h2>
 <ul>
   <li>Given an attribute of type list with the name "bars", MK will now
   not only generate a Python method <code>addToBars()</code> for adding
@@ -21,7 +21,7 @@
   default there will now be no autocommit any more.</li>
 </ul>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li>Added a lock for accessing the MiddleKit persistent store to avoid
   race conditions with multithreading (as suggested by Roger Haase).</li>
@@ -29,7 +29,7 @@
   lead to confusing error messages later (bug report #925481).</li>
 </ul>
 
-<a name="MinorChanges"></a><h2>Minor Changes</h2>
+<a id="MinorChanges"></a><h2>Minor Changes</h2>
 <ul>
   <li>The PostgreSQL SQL generator now generates DateTime attributes as
   timestamps <em>without</em> time zone. This is also the default in newer

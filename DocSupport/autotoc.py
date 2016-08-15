@@ -73,9 +73,9 @@ class ToC(object):
         level = 0
         for heading in headings[self._skip:]:
             depth = heading._depth
+            if not mindepth <= depth <= maxdepth:
+                continue
             if depth != curdepth:
-                if not mindepth <= depth <= maxdepth:
-                    continue
                 if depth > curdepth:
                     toc.append('\n<ul>')
                     level += 1
@@ -128,7 +128,7 @@ class AutoToC(object):
             '(?P<pattern><!-- contents'
             '(?P<args>\(.*?\))? -->)')
         self._heading_pattern = re.compile(
-            '(?P<pattern>(?:<a\s+name\s*=\s*["\'](?P<name>.*?)'
+            '(?P<pattern>(?:<a\s+id\s*=\s*["\'](?P<name>.*?)'
             '["\']\s*>\s*(?:</a>\s*)?)?<h(?P<depth>[1-6])(\s.*?)?>'
             '\s*(?P<title>.*?)\s*</h(?P=depth)>)', re.IGNORECASE)
 
@@ -207,7 +207,7 @@ class AutoToC(object):
                 last_pos = pos
                 pos += len(heading._pattern)
                 if heading._name_created:
-                    output.append('<a name="%s"></a>' % heading._name)
+                    output.append('<a id="%s"></a>' % heading._name)
                 output.append(input[last_pos:pos])
                 last_pos = pos
             output.append(input[last_pos:])

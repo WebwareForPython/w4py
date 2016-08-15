@@ -34,8 +34,7 @@ steps = map(lambda x: 255.0*x/(numSteps-1), range(numSteps))
 
 colorTable = [
     '<p>Click on one of the colors below to set the background color.</p>',
-    '<table cellpadding="4" cellspacing="4"'
-        ' style="margin-left:auto;margin-right:auto">']
+    '<table style="margin-left:auto;margin-right:auto">']
 for r in steps:
     for g in steps:
         colorTable.append('<tr>\n')
@@ -71,8 +70,7 @@ class Colors(ExamplePage):
             self._color = textcolor(r, g, b)
         except Exception:
             self._color = 'black'
-        return ('text="black" bgcolor="%s" style="background-color:%s"'
-            % ((self._bgcolor,)*2))
+        return 'style="color:black;background-color:%s"' % (self._bgcolor,)
 
     def writeContent(self):
         """Write the actual content of the page."""

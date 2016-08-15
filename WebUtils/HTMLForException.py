@@ -34,8 +34,7 @@ def HTMLForLines(lines, options=None):
         opt = HTMLForExceptionOptions
 
     # Create the HTML:
-    res = ['<table style="%s" width="100%%"'
-        ' cellpadding="2" cellspacing="2">\n' % opt['table'],
+    res = ['<table style="width:100%%;%s">\n' % opt['table'],
         '<tr><td><pre style="%s">\n' % opt['default']]
     for line in lines:
         match = fileRE.search(line)

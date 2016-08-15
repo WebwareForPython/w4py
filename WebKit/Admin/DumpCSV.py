@@ -27,7 +27,7 @@ class DumpCSV(AdminSecurity):
         table = DataTable(self._filename)
         plural = 's' if len(table) != 1 else ''
         self.writeln('<p>%d row%s</p>' % (len(table), plural))
-        self.writeln('<table class="NiceTable" cellpadding="2" cellspacing="2">')
+        self.writeln('<table class="NiceTable">')
         # Head row gets special formatting
         self._headings = map(lambda col: col.name().strip(), table.headings())
         self._numCols = len(self._headings)

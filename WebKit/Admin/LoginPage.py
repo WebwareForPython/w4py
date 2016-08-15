@@ -17,15 +17,15 @@ class LoginPage(AdminPage):
         if extra:
             self.writeln('<p style="color:#333399">%s</p>' % self.htmlEncode(extra))
         self.writeln('''<p>Please log in to view Administration Pages.
-The username is <tt>admin</tt>. The password has been set during installation and is
-stored in the <tt>Application.config</tt> file in the <tt>WebKit/Configs</tt> directory.</p>
+The username is <code>admin</code>. The password has been set during installation and is
+stored in the <code>Application.config</code> file in the <code>WebKit/Configs</code> directory.</p>
 <form method="post">
-<table cellpadding="4" cellspacing="4" style="background-color:#CCCCEE;border:1px solid #3333CC;width:20em">
-<tr><td align="right"><label for="username">Username:</label></td>
+<table style="background-color:#CCCCEE;border:1px solid #3333CC;width:20em">
+<tr><td style="text-align:right"><label for="username">Username:</label></td>
 <td><input type="text" id="username" name="username" value="admin"></td></tr>
-<tr><td align="right"><label for="password">Password:</label></td>
+<tr><td style="text-align:right"><label for="password">Password:</label></td>
 <td><input type="password" id="password" name="password" value=""></td></tr>
-<tr><td colspan="2" align="right"><input type="submit" name="login" value="Login"></td></tr>
+<tr><td colspan="2" style="text-align:right"><input type="submit" name="login" value="Login"></td></tr>
 </table>''')
         for name, value in self.request().fields().items():
             if name.lower() not in ('username', 'password', 'login', 'logout', 'loginid'):

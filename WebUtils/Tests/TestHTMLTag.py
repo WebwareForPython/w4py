@@ -16,7 +16,7 @@ class HTMLTagTest(unittest.TestCase):
 <head>
     <title>Example</title>
 </head>
-<body color="white" bgcolor="#000000">
+<body lang="en">
     <p>What's up, <i>doc</i>?</p>
     <hr>
     <table id="dataTable">
@@ -78,7 +78,7 @@ class HTMLTagTest(unittest.TestCase):
     def checkMatchingAttr(self):
         html = HTMLReader().readString(self._html)
         self.assertEqual(
-            html.tagWithMatchingAttr('color', 'white').name(), 'body')
+            html.tagWithMatchingAttr('lang', 'en').name(), 'body')
         self.assertEqual(
             html.tagWithMatchingAttr('id', 'dataTable').name(), 'table')
         self.assertEqual(html.tagWithId('dataTable').name(), 'table')

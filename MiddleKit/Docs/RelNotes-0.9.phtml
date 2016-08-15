@@ -2,7 +2,7 @@
 
 <p><% name %> version 0.9 released on 11/13/05</p>
 
-<a name="Incompatible"></a><h2>Incompatible Changes</h2>
+<a id="Incompatible"></a><h2>Incompatible Changes</h2>
 
 <p><span class="warning">There are some MiddleKit improvements that break
 compatibility with previous versions of MiddleKit, although all are easy
@@ -107,7 +107,7 @@ called "AllowRefreshOfChangedObject" has been added. This setting defaults
 to false (strongly recommended), but for existing applications you may
 set it to true to avoid ever getting an assertion failure.</p>
 
-<a name="NewFeatures"></a><h2>New Features</h2>
+<a id="NewFeatures"></a><h2>New Features</h2>
 
 <ul>
   <li>MiddleKit now includes full support for PostgreSQL
@@ -147,7 +147,7 @@ set it to true to avoid ever getting an assertion failure.</p>
   (<a href="UsersGuide.html#Configuration_AccessorStyle">docs</a>).</li>
 </ul>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li><b>Generate.py</b> does a better job of detecting errors in the class
   definitions and sample values than before. You are more likely to see
@@ -176,7 +176,7 @@ set it to true to avoid ever getting an assertion failure.</p>
   of numbered serially (1, 2, 3, ...)
   (<a href="UsersGuide.html#Configuration_UseHashForClassIds">docs</a>).</li>
   <li>There are good instructions on how to run the test suite in
-  <span class="filename">MiddleKit/Tests/ReadMe.text</span>.</li>
+  <span class="filename">MiddleKit/Tests/README</span>.</li>
   <li>MiddleObject.isDeleted() returns true for objects that have been marked
   for deletion. You cannot refresh such an object from the database.</li>
   <li>MiddleKit is now compatible with the new Decimal type in Python 2.4
@@ -185,7 +185,7 @@ set it to true to avoid ever getting an assertion failure.</p>
   to create Decimals.</li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 
 <ul>
   <li>The default for the <b>UsePickledClassesCache</b> setting is now false.

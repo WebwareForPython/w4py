@@ -2,12 +2,14 @@
 '''td.methodName {
   font-size: 90%;
   vertical-align: top;
+  white-space: nowrap;
 }
 td.methodDoc {
 }
 td.item {
   font-weight: bolder;
   vertical-align: top;
+  white-space: nowrap;
 }
 td.description {
 }
@@ -22,7 +24,7 @@ span.bigPoint {
 <!-- contents -->
 
 
-<a name="AboutMidTier"></a><h2>About the Middle Tier</h2>
+<a id="AboutMidTier"></a><h2>About the Middle Tier</h2>
 
 <p>In the world of application development, separating your software into modular components can be useful for:</p>
 
@@ -65,7 +67,7 @@ span.bigPoint {
 <p>Note that other types of applications can be constructed using the middle tier. For example, in addition to a web interface, a monitoring program could be created to analyze data and send e-mail alerts to the appropriate users. A reporting application could be created to periodically generate static "for-the-record" HTML reports which are then stored in a known location.</p>
 
 
-<a name="AboutMK"></a><h2>About MiddleKit</h2>
+<a id="AboutMK"></a><h2>About MiddleKit</h2>
 
 <p>MiddleKit is a Webware component designed to encourage the use of and ease development of the middle tier. It provides:</p>
 
@@ -80,7 +82,7 @@ span.bigPoint {
 <p>Or read the Quick Start Guide first if you like and come back here to clean your hands off. Be especially sure to revisit this introduction if at the end of the Quick Start you're wondering "what's the point?"</p>
 
 
-<a name="AMK_Designing"></a><h3>Designing Your Objects</h3>
+<a id="AMK_Designing"></a><h3>Designing Your Objects</h3>
 
 <p>The "methodology" is really quite simple and consists of creating a data-centric object model in a spreadsheet. <em>Data-centric</em> means that the model is more concerned with data attributes rather than methods. <em>Object model</em> simply means a list of the Python classes, who they inherit from, and their attributes.</p>
 
@@ -101,7 +103,7 @@ span.bigPoint {
 <p>And <em>you</em> can use the object model to stay in tune with what information is being tracked in your application. You may even find it useful to bring the object model to meetings with end users, either for your reference or their direct inspection.</p>
 
 
-<a name="AMK_Python"></a><h3>Providing Python Classes</h3>
+<a id="AMK_Python"></a><h3>Providing Python Classes</h3>
 
 <p>MiddleKit uses the object model to provide Python classes to help bootstrap your project. There are actually two classes: a stub for your home grown code and a generated class for MiddleKit's generated code. For example, the Account class in the object model will produce an Account.py for your editing pleasure which inherits from GenAccount.py, which will get regenerated every time you change your model (which will be plenty).</p>
 
@@ -111,28 +113,28 @@ span.bigPoint {
 
 <p>All of these classes ultimately inherit from MiddleObject which provides some useful methods such as:</p>
 
-<table align="center" border="0" cellpadding="2" cellspacing="2" width="80%">
-  <tr><td class="methodName" nowrap>isChanged()</td><td class="methodDoc">Whether or not the object has been changed since the last time in-memory changes were saved to the persistent store.</td></tr>
-  <tr><td class="methodName" nowrap>store()</td><td class="methodDoc">Returns a reference to the object store the object belongs to.</td></tr>
-  <tr><td class="methodName" nowrap>klass()</td><td class="methodDoc">Returns the MiddleKit class definition the object was created from.</td></tr>
-  <tr><td class="methodName" nowrap>dumpAttrs()</td><td class="methodDoc">Writes the attributes in a readable format for debugging purposes.</td></tr>
+<table style="width:80%">
+  <tr><td class="methodName">isChanged()</td><td class="methodDoc">Whether or not the object has been changed since the last time in-memory changes were saved to the persistent store.</td></tr>
+  <tr><td class="methodName">store()</td><td class="methodDoc">Returns a reference to the object store the object belongs to.</td></tr>
+  <tr><td class="methodName">klass()</td><td class="methodDoc">Returns the MiddleKit class definition the object was created from.</td></tr>
+  <tr><td class="methodName">dumpAttrs()</td><td class="methodDoc">Writes the attributes in a readable format for debugging purposes.</td></tr>
 </table>
 
 
-<a name="AMK_SQL"></a><h3>Persisting to a SQL DB</h3>
+<a id="AMK_SQL"></a><h3>Persisting to a SQL DB</h3>
 
 <p>From the object model, MiddleKit is able to provide an abstract interface for persistence and a concrete implementation of SQL DB persistence. Once your model is created, you get this practically for "free". In supporting SQL, MiddleKit does two things:</p>
 
-<table border="0" cellpadding="2" cellspacing="2">
-  <tr><td class="item" nowrap>At design time:</td>
+<table>
+  <tr><td class="item">At design time:</td>
   <td class="description">MiddleKit generates the SQL CREATE statements needed to store the objects you have described. (And also the SQL INSERT statements if you provided sample data in another CSV file.)</td></tr>
-  <tr><td class="item" nowrap>At run time:</td>
+  <tr><td class="item">At run time:</td>
   <td class="description">MiddleKit interacts with a live SQL database to insert, update and delete the SQL data corresponding to your objects. All on your behalf, largely behind the scenes.</td></tr>
 </table>
 
 <p>As a programmer using MiddleKit you will not need to know or understand SQL. Your responsibilities will be to:</p>
 
-<table border="0" cellpadding="2" cellspacing="2">
+<table>
   <tr><td class="item">Connect:</td>
   <td class="description">Provide the connection information needed by the MiddleKit object store to connect to the persistent store (typically a SQL database).</td></tr>
   <tr><td class="item">Access:</td>
@@ -150,7 +152,7 @@ span.bigPoint {
 <p>MiddleKit will also load sample middle object data from a spreadsheet that your provide. Again, if you change storage strategies, you will not need to update your sample data.</p>
 
 
-<a name="AMK_Interface"></a><h3>Providing a default interface</h3>
+<a id="AMK_Interface"></a><h3>Providing a default interface</h3>
 
 <p>MiddleKit provides a WebKit application, called the MKBrowser, that can browse any middle kit object store when provided the object model. The application accomplishes this by using MiddleKit to deal strictly with Python objects.</p>
 
@@ -159,7 +161,7 @@ span.bigPoint {
 <p>Currently MKBrowser only provides viewing, but a future version will also provide editing and searching.</p>
 
 
-<a name="Summary"></a><h2>Benefits of MiddleKit</h2>
+<a id="Summary"></a><h2>Benefits of MiddleKit</h2>
 
 <p>In summary, the benefits of using MiddleKit are:</p>
 
@@ -204,7 +206,7 @@ span.bigPoint {
 </ul>
 
 
-<a name="Next"></a><h2>What's Next?</h2>
+<a id="Next"></a><h2>What's Next?</h2>
 
 <p>Your next step is to read the <a href="QuickStart.html">Quick Start Guide</a> which shows step-by-step how to create and use an object model. You could even start building your custom application by following the guide as you read.</p>
 

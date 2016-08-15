@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.13: http://docutils.sourceforge.net/" />
 <title>WebKit User's Guide</title>
 <link rel="stylesheet" href="../../Docs/Doc.css" type="text/css" />
 </head>
@@ -11,46 +11,46 @@
 <h1 class="title">WebKit User's Guide</h1>
 
 <p>Webware for Python</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Version:</th><td class="field-body">X.Y</td>
-</tr>
-<tr class="field"><th class="field-name">Released:</th><td class="field-body">&#64;&#64;/&#64;&#64;/&#64;&#64;</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt>Version</dt>
+<dd><p>X.Y</p>
+</dd>
+<dt>Released</dt>
+<dd><p>&#64;&#64;/&#64;&#64;/&#64;&#64;</p>
+</dd>
+</dl>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#synopsis" id="id20">Synopsis</a></li>
-<li><a class="reference internal" href="#feedback" id="id21">Feedback</a></li>
-<li><a class="reference internal" href="#introduction" id="id22">Introduction</a><ul>
-<li><a class="reference internal" href="#overview" id="id23">Overview</a></li>
-<li><a class="reference internal" href="#compared-to-cgi-applications" id="id24">Compared to CGI applications</a></li>
-<li><a class="reference internal" href="#papers" id="id25">Papers</a></li>
+<li><p><a class="reference internal" href="#synopsis" id="id19">Synopsis</a></p></li>
+<li><p><a class="reference internal" href="#feedback" id="id20">Feedback</a></p></li>
+<li><p><a class="reference internal" href="#introduction" id="id21">Introduction</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id22">Overview</a></p></li>
+<li><p><a class="reference internal" href="#compared-to-cgi-applications" id="id23">Compared to CGI applications</a></p></li>
+<li><p><a class="reference internal" href="#papers" id="id24">Papers</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#errors-uncaught-exceptions" id="id26">Errors / Uncaught Exceptions</a></li>
-<li><a class="reference internal" href="#configuration" id="id27">Configuration</a></li>
-<li><a class="reference internal" href="#administration" id="id28">Administration</a></li>
-<li><a class="reference internal" href="#debugging" id="id29">Debugging</a><ul>
-<li><a class="reference internal" href="#print" id="id30">print</a></li>
-<li><a class="reference internal" href="#raising-exceptions" id="id31">Raising Exceptions</a></li>
-<li><a class="reference internal" href="#dumping-thread-stack-frames" id="id32">Dumping Thread Stack Frames</a></li>
-<li><a class="reference internal" href="#restarting-the-server" id="id33">Restarting the Server</a></li>
-<li><a class="reference internal" href="#assertions" id="id34">Assertions</a></li>
-<li><a class="reference internal" href="#using-wingide" id="id35">Using WingIDE</a></li>
-<li><a class="reference internal" href="#html-validation" id="id36">HTML Validation</a></li>
+<li><p><a class="reference internal" href="#errors-uncaught-exceptions" id="id25">Errors / Uncaught Exceptions</a></p></li>
+<li><p><a class="reference internal" href="#configuration" id="id26">Configuration</a></p></li>
+<li><p><a class="reference internal" href="#administration" id="id27">Administration</a></p></li>
+<li><p><a class="reference internal" href="#debugging" id="id28">Debugging</a></p>
+<ul>
+<li><p><a class="reference internal" href="#print" id="id29">print</a></p></li>
+<li><p><a class="reference internal" href="#raising-exceptions" id="id30">Raising Exceptions</a></p></li>
+<li><p><a class="reference internal" href="#dumping-thread-stack-frames" id="id31">Dumping Thread Stack Frames</a></p></li>
+<li><p><a class="reference internal" href="#restarting-the-server" id="id32">Restarting the Server</a></p></li>
+<li><p><a class="reference internal" href="#assertions" id="id33">Assertions</a></p></li>
+<li><p><a class="reference internal" href="#using-wingide" id="id34">Using WingIDE</a></p></li>
+<li><p><a class="reference internal" href="#html-validation" id="id35">HTML Validation</a></p></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#naming-conventions" id="id37">Naming Conventions</a></li>
-<li><a class="reference internal" href="#actions" id="id38">Actions</a></li>
-<li><a class="reference internal" href="#plug-ins" id="id39">Plug-ins</a></li>
-<li><a class="reference internal" href="#how-do-i-develop-an-app" id="id40">How do I develop an app?</a></li>
-<li><a class="reference internal" href="#known-bugs" id="id41">Known Bugs</a></li>
-<li><a class="reference internal" href="#credit" id="id42">Credit</a></li>
+<li><p><a class="reference internal" href="#naming-conventions" id="id36">Naming Conventions</a></p></li>
+<li><p><a class="reference internal" href="#actions" id="id37">Actions</a></p></li>
+<li><p><a class="reference internal" href="#plug-ins" id="id38">Plug-ins</a></p></li>
+<li><p><a class="reference internal" href="#how-do-i-develop-an-app" id="id39">How do I develop an app?</a></p></li>
+<li><p><a class="reference internal" href="#known-bugs" id="id40">Known Bugs</a></p></li>
+<li><p><a class="reference internal" href="#credit" id="id41">Credit</a></p></li>
 </ul>
 </div>
 <div class="section" id="synopsis">
@@ -91,22 +91,22 @@ including CGI, FastCGI and Apache mod. See the <a class="reference external" hre
 more information.</p>
 <p>At a more detailed level, the process looks like this:</p>
 <ul class="simple">
-<li>At some point, someone has configured and run both a web server
-(such as Apache) and the WebKit app server (WebKit/AppServer).</li>
-<li>A user requests a web page by typing a URL or submitting a form.</li>
-<li>The user's browser sends the request to the remote web server.</li>
-<li>The web server invokes the adapter.</li>
-<li>The adapter simply collects information about the request and sends
-it to the WebKit app server which is ready and waiting.</li>
-<li>The app server asks the Application object to dispatch the raw
-request.</li>
-<li>The application instantiates an HTTPRequest object and asks the
+<li><p>At some point, someone has configured and run both a web server
+(such as Apache) and the WebKit app server (WebKit/AppServer).</p></li>
+<li><p>A user requests a web page by typing a URL or submitting a form.</p></li>
+<li><p>The user's browser sends the request to the remote web server.</p></li>
+<li><p>The web server invokes the adapter.</p></li>
+<li><p>The adapter simply collects information about the request and sends
+it to the WebKit app server which is ready and waiting.</p></li>
+<li><p>The app server asks the Application object to dispatch the raw
+request.</p></li>
+<li><p>The application instantiates an HTTPRequest object and asks the
 appropriate Servlet (as determined by examining the URL) to process
-it.</li>
-<li>The servlet generates content into a given HTTPResponse object,
-whose content is then sent back by the app server to the adapter.</li>
-<li>The adapter sends the content through the web server and ultimately to
-the user's web browser.</li>
+it.</p></li>
+<li><p>The servlet generates content into a given HTTPResponse object,
+whose content is then sent back by the app server to the adapter.</p></li>
+<li><p>The adapter sends the content through the web server and ultimately to
+the user's web browser.</p></li>
 </ul>
 <p>For a more detailed guide, see <a class="reference external" href="http://colorstudy.com/software/webware/Anatomy.html">Anatomy of a Webware Transaction</a>.</p>
 </div>
@@ -139,18 +139,18 @@ Webware for Python&quot; that was presented by Chuck Esterbrook at the
 <p>One of the conveniences provided by WebKit is the handling of uncaught
 exceptions. The response to an uncaught exception is:</p>
 <ul class="simple">
-<li>Log the time, error, script name and traceback to AppServer's console.</li>
-<li>Display a web page containing an apologetic message to the user.</li>
-<li>Save a technical web page with debugging information so that
+<li><p>Log the time, error, script name and traceback to AppServer's console.</p></li>
+<li><p>Display a web page containing an apologetic message to the user.</p></li>
+<li><p>Save a technical web page with debugging information so that
 developers can look at it after-the-fact. These HTML-based error
-messages are stored one-per-file, if the <tt class="docutils literal">SaveErrorMessages</tt>
+messages are stored one-per-file, if the <span class="docutils literal">SaveErrorMessages</span>
 setting is true (the default). They are stored in the directory
-named by the <tt class="docutils literal">ErrorMessagesDir</tt> (defaults to <tt class="docutils literal">&quot;ErrorMsgs&quot;</tt>).</li>
-<li>Add an entry to the error log, found by default in
-<tt class="docutils literal">Logs/Errors.csv</tt></li>
-<li>E-mail the error message if the <tt class="docutils literal">EmailErrors</tt> setting is true,
-using the settings <tt class="docutils literal">ErrorEmailServer</tt> and
-<tt class="docutils literal">ErrorEmailHeaders</tt>. See <a class="reference external" href="Configuration.html#errors">Configuration</a> for more information.</li>
+named by the <span class="docutils literal">ErrorMessagesDir</span> (defaults to <span class="docutils literal">&quot;ErrorMsgs&quot;</span>).</p></li>
+<li><p>Add an entry to the error log, found by default in
+<span class="docutils literal">Logs/Errors.csv</span></p></li>
+<li><p>E-mail the error message if the <span class="docutils literal">EmailErrors</span> setting is true,
+using the settings <span class="docutils literal">ErrorEmailServer</span> and
+<span class="docutils literal">ErrorEmailHeaders</span>. See <a class="reference external" href="Configuration.html#errors">Configuration</a> for more information.</p></li>
 </ul>
 <p>Archived error messages can be browsed through the <a class="reference internal" href="#administration">administration</a> page.</p>
 <p>Error handling behavior can be configured as described in <a class="reference external" href="Configuration.html#errors">Configuration</a>.</p>
@@ -160,47 +160,43 @@ using the settings <tt class="docutils literal">ErrorEmailServer</tt> and
 <p>There are several configuration parameters through which you can alter
 how WebKit behaves. They are described below, including their default
 values. Note that you can override the defaults by placing config
-files in the <tt class="docutils literal">Configs/</tt> directory. A config file simply contains a
+files in the <span class="docutils literal">Configs/</span> directory. A config file simply contains a
 Python dictionary containing the items you wish to override. For
 example:</p>
-<pre class="literal-block">
-{
+<pre class="literal-block">{
     'SessionStore': 'Memory',
     'ShowDebugInfoOnErrors': 1
-}
-</pre>
+}</pre>
 <p>See the <a class="reference external" href="Configuration.html">Configuration Guide</a> for more information on settings.</p>
 </div>
 <div class="section" id="administration">
 <h1>Administration</h1>
 <p>WebKit has a built-in administration page that you can access via the
-<tt class="docutils literal">Admin</tt> context. You can see a list of all contexts in the sidebar
-of any <tt class="docutils literal">Example</tt> or <tt class="docutils literal">Admin</tt> page.</p>
+<span class="docutils literal">Admin</span> context. You can see a list of all contexts in the sidebar
+of any <span class="docutils literal">Example</span> or <span class="docutils literal">Admin</span> page.</p>
 <p>The admin pages allows you to view WebKit's configuration, logs, and
 servlet cache, and perform actions such as clearing the cache,
 reloading selected modules and shutting down the app server.</p>
 <p>More sensitive pages that give control over the app server require a
-user name and password, the username is <tt class="docutils literal">admin</tt>, and you'll set the
-password when you run <tt class="docutils literal">install.py</tt>. You can change the password in
-<tt class="docutils literal">WebKit/Configs/Application.config</tt>.</p>
+user name and password, the username is <span class="docutils literal">admin</span>, and you'll set the
+password when you run <span class="docutils literal">install.py</span>. You can change the password in
+<span class="docutils literal">WebKit/Configs/Application.config</span>.</p>
 <p>The adminstration scripts provide further examples of writing pages
 with WebKit, so you may wish to examine their source in
-<tt class="docutils literal">WebKit/Admin/</tt>.</p>
+<span class="docutils literal">WebKit/Admin/</span>.</p>
 </div>
 <div class="section" id="debugging">
 <h1>Debugging</h1>
 <div class="section" id="print">
 <h2>print</h2>
-<p>The most common technique is the infamous <tt class="docutils literal">print</tt> statement. The
-results of <tt class="docutils literal">print</tt> statements go to the console where the WebKit
+<p>The most common technique is the infamous <span class="docutils literal">print</span> statement. The
+results of <span class="docutils literal">print</span> statements go to the console where the WebKit
 application server was started (not to the HTML page as would happen
 with CGI). Prefixing the debugging output with a special tag (such as
 &gt;&gt;) is useful because it stands out on the console and you can search
 for the tag in source code to remove the print statements after they
 are no longer useful. For example:</p>
-<pre class="literal-block">
-print '&gt;&gt; fields =', self.request().fields()
-</pre>
+<pre class="literal-block">print '&gt;&gt; fields =', self.request().fields()</pre>
 </div>
 <div class="section" id="raising-exceptions">
 <h2>Raising Exceptions</h2>
@@ -212,19 +208,16 @@ page</a>.</p>
 <p>When an application isn't behaving correctly, raising an exception can
 be useful because of the additional information that comes with
 it. Exceptions can be coupled with messages, thereby turning them into
-more powerful versions of the <tt class="docutils literal">print</tt> statement. For example:</p>
-<pre class="literal-block">
-raise Exception('self = %s' % self)
-</pre>
+more powerful versions of the <span class="docutils literal">print</span> statement. For example:</p>
+<pre class="literal-block">raise Exception('self = %s' % self)</pre>
 </div>
 <div class="section" id="dumping-thread-stack-frames">
 <h2>Dumping Thread Stack Frames</h2>
-<p>If you are using Python 2.5 or newer, of if you have the <a class="reference external" href="http://www.majid.info/mylos/stories/2004/06/10/threadframe.html">threadframe</a>
-module installed, you can dump the stack frames of all running Webware
-application server threads to standard output by simply sending a <tt class="docutils literal">SIGQUIT</tt>
-or <tt class="docutils literal">SIGBREAK</tt> signal to the application server. On Windows, this can be
-achieved by pressing Ctrl-Break or Shift-Ctrl-Break, or by trying to close
-the console window.</p>
+<p>You can dump the stack frames of all running Webware application server
+threads to standard output by simply sending a <span class="docutils literal">SIGQUIT</span> or <span class="docutils literal">SIGBREAK</span>
+signal to the application server. On Windows, this can be achieved by
+pressing Ctrl-Break or Shift-Ctrl-Break, or by trying to close the console
+window.</p>
 </div>
 <div class="section" id="restarting-the-server">
 <h2>Restarting the Server</h2>
@@ -239,31 +232,24 @@ to clear the servlet instance and class cache.</p>
 <div class="section" id="assertions">
 <h2>Assertions</h2>
 <p>Assertions are used to ensure that the internal conditions of the
-application are as expected. An assertion is equivalent to an <tt class="docutils literal">if</tt>
+application are as expected. An assertion is equivalent to an <span class="docutils literal">if</span>
 statement coupled with an exception. For example:</p>
-<pre class="literal-block">
-assert shoppingCart.total()&gt;=0.0, \
-    'shopping cart total is %0.2f' % shoppingCart.total()
-</pre>
+<pre class="literal-block">assert shoppingCart.total()&gt;=0.0, \
+    'shopping cart total is %0.2f' % shoppingCart.total()</pre>
 </div>
 <div class="section" id="using-wingide">
 <h2>Using WingIDE</h2>
 <p>Here is what you need to do in order to debug a Webware web site
 using the <a class="reference external" href="http://wingware.com">WingIDE</a> development environment:</p>
 <ul>
-<li><p class="first">Use the <a class="reference external" href="InstallGuide.html#makeappworkdir">MakeAppWorkDir</a> script
-to make a local app work dir for your project.</p>
+<li><p>Use the <a class="reference external" href="InstallGuide.html#makeappworkdir">MakeAppWorkDir</a> script
+to make a local app work dir for your project.</p></li>
+<li><p>Create a run-debug.py script in the work directory with these contents:</p>
+<pre class="literal-block">import sys, Launch
+Launch.main([sys.argv[0]] + ['DebugAppServer'] + sys.argv[1:])</pre>
 </li>
-<li><p class="first">Create a run-debug.py script in the work directory with these contents:</p>
-<pre class="literal-block">
-import sys, Launch
-Launch.main([sys.argv[0]] + ['DebugAppServer'] + sys.argv[1:])
-</pre>
-</li>
-<li><p class="first">Add that file to the WingIDE project if you haven't already.</p>
-</li>
-<li><p class="first">Right-click and choose &quot;Set As Main Debug File&quot;.</p>
-</li>
+<li><p>Add that file to the WingIDE project if you haven't already.</p></li>
+<li><p>Right-click and choose &quot;Set As Main Debug File&quot;.</p></li>
 </ul>
 <p>Now you can run from WingIDE, set break points, examine the stack, use
 a Python prompt tied to any stack prompt, etc.</p>
@@ -274,14 +260,12 @@ be useful to debug a test or production server.</p>
 <h2>HTML Validation</h2>
 <p>You can validate the HTML in your pages using the <a class="reference external" href="http://www.htmlhelp.com/tools/validator/">Web Designer
 Group's HTML Validator</a>.  It is available as a <a class="reference external" href="http://www.htmlhelp.com/tools/validator/packages/">RPM package</a>, in
-Debian as <tt class="docutils literal"><span class="pre">wdg-html-validator</span></tt> and you can also install the <a class="reference external" href="http://www.htmlhelp.com/tools/validator/source.html">source</a>.</p>
-<p>To enable the validation, you have to override <tt class="docutils literal">.writeBodyParts()</tt>
-in your <tt class="docutils literal">SitePage</tt>, as:</p>
-<pre class="literal-block">
-def writeBodyParts(self):
+Debian as <span class="docutils literal"><span class="pre">wdg-html-validator</span></span> and you can also install the <a class="reference external" href="http://www.htmlhelp.com/tools/validator/source.html">source</a>.</p>
+<p>To enable the validation, you have to override <span class="docutils literal">.writeBodyParts()</span>
+in your <span class="docutils literal">SitePage</span>, as:</p>
+<pre class="literal-block">def writeBodyParts(self):
     Page.writeBodyParts()
-    self.validateHTML()
-</pre>
+    self.validateHTML()</pre>
 <p>If your pages contain invalid HTML, a message will be appended to the
 page.</p>
 </div>
@@ -289,7 +273,7 @@ page.</p>
 <div class="section" id="naming-conventions">
 <h1>Naming Conventions</h1>
 <p>Cookies and form values that are named with surrounding underscores
-(such as <tt class="docutils literal">_sid_</tt> and <tt class="docutils literal">_action_</tt>) are generally reserved by WebKit
+(such as <span class="docutils literal">_sid_</span> and <span class="docutils literal">_action_</span>) are generally reserved by WebKit
 and various plugins and extensions for their own internal purposes. If
 you refrain from using surrounding underscores in your own names, then
 [a] you won't accidentally clobber an already existing internal name
@@ -300,44 +284,37 @@ they won't break your application.</p>
 <h1>Actions</h1>
 <p>Suppose you have a web page with a form and one or more
 buttons. Normally, when the form is submitted, a method such as
-Servlet's <tt class="docutils literal">respondToPost()</tt> or Page's <tt class="docutils literal">writeBody()</tt>, will be
+Servlet's <span class="docutils literal">respondToPost()</span> or Page's <span class="docutils literal">writeBody()</span>, will be
 invoked. However, you may find it more useful to bind the button to a
-specific method of your servlet such as <tt class="docutils literal">new()</tt>, <tt class="docutils literal">remove()</tt>
-etc. to implement the command, and reserve <tt class="docutils literal">writeBody()</tt> for
+specific method of your servlet such as <span class="docutils literal">new()</span>, <span class="docutils literal">remove()</span>
+etc. to implement the command, and reserve <span class="docutils literal">writeBody()</span> for
 displaying the page and the form that invokes these methods.  Note
-that your &quot;command methods&quot; can then invoke <tt class="docutils literal">writeBody()</tt> after
+that your &quot;command methods&quot; can then invoke <span class="docutils literal">writeBody()</span> after
 performing their task.</p>
-<p>The <em>action</em> feature of <tt class="docutils literal">Page</tt> let's you do this. The process goes
+<p>The <em>action</em> feature of <span class="docutils literal">Page</span> let's you do this. The process goes
 like this:</p>
 <ol class="arabic">
-<li><p class="first">Add buttons to your HTML form of type <tt class="docutils literal">submit</tt> and name
-<tt class="docutils literal">_action_</tt>. For example:</p>
-<pre class="literal-block">
-&lt;input name=&quot;_action_&quot; type=&quot;submit&quot; value=&quot;New&quot;&gt;
-&lt;input name=&quot;_action_&quot; type=&quot;submit&quot; value=&quot;Delete&quot;&gt;
-</pre>
+<li><p>Add buttons to your HTML form of type <span class="docutils literal">submit</span> and name
+<span class="docutils literal">_action_</span>. For example:</p>
+<pre class="literal-block">&lt;input name=&quot;_action_&quot; type=&quot;submit&quot; value=&quot;New&quot;&gt;
+&lt;input name=&quot;_action_&quot; type=&quot;submit&quot; value=&quot;Delete&quot;&gt;</pre>
 </li>
-<li><p class="first">Alternately, name the submit button <tt class="docutils literal">_action_methodName</tt>.  For
+<li><p>Alternately, name the submit button <span class="docutils literal">_action_methodName</span>.  For
 example:</p>
-<pre class="literal-block">
-&lt;input name=&quot;_action_New&quot; type=&quot;submit&quot; value=&quot;Create New Item&quot;&gt;
-</pre>
+<pre class="literal-block">&lt;input name=&quot;_action_New&quot; type=&quot;submit&quot; value=&quot;Create New Item&quot;&gt;</pre>
 </li>
-<li><p class="first">Add an <tt class="docutils literal">actions()</tt> method to your class to state which actions
+<li><p>Add an <span class="docutils literal">actions()</span> method to your class to state which actions
 are valid.  (If WebKit didn't force you to do this, someone could
 potentially submit data that would cause any method of your servlet
 to be run).  For example:</p>
-<pre class="literal-block">
-def actions(self):
-    return SuperClass.actions(self) + ['New', 'Delete']
-</pre>
+<pre class="literal-block">def actions(self):
+    return SuperClass.actions(self) + ['New', 'Delete']</pre>
 </li>
-<li><p class="first">Now you implement your action methods.</p>
-</li>
+<li><p>Now you implement your action methods.</p></li>
 </ol>
-<p>The <tt class="docutils literal">ListBox</tt> example shows the use of actions (in
-<tt class="docutils literal">WebKit/Examples/ListBox.py</tt>).</p>
-<p>Note that if you procede as in 1., you can add a <tt class="docutils literal">methodNameForAction()</tt>
+<p>The <span class="docutils literal">ListBox</span> example shows the use of actions (in
+<span class="docutils literal">WebKit/Examples/ListBox.py</span>).</p>
+<p>Note that if you procede as in 1., you can add a <span class="docutils literal">methodNameForAction()</span>
 method to your class transforming the value from the submit button (its
 label) to a valid method name. This will be needed, for instance, if there
 is a blank in the label on the button. However, usually it's simpler to
@@ -362,36 +339,37 @@ information about writing your own.</p>
 <p>The answer to that question might not seem clear after being deluged
 with all the details. Here's a summary:</p>
 <ul class="simple">
-<li>Make sure you can run the WebKit AppServer. See the <a class="reference external" href="InstallGuide.html">Install Guide</a>
-for more information.</li>
+<li><p>Make sure you can run the WebKit AppServer. See the <a class="reference external" href="InstallGuide.html">Install Guide</a>
+for more information.</p></li>
 </ul>
 <ul class="simple">
-<li>Read the source to the examples (in <tt class="docutils literal">WebKit/Examples</tt>), then
-modify one of them to get your toes wet.</li>
-<li>Create your own new example from scratch. Ninety-nine percent of the
-time you will be subclassing the <tt class="docutils literal">Page</tt> class.</li>
-<li>Familiarize yourself with the class docs in order to take advantage
+<li><p>Read the source to the examples (in <span class="docutils literal">WebKit/Examples</span>), then
+modify one of them to get your toes wet.</p></li>
+<li><p>Create your own new example from scratch. Ninety-nine percent of the
+time you will be subclassing the <span class="docutils literal">Page</span> class.</p></li>
+<li><p>Familiarize yourself with the class docs in order to take advantage
 of classes like Page, HTTPRequest, HTTPResponse and
 Session. Unfortunately, I couldn't get generated class docs working
 for this release, so you'll have to resort to breezing through the
 source code which is coupled with documentation strings. Read the
-examples first.</li>
-<li>With this additional knowledge, create more sophisticated pages.</li>
-<li>If you need to secure your pages using a login screen, you'll want
+examples first.</p></li>
+<li><p>With this additional knowledge, create more sophisticated pages.</p></li>
+<li><p>If you need to secure your pages using a login screen, you'll want
 to look at the SecurePage, LoginPage, and SecureCountVisits examples
-in <tt class="docutils literal">WebKit/Examples</tt>.  You'll need to modify them to suit your
-particular needs.</li>
-<li>The old <a class="reference external" href="https://cito.github.io/w4py-olde-wiki/">Webware For Python Wiki</a> provided a lot of useful HowTos,
-Recipes and other useful information for Application developers.</li>
+in <span class="docutils literal">WebKit/Examples</span>.  You'll need to modify them to suit your
+particular needs.</p></li>
+<li><p>The old <a class="reference external" href="https://cito.github.io/w4py-olde-wiki/">Webware For Python Wiki</a> provided a lot of useful HowTos,
+Recipes and other useful information for Application developers.</p></li>
 </ul>
 <ul class="simple">
-<li>Contribute enhancements and bug fixes back to the project. <tt class="docutils literal"><span class="pre">:-)</span></tt></li>
-<li>The Webware user community is quite supportive and friendly:<ul>
-<li>Discussion mailing list:
-<a class="reference external" href="http://lists.sourceforge.net/mailman/listinfo/webware-discuss">http://lists.sourceforge.net/mailman/listinfo/webware-discuss</a></li>
-<li>Make sure you find out about new versions when they're released,
+<li><p>Contribute enhancements and bug fixes back to the project. <span class="docutils literal"><span class="pre">:-)</span></span></p></li>
+<li><p>The Webware user community is quite supportive and friendly:</p>
+<ul>
+<li><p>Discussion mailing list:
+<a class="reference external" href="http://lists.sourceforge.net/mailman/listinfo/webware-discuss">http://lists.sourceforge.net/mailman/listinfo/webware-discuss</a></p></li>
+<li><p>Make sure you find out about new versions when they're released,
 via the announce list:
-<a class="reference external" href="http://lists.sourceforge.net/mailman/listinfo/webware-announce">http://lists.sourceforge.net/mailman/listinfo/webware-announce</a></li>
+<a class="reference external" href="http://lists.sourceforge.net/mailman/listinfo/webware-announce">http://lists.sourceforge.net/mailman/listinfo/webware-announce</a></p></li>
 </ul>
 </li>
 </ul>

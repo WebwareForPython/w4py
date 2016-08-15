@@ -13,7 +13,7 @@ class BrowseObject(StorePage):
                 % (className, serialNum))
         else:
             wr = self.writeln
-            wr('<table border="1">')
+            wr('<table>')
             wr(obj.klass().htHeadingsRow())
             wr(obj.htAttrsRow())
             wr('</table>')

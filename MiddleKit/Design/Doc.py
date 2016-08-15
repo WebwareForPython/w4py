@@ -78,17 +78,17 @@ class Doc(object):
 
         wr('<br>\n')
 
-        wr('<table border="0" cellpadding="2" cellspacing="2">\n')
+        wr('<table>\n')
         wr('<tr class="Class">'
             '<td class="ClassName" colspan="3">Classes</td></tr>\n')
         wr('<tr class="AttrTitles"><td class=AttrTitles>In Alpha Order</td>'
             '<td class="AttrTitles">In Inheritance Order</td></tr>\n')
-        wr('<tr><td valign=top>\n')
+        wr('<tr><td style="vertical-align:top">\n')
         klasses = self.model.allKlassesInOrder()
         for klass in sorted(klasses, key=lambda klass: klass.name().lower()):
             name = klass.name()
             wr('<a href="#%s">%s</a><br>\n' % (name, name))
-        wr('<td valign="top">')
+        wr('<td style="vertical-align:top">')
         for klass in klasses:
             if not klass.superklass():
                 self.writeKlassLinkAndRecurse(wr, klass)
@@ -97,14 +97,14 @@ class Doc(object):
         for klass in klasses:
             name = klass.name()
             wr('''
-<a name="%(name)s"></a>
-<table class="Class" cellspacing="2" cellpadding="2">
+<a id="%(name)s"></a>
+<table class="Class">
 <tr class="ClassName">
     <td class="ClassName" colspan="7">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%%">
+        <table style="width:100%%">
             <tr>
                 <td class="ClassName">%(name)s</td>
-                <td class="Top" align="right"><a href="#top">top</a></td>
+                <td class="Top" style="text-align:right"><a href="#top">top</a></td>
             </tr>
         </table>
     </td>
@@ -114,11 +114,12 @@ class Doc(object):
             wr('<tr class="ClassInfo"><td class="ClassInfo" colspan="7">\n')
 
             # ancestor classes
-            wr('<table border="0" cellpadding="3" cellspacing="0">\n')
+            wr('<table>\n')
             if klass.get('isAbstract'):
-                wr('<tr><td valign="top">abstract:</td>'
-                    '<td valign="top">yes</td></tr>\n')
-            wr('<tr><td valign="top">ancestors:</td><td valign="top">')
+                wr('<tr><td style="vertical-align:top">abstract:</td>'
+                    '<td style="vertical-align:top">yes</td></tr>\n')
+            wr('<tr><td style="vertical-align:top">ancestors:</td>'
+               '<td style="vertical-align:top">')
             ancestor = klass.superklass()
             if ancestor:
                 while ancestor:
@@ -130,7 +131,8 @@ class Doc(object):
             wr('</td></tr>\n')
 
             # subclasses
-            wr('<tr><td valign="top">subclasses:</td><td valign="top">\n')
+            wr('<tr><td style="vertical-align:top">subclasses:</td>'
+               '<td style="vertical-align:top">\n')
             if klass.subklasses():
                 for subklass in klass.subklasses():
                     name = subklass.name()
@@ -140,7 +142,8 @@ class Doc(object):
             wr('</td></tr>\n')
 
             # notes
-            wr('<tr> <td valign="top">notes:</td><td valign="top">')
+            wr('<tr> <td style="vertical-align:top">notes:</td>'
+               '<td style="vertical-align:top">')
             if klass.get('Notes'):
                 wr(htmlEncode(klass['Notes']))
             else:

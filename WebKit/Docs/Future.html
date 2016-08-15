@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.13: http://docutils.sourceforge.net/" />
 <title>Future Work</title>
 <link rel="stylesheet" href="../../Docs/Doc.css" type="text/css" />
 </head>
@@ -11,16 +11,14 @@
 <h1 class="title">Future Work</h1>
 
 <p>Webware for Python</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Version:</th><td class="field-body">X.Y</td>
-</tr>
-<tr class="field"><th class="field-name">Released:</th><td class="field-body">&#64;&#64;/&#64;&#64;/&#64;&#64;</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt>Version</dt>
+<dd><p>X.Y</p>
+</dd>
+<dt>Released</dt>
+<dd><p>&#64;&#64;/&#64;&#64;/&#64;&#64;</p>
+</dd>
+</dl>
 <div class="section" id="warning">
 <h1>Warning</h1>
 <p>You can find more information about known bugs and future work
@@ -31,9 +29,9 @@ be sufficient and we do not want to scatter issues in too many systems.</p>
 </div>
 <div class="section" id="future-work-limitations">
 <h1>Future Work/Limitations</h1>
-<p>Sprinkled throughout the code are comments tagged with <tt class="docutils literal">&#64;&#64;</tt> which are
+<p>Sprinkled throughout the code are comments tagged with <span class="docutils literal">&#64;&#64;</span> which are
 hopefully accompanied by a date and someone's initials.  These comments
-represent things to be done.  The double at-sign (<tt class="docutils literal">&#64;&#64;</tt>) convention was
+represent things to be done.  The double at-sign (<span class="docutils literal">&#64;&#64;</span>) convention was
 chosen because it doesn't appear to be used for anything else.</p>
 <p>In addition to the inline comments, some significant items have been
 recorded below.  These are future ideas, with no commitments or timelines
@@ -48,41 +46,42 @@ so feel free to jump in!</p>
 <div class="section" id="major-items">
 <h3>Major Items</h3>
 <ul class="simple">
-<li>Some of our old style guidelines are in conflict with newer Python
+<li><p>Some of our old style guidelines are in conflict with newer Python
 conventions (PEP8, properties etc.). We have already changed the
 Webware convention of using tabs, but most naming conventions cannot
-be changed so easily without breaking the API.</li>
-<li>Think about a migration path towards Python 3, check code with 2to3 tool.</li>
-<li>Use Distutils/setuptools/Distribute instead of our own installer, use
-Python eggs and maybe namespace packages instead of our own plug-in concept.</li>
-<li>The installer should try building and/or installing mod_webkit and wkcgi
-automatically.</li>
-<li>Use Sphinx instead of our own tools in DocSupport, use reStructuredText
-as the format for all docs and maybe also for the docstrings.</li>
-<li>Separate more clearly and systematically which messages are printed to
-stdout and which to stderr.</li>
-<li>Make use of the logging module (so far it is only used with unit testing)
-instead of conditional print statements with &quot;debug&quot; and &quot;verbose&quot; flags.</li>
-<li>Role-based security and user-authentication.  Goal is to eliminate,
+be changed so easily without breaking the API.</p></li>
+<li><p>Think about a migration path towards Python 3, check code with 2to3 tool.</p></li>
+<li><p>Use Distutils/setuptools/Distribute instead of our own installer, use
+Python eggs and maybe namespace packages instead of our own plug-in concept.</p></li>
+<li><p>The installer should try building and/or installing mod_webkit and wkcgi
+automatically.</p></li>
+<li><p>Use Sphinx instead of our own tools in DocSupport, use reStructuredText
+as the format for all docs and maybe also for the docstrings.</p></li>
+<li><p>Separate more clearly and systematically which messages are printed to
+stdout and which to stderr.</p></li>
+<li><p>Make use of the logging module (so far it is only used with unit testing)
+instead of conditional print statements with &quot;debug&quot; and &quot;verbose&quot; flags.</p></li>
+<li><p>Role-based security and user-authentication.  Goal is to eliminate,
 as much as possible, developer-written security logic.
-This should be provided by the WebKit and be configurable.</li>
-<li>Better support and documentation for distribution, load balancing and
-fault tolerance.</li>
-<li>More sophisticated admin tools including password protection,
+This should be provided by the WebKit and be configurable.</p></li>
+<li><p>Better support and documentation for distribution, load balancing and
+fault tolerance.</p></li>
+<li><p>More sophisticated admin tools including password protection,
 clearing logs, displaying a maximum of information at a time, etc.
-Consider using module 'resource'.</li>
-<li>Investigate case insensitive URLs, especially for the Windows platform.</li>
-<li>Support unicode strings and different encodings.  HTTPContent should get an
+Consider using module 'resource'.</p></li>
+<li><p>Investigate case insensitive URLs, especially for the Windows platform.</p></li>
+<li><p>Support unicode strings and different encodings.  HTTPContent should get an
 encoding attribute with 'utf-8' as the default (set in Application.config).
 This could be output in Page.writeMetaData() and used as the default for
 an optional encoding parameter in HTTPContent.write(), so you can write
 unicode strings to output.  So far, Webware works best if you use ordinary
-strings with a consistent encoding throughout the whole application.</li>
-<li>Integrate support for i18n and l10n.</li>
-<li>Plug-ins:<ul>
-<li>In ExamplePage, automatically support examples of any plug-in</li>
-<li>Better docs</li>
-<li>Properties.config. 'Load', 0, 1 or the name of the required op sys</li>
+strings with a consistent encoding throughout the whole application.</p></li>
+<li><p>Integrate support for i18n and l10n.</p></li>
+<li><p>Plug-ins:</p>
+<ul>
+<li><p>In ExamplePage, automatically support examples of any plug-in</p></li>
+<li><p>Better docs</p></li>
+<li><p>Properties.config. 'Load', 0, 1 or the name of the required op sys</p></li>
 </ul>
 </li>
 </ul>
@@ -90,91 +89,91 @@ strings with a consistent encoding throughout the whole application.</li>
 <div class="section" id="general">
 <h3>General</h3>
 <ul class="simple">
-<li>Hunt down: <tt class="docutils literal">&#64;&#64;</tt> tags (which signify &quot;To Be Done&quot;s), <tt class="docutils literal">FUTURE</tt> items
-in class doc strings, <tt class="docutils literal">NotImplementedErrors</tt>, <tt class="docutils literal"><span class="pre">--</span></tt> tags</li>
-<li>Code clean up. Use bin/checksrc and pylint.</li>
-<li>Right now, if the Application itself (as opposed to Servlets) throws
+<li><p>Hunt down: <span class="docutils literal">&#64;&#64;</span> tags (which signify &quot;To Be Done&quot;s), <span class="docutils literal">FUTURE</span> items
+in class doc strings, <span class="docutils literal">NotImplementedErrors</span>, <span class="docutils literal"><span class="pre">--</span></span> tags</p></li>
+<li><p>Code clean up. Use bin/checksrc and pylint.</p></li>
+<li><p>Right now, if the Application itself (as opposed to Servlets) throws
 an exception, it doesn't get captured nicely.  However, it is displayed
-in the app server's console.</li>
-<li>The exception handler is pretty nice and has features like logging,
+in the app server's console.</p></li>
+<li><p>The exception handler is pretty nice and has features like logging,
 e-mail, gathering debugging info, etc.
 However, on occasions it can throw exceptions too.
-There should be a simpler, secondary exception handler for when this happens.</li>
-<li>Review the timestamp caching logic and its relation to .pyc files if any.</li>
-<li>Add &quot;Last-modified:&quot; to generic files that are served via WebKit.</li>
-<li>If a Python file has only one class that inherits from Servlet,
+There should be a simpler, secondary exception handler for when this happens.</p></li>
+<li><p>Review the timestamp caching logic and its relation to .pyc files if any.</p></li>
+<li><p>Add &quot;Last-modified:&quot; to generic files that are served via WebKit.</p></li>
+<li><p>If a Python file has only one class that inherits from Servlet,
 then use that as the Servlet class
-(rather than requiring the name be the same as the file).</li>
+(rather than requiring the name be the same as the file).</p></li>
 </ul>
 </div>
 <div class="section" id="testing">
 <h3>Testing</h3>
 <ul class="simple">
-<li>Provide testing web page where people can report their testing results
-including version numbers, etc.</li>
-<li>Provide higher level automation of testing.  For example, a testing script
-should be able to launch various app servers multiple times.</li>
-<li>Provide highly automated benchmarking so we can track changes in performance.</li>
-<li>Add more unit tests, expand the regression test suite.</li>
+<li><p>Provide testing web page where people can report their testing results
+including version numbers, etc.</p></li>
+<li><p>Provide higher level automation of testing.  For example, a testing script
+should be able to launch various app servers multiple times.</p></li>
+<li><p>Provide highly automated benchmarking so we can track changes in performance.</p></li>
+<li><p>Add more unit tests, expand the regression test suite.</p></li>
 </ul>
 </div>
 <div class="section" id="docs">
 <h3>Docs</h3>
 <ul class="simple">
-<li>Use Sphinx instead of our own tools in DocSupport, use reStructuredText
-as the format for all docs and maybe also for the docstrings.</li>
-<li>Add a Getting Started Guide and a screencast.</li>
-<li>Beef up the User's Guide and Tutorial.</li>
-<li>User's Guide: Create a caching section to discuss the virtues of doing so
-(the Color example became 12 X faster on the server side).</li>
-<li>Clean up the Wiki, removing all the obsolete cruft and summarizing
-everything that is still useful, moving it to the Sphinx documentation.</li>
+<li><p>Use Sphinx instead of our own tools in DocSupport, use reStructuredText
+as the format for all docs and maybe also for the docstrings.</p></li>
+<li><p>Add a Getting Started Guide and a screencast.</p></li>
+<li><p>Beef up the User's Guide and Tutorial.</p></li>
+<li><p>User's Guide: Create a caching section to discuss the virtues of doing so
+(the Color example became 12 X faster on the server side).</p></li>
+<li><p>Clean up the Wiki, removing all the obsolete cruft and summarizing
+everything that is still useful, moving it to the Sphinx documentation.</p></li>
 </ul>
 </div>
 <div class="section" id="food-for-thought-considerations-reviews">
 <h3>Food for thought, considerations, reviews</h3>
 <ul class="simple">
-<li>Consider including FormKit, FunFormKit or FormEncode:
-A plug-in to aid the construction and validation of forms.</li>
-<li>Consider adding a simple helper lib for generating HTML
-(such as SimpleHTMLGen) to the WebUtils package.</li>
-<li>Better support for <a class="reference external" href="http://www.python.org/dev/peps/pep-0333/">WSGI</a>.
-Currently we only have the WSGIAdapter interfacing to the app server.</li>
-<li>Consider this statement from the FastCGI docs:
+<li><p>Consider including FormKit, FunFormKit or FormEncode:
+A plug-in to aid the construction and validation of forms.</p></li>
+<li><p>Consider adding a simple helper lib for generating HTML
+(such as SimpleHTMLGen) to the WebUtils package.</p></li>
+<li><p>Better support for <a class="reference external" href="http://www.python.org/dev/peps/pep-0333/">WSGI</a>.
+Currently we only have the WSGIAdapter interfacing to the app server.</p></li>
+<li><p>Consider this statement from the FastCGI docs:
 &quot;Redirects are handled similar to CGI. Location headers with values
 that begin with &quot;/&quot; are treated as internal-redirects; otherwise,
-they are treated as external redirects (302).&quot;</li>
-<li>FastCGI app server:
+they are treated as external redirects (302).&quot;</p></li>
+<li><p>FastCGI app server:
 The idea is that if the app server itself supports FastCGI,
 then it can be used directly with FastCGI enabled web servers
 sans the infamous &quot;adapter&quot;.
-Dan Green has brought this up in Webware-discuss.</li>
-<li>Consider if we need to support <tt class="docutils literal">&lt;form <span class="pre">action=&quot;x.py?a=1&quot;</span> <span class="pre">method=&quot;post&quot;&gt;</span></tt>
-where you will have both a query string and posted data.</li>
-<li>Application modifies sys.path so that servlets can say
-<tt class="docutils literal">from SuperServlet import SuperServlet</tt> where SuperServlet is located in
+Dan Green has brought this up in Webware-discuss.</p></li>
+<li><p>Consider if we need to support <span class="docutils literal">&lt;form <span class="pre">action=&quot;x.py?a=1&quot;</span> <span class="pre">method=&quot;post&quot;&gt;</span></span>
+where you will have both a query string and posted data.</p></li>
+<li><p>Application modifies sys.path so that servlets can say
+<span class="docutils literal">from SuperServlet import SuperServlet</span> where SuperServlet is located in
 the same directory as the Servlet.  We'd prefer a more sophisticated technique
 which does not modify sys.path and does not affect other servlets.  (Or maybe
-this would go away with a new one-process-per-application architecture.)</li>
-<li>The ThreadedAppServer is not optimal for multiprocessor systems and modern
+this would go away with a new one-process-per-application architecture.)</p></li>
+<li><p>The ThreadedAppServer is not optimal for multiprocessor systems and modern
 multi-core CPUs, due to the Python GIL. On Python 2.x, the GIL implementation
 is particularly bad. Check whether we need to build something new such as
-a MultiprocessAppServer, or use existing app server or tools such as Twisted.</li>
+a MultiprocessAppServer, or use existing app server or tools such as Twisted.</p></li>
 </ul>
 </div>
 <div class="section" id="check-out">
 <h3>Check out</h3>
 <ul class="simple">
-<li><a class="reference external" href="http://pythonpaste.org">Python Paste</a></li>
-<li><a class="reference external" href="http://www.djangoproject.com">Django</a>,
+<li><p><a class="reference external" href="http://pythonpaste.org">Python Paste</a></p></li>
+<li><p><a class="reference external" href="http://www.djangoproject.com">Django</a>,
 <a class="reference external" href="http://www.turbogears.org">TurboGears</a>,
 <a class="reference external" href="http://pylonshq.com">Pylons</a>,
-<a class="reference external" href="http://webpy.org">web.py</a></li>
-<li><a class="reference external" href="http://aquarium.sourceforge.net">Aquarium</a></li>
-<li><a class="reference external" href="http://www.zope.org/Members/Amos/WhatIsAcquisition">http://www.zope.org/Members/Amos/WhatIsAcquisition</a></li>
-<li><a class="reference external" href="http://www.zope.org/Members/jim/Info/IPC8/AcquisitionAlgebra/index.html">http://www.zope.org/Members/jim/Info/IPC8/AcquisitionAlgebra/index.html</a></li>
-<li><a class="reference external" href="http://wsgi.org">http://wsgi.org</a></li>
-<li>FastCGI related: <a class="reference external" href="http://www.tfarmbruster.com/fcgi_sa.htm">http://www.tfarmbruster.com/fcgi_sa.htm</a></li>
+<a class="reference external" href="http://webpy.org">web.py</a></p></li>
+<li><p><a class="reference external" href="http://aquarium.sourceforge.net">Aquarium</a></p></li>
+<li><p><a class="reference external" href="http://www.zope.org/Members/Amos/WhatIsAcquisition">http://www.zope.org/Members/Amos/WhatIsAcquisition</a></p></li>
+<li><p><a class="reference external" href="http://www.zope.org/Members/jim/Info/IPC8/AcquisitionAlgebra/index.html">http://www.zope.org/Members/jim/Info/IPC8/AcquisitionAlgebra/index.html</a></p></li>
+<li><p><a class="reference external" href="http://wsgi.org">http://wsgi.org</a></p></li>
+<li><p>FastCGI related: <a class="reference external" href="http://www.tfarmbruster.com/fcgi_sa.htm">http://www.tfarmbruster.com/fcgi_sa.htm</a></p></li>
 </ul>
 </div>
 </div>

@@ -416,8 +416,7 @@ class Installer(object):
         wr = ht.append
         wr('<p>Don\'t know where to start? '
             'Try <a href="../WebKit/Docs/index.html">WebKit</a>.</p>')
-        wr('<table align="center" border="0" '
-            'cellpadding="2" cellspacing="2" width="100%">')
+        wr('<table class="doc">')
         wr('<tr class="ComponentHeadings">'
             '<th>Component</th><th>Status</th><th>Ver</th>'
             '<th>Py</th><th>Summary</th></tr>')
@@ -426,7 +425,7 @@ class Installer(object):
             comp['nameAsLink'] = ('<a href='
                 '"../%(dirname)s/Docs/index.html">%(name)s</a>' % comp)
             comp['indexRow'] = row + 1
-            wr('<tr valign="top" class="ComponentRow%(indexRow)i">'
+            wr('<tr class="ComponentRow%(indexRow)i top">'
                 '<td class="NameVersionCell">'
                 '<span class="Name">%(nameAsLink)s</span></td>'
                 '<td>%(status)s</td>'

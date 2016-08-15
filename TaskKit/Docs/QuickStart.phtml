@@ -14,35 +14,35 @@
 
 <p>After some test implementations I discovered the Java scheduling framework of the <a href="http://www.arlut.utexas.edu/gash2/">Ganymede</a> network directory management system and took it as a model for the Python implementation. Like any other Webware Kit or plug-in the TaskKit is self contained and can be used in other Python projects. This modularity is one of the real strengths of Webware and in sharp contrast to Zope where people tend to think in Zope and not in Python terms. In a perfect world one should be able to use web wrappers (for Zope, Webware, Quixote, ...) around clearly designed Python classes and not be forced to use one framework. Time will tell if this is just a dream or if people will reinvent the "Python wheels" over and over again.</p>
 
-<a name="Tasks"></a><h2>Tasks</h2>
+<a id="Tasks"></a><h2>Tasks</h2>
 
 <p>The TaskKit implements the three classes <code>Scheduler, TaskHandler</code> and <code>Task</code>. Let's begin with the simplest one, i.e. Task. It's an abstract base class, from which you have to derive your own task classes by overriding the <code>run()</code>-method like in the following example:</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
 <b style="color:black">from</b> time <b style="color:black">import</b> strftime, localtime
 <b style="color:black">from</b> TaskKit.Task <b style="color:black">import</b> Task
 
-<b style="color:black">class</b><a name="SimpleTask"><b style="color:#909"> SimpleTask</b></a>(Task):
+<b style="color:black">class</b><a id="SimpleTask"><b style="color:#909"> SimpleTask</b></a>(Task):
 
-    <b style="color:black">def</b><a name="run"><b style="color:#909"> run</b></a>(self):
+    <b style="color:black">def</b><a id="run"><b style="color:#909"> run</b></a>(self):
         <b style="color:black">print</b> self.name(), strftime(<span style="color:#900">"%H:%M:%S"</span>, localtime())
 </pre>
 </td></tr></table>
 
 <p><code>self.name()</code> returns the name under which the task was registered by the scheduler. It is unique among all tasks and scheduling tasks with the same name will delete the old task with that name (so beware of that feature!). Another simple example which is used by WebKit itself is found in <code>WebKit/Tasks/SessionTask.py</code>.</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
 <b style="color:black">from</b> TaskKit.Task <b style="color:black">import</b> Task
 
-<b style="color:black">class</b><a name="SessionTask"><b style="color:#909"> SessionTask</b></a>(Task):
+<b style="color:black">class</b><a id="SessionTask"><b style="color:#909"> SessionTask</b></a>(Task):
 
-    <b style="color:black">def</b><a name="__init__"><b style="color:#909"> __init__</b></a>(self, sessions):
+    <b style="color:black">def</b><a id="__init__"><b style="color:#909"> __init__</b></a>(self, sessions):
         Task.__init__(self)
         self._sessionstore = sessions
 
-    <b style="color:black">def</b><a name="run"><b style="color:#909"> run</b></a>(self):
+    <b style="color:black">def</b><a id="run"><b style="color:#909"> run</b></a>(self):
         <b style="color:black">if</b> self.proceed():
             self._sessionstore.cleanStaleSessions(self)
 </pre>
@@ -50,9 +50,9 @@
 
 <p>Here you see the <code>proceed()</code> method in action. It can be used by long running tasks to check if they should terminate. This is the case when the scheduler or the task itself has been stopped. The latter is achieved with a <code>stopTask()</code> call which is not recommented though. It's generally better to let the task finish and use the <code>unregister()</code> and <code>disable()</code> methods of the task handler. The first really deletes the task after termination while the second only disables its rescheduling. You can still use it afterwards. The implementation of <code>proceed()</code> is very simple:</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
-<b style="color:black">def</b><a name="proceed"><b style="color:#909"> proceed</b></a>(self):
+<b style="color:black">def</b><a id="proceed"><b style="color:#909"> proceed</b></a>(self):
     <span style="color:#900">&quot;&quot;&quot;Check whether this task should continue running.
 
     Should be called periodically by long tasks to check if the system
@@ -66,11 +66,11 @@
 
 <p>Take a look at the <code>SimpleTask</code> class at the end of this article for an example of using <code>proceed()</code>. Another thing to remember about tasks is, that they know nothing about scheduling, how often they will run (periodically or just once) or if they are on hold. All this is managed by the task wrapper class <code>TaskHandler</code>, which will be discussed shortly. Let's look at some more examples first.</p>
 
-<a name="GeneratingStaticPages"></a><h2>Generating static pages</h2>
+<a id="GeneratingStaticPages"></a><h2>Generating static pages</h2>
 
 <p>On a high traffic web site (like <a href="http://slashdot.org">slashdot</a>) it's common practice to use semi-static page generation techniques. For example you can generate the entry page as a static page once per minute. During this time the content will not be completely accurate (e.g. the number of comments will certainly increase), but nobody really cares about that. The benefit is a dramatic reduction of database requests. For other pages (like older news with comments attached) it makes more sense to generate static versions on demand. This is the case when the discussion has come to an end, but somebody adds a comment afterwards and implicitly changes the page by this action. Generating a static version will happen very seldom after the "hot phase" when getting data directly out of the database is more appropriate. So you need a periodic task which checks if there are new "dead" stories (e.g. no comments for 2 days) and marks them with a flag for static generation on demand. It should be clear by now, that an integrated Webware scheduling mechnism is very useful for this kind of things and the better approach than external <code>cron</code> jobs. Let's look a little bit closer at the static generation technique now. First of all we need a <code>PageGenerator</code> class. To keep the example simple we just write the actual date into a file. In real life you will assemble much more complex data into such static pages.</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
 <b style="color:black">from</b> time <b style="color:black">import</b> asctime
 <b style="color:black">from</b> TaskKit.Task <b style="color:black">import</b> Task
@@ -83,30 +83,30 @@ html = <span style="color:#900">'''&lt;html&gt;
 &lt;/html&gt;
 '''</span>
 
-<b style="color:black">class</b><a name="PageGenerator"><b style="color:#909"> PageGenerator</b></a>(Task):
+<b style="color:black">class</b><a id="PageGenerator"><b style="color:#909"> PageGenerator</b></a>(Task):
 
-    <b style="color:black">def</b><a name="__init__"><b style="color:#909"> __init__</b></a>(self, filename):
+    <b style="color:black">def</b><a id="__init__"><b style="color:#909"> __init__</b></a>(self, filename):
         Task.__init__(self)
         self._filename = filename
 
-    <b style="color:black">def</b><a name="run"><b style="color:#909"> run</b></a>(self):
+    <b style="color:black">def</b><a id="run"><b style="color:#909"> run</b></a>(self):
         f = open(self._filename, <span style="color:#900">'w'</span>)
         f.write(html % (<span style="color:#900">'Static Page'</span>,  asctime()))
         f.close()
 </pre>
 </td></tr></table>
 
-<a name="Scheduling"></a><h2>Scheduling</h2>
+<a id="Scheduling"></a><h2>Scheduling</h2>
 
 <p>That was easy. Now it's time to schedule our task. In the following example you can see how this is accomplished with TaskKit. As a general recommendation you should put all your tasks in a separate folder (with an empty <code>__init__.py</code> file to make this folder a Python package). First of all we create a new <code>Scheduler</code> object, start it as a thread and add a periodic page generation object (of type <code>PageGenerator</code>) with the <code>addPeriodicAction</code> method. The first parameter here is the first execution time (which can be in the future), the second is the period (in seconds), the third an instance of our task class and the last parameter is a unique task name which allows us to find the task later on (e.g. if we want to change the period or put the task on hold).</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
 <b style="color:black">from</b> time <b style="color:black">import</b> sleep, time
 <b style="color:black">from</b> TaskKit.Scheduler <b style="color:black">import</b> Scheduler
 <b style="color:black">from</b> Tasks.PageGenerator <b style="color:black">import</b> PageGenerator
 
-<b style="color:black">def</b><a name="main"><b style="color:#909"> main</b></a>():
+<b style="color:black">def</b><a id="main"><b style="color:#909"> main</b></a>():
     scheduler = Scheduler()
     scheduler.start()
     scheduler.addPeriodicAction(time(), 5, PageGenerator(<span style="color:#900">'static.html'</span>), <span style="color:#900">'PageGenerator'</span>)
@@ -120,17 +120,17 @@ html = <span style="color:#900">'''&lt;html&gt;
 
 <p>When you fire up this example you will notice that the timing is not 100% accurate. The reason for this seems to be an imprecise <code>wait()</code> function in the Python <code>threading</code> module. Unfortunately this method is indispensible because we need to be able to wake up a sleeping scheduler when scheduling new tasks with first execution times smaller than <code>scheduler.nextTime()</code>. This is achieved through the <code>notify()</code> method, which sets the <code>notifyEvent</code> (<code>scheduler._notifyEvent.set()</code>). On Unix we could use <code>sleep</code> and a <code>signal</code> to interrupt this system call, but TaskKit has to be plattform independent to be of any use. But don't worry; this impreciseness is not important for normal usage, because we are talking about scheduling in the minute (not second) range here. Unix <code>cron</code> jobs have a granularity of one minute, which is a good value for TaskKit too. Of course nobody can stop you starting tasks with a period of one second (but you have been warned that this is not a good idea, except for testing purposes).</p>
 
-<a name="GeneratingStaticPagesAgain"></a><h2>Generating static pages again</h2>
+<a id="GeneratingStaticPagesAgain"></a><h2>Generating static pages again</h2>
 
 <p>Let's refine our example a little bit and plug it into Webware. We will write a Python servlet which loks like this:</p>
 
-<table><tr><td align="center">
+<table><tr><td class="center">
 <form method="post">
 <input type="submit" name="_action_" value="Generate">
 <input type="text" name="filename" value="static.html" size="20"> every
 <input type="text" name="seconds" value="60" size="5"> seconds</form>
 
-<table width="50%" border="1" cellspacing="0">
+<table style="width:50%">
 <tr style="background-color:#009">
 <th colspan="2" style="color:white">Task List</th></tr>
 <tr style="background-color:#ddd">
@@ -147,15 +147,15 @@ html = <span style="color:#900">'''&lt;html&gt;
 
 <p>Finally we come to the servlet code, which should be more or less self explanatory, except for the <code>_action_</code> construct which is very well explained in the Webware documentation though (just in case you forgot that). <code>app.taskManager()</code> gives you the WebKit scheduler, which can be used to add new tasks. In real life you will have to make the scheduling information persistent and reschedule all tasks after a WebKit restart because it would be quite annoying to enter this data again and again.</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
 <b style="color:black">from</b> time <b style="color:black">import</b> time
 <b style="color:black">from</b> ExamplePage <b style="color:black">import</b> ExamplePage
 <b style="color:black">from</b> Tasks.PageGenerator <b style="color:black">import</b> PageGenerator
 
-<b style="color:black">class</b><a name="Schedule"><b style="color:#909"> Schedule</b></a>(ExamplePage):
+<b style="color:black">class</b><a id="Schedule"><b style="color:#909"> Schedule</b></a>(ExamplePage):
 
-    <b style="color:black">def</b><a name="writeContent"><b style="color:#909"> writeContent</b></a>(self):
+    <b style="color:black">def</b><a id="writeContent"><b style="color:#909"> writeContent</b></a>(self):
         self.write(<span style="color:#900">'''
             &lt;center&gt;&lt;form method="post"&gt;
             &lt;input type=&quot;submit&quot; name=&quot;_action_ value=Generate&quot;&gt;
@@ -174,7 +174,7 @@ html = <span style="color:#900">'''&lt;html&gt;
         self.write(<span style="color:#900">'''
             &lt;/table&gt;&lt;/center&gt;'''</span>)
 
-    <b style="color:black">def</b><a name="generate"><b style="color:#909"> generate</b></a>(self, trans):
+    <b style="color:black">def</b><a id="generate"><b style="color:#909"> generate</b></a>(self, trans):
         app = self.application()
         tm = app.taskManager()
         req = self.request()
@@ -186,19 +186,19 @@ html = <span style="color:#900">'''&lt;html&gt;
             tm.addPeriodicAction(time(), self._seconds, task, taskname)
         self.writeBody()
 
-    <b style="color:black">def</b><a name="methodNameForAction"><b style="color:#909"> methodNameForAction</b></a>(self, name):
+    <b style="color:black">def</b><a id="methodNameForAction"><b style="color:#909"> methodNameForAction</b></a>(self, name):
         <b style="color:black">return</b> name.lower()
 
-    <b style="color:black">def</b><a name="actions"><b style="color:#909"> actions</b></a>(self):
+    <b style="color:black">def</b><a id="actions"><b style="color:#909"> actions</b></a>(self):
         <b style="color:black">return</b> ExamplePage.actions(self) + [<span style="color:#900">'generate'</span>]
 </pre>
 </td></tr></table>
 
-<a name="TheScheduler"></a><h2>The Scheduler</h2>
+<a id="TheScheduler"></a><h2>The Scheduler</h2>
 
 <p>Now it's time to take a closer look at the <code>Scheduler</code> class itself. As you have seen in the examples above, writing tasks is only a matter of overloading the <code>run()</code> method in a derived class and adding it to the scheduler with <code>addTimedAction, addActionOnDemand, addDailyAction</code> or <code>addPeriodicAction</code>. The scheduler will wrap the Task in a <code>TaskHandler</code> structure which knows all the scheduling details and add it to its <code>_scheduled</code> or <code>_onDemand</code> dictionaries. The latter is populated by <code>addActionOnDemand</code> and contains tasks which can be called any time by <code>scheduler.runTaskNow('taskname')</code> as you can see in the following example. After that the task has gone.</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
 scheduler = Scheduler()
 scheduler.start()
@@ -217,11 +217,11 @@ scheduler.stop()
 
 <p>In our last example which was contributed by Jay Love, who debugged, stress tested and contributed a lot of refinements to TaskKit, you see how to write a period modifying Task. This is quite weird but shows the power of handle manipulations. The last thing to remember is that the scheduler does not start a separate thread for each periodic task. It uses a thread for each task run instead and at any time keeps the number of threads as small as possible.</p>
 
-<table border="0" style="background-color:#eee" width="100%"><tr><td>
+<table style="background-color:#eee;width:100%"><tr><td>
 <pre>
-<b style="color:black">class</b><a name="SimpleTask"><b style="color:#909"> SimpleTask</b></a>(Task):
+<b style="color:black">class</b><a id="SimpleTask"><b style="color:#909"> SimpleTask</b></a>(Task):
 
-    <b style="color:black">def</b><a name="run"><b style="color:#909"> run</b></a>(self):
+    <b style="color:black">def</b><a id="run"><b style="color:#909"> run</b></a>(self):
         <b style="color:black">if</b> self.proceed():
             <b style="color:black">print</b> self.name(), time()
             <b>print</b> "Increasing period"
@@ -233,12 +233,12 @@ scheduler.stop()
 
 <p>As you can see, the TaskKit framework is quite sophisticated and will hopefully be used by many people from the Python community. If you have further question, please feel free to ask them on the Webware mailing list.</p>
 
-<table border="1" cellspacing="0" cellpadding="2" width="100%">
-<tr align="center" style="background-color:#def">
-<td align="center"><span style="font-size:larger">Info</span>
+<table style="width:100%">
+<tr class="center top" style="background-color:#def">
+<td class="center top"><span style="font-size:larger">Info</span>
 </td>
 </tr>
-<tr align="left" valign="top">
+<tr class="left top">
 <td>
 <p>[1] Webware: <a href="https://cito.github.io/w4py/">https://cito.github.io/w4py/</a></p>
 <p>[2] Ganymede: <a href="http://www.arlut.utexas.edu/gash2/">http://www.arlut.utexas.edu/gash2/</a></p>

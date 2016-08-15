@@ -35,13 +35,13 @@ password,password
 
         self.writeHeading('Enter database connection info:')
         wr('<form %(method)s %(action)s>' % locals())
-        wr('<table border="0" cellpadding="2" cellspacing="0">')
+        wr('<table>')
         for field in fields:
             field['value'] = req.value(field['name'], '')
             wr('<tr><td>%(name)s:</td><td></td><td>'
                 '<input type="%(type)s" name="%(name)s" value="%(value)s">'
                 '</td><td>%(comment)s</td></tr>' % field)
-        wr('<tr><td colspan="2">&nbsp;</td><td align="right">'
+        wr('<tr><td colspan="2">&nbsp;</td><td style="text-align:right">'
             '<input type="submit" value="OK"></td><td>&nbsp;</td></tr>')
         wr('</table></form>')
 

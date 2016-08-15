@@ -2,7 +2,7 @@
 
 <p><% name %> version 1.1 released on 08/03/11</p>
 
-<a name="NewFeatures"></a><h2>New Features</h2>
+<a id="NewFeatures"></a><h2>New Features</h2>
 <ul>
   <li>In <span class="filename">WebKit/Adapters</span> you find a new adapter
   <span class="filename">WSGIAdapter.py</span> allowing any WSGI compliant
@@ -41,7 +41,7 @@
   we have included pre-compiled 32bit and 64bit dll files for Windows.</li>
 </ul>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li>Made the mimetype guessing a bit more robust.</li>
   <li>Instead of <code>mx.DateTime</code> types, we now use the native
@@ -66,14 +66,14 @@
   with underscores, to make PSP and KidKit work with PyPy as well.</li>
 </ul>
 
-<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<a id="MinorChanges"></a><h2>Minor API Changes</h2>
 <ul>
   <li>We are now only using new-style classes in our code base.</li>
   <li>The internal <code>asclocaltime</code> function has been from
   <code>WebKit.Common</code> to <code>MiscUtils</code>.</li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
   <li>The mod_webkit2 adapter interpreted the WKServer host address as
   IPv6 in newer Linux versions and then was unable to connect.</li>
@@ -97,7 +97,7 @@
   anything when caching was not activated.</li>
 </ul>
 
-<a name="Deprecations"></a><h2>Deprecations</h2>
+<a id="Deprecations"></a><h2>Deprecations</h2>
 <ul>
   <li>The methods and objects which have been marked as deprecated
   in version 1.0 and modules that are now  available in the standard library

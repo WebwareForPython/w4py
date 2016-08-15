@@ -2,7 +2,7 @@
 
 <p><% name %> version 1.1.1 released on 01/18/13</p>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li>The conversion from the <code>cgi.FieldStorage</code> elements to the
   plain <code>WebKit.request().fields()</code> had a quadratic running time
@@ -15,7 +15,7 @@
   as separator in query strings.</li>
 </ul>
 
-<a name="MinorChanges"></a><h2>Minor API Changes</h2>
+<a id="MinorChanges"></a><h2>Minor API Changes</h2>
 <ul>
   <li>We changed the behavior of the <code>filenamesForBaseName()</code>
   method in the <code>URLParser</code> class. If the filename matches exactly,
@@ -27,7 +27,7 @@
   This is not really what you would expect in that situation.</li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
   <li>Aborting threads did not work properly on 64bit platforms.</li>
   <li>Fixed possible problems when stopping the application server by pressing

@@ -31,7 +31,7 @@ class ThreadControl(AdminSecurity):
 
         wr('<h2>Current thread status</h2>',
             '<p>Automatic cancelation of long-running requests is controlled by'
-            ' the <tt>AppServer.config</tt> setting <tt>MaxRequestTime</tt>.</p>')
+            ' the <code>AppServer.config</code> setting <code>MaxRequestTime</code>.</p>')
 
         if maxRequestTime:
             wr('<p>Currently, this is set to <b>%d</b> seconds.</p>'
@@ -213,11 +213,12 @@ class ThreadControl(AdminSecurity):
                 uri = uri.replace('/', '/' + '<wbr>')
             else:
                 uri = '-'
-            wr('<tr><td align="right">', name,
-                '</td><td align="right">', requestID,
-                '</td><td>', startTime, '</td><td align="right">', duration,
+            wr('<tr><td style="text-align:right">', name,
+                '</td><td style="text-align:right">', requestID,
+                '</td><td>', startTime,
+                '</td><td style="text-align:right">', duration,
                 '</td><td>', client, '</td><td>', uri, '</td>')
-            wr('<td align="center">', checkbox, '</td>')
+            wr('<td style="text-align:center">', checkbox, '</td>')
             wr('</tr>')
         if activeThreads:
             wr('</table>')

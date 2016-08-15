@@ -60,7 +60,8 @@ def html(context=5, options=None):
         w.document.open();
         w.document.write(tag('html')+tag('head')
             +tag('title')+title+tag('/title')+tag('/head')
-            +tag('body bgcolor="#ffffff"')+tag('h3')+title+':'+tag('/h3')
+            +tag('body style="background-color:#ffffff"')
+            +tag('h3')+title+':'+tag('/h3')
             +tag('p')+tag('code')+value+tag('/code')+tag('/p')+tag('form')+
             tag('input type="button" onClick="window.close()" value="Close"')
             +tag('/form')+tag('/body')+tag('/html'));
@@ -79,16 +80,16 @@ def html(context=5, options=None):
         else:
             file = 'not found'
         traceback_summary.append('<a href="#%s:%d" style="%s">%s</a>:'
-            '<tt style="font-family:Courier,sans-serif">%s</tt>'
+            '<code style="font-family:Courier,sans-serif">%s</code>'
             % (file.replace('/', '-').replace('\\', '-'), lnum,
                 opt['header'], os.path.splitext(os.path.basename(file))[0],
                 ("%5i" % lnum).replace(' ', '&nbsp;')))
 
-    head = ('<table width="100%%" style="%s" cellspacing="0" cellpadding="2" border="0">'
-        '<tr><td valign="top" align="left">'
+    head = ('<table style="width:100%%;%s">'
+        '<tr><td style="text-align:left;vertical-align:top">'
         '<strong style="font-size:x-large">%s</strong>: %s</td>'
-        '<td rowspan="2" valign="top" align="right">%s</td></tr>'
-        '<tr><td valign="top" bgcolor="#ffffff">\n'
+        '<td rowspan="2" style="text-align:right;vertical-align:top">%s</td></tr>'
+        '<tr><td style="vertical-align:top;background-color:#ffffff">\n'
         '<p style="%s">A problem occurred while running a Python script.</p>'
         '<p style="%s">Here is the sequence of function calls leading up to'
         ' the error, with the most recent (innermost) call first.</p>\n'
@@ -96,7 +97,7 @@ def html(context=5, options=None):
         % (opt['header'], etype, escape(str(evalue)),
         '<br>\n'.join(traceback_summary), opt['default'], opt['default']))
 
-    indent = '<tt><small>%s</small>&nbsp;</tt>' % ('&nbsp;' * 5)
+    indent = '<code><small>%s</small>&nbsp;</code>' % ('&nbsp;' * 5)
     traceback = []
     for frame, file, lnum, func, lines, index in reversed(inspect_trace):
         if file:
@@ -111,7 +112,7 @@ def html(context=5, options=None):
             display_file = file
         if display_file[-3:] == '.py':
             display_file = display_file[:-3]
-        link = '<a name="%s:%d"></a><a href="file:%s">%s</a>' % (
+        link = '<a id="%s:%d"></a><a href="file:%s">%s</a>' % (
             file.replace('/', '-').replace('\\', '-'),
             lnum, file.replace('\\', '/'), escape(display_file))
         args, varargs, varkw, locals = inspect.getargvalues(frame)
@@ -191,8 +192,7 @@ def html(context=5, options=None):
         else:
             lvals = ''
 
-        level = ('<br><table width="100%%" style="%s"'
-            ' cellspacing="0" cellpadding="2" border="0">'
+        level = ('<br><table style="width:100%%;%s">'
             '<tr><td>%s %s</td></tr></table>'
             % (opt['subheader'], link, call))
         excerpt = []
@@ -205,11 +205,10 @@ def html(context=5, options=None):
             number = '&nbsp;' * (5-len(str(i))) + str(i)
             number = '<span style="%s">%s</span>' % (
                 opt['code.unaccent'], number)
-            line = '<tt>%s&nbsp;%s</tt>' % (
+            line = '<code>%s&nbsp;%s</code>' % (
                 number, pyhtml.preformat(line))
             if i == lnum:
-                line = ('<table width="100%%" style="%s"'
-                    ' cellspacing="0" cellpadding="0" border="0">'
+                line = ('<table style="width:100%%;%s">'
                     '<tr><td>%s</td></tr></table>'
                     % (opt['code.accent'], line))
             excerpt.append('\n' + line)

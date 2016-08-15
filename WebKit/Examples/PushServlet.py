@@ -65,7 +65,7 @@ class PushServlet(Page):
             if count == 3:
                 wr("<p>If you didn't get output for the last 30 seconds, "
                     "pushing contents is not supported.</p>")
-            wr('<p>The Browser needs to support the <tt>x-mixed-replace</tt>'
+            wr('<p>The Browser needs to support the <code>x-mixed-replace</code>'
                 ' content type. Current versions of the Microsoft Internet'
                 ' Explorer and other browsers may not have this functionality.'
                 ' It will work with Firefox and Opera, though. Also, the'

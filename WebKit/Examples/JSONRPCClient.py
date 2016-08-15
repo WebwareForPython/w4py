@@ -42,17 +42,16 @@ class JSONRPCClient(ExamplePage):
             You can also use other JavaScript libraries and toolkits
             such as <a href="http://dojotoolkit.org">dojo</a> or
             <a href="http://pyjamas.pyworks.org">pyjamas</a>
-            for that purpose.</p>''')
-        self.write('''</p>
+            for that purpose.</p>
             <p>Type in any example text to be used as input parameter,
             choose one of the available methods to be invoked by the
             example servlet and press the button to display the result.</p>
             <table>
-            <tr align="center">
+            <tr style="text-align:center">
             <th>Input parameter</th>
             <th>Remote method</th>
             <th>Result</th>
-            </tr><tr align="center">
+            </tr><tr style="text-align:center">
             <td>
             <input id="parameter" type="text" size="20" value="Hello, World!">
             </td><td>
@@ -67,7 +66,7 @@ class JSONRPCClient(ExamplePage):
             </td><td>
             <input type="text" size="20" id="result">
             </td>
-            </tr><tr align="center">
+            </tr><tr style="text-align:center">
             <td colspan="3">
             <input type="button" value="Invoke remote method"
                 onclick="dojsonrpc()">

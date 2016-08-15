@@ -32,15 +32,14 @@ class LoginPage(ExamplePage):
         if action:
             action = ' action="%s"' % action
         self.writeln('''<p>Please log in to view the example.
-The username and password is <tt>alice</tt> or <tt>bob</tt>.</p>
+The username and password is <kbd>alice</kbd> or <kbd>bob</kbd>.</p>
 <form method="post" name="loginform"%s>
-<table cellpadding="4" cellspacing="4"
-style="background-color:#CCCCEE;border:1px solid #3333CC;width:20em">
-<tr><td align="right"><label for="username">Username:</label></td>
+<table style="background-color:#CCCCEE;border:1px solid #3333CC;width:20em">
+<tr><td style="text-align:right"><label for="username">Username:</label></td>
 <td><input type="text" id="username" name="username" value="admin"></td></tr>
-<tr><td align="right"><label for="password">Password:</label></td>
+<tr><td style="text-align:right"><label for="password">Password:</label></td>
 <td><input type="password" id="password" name="password" value=""></td></tr>
-<tr><td colspan="2" align="right"><input type="submit" name="login" value="Login"></td></tr>
+<tr><td colspan="2" style="text-align:right"><input type="submit" name="login" value="Login"></td></tr>
 </table>
 <input type="hidden" name="loginid" value="%s">''' % (action, loginid))
         # Forward any passed in values to the user's intended page after successful login,

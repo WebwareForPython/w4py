@@ -43,14 +43,15 @@ class AdminPage(object):
     ## Content methods ##
 
     def writeHeader(self):
-        self.writeln('''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+        self.writeln('''<!DOCTYPE html>
 <html>
 <head>
     <title>%s</title>
 </head>
 <body %s>
-        <table align="center" bgcolor="white"><tr><td>''' % (
-            self.title(), self.bodyTags()))
+    <table style="margin-left:auto;margin-right:auto;background-color:white">
+        <tr><td>''' % (
+            self.title(), self.bodyArgs()))
         self.writeBanner()
         self.writeToolbar()
 
@@ -60,21 +61,22 @@ class AdminPage(object):
     def writeFooter(self):
         self.writeln('''
         <hr>
-        <div align="center" style="font-size:small">Webware for Python</div>
-        </td></tr></table>
+        <div style="text-align:center;font-size:small">Webware for Python</div>
+        </td></tr>
+    </table>
 </body>
 </html>''')
 
     def title(self):
         raise NotImplementedError('Should be overridden in a subclass')
 
-    def bodyTags(self):
-        return 'text="black" bgcolor="#555555"'
+    def bodyArgs(self):
+        return 'style="color:#000000;background-color:#555555"'
 
     def writeBanner(self):
         self.writeln('''
-        <table align="center" bgcolor="#202080" cellpadding="5" cellspacing="0" width="100%%">
-            <tr><td align="center" style="color:white;font-weight:bold;font-family:Tahoma,Verdana,Arial,Helvetica,sans-serif">
+        <table style="margin-left:auto;margin-right:auto;background-color:#202080;border-spacing:0;width:100%%">
+            <tr><td style="text-align:center;padding:5px;color:white;font-weight:bold;font-family:Tahoma,Verdana,Arial,Helvetica,sans-serif">
                 <div style="font-size:14pt">CGI Wrapper</div>
                 <div style="font-size:16pt">%s</div>
             </td></tr>

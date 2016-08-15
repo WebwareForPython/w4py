@@ -2,13 +2,13 @@
 
 <p><% name %> version 0.9 released on 11/13/05</p>
 
-<a name="Introduction"></a><h2>Introduction</h2>
+<a id="Introduction"></a><h2>Introduction</h2>
 <p>It has taken much longer than usual to finish this release,
 and it is impossible to track and list every change.
 So the following will mention only a few of the many changes,
 improvements and bugfixes that have been made.</p>
 
-<a name="NewFeatures"></a><h2>New Features</h2>
+<a id="NewFeatures"></a><h2>New Features</h2>
 <ul>
   <li>Added If-Modified-Since support to HTTPServlet. A Servlet can provide a
   lastModified() method which returns the modification time of the data.
@@ -60,7 +60,7 @@ improvements and bugfixes that have been made.</p>
   <code>IncludeEditLink</code> in
   <span class="filename">Application.config</span>, an <a href="#">[edit]</a>
   link will be put next to each line in tracebacks. That link will point
-  to a file of type <tt>application/x-webkit-edit-file</tt>, which you
+  to a file of type <code>application/x-webkit-edit-file</code>, which you
   should configure your browser to run with
   <span class="filename">Webware/bin/editfile.py</span>.
   If you configure <span class="filename">editfile.py</span> correctly,
@@ -68,13 +68,13 @@ improvements and bugfixes that have been made.</p>
   favorite Python editor and put the cursor on the erroneous line.</li>
 </ul>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li><code>WebKit.Object</code> now inherits Python's object.
   This affects all other classes for which super() should now work.</li>
   <li>Unknown file types (those for whom <code>mimetypes.guess_type()</code>
   cannot return something meaningful) are now served up with a mime type of
-  <tt>application/octet-stream</tt> instead of <tt>text/html</tt>.</li>
+  <code>application/octet-stream</code> instead of <code>text/html</code>.</li>
   <li>Fixed incompatibility between the NT Service code and win32all 163.</li>
   <li>AutoReload no longer catches servlet updates (since servlets can be
   reloaded without restarting the entire server anyway).</li>
@@ -122,7 +122,7 @@ improvements and bugfixes that have been made.</p>
     tries to restart and it happens to reuse the same pid, the restart
     will fail.</li>
   </ul></li>
-  <li><p>The shutdown handling has been improved. Sending <tt>SIGHUP</tt>
+  <li><p>The shutdown handling has been improved. Sending <code>SIGHUP</code>
   now results in exiting with exit code 3 which is used for reloading via
   the AppServer script.</p></li>
   <li>The <span class="filename">Launch.py</span> file has been improved
@@ -145,7 +145,7 @@ improvements and bugfixes that have been made.</p>
   to the API changes.</li>
 </ul>
 
-<a name="Changes"></a><h2>Changes</h2>
+<a id="Changes"></a><h2>Changes</h2>
 <ul>
   <li>The <code>Port</code> setting in
   <span class="filename">AppServer.config</span> has been deprecated in
@@ -192,41 +192,41 @@ improvements and bugfixes that have been made.</p>
       if resource A was initialized:
         finalize resource A
   </pre></li>
-  <li>The PythonServletFactory had only served <tt>.py</tt> source files
-  so far. Now it will serve <tt>.pyc</tt> and <tt>.pyo</tt> files as well.
-  For the default configuration, this makes no difference, since <tt>.pyc</tt>
-  and <tt>.pyo</tt> are in both settings <tt>ExtensionsToIgnore</tt> and
-  <tt>FilesToHide</tt>, so they will not be served anyway. By removing
-  <tt>.pyc</tt> and <tt>.pyo</tt> away from these settings, you can now
+  <li>The PythonServletFactory had only served <code>.py</code> source files
+  so far. Now it will serve <code>.pyc</code> and <code>.pyo</code> files as well.
+  For the default configuration, this makes no difference, since <code>.pyc</code>
+  and <code>.pyo</code> are in both settings <code>ExtensionsToIgnore</code> and
+  <code>FilesToHide</code>, so they will not be served anyway. By removing
+  <code>.pyc</code> and <code>.pyo</code> away from these settings, you can now
   install servlets without their source code. This will be a little bit
   more efficient in the production environment, but most of all it will
   prevent customers and administrators from messing around with the source
   code and give a certain level of protection as closed source (this feature
-  had been requested several times). Before, <tt>.pyc</tt> and <tt>.pyo</tt>
+  had been requested several times). Before, <code>.pyc</code> and <code>.pyo</code>
   had not been executed, but delivered as unknown file types which does not
   make much sense and can be a security problem, for instance when database
   passwords and other information is stored in the servlets. By using
-  <tt>ExtensionCascadeOrder</tt>, you can also determine a priority, such as
-  <tt>.py</tt> first (if available), then <tt>.pyo</tt>, then <tt>.pyc</tt>.
-  However, the standard configuration still ignores/hides <tt>.pyc</tt> and
-  <tt>.pyo</tt> files completely and looks only at the <tt>.py</tt> file,
+  <code>ExtensionCascadeOrder</code>, you can also determine a priority, such as
+  <code>.py</code> first (if available), then <code>.pyo</code>, then <code>.pyc</code>.
+  However, the standard configuration still ignores/hides <code>.pyc</code> and
+  <code>.pyo</code> files completely and looks only at the <code>.py</code> file,
   so you still have to change the settings explicitly in
   <span class="filename">AppServer.config</span> if you want to use this.
-  Also, note that <tt>.pyc</tt> and <tt>.pyo</tt> files can be decompiled
+  Also, note that <code>.pyc</code> and <code>.pyo</code> files can be decompiled
   so this will be no real insurmountable protection.</li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
   <li>Fixed handling of expired sessions. Previously, if you tried to access
   an expired session before the session sweeper thread had cleaned it out,
   you'd get that expired session for one request, but on the second request
   you'd get a new session. Now it correctly returns a new empty session with
   a new session ID on the first request after expiration.</li>
-  <li>Fixed a bug in <tt>mod_webkit</tt> for Apache&nbsp;2.X that might
-  have been causing <tt>mod_webkit</tt> to retry connections to the app
+  <li>Fixed a bug in <code>mod_webkit</code> for Apache&nbsp;2.X that might
+  have been causing <code>mod_webkit</code> to retry connections to the app
   server unnecessarily in some cases. (This does not apply to the
-  Apache&nbsp;1.3 version of <tt>mod_webkit</tt>.)</li>
+  Apache&nbsp;1.3 version of <code>mod_webkit</code>.)</li>
 </ul>
 
 <% footer() %>

@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
-"""Generate .html from all the .txt files in a directory.
+# $Id$
+# Author: David Goodger <goodger@python.org>
+# Copyright: This module has been placed in the public domain.
+
+"""
+Generates .html from all the .txt files in a directory.
 
 Ordinary .txt files are understood to be standalone reStructuredText.
 Files named ``pep-*.txt`` are interpreted as reStructuredText PEPs.
-
-Author: David Goodger <goodger@python.org>
-
-Copyright: This module has been placed in the public domain.
 """
-
 # Once PySource is here, build .html from .py as well.
 
 __docformat__ = 'reStructuredText'
@@ -18,57 +18,68 @@ __docformat__ = 'reStructuredText'
 try:
     import locale
     locale.setlocale(locale.LC_ALL, '')
-except Exception:
+except:
     pass
 
 import sys
 import os
 import os.path
+import copy
 from fnmatch import fnmatch
-
 import docutils
 from docutils import ApplicationError
 from docutils import core, frontend, utils
+from docutils.utils.error_reporting import ErrorOutput, ErrorString
 from docutils.parsers import rst
 from docutils.readers import standalone, pep
-from docutils.writers import html4css1, pep_html
+from docutils.writers import html_plain, pep_html
 
 
 usage = '%prog [options] [<directory> ...]'
 description = ('Generates .html from all the reStructuredText .txt files '
-    '(including PEPs) in each <directory> '
-    '(default is the current directory).')
+               '(including PEPs) in each <directory> '
+               '(default is the current directory).')
 
 
 class SettingsSpec(docutils.SettingsSpec):
-    """Runtime settings and command-line options for the front end."""
+
+    """
+    Runtime settings & command-line options for the front end.
+    """
+
+    prune_default = ['.hg', '.bzr', '.git', '.svn', 'CVS']
 
     # Can't be included in OptionParser below because we don't want to
     # override the base class.
     settings_spec = (
         'Build-HTML Options',
         None,
-        (('Recursively scan subdirectories for files to process. '
-          'This is the default.',
+        (('Recursively scan subdirectories for files to process.  This is '
+          'the default.',
           ['--recurse'],
-          {'action': 'store_true', 'default': True,
+          {'action': 'store_true', 'default': 1,
            'validator': frontend.validate_boolean}),
          ('Do not scan subdirectories for files to process.',
           ['--local'], {'dest': 'recurse', 'action': 'store_false'}),
-         ('Do not process files in <directory>.  This option may be used '
-          'more than once to specify multiple directories.',
+         ('Do not process files in <directory> (shell globbing patterns, '
+          'separated by colons).  This option may be used '
+          'more than once to specify multiple directories.  Default: "%s".'
+          % ':'.join(prune_default),
           ['--prune'],
           {'metavar': '<directory>', 'action': 'append',
-           'validator': frontend.validate_colon_separated_string_list}),
-         ('Recursively ignore files or directories matching any of the given '
-          'wildcard (shell globbing) patterns (separated by colons).  '
-          'Default: ".git:.hg:.svn"',
+           'validator': frontend.validate_colon_separated_string_list,
+           'default': prune_default,}),
+         ('Recursively ignore files matching any of the given '
+          'wildcard (shell globbing) patterns (separated by colons).',
           ['--ignore'],
           {'metavar': '<patterns>', 'action': 'append',
-           'default': ['.git', '.hg', '.svn'],
+           'default': [],
            'validator': frontend.validate_colon_separated_string_list}),
          ('Work silently (no progress messages).  Independent of "--quiet".',
           ['--silent'],
+          {'action': 'store_true', 'validator': frontend.validate_boolean}),
+         ('Do not process files, show files that would be processed.',
+          ['--dry-run'],
           {'action': 'store_true', 'validator': frontend.validate_boolean}),))
 
     relative_path_settings = ('prune',)
@@ -77,7 +88,10 @@ class SettingsSpec(docutils.SettingsSpec):
 
 
 class OptionParser(frontend.OptionParser):
-    """Command-line option processing for the ``buildhtml.py`` front end."""
+
+    """
+    Command-line option processing for the ``buildhtml.py`` front end.
+    """
 
     def check_values(self, values, args):
         frontend.OptionParser.check_values(self, values, args)
@@ -93,48 +107,52 @@ class OptionParser(frontend.OptionParser):
         return source, destination
 
 
-class Struct(object):
-    """Store data attributes for dotted-attribute access."""
+class Struct:
+
+    """Stores data attributes for dotted-attribute access."""
 
     def __init__(self, **keywordargs):
         self.__dict__.update(keywordargs)
 
 
-class Builder(object):
-    """Build HTML files."""
+class Builder:
 
     def __init__(self):
-        # Publisher-specific settings.
-        # Key '' is for the front-end script itself.
-        # ``self.publishers[''].components`` must contain a superset
-        # of all components used by individual publishers.
         self.publishers = {
-            '': Struct(components=(
-                pep.Reader, rst.Parser, pep_html.Writer, SettingsSpec)),
-            '.txt': Struct(components=(
-                rst.Parser, standalone.Reader, html4css1.Writer, SettingsSpec),
-                reader_name='standalone', writer_name='html'),
-            'PEPs': Struct(components=(
-                rst.Parser, pep.Reader, pep_html.Writer, SettingsSpec),
-                reader_name='pep', writer_name='pep_html')}
+            '': Struct(components=(pep.Reader, rst.Parser, pep_html.Writer,
+                                   SettingsSpec)),
+            '.txt': Struct(components=(rst.Parser, standalone.Reader,
+                                       html_plain.Writer, SettingsSpec),
+                           reader_name='standalone',
+                           writer_name='html5'),
+            'PEPs': Struct(components=(rst.Parser, pep.Reader,
+                                       pep_html.Writer, SettingsSpec),
+                           reader_name='pep',
+                           writer_name='pep_html')}
+        """Publisher-specific settings.  Key '' is for the front-end script
+        itself.  ``self.publishers[''].components`` must contain a superset of
+        all components used by individual publishers."""
+
         self.setup_publishers()
 
     def setup_publishers(self):
-        """Manage configurations for individual publishers.
+        """
+        Manage configurations for individual publishers.
 
         Each publisher (combination of parser, reader, and writer) may have
         its own configuration defaults, which must be kept separate from those
         of the other publishers.  Setting defaults are combined with the
-        config file settings and command-line options by `self.get_settings()`.
+        config file settings and command-line options by
+        `self.get_settings()`.
         """
         for name, publisher in self.publishers.items():
             option_parser = OptionParser(
-                components=publisher.components, read_config_files=True,
+                components=publisher.components, read_config_files=1,
                 usage=usage, description=description)
             publisher.option_parser = option_parser
             publisher.setting_defaults = option_parser.get_default_values()
             frontend.make_paths_absolute(publisher.setting_defaults.__dict__,
-                option_parser.relative_path_settings)
+                                         option_parser.relative_path_settings)
             publisher.config_settings = (
                 option_parser.get_standard_config_settings())
         self.settings_spec = self.publishers[''].option_parser.parse_args(
@@ -142,7 +160,8 @@ class Builder(object):
         self.initial_settings = self.get_settings('')
 
     def get_settings(self, publisher_name, directory=None):
-        """Return a settings object, from multiple sources.
+        """
+        Return a settings object, from multiple sources.
 
         Copy the setting defaults, overlay the startup config file settings,
         then the local config file settings, then the command-line options.
@@ -161,7 +180,7 @@ class Builder(object):
         settings.update(self.settings_spec.__dict__, publisher.option_parser)
         return settings
 
-    def run(self, directory=None, recurse=True):
+    def run(self, directory=None, recurse=1):
         recurse = recurse and self.initial_settings.recurse
         if directory:
             self.directories = [directory]
@@ -170,17 +189,24 @@ class Builder(object):
         else:
             self.directories = [os.getcwd()]
         for directory in self.directories:
-            os.path.walk(directory, self.visit, recurse)
+            for root, dirs, files in os.walk(directory):
+                # os.walk by default this recurses down the tree,
+                # influence by modifying dirs.
+                if not recurse:
+                    del dirs[:]
+                self.visit(root, files, dirs)
 
-    def visit(self, recurse, directory, names):
+    def visit(self, directory, names, subdirectories):
         settings = self.get_settings('', directory)
+        errout = ErrorOutput(encoding=settings.error_encoding)
         if settings.prune and (os.path.abspath(directory) in settings.prune):
-            print >>sys.stderr, '/// ...Skipping directory (pruned):', directory
+            errout.write('/// ...Skipping directory (pruned): %s\n' %
+                         directory)
             sys.stderr.flush()
-            names[:] = []
+            del subdirectories[:]
             return
         if not self.initial_settings.silent:
-            print >>sys.stderr, '/// Processing directory:', directory
+            errout.write('/// Processing directory: %s\n' % directory)
             sys.stderr.flush()
         # settings.ignore grows many duplicate entries as we recurse
         # if we add patterns in config files or on the command line.
@@ -191,10 +217,7 @@ class Builder(object):
                     del names[i]
         for name in names:
             if name.endswith('.txt'):
-                if self.process_txt(directory, name):
-                    break  # prune
-        if not recurse:
-            del names[:]
+                self.process_txt(directory, name)
 
     def process_txt(self, directory, name):
         if name.startswith('pep-'):
@@ -202,24 +225,24 @@ class Builder(object):
         else:
             publisher = '.txt'
         settings = self.get_settings(publisher, directory)
+        errout = ErrorOutput(encoding=settings.error_encoding)
         pub_struct = self.publishers[publisher]
-        if settings.prune and directory in settings.prune:
-            return True
         settings._source = os.path.normpath(os.path.join(directory, name))
         settings._destination = settings._source[:-4]+'.html'
         if not self.initial_settings.silent:
-            print >>sys.stderr, '    ::: Processing:', name
+            errout.write('    ::: Processing: %s\n' % name)
             sys.stderr.flush()
         try:
-            core.publish_file(source_path=settings._source,
-                destination_path=settings._destination,
-                reader_name=pub_struct.reader_name,
-                parser_name='restructuredtext',
-                writer_name=pub_struct.writer_name,
-                settings=settings)
-        except ApplicationError as error:
-            print >>sys.stderr, ('        Error (%s): %s'
-                % (error.__class__.__name__, error))
+            if not settings.dry_run:
+                core.publish_file(source_path=settings._source,
+                              destination_path=settings._destination,
+                              reader_name=pub_struct.reader_name,
+                              parser_name='restructuredtext',
+                              writer_name=pub_struct.writer_name,
+                              settings=settings)
+        except ApplicationError:
+            error = sys.exc_info()[1] # get exception in Python <2.6 and 3.x
+            errout.write('        %s\n' % ErrorString(error))
 
 
 if __name__ == "__main__":

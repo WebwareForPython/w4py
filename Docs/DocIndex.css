@@ -37,10 +37,12 @@ td.InfoLabel {
 	background-color: #6666FF;
 	font-weight: bold;
 	color: white;
+	white-space: nowrap;
 }
 td.InfoValue {
 	font-family: Arial, Helvetica, sans-serif;
 	background-color: #E8E8FF;
+	white-space: nowrap;
 }
 td.InfoSummary {
 	font-family: Arial, Helvetica, sans-serif;

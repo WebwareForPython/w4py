@@ -39,7 +39,7 @@ td.dataTable2 {
 <!-- contents -->
 
 
-<a name="WhatYouNeed"></a><h2>What you need</h2>
+<a id="WhatYouNeed"></a><h2>What you need</h2>
 
 <p>To perform the steps in this Quick Start you need:</p>
 
@@ -49,7 +49,7 @@ td.dataTable2 {
 </ul>
 
 
-<a name="CreateObjModel"></a><h2>Create an object model</h2>
+<a id="CreateObjModel"></a><h2>Create an object model</h2>
 
 <p>Our example will be an application for tracking "videos", such as movies and TV series. Feel free to create your own application as you step through this guide to learn how to use MiddleKit (MK).</p>
 
@@ -102,7 +102,7 @@ td.dataTable2 {
 
 <p>The <span class="name">SQLLog</span> setting is commented out above, but you can uncomment it in order to see all the SQL that MiddleKit executes at run time. You can also change the filename to be 'stdout' or 'stderr'.</p>
 
-<a name="GenCode"></a><h2>Generate code</h2>
+<a id="GenCode"></a><h2>Generate code</h2>
 
 <p>We now want to run the MK Generate program to create the necessary Python and SQL code to support our application. Locate the Generate program, found in <span class="filename">MiddleKit/Design/</span>:</p>
 
@@ -162,7 +162,7 @@ Generating Python...
 </td></tr></table>
 
 
-<a name="CreateData"></a><h2>Create sample data</h2>
+<a id="CreateData"></a><h2>Create sample data</h2>
 
 <p>Copy the template file <span class="filename">MiddleKit/Resources/Template.mkmodel/Samples.csv</span> to <span class="filename">Videos/Middle/Videos.mkmodel</span> and edit it to contain the following sample data. Or, you can grab this file from:</p>
 
@@ -199,7 +199,7 @@ Generating Python...
 <p>Now run <span class="filename">generate</span> again. You will find a new file at <span class="filename">GeneratedSQL/InsertSamples.sql</span>.</p>
 
 
-<a name="CreateDB"></a><h2>Create the database</h2>
+<a id="CreateDB"></a><h2>Create the database</h2>
 
 <p>Create the database:</p>
 
@@ -235,7 +235,7 @@ mysql &lt; GeneratedSQL\InsertSamples.sql
 </td></tr></table>
 
 
-<a name="CompleteDirStruct"></a><h2>Complete the directory structure</h2>
+<a id="CompleteDirStruct"></a><h2>Complete the directory structure</h2>
 
 <p>Let's write some Python code that uses the middle objects. We're going to put the code next door to the model by created a new <span class="filename">Command</span> directory.</p>
 
@@ -271,7 +271,7 @@ mysql &lt; GeneratedSQL\InsertSamples.sql
 </pre>
 
 
-<a name="SetUpStore"></a><h2>Set up the store</h2>
+<a id="SetUpStore"></a><h2>Set up the store</h2>
 
 <p>We'll first create an object store, which (largely) hides you from the database while allowing you to work in a fully object-oriented, Python-centric frame of mind. Put this <span class="filename">main.py</span> file in the <span class="filename">Command/</span> directory:</p>
 
@@ -312,7 +312,7 @@ if __name__=='__main__':
 </td></tr></table>
 
 
-<a name="CreateObj"></a><h2>Create a new object</h2>
+<a id="CreateObj"></a><h2>Create a new object</h2>
 
 <p>Now create a new object. Augment <span class="name">main()</span> with this:</p>
 
@@ -344,7 +344,7 @@ if __name__=='__main__':
 <p>Note that you create and modify a <span class="name">Movie</span> just like you would any Python object. However, you do have to add the object to the MK store and eventually tell the MK store to save its changes to the persistent store (the SQL database in our case).</p>
 
 
-<a name="CreateMoreObjs"></a><h2>Create more objects</h2>
+<a id="CreateMoreObjs"></a><h2>Create more objects</h2>
 
 <p>Let's add more objects to our store. Add these imports after the import of Movie:</p>
 
@@ -383,7 +383,7 @@ from Middle.Role import Role
 <p>Of course, a typical application looks very different from our example. Often you will have more generic code for creating new objects, usually in response to user input or processing a data feed.</p>
 
 
-<a name="FetchObjs"></a><h2>Fetch objects</h2>
+<a id="FetchObjs"></a><h2>Fetch objects</h2>
 
 <p>You can get a list of objects of a particular class returned to you as a list, like so:</p>
 
@@ -418,12 +418,12 @@ from Middle.Role import Role
 <p>If the fetched objects already exist in memory, their attributes will be updated with the values from the database. This promotes consistency and avoids having multiple Python instances representing the same object.</p>
 
 
-<a name="DelObjs"></a><h2>Delete an object</h2>
+<a id="DelObjs"></a><h2>Delete an object</h2>
 
 <p>Deleting objects is well supported in MiddleKit, but not yet described in this Quick Start. See <a href="UsersGuide.html#MT_DeletingObjects">Deleting objects</a> in the User's Guide for more information.</p>
 
 
-<a name="UserSerialNums"></a><h2>Use serial numbers</h2>
+<a id="UserSerialNums"></a><h2>Use serial numbers</h2>
 
 <p>Every new object is given a serial number when changes are saved. The serial number is unique among all objects of its class. You could store a reference to the class and serial number outside the store (such as in a file, an HTTP cookie, a session object, etc.) and retrieve the object later:</p>
 
@@ -442,7 +442,7 @@ from Middle.Role import Role
 </pre>
 
 
-<a name="UseMKBrowser"></a><h2>Use the MKBrowser</h2>
+<a id="UseMKBrowser"></a><h2>Use the MKBrowser</h2>
 
 <p>The MKBrowser let's you browse through any MK object store via the web. You will need to have <a href="../../WebKit/Docs/index.html">WebKit</a> installed.</p>
 
@@ -459,7 +459,7 @@ from Middle.Role import Role
 <p>Have fun.</p>
 
 
-<a name="Next"></a><h2>What's Next?</h2>
+<a id="Next"></a><h2>What's Next?</h2>
 
 <p>Your next steps are to read the <a href="UsersGuide.html">User's Guide</a> which contains more information about using MiddleKit, and build your own MiddleKit application.</p>
 

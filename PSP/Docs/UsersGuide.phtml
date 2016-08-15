@@ -9,7 +9,7 @@
 <!-- contents(depth=4) -->
 
 
-<a name="Summary"></a><h2>Summary</h2>
+<a id="Summary"></a><h2>Summary</h2>
 
 <p>Python Server Pages (PSP) provides the capability for producing dynamic web pages
 for use with the Webware WebKit Python Servlet engine simply by writing standard HTML.
@@ -31,14 +31,14 @@ favorably to other server side web scripting languages, such as ASP, PHP and JSP
   <li>Ability to add additional methods to the class produced by PSP</li>
 </ul>
 
-<a name="Feedback"></a><h2>Feedback</h2>
+<a id="Feedback"></a><h2>Feedback</h2>
 
 <p>The PSP for Webware project is fully open source.  Help in all areas is encouraged and appreciated.
 Comments should be directed to the Webware Discussion mailing list. This is a relatively
 low volume list and you are encouraged to join the list if you wish to participate in the development
 of PSP or Webware, or if you plan on developing an application using the framework.</p>
 
-<a name="General"></a><h2>General Overview</h2>
+<a id="General"></a><h2>General Overview</h2>
 
 <p>The general process for creating PSP files is similar to creating an HTML page.
 Simply create a standard HTML page, interspersed with the special PSP tags that
@@ -53,11 +53,11 @@ instance of this class will be instantiated to serve requests for that page.</p>
  such as &lt;html&gt;, &lt;head&gt; etc. depends on the base class you choose for your
  PSP class.  The default setup does not output any of those tags automatically.</p>
 
-<a name="Tags"></a><h2>PSP Tags</h2>
+<a id="Tags"></a><h2>PSP Tags</h2>
 
 <p>The following tags are supported by the current PSP implementation.</p>
 
-<a name="ExpressionTag"></a><h3>Expression Tag &ndash; &lt;%= expression %&gt;</h3>
+<a id="ExpressionTag"></a><h3>Expression Tag &ndash; &lt;%= expression %&gt;</h3>
 
 <p>The expression tag simply evaluates some Python code and inserts its text representation
 into the HTML response.  You may include anything that will evaluate to a value that can
@@ -70,7 +70,7 @@ be represented as a string inside the tag.</p>
 <p>When the PSP parsing engine encounters Expression tags, it wraps the contents in a call to the
 Python <i>str()</i> function.  Multiple lines are not supported in a PSP expression tag.</p>
 
-<a name="ScriptTag"></a><h3>Script Tag &ndash; &lt;% script code %&gt;</h3>
+<a id="ScriptTag"></a><h3>Script Tag &ndash; &lt;% script code %&gt;</h3>
 
 <p>The script tag is used to enclose Python code that should be run by the WebKit Servlet
  runner when requests are processed by the Servlet which this PSP page produces.  Any valid Python
@@ -81,22 +81,22 @@ into the method body that is being produced by this PSP page.</p>
 <h5>Example</h5>
 
 <pre class="py">&lt;% for i in range(5):
-     &nbsp;&nbsp;&nbsp; res.write("&lt;b&gt;This is number" + str(i) + "&lt;/b&gt;&lt;br&gt;") %&gt;</i> </pre>
+     &nbsp;&nbsp;&nbsp; res.write("&lt;b&gt;This is number" + str(i) + "&lt;/b&gt;&lt;br&gt;") %&gt; </pre>
 
 <p>The Python code within script tags has access to all local and class variables declared in the PSP page,
 as well as to all variables of the enclosing class of this PSP page.</p>
 
 <p>Special local variables that will be available in all PSP pages are:</p>
 
-<table width="90%" align="center">
-<tr valign="top"><td>req</td><td> the HTTRequest object for this page</td></tr>
-<tr valign="top"><td>res</td> <td> the HTTPResponse object for this page.
+<table style="width:90%">
+<tr class="top"><td>req</td><td> the HTTRequest object for this page</td></tr>
+<tr class="top"><td>res</td> <td> the HTTPResponse object for this page.
 The HTTPResponse object includes the <i>write</i> method that is used to output HTML to the client.</td></tr>
-<tr valign="top"><td>trans</td><td> The Transaction object for this client request.  The Transaction object
+<tr class="top"><td>trans</td><td> The Transaction object for this client request.  The Transaction object
 provides access to the objects involved in servicing this client request.</td></tr>
 </table>
 
-<a name="CodeThatSpansTags"></a><h4>Python Code Blocks that span PSP Script Tags</h4>
+<a id="CodeThatSpansTags"></a><h4>Python Code Blocks that span PSP Script Tags</h4>
 
 <p>The Python code structure, which uses whitespace to signify blocks of code,
 presents a special challenge in PSP pages.
@@ -104,7 +104,7 @@ In order to allow for readable HTML code that does not impose restrictions
 on straight HTML within PSP pages,
 PSP uses a special syntax to handle Python blocks that span script tags.</p>
 
-<a name="AutomaticBlocks"></a><h4>Automatic Blocks</h4>
+<a id="AutomaticBlocks"></a><h4>Automatic Blocks</h4>
 
 <p>Any script tag with Python code that ends with a colon (:) is considered to begin a block. A
 comment tag may follow the colon. After this tag, any following HTML is considered to be part
@@ -120,7 +120,7 @@ of the block begun within the previous script tag. To end the block, insert a ne
 <p>These blocks can be nested, with no need for special indentation, and each script tag that only contains a solitary end
 statement will reduce the block indent by one.</p>
 
-<a name="ManualBlocks"></a><h4>Manual Blocks</h4>
+<a id="ManualBlocks"></a><h4>Manual Blocks</h4>
 
 <p>It is also possible to force a block of HTML statements to be included in a block.
 You might want to do this if your start a loop of some kind in a script tag, but need the first line of the loop to also be inside the script tag.
@@ -139,7 +139,7 @@ To end this level of indentation, just start another script tag. Easy.</p>
 
 <p>You could also start a new script block that just continues at the same indentation level that the HTML and the previous scipt block were at.</p>
 
-<a name="Braces"></a><h4>Braces</h4>
+<a id="Braces"></a><h4>Braces</h4>
 
 <p>PSP also supports using braces to handle indentation.
 This goes against the grain of Python, we know, but is useful for this specific application.
@@ -171,7 +171,7 @@ Now it is &lt;%=v %&gt;
 &lt;% } %&gt;  # End the block
 </pre>
 
-<a name="ScriptTags"></a><h3>File and Class Level Code &ndash; &lt;psp:file&gt; and &lt;psp:class&gt;</h3>
+<a id="ScriptTags"></a><h3>File and Class Level Code &ndash; &lt;psp:file&gt; and &lt;psp:class&gt;</h3>
 
 <p>The file and class level script tag allows you to write Python code at the file (module) level or class level.
 For example, at the file level, you might do imports statements,
@@ -212,7 +212,7 @@ so you should always use the &lt;psp:method&gt; tag below if you want to overrid
 
 <p>The &lt;psp:file&gt; and &lt;psp:class&gt; tags were added to Webware v0.91</p>
 
-<a name="PSPMethod"></a><h3>Method Tag &ndash; &lt;psp:method ...&gt;</h3>
+<a id="PSPMethod"></a><h3>Method Tag &ndash; &lt;psp:method ...&gt;</h3>
 
 <p>The Method tag is used to declare new methods of the Servlet class this page is producing.
 It will generally be more effective to place method declarations in a Servlet class and then have
@@ -243,7 +243,7 @@ This will be done automatically in the code that PSP generates.</p>
 <p>A PSP:Method can be declared anywhere in the psp sourcefile and will be available throughout the
 PSP file through the standard <i>self.PSPMethodName(parameters)</i> syntax.</p>
 
-<a name="PSPInclude"></a><h3>Include Tag &ndash; &lt;psp:include ...&gt;</h3>
+<a id="PSPInclude"></a><h3>Include Tag &ndash; &lt;psp:include ...&gt;</h3>
 
 <p>The include tag pauses processing on the page and immediately passes the request on the the specified URL.
 The output of that URL will be inserted into the output stream, and then processing will continue on the original page.
@@ -255,7 +255,7 @@ will also be used by the URL to which this request is sent.</p>
 
 <p><b>Example:</b> <span class="py">&lt;psp:include path="myfile.html"&gt;</span></p>
 
-<a name="PSPInsert"></a><h3>Insert Tag &ndash; &lt;psp:insert ...&gt;</h3>
+<a id="PSPInsert"></a><h3>Insert Tag &ndash; &lt;psp:insert ...&gt;</h3>
 
 <p>The insert tag inserts a file into the output stream that the psp page will produce,
 but does not parse that included file for psp content.
@@ -272,14 +272,14 @@ Any subsequent changes to the file will not be seen by the servlet. (This was th
 
 <p><b>Example:</b> <span class="py">&lt;psp:insert file="myfile.html"&gt;</span></p>
 
-<a name="Directives"></a><h2>Directives</h2>
+<a id="Directives"></a><h2>Directives</h2>
 
 <p>Directives are not output into the HTML output, but instead tell the PSP parser to do something special.
 Directives have at least two elements, the type of directive, and one or more parameters in the form of param="value" pairs.</p>
 
 <p>Supported Directives include:</p>
 
-<a name="PageDirectives"></a><h3>Page Directive &ndash; &lt;%@ page ... %&gt;</h3>
+<a id="PageDirectives"></a><h3>Page Directive &ndash; &lt;%@ page ... %&gt;</h3>
 
 <p>The page directive tells the PSP parser about special requirements of this page,
 or sets some optional output options for this page. Directives set in <i>page</i> apply
@@ -396,7 +396,7 @@ for example, if you want all integers to be formatted with commas like "1,234,56
 
 </ul>
 
-<a name="IncludeDirective"></a><h3>Include Directive &ndash; &lt;%@ include ... %&gt;</h3>
+<a id="IncludeDirective"></a><h3>Include Directive &ndash; &lt;%@ include ... %&gt;</h3>
 
 <p>The include directive tells the parser to insert another file at this point in the page and to parse it for psp content.
 It is generally no problem to include an html file this way. However, if you do not want your include file to be parsed,
@@ -406,14 +406,14 @@ you may use the <i>&lt;psp:include ...&gt;</i> tag described above.</p>
 
 <pre class="py">&lt;%@ include file="myfile.txt"%&gt; </pre>
 
-<a name="Other Tags"></a><h2>Other Tags</h2>
+<a id="OtherTags"></a><h2>Other Tags</h2>
 
 <ul>
 <li><b>Declaration</b> (<span class="py">&lt;%! ... %&gt;</span>) &ndash; No need for this tag.  Simply use script tags to declare local variables.</li>
 <li><b>Forwarding</b> functionality is now available in WebKit, but no tag based support has been added to PSP yet.</lI>
 </ul>
 
-<a name="Developers"></a><h2>Developers</h2>
+<a id="Developers"></a><h2>Developers</h2>
 
 <p>The original author of PSP is Jay Love and the project is now maintained by Jay and
 Geoff Talvola. The contributions of the entire Webware community have been invaluable in improving this software.</p>

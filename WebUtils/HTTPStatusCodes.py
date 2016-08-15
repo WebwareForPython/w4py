@@ -67,7 +67,8 @@ for record in HTTPStatusCodeList:
 
 
 def HTMLTableOfHTTPStatusCodes(codes=HTTPStatusCodeList,
-        tableArgs='align=center border=2', rowArgs='valign=top', colArgs='',
+        tableArgs='style="text-align:center;',
+        rowArgs='style="vertical-align:top"', colArgs='',
         headingTag='th', headingArgs=''):
     """Return an HTML table with HTTP status codes.
 
@@ -79,7 +80,7 @@ def HTMLTableOfHTTPStatusCodes(codes=HTTPStatusCodeList,
     th = '<%s %s>' % (headingTag, headingArgs)
     res.append('<tr>%sCode</th>%sIdentifier</th>%sDescription</th></tr>\n' % (
         th, th, th))
-    for code, identifier, htmlMsg in HTTPStatusCodeList:
+    for code, identifier, htmlMsg in codes:
         td = '<td %s>' % colArgs
         res.append('<tr %s>%s%s</td>%s%s</td>%s%s</td></tr>\n' % (
             rowArgs, td, code, td, identifier, td, htmlMsg))

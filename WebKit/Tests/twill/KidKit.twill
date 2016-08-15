@@ -10,7 +10,7 @@ go http://127.0.0.1:8080
 follow KidKit
 url KidKit
 title Welcome
-find "Hello from <tt.*>Kid</tt>!"
+find "Hello from <code.*>Kid</code>!"
 find '<img src="kidlogo.png" alt="Kid Templates">'
 find 'This is the <strong>KidKit</strong> plug-in'
 find 'Here are some examples\.'
@@ -58,7 +58,7 @@ find "<p>Hello <strong>James</strong>, how are you\?</p>"
 follow MandelbrotSet
 title "The Mandelbrot Set"
 find "<h1>The Mandelbrot Set</h1>"
-find '<table cellpadding="2" cellspacing="1">'
+find '<table>'
 back
 
 go ../../KidKit/Docs

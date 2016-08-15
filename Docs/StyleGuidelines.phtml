@@ -18,7 +18,7 @@
 <!-- contents -->
 
 
-<a name="Introduction"></a><h2>Introduction</h2>
+<a id="Introduction"></a><h2>Introduction</h2>
 
 <p>Style refers to various aspects of coding including indentation practices, naming conventions, use of design patterns, treatment of constants, etc. One of the goals of Webware is to maintain fairly consistent coding style with respect to certain basics as described in this document.</p>
 
@@ -42,9 +42,9 @@
 </ol>
 
 
-<a name="Syntax"></a><h2>Syntax and Naming</h2>
+<a id="Syntax"></a><h2>Syntax and Naming</h2>
 
-<a name="SynNaming_MethodsAndAttrs"></a><h3>Methods and Attributes</h3>
+<a id="SynNaming_MethodsAndAttrs"></a><h3>Methods and Attributes</h3>
 
 <p>Methods and attributes are an important topic because they are used so frequently and therefore have an impact on using the classes, learning them, remembering them, etc.</p>
 
@@ -83,7 +83,7 @@
 <p>Methods that return a Boolean are prefixed with <code>is</code> or <code>has</code> to make their semantics more obvious. Examples include <code>request.isSecure()</code>, <code>user.isActive()</code> and <code>response.hasHeader()</code>.</p>
 
 
-<a name="SynNaming_MethodCategories"></a><h3>Method Categories</h3>
+<a id="SynNaming_MethodCategories"></a><h3>Method Categories</h3>
 
 <p>Webware classes divide their methods into logical groups called categories purely for organizational purposes. This often helps in understanding the interface of a class, especially when looking at its summary.</p>
 
@@ -92,7 +92,7 @@
 <p>By convention, a category is named with a comment beginning and ending with two pound signs, <code>##</code>, with two blanks lines before and one blank line after.</p>
 
 
-<a name="SynNaming_Abbreviations"></a><h3>Abbreviations</h3>
+<a id="SynNaming_Abbreviations"></a><h3>Abbreviations</h3>
 
 <p>Using abbreviations is a common coding practice to reduce typing and make lines shorter. However, removing random characters to abbreviate is a poor way to go about this. For example, <code>transaction</code> could be abbreviated as <code>trnsact</code> or <code>trnsactn</code>, but which letters are left out is not obvious or easy to remember.</p>
 
@@ -107,7 +107,7 @@ numRequests
 <p>If there is a corresponding attribute, it should have the same name (prefixed by an underscore).</p>
 
 
-<a name="SynNaming_CompoundNames"></a><h3>Compound Names</h3>
+<a id="SynNaming_CompoundNames"></a><h3>Compound Names</h3>
 
 <p>Identifiers often consist of multiple names. There are three major styles for handling compound names:</p>
 
@@ -122,14 +122,14 @@ numRequests
 <p>This rule also applies to class names such as <code>HTTPRequest</code> and <code>ServletFactory</code>.</p>
 
 
-<a name="SynNaming_ComponentNames"></a><h3>Component Names</h3>
+<a id="SynNaming_ComponentNames"></a><h3>Component Names</h3>
 
 <p>Names of object-oriented Webware components are often suffixed with <b>Kit</b>, as in <i>WebKit</i> and <i>MiddleKit</i>.</p>
 
 <p>The occasional component that serves as a collective library (rather than an OO framework) is suffixed with <b>Utils</b>, as in <i>MiscUtils</i> and <i>WebUtils</i>.</p>
 
 
-<a name="SynNaming_Rules"></a><h3>Rules</h3>
+<a id="SynNaming_Rules"></a><h3>Rules</h3>
 
 <p>What follows is a list of additional syntax and naming rules that are actually policed by the <a href="#Misc_checksrc">checksrc</a> utility, described later in this document.</p>
 <% def convention(dict):
@@ -208,9 +208,9 @@ def hasValue(self, name):
 <%= convention({'what': 'If not specified otherwise, follow the <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a> conventions.',
 'why': "For historical and opinionated reasons of Webware's BDFL, Webware follows its own style guidelines which overrule the standard guidelines for Python. :-)"}) %>
 
-<a name="Structure"></a><h2>Structure and Patterns</h2>
+<a id="Structure"></a><h2>Structure and Patterns</h2>
 
-<a name="Structure_Classes"></a><h3>Classes</h3>
+<a id="Structure_Classes"></a><h3>Classes</h3>
 
 <p>Webware overwhelmingly uses classes rather than collections of functions for several reasons:</p>
 
@@ -231,7 +231,7 @@ class Foo(SuperFoo):
 <p>and the use of <code>self</code> when accessing attributes and methods. The difference in time between creating a class with several methods vs. a set of several functions is essentially zero.</p>
 
 
-<a name="Structure_ConfigFiles"></a><h3>Configuration Files</h3>
+<a id="Structure_ConfigFiles"></a><h3>Configuration Files</h3>
 
 <p>Specific numbers and strings often appear in source code for determining things such as the size of a cache, the duration before timeout, the name of the server and so on. Rather than place these values directly in source, Webware provides configuration files that are easily discerned and edited by users, without requiring a walk through the source.</p>
 
@@ -256,7 +256,7 @@ class Foo(SuperFoo):
 <p>WebKit provides a <code>Configurable</code> mix-in class that is used to read configuration files. It allows subclasses to say <code>self.setting('Something')</code> so that the use of configuration information is easy and recognizable throughout the code.</p>
 
 
-<a name="Structure_NamedObjs"></a><h3>Accessing Named Objects</h3>
+<a id="Structure_NamedObjs"></a><h3>Accessing Named Objects</h3>
 
 <p>Several classes in Webware store dictionaries of objects keyed by their name. <code>HTTPRequest</code> is one such class which stores a dictionary of form fields. The convention for providing an interface to this information is as follows:</p>
 
@@ -304,7 +304,7 @@ req['city']
 <p>In those cases where objects provide dictionary-like access, the class is typically a lightweight container that is naturally thought of in terms of its dictionary components. Usually these classes inherit from <code>dict</code>.</p>
 
 
-<a name="Structure_Components"></a><h3>Components</h3>
+<a id="Structure_Components"></a><h3>Components</h3>
 
 <p>Webware consists of multiple components that follow particular conventions, not only for the sake of consistency, but also to enable scripts to manipulate them (such as generating documentation upon installation).</p>
 
@@ -315,19 +315,19 @@ req['city']
 <p>Also, if a component serves as a WebKit plug-in, then there are additional conventions for them to follow in order to work correctly. See <a href="../WebKit/Docs/UsersGuide.html#plug-ins">Plug-ins</a> in the WebKit <a href="../WebKit/Docs/UsersGuide.html">User's Guide</a>.</p>
 
 
-<a name="MiscNotes"></a><h2>Miscellaneous Notes</h2>
+<a id="MiscNotes"></a><h2>Miscellaneous Notes</h2>
 
-<a name="Misc_Limitations"></a><h3>Limitations</h3>
+<a id="Misc_Limitations"></a><h3>Limitations</h3>
 
 <p>Some features that have been introduced in newer Python versions, like properties or decorators, could be used to create more readable code. However, since we want Webware to be backward compatible, these newer features should currently not be used. In future versions of Webware we may certainly lift these restrictions and adapt the style guidelines accordingly.</p>
 
 
-<a name="Misc_Permissions"></a><h3>Permissions</h3>
+<a id="Misc_Permissions"></a><h3>Permissions</h3>
 
 <p>When adding standalone Python scripts, like those found in Webware/bin, you should mark them as executable in to the Git repository with <code>git update-index --chmod=+x</code>. Otherwise Unix-based developers will not have execute permissions after checking the scripts out.</p>
 
 
-<a name="Misc_SendingUpdates"></a><h3>Sending Updates</h3>
+<a id="Misc_SendingUpdates"></a><h3>Sending Updates</h3>
 
 <p>Those who actually develop Webware should send messages to <a href="mailto:webware-devel@lists.sourceforge.net">webware-devel@lists.sourceforge.net</a> when they update the repository.</p>
 
@@ -336,21 +336,21 @@ req['city']
 <p>Note that automatic messages from the Git repository are not a good substitute for these types of messages which are more informative and more easily compiled into interesting release notes.</p>
 
 
-<a name="Misc_BreakingRules"></a><h3>Breaking the Rules</h3>
+<a id="Misc_BreakingRules"></a><h3>Breaking the Rules</h3>
 
 <p>Of course, there are times when the rules are broken for good reason. To quote a clich&eacute;: "Part of being an expert is knowing when to break the rules."</p>
 
 <p>But regarding style, Webware developers do this very infrequently for the reasons stated in the introduction.</p>
 
 
-<a name="Misc_checksrc"></a><h3>checksrc.py</h3>
+<a id="Misc_checksrc"></a><h3>checksrc.py</h3>
 
 <p><code>checksrc.py</code> is a program located in <code>Webware/bin</code> used to check the syntax and naming conventions in the actual Webware source code. You can invoke the program with <code>-h</code> or <code>--help</code> to get information on how to use it and there is a good doc string at the top of file if you're interested in more details. <code>checksrc.py</code> should be run periodically and especially before each release of Webware.</p>
 
 <p>You can also use <code>pylint</code> (available from <a href="http://www.logilab.org">Logilab.org</a>) for this purpose, which can be easily integrated in most IDEs. A suitable rcfile <code>.pylintrc</code> has been placed in the Webware root directory.</p>
 
 
-<a name="Misc_Future"></a><h3>Future Work</h3>
+<a id="Misc_Future"></a><h3>Future Work</h3>
 
 <p>A list of future work for this document:</p>
 

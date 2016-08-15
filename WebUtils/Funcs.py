@@ -97,7 +97,7 @@ def htmlForDict(d, addSpace=None, filterValueCallBack=None,
         key = htmlEncode(key)
         if not isEncoded:
             value = htmlEncode(value)
-        html.append('<tr><th align="left">%s</th><td>%s</td></tr>\n'
+        html.append('<tr><th style="text-align:left">%s</th><td>%s</td></tr>\n'
             % (key, value))
     html.append('</table>')
     return ''.join(html)

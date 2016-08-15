@@ -50,7 +50,7 @@ It'll just be output as is in the response stream.</li>
 
 <p>This works only under Unix:</p>
 
-<table cellspacing="4" cellpadding="4">
+<table>
 <% if hasattr(os, 'uname'):
     info = os.uname()
 else:

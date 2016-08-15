@@ -5,7 +5,7 @@
 <!-- contents -->
 
 
-<a name="Synopsis"></a><h2>Synopsis</h2>
+<a id="Synopsis"></a><h2>Synopsis</h2>
 
 <p>MiddleKit provides an object-relational mapping layer that enables developers to write object-oriented, Python-centric code while enjoying the benefits of a relational database.</p>
 
@@ -14,7 +14,7 @@
 <p>The benefits of a relational database include: data storage, concurrent access and 3rd party tools (such as report generators).</p>
 
 
-<a name="RDBMS"></a><h2>RDBMS Support</h2>
+<a id="RDBMS"></a><h2>RDBMS Support</h2>
 
 <p>MiddleKit can use any of the following databases as a back-end:</p>
 <ul>
@@ -25,7 +25,7 @@
 </ul>
 
 
-<a name="DataTypes"></a><h2>Data Types</h2>
+<a id="DataTypes"></a><h2>Data Types</h2>
 
 <p>All attributes in an object model must be typed. MiddleKit divides types into 4 major categories:</p>
 
@@ -37,15 +37,15 @@
 </ol>
 
 
-<a name="DT_BasicTypes"></a><h3>Basic Types</h3>
+<a id="DT_BasicTypes"></a><h3>Basic Types</h3>
 
 <p>The basic types are easy to work with and do what you expect. They are the same as the Python types with the addition of one special case: <code>bool</code>.</p>
 
 <p>While MiddleKit is designed to be generic and therefore, database agnostic, concrete examples pay good dividends. So the following table includes the type equivalents for MySQL.</p>
 
-<table border="1" align="center" cellpadding="2" cellspacing="0">
+<table>
   <tr>
-    <th colspan=4 align="center">Basic Types</th>
+    <th colspan=4 class="center">Basic Types</th>
   </tr>
   <tr>
     <th>MiddleKit</th>
@@ -88,19 +88,19 @@
 <p><sup style="font-size:smaller">(*)</sup> The MySQL type is <code>char</code> if the minimum and maximum length are equal.</p>
 
 
-<a name="DT_DateTime"></a><h3>Date and time types</h3>
+<a id="DT_DateTime"></a><h3>Date and time types</h3>
 
 <p>MiddleKit supports types of date, time and datetime (as available in the Python standard library).</p>
 
 
-<a name="DT_Enums"></a><h3>Enumerations</h3>
+<a id="DT_Enums"></a><h3>Enumerations</h3>
 
 <p>Enumerations are provided through the <span class="name">enum</span> type which is directly supported in MySQL. In Python, these enumerations are kept as case sensitive strings. The object model must specify the valid values of the enumeration. While that be done via a column named "Enums", this is more frequently specified in the "Extras" column, where less common attribute specs are usually placed:</p>
 
 <p class="center"><code>Enums='red, green, blue'</code></p>
 
 
-<a name="DT_ObjRef"></a><h3>Object references</h3>
+<a id="DT_ObjRef"></a><h3>Object references</h3>
 
 <p>There are two types of object references: a single reference and a list of references. In relational terminology, that would be "1-to-1" and "1-to-many" respectively.</p>
 
@@ -108,7 +108,7 @@
 
 <p>The type for a single reference in Python is indicated by simply naming the class of the object that can be referred to. That class must be defined in the object model and will therefore have its own table in the database. User-defined classes are required to be capitalized (while other types are lower case). For example:</p>
 
-<table border="1" align="center" cellpadding="2" cellspacing="0">
+<table>
   <tr>
     <th>Attribute</th>
     <th>Type</th>
@@ -127,7 +127,7 @@
 
 <p>The type for a list of references is specified by <code>list of <i>ClassName</i></code> and represents the 1-to-many relationship. This will be an ordinary Python list, except that some invisible MiddleKit machinery in the background will perform various services (fetch objects on demand, insert new objects, etc.). For example:</p>
 
-<table border="1" align="center" cellpadding="2" cellspacing="0">
+<table>
   <tr>
     <th>Class</th>
     <th>Attribute</th>
@@ -147,7 +147,7 @@
 
 <p>Note that the the Address class referred to will need a "back reference" attribute which, for each Address instance, refers to the corresponding Contact instance.  By default, MiddleKit assumes that this attribute is named the same as the class containing the list attribute ('Contact' in this example), but with the first letter converted to lowercase to match MiddleKit naming conventions (therefore, 'contact'):</p>
 
-<table border="1" align="center" cellpadding="2" cellspacing="0">
+<table>
   <tr>
     <th>Class</th>
     <th>Attribute</th>
@@ -179,7 +179,7 @@ MiddleKit, use an intermediate object to represent the relationship.
 In many cases it makes sense to name this object using a verb, such as
 "Wrote":</p>
 
-<table border="1" align="center" cellpadding="2" cellspacing="0">
+<table>
   <tr>
     <th>Class</th>
     <th>Attribute</th>
@@ -242,12 +242,12 @@ In many cases it makes sense to name this object using a verb, such as
   </tr>
 </table>
 
-<a name="DT_Recursive"></a><h4>Recursive structures</h4>
+<a id="DT_Recursive"></a><h4>Recursive structures</h4>
 
 <p>It was mentioned above that, when using a list attribute, MiddleKit requires a "back reference" and by default
 assumes this attribute will be named according to the name of the referencing.  If you ever want to create recursive structures such as trees you may need to override the default using the "BackRefAttr" attribute.  A tree node can be implemented by having a reference to its parent node, and a list of children nodes like so:</p>
 
-<table border="1" align="center" cellpadding="2" cellspacing="0">
+<table>
   <tr>
     <th>Class</th>
     <th>Attribute</th>
@@ -303,22 +303,22 @@ deleted.</p>
 <p>Note: onDeleteSelf can also be specified for "list of reference" attributes, where it has the same effect as it does when applied to reference attributes.</p>
 
 
-<a name="ModelFiles"></a><h2>Model Files</h2>
+<a id="ModelFiles"></a><h2>Model Files</h2>
 
 
-<a name="MF_Classes"></a><h3>Classes.csv</h3>
+<a id="MF_Classes"></a><h3>Classes.csv</h3>
 
 <p>This is the object model where classes and attributes are defined. See the <a href="QuickStart.html">Quick Start</a> for an example.</p>
 
 
-<a name="SampleData"></a><h3>Samples.csv</h3>
+<a id="SampleData"></a><h3>Samples.csv</h3>
 
 <p>This is an optional file containing sample data for the model. See the <a href="QuickStart.html">Quick Start</a> for an example.</p>
 
 <p>Note that a blank field in the samples will be substituted with the default value of the attribute (as specified in the object model, e.g., <span class="filename">Classes.csv</span>). To force a None value (NULL in SQL), use 'none' (without the quotes).</p>
 
 
-<a name="Dump"></a><h3>Dumping your MiddleKit data</h3>
+<a id="Dump"></a><h3>Dumping your MiddleKit data</h3>
 
 <p>During development you will likely need to modify your MiddleKit model (Classes.csv) and re-generate the
 classes. If you already have some data in the database, you will need to dump and reload the data, possibly
@@ -342,15 +342,15 @@ Enter MySQLObjectStore init args: user='me',password='foo'
 <p>Alternatively, you can use the <a href="#Configuration_DatabaseArgs">DatabaseArgs setting.</a></p>
 
 
-<a name="Configuration"></a><h3>Configuration</h3>
+<a id="Configuration"></a><h3>Configuration</h3>
 
 <p>An MK model can have configuration files inside it that affect things like code generation.</p>
 
 <p><span class="filename">Settings.config</span> is the primary configuration file.</p>
 
-<p><a name="Configuration_Package"></a>The <span class="name">Package</span> setting can be used to declare the package that your set of middle objects are contained by. This is useful for keeping your middle objects packaged away from other parts of your programs, thereby reducing the chances of a name conflict. This is the recommended way of using MK.</p>
+<p><a id="Configuration_Package"></a>The <span class="name">Package</span> setting can be used to declare the package that your set of middle objects are contained by. This is useful for keeping your middle objects packaged away from other parts of your programs, thereby reducing the chances of a name conflict. This is the recommended way of using MK.</p>
 
-<p>An example <a name="filename">Settings.config</a>:</p>
+<p>An example <a id="filename">Settings.config</a>:</p>
 
 <pre class="py">{
     'Package': 'Middle',
@@ -364,7 +364,7 @@ from Middle.Foo import Foo
 
 <p>Don't forget to put an <span class="filename">__init__.py</span> in the directory so that Python recognizes it as a package.</p>
 
-<p><a name="Configuration_SQLLog"></a> The <span class="name">SQLLog</span> setting can be used to get MiddleKit to echo all SQL statements to 'stdout', 'stderr' or a filename. For filenames, an optional 'Mode' setting inside SQLLog can be used to write over or append to an existing file. The default is write. Here are some examples:</p>
+<p><a id="Configuration_SQLLog"></a> The <span class="name">SQLLog</span> setting can be used to get MiddleKit to echo all SQL statements to 'stdout', 'stderr' or a filename. For filenames, an optional 'Mode' setting inside SQLLog can be used to write over or append to an existing file. The default is write. Here are some examples:</p>
 
 <pre class="py">{
     'SQLLog': {'File': 'stdout'},
@@ -378,19 +378,19 @@ from Middle.Foo import Foo
     'SQLLog': {'File': 'middlekit.sql', 'Mode': 'append'},
 }</pre>
 
-<p><a name="Configuration_Database"></a> The <span class="name">Database</span> setting overrides the database name, which is otherwise assumed to be same name as the model. This is particularly useful if you are running two instances of the same application on one host.</p>
+<p><a id="Configuration_Database"></a> The <span class="name">Database</span> setting overrides the database name, which is otherwise assumed to be same name as the model. This is particularly useful if you are running two instances of the same application on one host.</p>
 
 <pre class="py">{
     'Database': 'foobar',
 }</pre>
 
-<p><a name="Configuration_DatabaseArgs"></a> The <span class="name">DatabaseArgs</span> setting allows you to specify default arguments to be used for establishing the database connection (i.e. username, password, host, etc.).  The possible arguments depend on the underlying database you are using (MySQL, PostgreSQL, etc.).  Any arguments passed when creating the store instance will take precedence over these settings.</p>
+<p><a id="Configuration_DatabaseArgs"></a> The <span class="name">DatabaseArgs</span> setting allows you to specify default arguments to be used for establishing the database connection (i.e. username, password, host, etc.).  The possible arguments depend on the underlying database you are using (MySQL, PostgreSQL, etc.).  Any arguments passed when creating the store instance will take precedence over these settings.</p>
 
 <pre class="py">{
     'DatabaseArgs': {'user': 'jdhildeb', 'password', 's3cr3t'},
 }</pre>
 
-<p><a name="Configuration_DeleteBehavior"></a> The <span class="name">DeleteBehavior</span> setting can be used to change what MiddleKit does when you delete objects.
+<p><a id="Configuration_DeleteBehavior"></a> The <span class="name">DeleteBehavior</span> setting can be used to change what MiddleKit does when you delete objects.
 The default behavior is "delete" which means that objects are deleted from the SQL database when they are deleted from the MiddleKit object store.
 But setting DeleteBehavior to "mark" causes an extra SQL datetime column called "deleted" to be added to each SQL table, and records that are deleted from the object store in MiddleKit are kept in SQL tables with the deleted field set to the date/time when the object was deleted.
 This setting has no effect on the visible behavior of MiddleKit; it only changes what happens behind the scenes in the SQL store.</p>
@@ -399,13 +399,13 @@ This setting has no effect on the visible behavior of MiddleKit; it only changes
     'DeleteBehavior': 'mark',
 }</pre>
 
-<p><a name="Configuration_SQLConnectionPoolSize"></a> The <span class="name">SQLConnectionPoolSize</span> setting is used to create a <a href="../../MiscUtils/Docs/index.html">MiscUtils</a>.<a href="../../MiscUtils/Docs/Source/Docs/MiscUtils.DBPool.html">DBPool</a> instance for use by the store. For DB-API modules with a threadsafety of only 1 (such as MySQLdb or pgdb), this is particularly useful (in one benchmark, the speed up was 15 - 20%). Simply set the size of the pool in order to have one created and used:</p>
+<p><a id="Configuration_SQLConnectionPoolSize"></a> The <span class="name">SQLConnectionPoolSize</span> setting is used to create a <a href="../../MiscUtils/Docs/index.html">MiscUtils</a>.<a href="../../MiscUtils/Docs/Source/Docs/MiscUtils.DBPool.html">DBPool</a> instance for use by the store. For DB-API modules with a threadsafety of only 1 (such as MySQLdb or pgdb), this is particularly useful (in one benchmark, the speed up was 15 - 20%). Simply set the size of the pool in order to have one created and used:</p>
 
 <pre class="py">{
   'SQLConnectionPoolSize': 20,
 }</pre>
 
-<p><a name="Configuration_SQLSerialColumnName"></a> The <span class="name">SQLSerialColumnName</span> controls the name that is used for the serial number of a given database record, which is also the primary key. The default is 'serialNum' which matches MiddleKit naming conventions. You can change this:</p>
+<p><a id="Configuration_SQLSerialColumnName"></a> The <span class="name">SQLSerialColumnName</span> controls the name that is used for the serial number of a given database record, which is also the primary key. The default is 'serialNum' which matches MiddleKit naming conventions. You can change this:</p>
 
 <pre class="py">{
     'SQLSerialColumnName': 'SerialNum',  # capitalized, or
@@ -413,21 +413,21 @@ This setting has no effect on the visible behavior of MiddleKit; it only changes
         # you can use className for lower, ClassName for upper, or _ClassName for as-is
 }</pre>
 
-<p><a name="Configuration_ObjRefSuffixes"></a> The <span class="name">ObjRefSuffixes</span> controls the suffixes that are appended for the names of the two SQL column that are created for each obj ref attribute. The suffixes must be different from each other.</p>
+<p><a id="Configuration_ObjRefSuffixes"></a> The <span class="name">ObjRefSuffixes</span> controls the suffixes that are appended for the names of the two SQL column that are created for each obj ref attribute. The suffixes must be different from each other.</p>
 
 <pre class="py">{
     'ObjRefSuffixes': ('ClassId', 'ObjId'),  # the default
 }</pre>
 
-<p><a name="Configuration_UseBigIntObjRefColumns"></a> The <span class="name">UseBigIntObjRefColumns</span> causes MiddleKit to store object references in 64-bit fields, instead of in two fields (one for the class id and one for the obj id). You would only do this for a legacy MiddleKit application. Turning this on obsoletes the ObjRefSuffixes setting.</p>
+<p><a id="Configuration_UseBigIntObjRefColumns"></a> The <span class="name">UseBigIntObjRefColumns</span> causes MiddleKit to store object references in 64-bit fields, instead of in two fields (one for the class id and one for the obj id). You would only do this for a legacy MiddleKit application. Turning this on obsoletes the ObjRefSuffixes setting.</p>
 
 <pre class="py">{
     'UseBigIntObjRefColumns': True,  # use single 64-bit obj ref fields
 }</pre>
 
-<p><a name="Configuration_UsePickledClassesCache"></a> The <span class="name">UsePickledClassesCache</span> setting defaults to False. <span class="warning">This feature has proven to be unreliable which is why it now defaults to False.</span> When True, it causes MiddleKit to cache the <span class="filename">Classes.csv</span> text file as a binary pickle file named <span class="filename">Classes.pickle.cache</span>. This reduces subsequent load times by about 40%. The cache will be ignored if it can't be read, is older than the CSV file, has a different Python version, etc. You don't normally even need to think about this, but if for some reason you would like to turn off the use of the cache, you can do so through this setting.</p>
+<p><a id="Configuration_UsePickledClassesCache"></a> The <span class="name">UsePickledClassesCache</span> setting defaults to False. <span class="warning">This feature has proven to be unreliable which is why it now defaults to False.</span> When True, it causes MiddleKit to cache the <span class="filename">Classes.csv</span> text file as a binary pickle file named <span class="filename">Classes.pickle.cache</span>. This reduces subsequent load times by about 40%. The cache will be ignored if it can't be read, is older than the CSV file, has a different Python version, etc. You don't normally even need to think about this, but if for some reason you would like to turn off the use of the cache, you can do so through this setting.</p>
 
-<p><a name="Configuration_DropStatements"></a> The <span class="name">DropStatements</span> setting has these potential values:</p>
+<p><a id="Configuration_DropStatements"></a> The <span class="name">DropStatements</span> setting has these potential values:</p>
 
 <ul>
   <li> database - This causes a DROP DATABASE to be used in <span class="filename">Create.sql</span>. This is the cleanest way to handle models and also the default.</li>
@@ -438,13 +438,13 @@ This setting has no effect on the visible behavior of MiddleKit; it only changes
     'DropStatements': 'database',  # database, tables
 }</pre>
 
-<p><a name="Configuration_CacheObjectsForever"></a> The <span class="name">CacheObjectsForever</span> setting causes MiddleKit to retain references to each object it loads from the database indefinitely.  Depending on the amount of data in your database, this can use a lot of memory.  The CacheObjectsForever setting defaults to False, which causes MiddleKit to use "weak references" to cache objects.  This allows the Python garbage collector to collect an object when there are no other reachable references to the object.</p>
+<p><a id="Configuration_CacheObjectsForever"></a> The <span class="name">CacheObjectsForever</span> setting causes MiddleKit to retain references to each object it loads from the database indefinitely.  Depending on the amount of data in your database, this can use a lot of memory.  The CacheObjectsForever setting defaults to False, which causes MiddleKit to use "weak references" to cache objects.  This allows the Python garbage collector to collect an object when there are no other reachable references to the object.</p>
 
 <pre class="py">{
     'CacheObjectsForever': True,  # keep objects in memory indefinitely
 }</pre>
 
-<p><a name="Configuration_AccessorStyle"></a> The <span class="name">AccessorStyle</span> setting can take the values <span class="value">'methods'</span>--the default--and <span class="value">'properties'</span>. With methods, your code will look like this:</p>
+<p><a id="Configuration_AccessorStyle"></a> The <span class="name">AccessorStyle</span> setting can take the values <span class="value">'methods'</span>--the default--and <span class="value">'properties'</span>. With methods, your code will look like this:</p>
 
 <pre class="py">if email.isVerified():
     pass
@@ -462,23 +462,23 @@ user.name = 'Chuck'</pre>
     'AccessorStyle': 'methods',
 }</pre>
 
-<p><a name="Configuration_UseHashForClassIds"></a> The <span class="name">UseHashForClassIds</span> setting defaults to False. When False, class ids are numbered 1, 2, 3, ... which implies that as you add and remove classes during development the class ids will change. While not a strict problem, this can cause your production, test and development environments to use different class ids. That can make data comparisons, data migration and sometimes even schema comparisons more difficult. By setting UseHashForClassIds to True, the class ids will be hashed from the class names greatly improving the chances that class ids remain consistent. Caveat 1: The class id will change if you rename the class. Caveat 2: There is no way to dictate the id of a class in the model to make the original id stick when you hit Caveat 1. Despite the caveats, this is still likely a better approach than the serial numbering.</p>
+<p><a id="Configuration_UseHashForClassIds"></a> The <span class="name">UseHashForClassIds</span> setting defaults to False. When False, class ids are numbered 1, 2, 3, ... which implies that as you add and remove classes during development the class ids will change. While not a strict problem, this can cause your production, test and development environments to use different class ids. That can make data comparisons, data migration and sometimes even schema comparisons more difficult. By setting UseHashForClassIds to True, the class ids will be hashed from the class names greatly improving the chances that class ids remain consistent. Caveat 1: The class id will change if you rename the class. Caveat 2: There is no way to dictate the id of a class in the model to make the original id stick when you hit Caveat 1. Despite the caveats, this is still likely a better approach than the serial numbering.</p>
 
 <pre class="py">{
     'UseHashForClassIds': False,
 }</pre>
 
 
-<a name="GeneratedPy"></a><h2>Generated Python</h2>
+<a id="GeneratedPy"></a><h2>Generated Python</h2>
 
-<a name="GP_addToBars"></a><h3>Attributes: foo() and setFoo()</h3>
+<a id="GP_addToBars"></a><h3>Attributes: foo() and setFoo()</h3>
 
 <p>For each attribute, foo, MiddleKit stores its value in the attribute _foo, returns it in the accessor method foo() and allows you to set it with setFoo(). You should always use foo() to get the value of an attribute, as there could be some logic there behind the scenes.</p>
 
 <p>Note: MiddleKit 0.9 added an <a href="#Configuration_AccessorStyle">AccessorStyle</a> setting which you should learn about if you prefer Python properties over Python methods.</p>
 
 
-<a name="GP_addToBars"></a><h3>Lists: addToBars()</h3>
+<a id="GP_addToBars"></a><h3>Lists: addToBars()</h3>
 
 <p>Given an attribute of type list, with the name "bars", MK will generate a Python method named addToBars() that will make it easy for you to add a new object to the list:</p>
 
@@ -505,9 +505,9 @@ foo.addToBars(newBar)
 <p>Note that a setBars() method is provided for list typed attributes.</p>
 
 
-<a name="MiscTopics"></a><h2>Miscellaneous Topics</h2>
+<a id="MiscTopics"></a><h2>Miscellaneous Topics</h2>
 
-<a name="MT_DatabaseName"></a><h3>Database Name</h3>
+<a id="MT_DatabaseName"></a><h3>Database Name</h3>
 
 <p>MiddleKit uses the name of the store as the name of the database. This works well most of the time. However, if you need to use a different database name, there are two techniques available:</p>
 
@@ -520,7 +520,7 @@ store = MySQLObjectStore(db='foobar', user='prog', passwd='asdklfj')
 </pre>
 
 
-<a name="MT_IteratingAttrs"></a><h3>Iterating over attributes</h3>
+<a id="MT_IteratingAttrs"></a><h3>Iterating over attributes</h3>
 
 <p>Every once in a while, you might get a hankering for iterating over the attributes of an MK object. You can do so like this:</p>
 
@@ -540,7 +540,7 @@ store = MySQLObjectStore(db='foobar', user='prog', passwd='asdklfj')
 
 <p>If you want to get a dictionary of all the attribute values for a particular object, don't roll your own code. You can already ask your middle objects for allAttrs(), in which case you get values instead of definitions (which is what Klass returns for allAttrs()).</p>
 
-<a name="MT_DeletingObjects"></a><h3>Deleting objects</h3>
+<a id="MT_DeletingObjects"></a><h3>Deleting objects</h3>
 
 <p>If you need to delete an object from the object store, you can do so like this:</p>
 
@@ -560,7 +560,7 @@ store.deleteObject(object)
 <p>See <a href="#DT_ObjRef">Object references</a> for the specifications of onDeleteSelf and onDeleteOther.</p>
 
 
-<a name="MT_DerivedAttributes"></a><h3>Derived attributes</h3>
+<a id="MT_DerivedAttributes"></a><h3>Derived attributes</h3>
 
 <p>Sometimes it can be convenient to define an attribute in MiddleKit that does not exist in the SQL database back end.
 Perhaps you want to compute the value from other attributes, or store the value somewhere else outside of the SQL database.
@@ -570,12 +570,12 @@ Yet you still want to be able to iterate over the attribute using the allAttrs()
 You will have to write your own setter and getter methods for the attribute.</p>
 
 
-<a name="MT_SQLDefault"></a><h3>SQLDefault</h3>
+<a id="MT_SQLDefault"></a><h3>SQLDefault</h3>
 
 <p>MiddleKit will use the <b>Default</b> of attributes to generate a <b>DEFAULT <i>sqlValue</i></b> in the attribute's portion of the SQL CREATE statement, taking care to quote strings properly. This default value is also used in the Python class. But on occasion you may have a need to specify an alternative SQL default (such as <b>GetDate()</b>). When that happens, specify a <b>SQLDefault</b> for the attribute. If you do this in the <b>Extras</b> column, quote the SQL; for example, SQLDefault='GetDate()'. MiddleKit will pass this Python string down to the CREATE statement.</p>
 
 
-<a name="MT_Cloning"></a><h3>Cloning Objects</h3>
+<a id="MT_Cloning"></a><h3>Cloning Objects</h3>
 
 <p>In many situations it is useful to clone a MiddleKit object.  One example is to allow a user to create a copy of some record (and all of its values) without having to enter a new record from scratch.  Every MiddleKit object has a <b>clone()</b> method which can be used to create a clone of the object.  All attribute values of the clone will be set to the same values as the original object.</p>
 
@@ -592,7 +592,7 @@ addition to the object itself.  You can control this by adding a "Copy" column i
 
 <p>The following example should help illustrate how this can be used.  In this example we want to be able to clone Book objects.  We want a cloned book to have the same author(s), shelf and publisher as the original, but the new book should have a clean loan history (we don't want to clone the loans).</p>
 
-<table border="1" align="center" cellpadding="2" cellspacing="0">
+<table>
 <tr>
 <th>Class</th><th>Attribute</th><th>Type</th><th>Copy</th><th>Comment</th></tr>
 <tr><td>Book</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -621,7 +621,7 @@ addition to the object itself.  You can control this by adding a "Copy" column i
 <p>When you create a cloned object(s), it is possible to generate a mapping from old to new objects.  It is also possible to specify a column which, if there is a value set in it for an object reference attribute, should override the value in the Copy column.  See the doc string in MiddleKit.Run.MiddleObject for more details.</p>
 
 
-<a name="ModelInheritance"></a><h2>Model Inheritance</h2>
+<a id="ModelInheritance"></a><h2>Model Inheritance</h2>
 
 <p>Model inheritance is an advanced feature for developers who wish to reuse models in other projects that are also model based. In Settings.config, you can specify other models to inhert class definitions from, which are termed <i>parent models</i>:</p>
 
@@ -657,7 +657,7 @@ addition to the object itself.  You can control this by adding a "Copy" column i
 </ul>
 
 
-<a name="RelatedLinks"></a><h2>Related Links</h2>
+<a id="RelatedLinks"></a><h2>Related Links</h2>
 
 <p>The topic of object-relational mapping (ORM) is an old one. Here are some related links if you wish to explore the topic further:</p>
 
@@ -689,25 +689,25 @@ addition to the object itself.  You can control this by adding a "Copy" column i
 </ul>
 
 
-<a name="ImpGuide"></a><h2>Implementor's Guide</h2>
+<a id="ImpGuide"></a><h2>Implementor's Guide</h2>
 
 <p>@@ 2000-10-28 ce: This should be a separate guide.</p>
 
 
 
-<a name="TestCases"></a><h2>Test Cases</h2>
+<a id="TestCases"></a><h2>Test Cases</h2>
 
 <p>In the Tests directory of MiddleKit you will find several test case object models.</p>
 
 <p>@@ 2001-02-13 ce: complete this</p>
 
 
-<a name="KnownBugs"></a><h2>Known Bugs</h2>
+<a id="KnownBugs"></a><h2>Known Bugs</h2>
 
 <p>Known bugs and future work in general, are documented in <a href="TODO.text">TO DO</a>.</p>
 
 
-<a name="Credit"></a><h2>Credit</h2>
+<a id="Credit"></a><h2>Credit</h2>
 
 <p>Authors: Chuck Esterbrook</p>
 

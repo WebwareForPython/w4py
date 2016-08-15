@@ -41,15 +41,14 @@ class _dumpCSV(AdminPage):
     def writeBody(self):
         rows = LoadCSV(self._filename)
 
-        self.writeln('<table align="center" border="0"'
-            ' cellpadding="2" cellspacing="2">')
+        self.writeln('<table style="margin-left:auto;margin-right:auto">')
 
         # Head row gets special formatting
         self._headings = map(lambda name: name.strip(), rows[0])
         self.writeln('<tr>')
         for value in self._headings:
-            self.writeln('<th style="color:white;'
-                'font-family:Arial,Helvetica,sans-serif" bgcolor="#101040">',
+            self.writeln('<th style="color:white;background-color:#101040;'
+                'font-family:Arial,Helvetica,sans-serif">',
             value, '</th>')
         self.writeln('</tr>')
 
@@ -59,7 +58,8 @@ class _dumpCSV(AdminPage):
             self.writeln('<tr>')
             colIndex = 0
             for value in row:
-                self.writeln('<td style="color:#111111" bgcolor="#EEEEEE">',
+                self.writeln(
+                    '<td style="color:#111111;background-color:#EEEEEE">',
                     self.cellContents(rowIndex, colIndex, value), '</td>')
                 colIndex += 1
             self.writeln('</tr>')

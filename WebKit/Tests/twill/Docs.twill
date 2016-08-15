@@ -157,8 +157,8 @@ back
 follow "User's Guide"
 find '<h1 class="header">WebKit User\'s Guide</h1>'
 find "<p>Webware for Python</p>"
-find "<th.*>Version:</th><td.*>${version}</td>"
-# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
+# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find '<h1>Synopsis</h1>'
 find '<h1>Credit</h1>'
 find '<div class="footer">'
@@ -170,16 +170,16 @@ back
 follow "Beginner Tutorial"
 find '<h1 class="header">Beginner Tutorial</h1>'
 find "<p>Webware for Python</p>"
-find "<th.*>Version:</th><td.*>${version}</td>"
-# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
+# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find '<h1>Synopsis</h1>'
 find '<div class="footer">'
 back
 follow "Application Development"
 find '<h1 class="header">Application Development With Webware</h1>'
 find "<p>Webware for Python</p>"
-find "<th.*>Version:</th><td.*>${version}</td>"
-# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
+# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find '<h1>Synopsis</h1>'
 find '<div class="footer">'
 back
@@ -190,8 +190,8 @@ back
 follow "Future Work"
 find '<h1 class="header">Future Work</h1>'
 find "<p>Webware for Python</p>"
-find "<th.*>Version:</th><td.*>${version}</td>"
-# if release find "<th.*>Released:</th><td.*>${date}</td>"
+find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
+# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find "To Do"
 find '<div class="footer">'
 back

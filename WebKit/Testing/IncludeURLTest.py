@@ -27,7 +27,7 @@ class IncludeURLTest(Page):
         self.writeln('<body style="margin:6pt;font-family:sans-serif">')
         fields = self.request().fields()
         self.writeln('<h2>%s</h2>' % self.__class__.__name__)
-        self.writeln('<h3>class = <tt>%s</tt>, module= <tt>%s</tt></h3>' %
+        self.writeln('<h3>class = <code>%s</code>, module= <code>%s</code></h3>' %
             (self.__class__.__name__, self.__module__))
         self.writeln('<p>%s</p>' %
             self.__class__.__doc__.replace('\n\n', '</p><p>'))
@@ -71,7 +71,7 @@ class IncludeURLTest(Page):
         self.writeln('</body>')
 
     def writeStatus(self):
-        self.writeln('<h4>Request Status of <tt>%s</tt>:</h4>'
+        self.writeln('<h4>Request Status of <code>%s</code>:</h4>'
             % self.__class__.__name__)
         w = self.w
         req = self.request()
@@ -98,11 +98,11 @@ class IncludeURLTest(Page):
     def cmos(self, url, method, desc):
         app = self.application()
         self.writeln('<p>Calling'
-            ' <tt>callMethodOfServlet(t, "%s", "%s")</tt>:</p>'
+            ' <code>callMethodOfServlet(t, "%s", "%s")</code>:</p>'
             '<p>%s</p>' % (url, method, desc))
         self.write('<div style="margin-left:2em">')
         ret = self.callMethodOfServlet(url, method)
         self.write('</div>')
-        self.writeln('<p><tt>callMethodOfServlet</tt> returned %s.</p>'
-            % (ret is not None and '<tt>%s</tt>'
+        self.writeln('<p><code>callMethodOfServlet</code> returned %s.</p>'
+            % (ret is not None and '<code>%s</code>'
                 % self.htmlEncode(repr(ret)) or 'nothing'))

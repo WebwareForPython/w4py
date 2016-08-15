@@ -2,12 +2,12 @@
 
 <p><% name %> version 0.9.3 released on 04/26/07</p>
 
-<a name="Introduction"></a><h2>Introduction</h2>
+<a id="Introduction"></a><h2>Introduction</h2>
 <p>This release comprises a lot of small bugfixes, changes and cleanup in
 WebKit, in an attempt to straighten out some irregularities before the 1.0
 version is released. Not all of these small changes can be listed here.</p>
 
-<a name="NewFeatures"></a><h2>New Features</h2>
+<a id="NewFeatures"></a><h2>New Features</h2>
 <ul>
   <li>It is now possible to set up custom error pages for HTTP errors and any
   other exceptions raised in Webware servlets. This is controlled by the
@@ -15,7 +15,7 @@ version is released. Not all of these small changes can be listed here.</p>
   and described in the <a href="Configuration.html#errors">Configuration Guide</a>.</li>
 </ul>
 
-<a name="Improvements"></a><h2>Improvements and Refinements</h2>
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
 <ul>
   <li>Added JSON-RPC base class and usage example (as suggested by
   Jean-Francois Pieronne).</li>
@@ -51,7 +51,7 @@ version is released. Not all of these small changes can be listed here.</p>
   same mechanism was already used for the <code>Examples</code> context.</li>
 </ul>
 
-<a name="Security"></a><h2>Security</h2>
+<a id="Security"></a><h2>Security</h2>
 <ul>
   <li>WebKit now by default uses the servlet path instead of root for the
   cookie path. This separates sessions if you run several applications in
@@ -65,11 +65,11 @@ version is released. Not all of these small changes can be listed here.</p>
   and Christoph Zwerschke).</li>
 </ul>
 
-<a name="MinorChanges"></a><h2>Minor Changes</h2>
+<a id="MinorChanges"></a><h2>Minor Changes</h2>
 <ul>
   <li><p>Changed the names of the pid and address files for more consistency
   and clarity:</p>
-  <table border="1" cellspacing="0" cellpadding="2" style="font-size:small;margin-left:2em">
+  <table style="font-size:small;margin-left:2em">
   <tr><th>old name</th><th>new name</th></tr>
   <tr><td class="filename">webkit.pid</td><td><i>unchanged</i></td></tr>
   <tr><td class="filename">appserverpid.txt</td><td class="filename">appserver.pid</td></tr>
@@ -80,7 +80,7 @@ version is released. Not all of these small changes can be listed here.</p>
   </table></li>
 </ul>
 
-<a name="Bugfixes"></a><h2>Bugfixes</h2>
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
   <li><code>ImportSpy</code> (and thus the <code>AutoReload</code> feature)
   did not work correctly with Python 2.5.</li>

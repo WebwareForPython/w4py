@@ -18,10 +18,21 @@ body {
 }
 table {
 	empty-cells: show;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+table.doc {
+	border-spacing: 2px;
+	border-collapse: separate;
+	border-style: none;
 }
 td, th {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10pt;
+}
+table.doc td, table.doc th {
+	padding: 4px;
+	border-style: none;
 }
 p {
 	margin-top: 6pt;
@@ -87,6 +98,12 @@ div.footer {
 }
 .center {
 	text-align: center;
+}
+.top {
+	vertical-align: top;
+}
+.nowrap {
+	white-space: nowrap;
 }
 .contents {
 	font-family: Tahoma, Arial, Helvetica, sans-serif;

@@ -861,14 +861,14 @@ def htmlInfo(info):
 
     Useful for inspecting objects via web browsers.
     """
-    res = ['<table border="1">\n']
+    res = ['<table>\n']
     for pair in info:
         value = pair[1]
         if hasattr(value, 'items') and (isinstance(value, dict)
                 or hasattr(value, '__getitem__')):
             value = htmlInfo(_infoForDict(value))
-        res.append('<tr valign="top"><td>%s</td><td>%s&nbsp;</td></tr>\n'
-            % (pair[0], value))
+        res.append('<tr style="vertical-align:top"><td>%s</td>'
+            '<td>%s&nbsp;</td></tr>\n' % (pair[0], value))
     res.append('</table>\n')
     return ''.join(res)
 
