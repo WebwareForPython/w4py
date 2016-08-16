@@ -61,8 +61,8 @@ Improved by Christoph Zwerschke - cito at online.de.
 # releaseDate format should be 'MM/DD/YY'.
 
 # Update this to change the current version and release date:
-version = ('X', 'Y', 0)
-releaseDate = '@@/@@/@@'
+version = (1, 2, 0)
+releaseDate = '08/16/16'
 
 # Set Version info in files (should not be done on the trunk):
 setVersion = True

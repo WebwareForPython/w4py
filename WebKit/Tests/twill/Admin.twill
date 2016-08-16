@@ -4,7 +4,7 @@
 # twill test script (twill.idyll.org)
 # Admin context
 
-setglobal version X.Y
+setglobal version 1.2
 setglobal password WebKit
 
 go http://127.0.0.1:8080
