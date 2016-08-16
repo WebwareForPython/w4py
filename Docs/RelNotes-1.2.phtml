@@ -1,0 +1,21 @@
+<% header(name + ' 1.2 Release Notes') %>
+
+<p><% name %> version 1.2 released on 08/16/16</p>
+
+<a id="Changes"></a><h2>Changes</h2>
+<ul>
+  <li>The main change in the Webware for Python 1.2 release is that it
+  requires at least Python version 2.6 or 2.7, while the Webware 1.1.x
+  releases still support Python 2.4 and 2.5. By using the more modern Python
+  features and idioms, the code has become a bit cleaner and leaner again,
+  and  also a bit faster.</li>
+  <li>Webware 1.2.x releases are still fully backward compatible and can
+  serve as a good starting point for a modernization of the framework.
+  Bringing the classic Webware API and plugin-system which predate Python 2
+  in line with modern Python paradigms and conventions will need to break
+  backward compatibility and to streamline the framework by removing some of
+  the older and lesser used plugins and features which cannot be maintained
+  any more. This and support for Python 3 is planned for later releases.</li>
+</ul>
+
+<% footer() %>

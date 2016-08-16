@@ -2,43 +2,39 @@
 
 <p><% name %> version <% versionString %> released on <% releaseDate %></p>
 
-<a id="Changes"></a><h2>Changes</h2>
+<a id="Introduction"></a><h2>Introduction</h2>
 <ul>
-  <li>Webware now uses HTML 5 instead of HTML 4.1 by default.
-  You can change this in your applications by overwriting the
-  <code>Page.writeDocType()</code> method.</li>
+  <li>...</li>
+</ul>
+
+<a id="MajorChanges"></a><h2>Major Changes</h2>
+<ul>
+  <li>...</li>
 </ul>
 
 <a id="NewFeatures"></a><h2>New Features</h2>
 <ul>
-  <li>A new session store class <code>SessionRedisStore</code>
-  has been added which uses Redis through the redis-py Python interface.
-  Similar to the <code>SessionMemcachedStore</code>, this is very useful
-  if you want to share Webware sessions between different app server
-  instances. You can activate and configure the new class in
-  <span class="filename">Application.config</span> by setting
-  <code>SessionStore = 'Redis'</code>. The WebKit Configuration Guide
-  explains the specific settings in detail.</li>
+  <li>...</li>
+</ul>
+
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>...</li>
+</ul>
+
+<a id="Security"></a><h2>Security</h2>
+<ul>
+  <li>...</li>
+</ul>
+
+<a id="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>...</li>
 </ul>
 
 <a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
-  <li>The PSP handler of the ModPythonAdapter has been fixed.</li>
-</ul>
-
-<a id="DecommissionedAdapters"></a><h2>Decommissioned Adapters</h2>
-<ul>
-  <li>The LRWPAdapter which could be used to connect to the Xitami web server
-  has been removed from Webware for Python. The latest version X5 of this web
-  server is from 2009 and doesn't support LRWP anyway.</li>
-  <li>The WASD CGIplus adapter has been removed from Webware for Python
-  because it was unmaintained since 2009 and the website for this solution
-  doesn't exist any more.</li>
-  <li>The ModSnakeAdapter has been removed from Webware for Python since
-  the mod_snake project terminated in 2002.</li>
-  <li>AOLServer had been supported through the external PyWX project. Since
-  the project has not been updated since 2002 and AOLServer is now NaviServer
-  again, we do not refer to PyWX any more.</li>
+  <li>...</li>
 </ul>
 
 <% footer() %>
