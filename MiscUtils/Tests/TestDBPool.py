@@ -2,7 +2,7 @@
 
 FUTURE
 
-  * Parameterize the database and everything else.
+  * Parametrize the database and everything else.
     Currently hard coded to pgdb template1 database.
 
   * We don't really test performance here.

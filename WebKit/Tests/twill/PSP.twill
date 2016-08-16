@@ -58,7 +58,7 @@ find '<p style="color:purple">\w{3} \w{3} ( |\d)\d \d{2}:\d{2}:\d{2} \d{4}</p>'
 find "<ul><li>Outer loop: 1"
 find "<li>Inner loop: 2"
 find 'The use of braces.* does make things easier here'
-find '<th style="text-align:center">Path Info:</th><td>.*PSP/Examples/PSPTests-Braces</td>'
+find '<th style="text-align:left">Path Info:</th><td>.*PSP/Examples/PSPTests-Braces</td>'
 find '<h4>Request Variables:</h4>'
 notfind 'not even in Python file'
 find '<p>I\'m a method. <b style="color:maroon">Howdy!</b></p>'

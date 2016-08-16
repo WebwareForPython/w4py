@@ -163,7 +163,7 @@ class ClassList(object):
         other = ('<a href="Class%s.html">%s class list</a>'
             ' and the <a href="FileList.html">list of files</a> of %s'
             % ('List' if hierarchic else 'Hierarchy',
-               'alphabetical' if hierarchic else 'hierarchical', name))
+                'alphabetical' if hierarchic else 'hierarchical', name))
         file.write('''<!DOCTYPE html>
 <head>
 <title>%s</title>

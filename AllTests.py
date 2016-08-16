@@ -14,6 +14,7 @@ Usage:
 alltestnames = [
 
     'WebUtils.Tests.TestFuncs',
+    'WebUtils.Tests.TestFieldStorage',
     'WebUtils.Tests.TestHTMLTag.makeTestSuite',
 
     'MiscUtils.Tests.TestCSVParser',

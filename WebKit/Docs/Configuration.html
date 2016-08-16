@@ -148,7 +148,7 @@ to <span class="docutils literal">[]</span> then no restrictions are placed.  De
 <dd><p>The namespace used to prefix all keys from the Webware application
 when accessing Memcached servers for storing sessions.  You should
 change this if you are using the same memcache for different applications.
-Default: <span class="docutils literal">WebwareSession</span>.</p>
+Default: <span class="docutils literal">'WebwareSession:'</span>.</p>
 </dd>
 <dt><span class="docutils literal">MemcachedOnIteration</span>:</dt>
 <dd><p>This setting determines how Webware behaves when attempting to iterate
@@ -162,21 +162,44 @@ Default: <span class="docutils literal">Warning</span>.</p>
 <dd><p>This sets the list of Memcached servers used when setting <span class="docutils literal">SessionStore</span>
 to <span class="docutils literal">Memcached</span>.  Default: <span class="docutils literal">['localhost:11211']</span>.</p>
 </dd>
+<dt><span class="docutils literal">RedisNamespace</span>:</dt>
+<dd><p>The namespace used to prefix all keys from the Webware application
+when accessing Redis servers for storing sessions.  You should change
+this if you are using the same Redis instance for different applications.
+Default: <span class="docutils literal">'WebwareSession:'</span>.</p>
+</dd>
+<dt><span class="docutils literal">RedisHost</span>:</dt>
+<dd><p>This sets the Redis host that shall be used when setting <span class="docutils literal">SessionStore</span>
+to <span class="docutils literal">Redis</span>.  Default: <span class="docutils literal">'localhost'</span>.</p>
+</dd>
+<dt><span class="docutils literal">RedisPort</span>:</dt>
+<dd><p>This sets the port for the Redis connection that shall be used when
+setting <span class="docutils literal">SessionStore</span> to <span class="docutils literal">Redis</span>.  Default: <span class="docutils literal">6379</span>.</p>
+</dd>
+<dt><span class="docutils literal">RedisDb</span>:</dt>
+<dd><p>This sets the database number for the Redis connection that shall be
+used when setting <span class="docutils literal">SessionStore</span> to <span class="docutils literal">Redis</span>.  Default: <span class="docutils literal">0</span>.</p>
+</dd>
+<dt><span class="docutils literal">RedisPassword</span>:</dt>
+<dd><p>This sets the password for the Redis connection that shall be
+used when setting <span class="docutils literal">SessionStore</span> to <span class="docutils literal">Redis</span>.  Default: <span class="docutils literal">None</span>.</p>
+</dd>
 <dt><span class="docutils literal">SessionModule</span>:</dt>
 <dd><p>Can be used to replace the standard WebKit Session module with
 something else.  Default: <span class="docutils literal">Session</span></p>
 </dd>
 <dt><span class="docutils literal">SessionStore</span>:</dt>
 <dd><p>This setting determines which of five possible session stores is used
-by the application: <span class="docutils literal">Dynamic</span>, <span class="docutils literal">File</span>, <span class="docutils literal">Memcached</span>, <span class="docutils literal">Memory</span>
-or <span class="docutils literal">`Shelve</span>.  The <span class="docutils literal">File</span> store always gets sessions from disk and
-puts them back when finished.  <span class="docutils literal">Memory</span> always keeps all sessions in
-memory, but will periodically back them up to disk.  <span class="docutils literal">Dynamic</span> is a
-good cross between the two, which pushes excessive or inactive sessions
-out to disk.  <span class="docutils literal">Shelve</span> stores the sessions in a database file
-using the Python <span class="docutils literal">shelve</span> module,  <span class="docutils literal">Memcached</span> stores them on
-a Memcached system using the <span class="docutils literal"><span class="pre">python-memcached</span></span> interface.  You can
-choose your own session store module as well.  Default: <span class="docutils literal">Dynamic</span>.</p>
+by the application: <span class="docutils literal">Dynamic</span>, <span class="docutils literal">File</span>, <span class="docutils literal">Memcached</span>, <span class="docutils literal">Memory</span>,
+<span class="docutils literal">Redis</span> or <span class="docutils literal">`Shelve</span>.  The <span class="docutils literal">File</span> store always gets sessions from
+disk and puts them back when finished.  <span class="docutils literal">Memory</span> always keeps all
+sessions in memory, but will periodically back them up to disk.
+<span class="docutils literal">Dynamic</span> is a good cross between the two, which pushes excessive or
+inactive sessions out to disk.  <span class="docutils literal">Shelve</span> stores the sessions in a
+database file using the Python <span class="docutils literal">shelve</span> module,  <span class="docutils literal">Memcached</span> stores
+them on a Memcached system using the <span class="docutils literal"><span class="pre">python-memcached</span></span> interface,
+and <span class="docutils literal">Redis</span> stores them on a Redis system using the <span class="docutils literal"><span class="pre">redis-py</span></span> client.
+You can use a custom session store module as well.  Default: <span class="docutils literal">Dynamic</span>.</p>
 </dd>
 <dt><span class="docutils literal">SessionStoreDir</span>:</dt>
 <dd><p>If <span class="docutils literal">SessionStore</span> is set to <span class="docutils literal">File</span>, <span class="docutils literal">Dynamic</span> or <span class="docutils literal">Shelve</span>,

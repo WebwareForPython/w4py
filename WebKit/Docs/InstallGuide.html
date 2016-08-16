@@ -623,13 +623,14 @@ these options can be found in the <a class="reference external" href="UsersGuide
 <h2>Sessions</h2>
 <p>WebKit provides a Session utility class for storing data on the server
 side that relates to an individual user's session with your site.  The
-<span class="docutils literal">SessionStore</span> setting determines where the data is stored and can currently
-be set to <span class="docutils literal">Dynamic</span>, <span class="docutils literal">File</span>, <span class="docutils literal">Memcached</span>, <span class="docutils literal">Memory</span> or <span class="docutils literal">Shelve</span>.</p>
+<span class="docutils literal">SessionStore</span> setting determines where the data is stored and can
+currently be set to <span class="docutils literal">Dynamic</span>, <span class="docutils literal">File</span>, <span class="docutils literal">Memcached</span>, <span class="docutils literal">Memory</span>,
+<span class="docutils literal">Redis</span> or <span class="docutils literal">Shelve</span>.</p>
 <p>Storing to the Dynamic session store is the fastest solution and is
 the default.  This session storage method keeps the most recently used
-sessions in memory, and moves older sessions to disk periodocally.
+sessions in memory, and moves older sessions to disk periodically.
 All sessions will be moved to disk when the server is stopped.
-This storage mechanism works with both the persistant, long running
+This storage mechanism works with both the persistent, long running
 AppServers and <a class="reference internal" href="#oneshot">OneShot</a>.  There are two settings in
 <span class="docutils literal">Application.config</span> relating to this Dynamic session store.
 <span class="docutils literal">MaxDynamicMemorySessions</span> specifies the maximum number of sessions
@@ -645,7 +646,8 @@ Memcached store will be interesting for you. Using the python-memcached
 interface, it is able to connect to a Memcached system and store all the
 session data there.  This allows user requests to be freely moved from one
 AppServer to another while keeping their sessions, because they are all
-connected to the same memcache.</p>
+connected to the same memcache.  Alternatively, using the redis-py client,
+the AppServer can also store sessions in a Redis database.</p>
 <p>Storing to files is provided mainly in support of the OneShot
 adapter.  It may also prove useful in the future in support of load
 balancing.  In this scenario, each individual session is stored in its
