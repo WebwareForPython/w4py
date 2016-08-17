@@ -1215,9 +1215,11 @@ _chdir = os.chdir
 
 def chdir(path, force=False):
     """Execute os.chdir() with safety provision."""
-    assert force, (
-        "You cannot reliably use os.chdir() in a threaded environment.\n"
-        + 16*" " + "Set force=True if you want to do it anway (using a lock).")
+    if not force:
+        raise RuntimeError(
+            "You cannot reliably use os.chdir() in a threaded environment.\n"
+            + 16 * " "
+            + "Set force=True if you want to do it anyway (using a lock).")
     _chdir(path)
 
 
