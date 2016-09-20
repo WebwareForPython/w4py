@@ -60,7 +60,7 @@ class SessionDynamicStore(SessionStore):
         # all code that moves sessions between the file and memory stores, and
         # is also used to protect code that searches in the file store for a
         # session. Using the lock in this way avoids a bug that used to be in
-        #this code, where a session was temporarily neither in the file store
+        # this code, where a session was temporarily neither in the file store
         # nor in the memory store while it was being moved from file to memory.
         self._lock = threading.RLock()
 

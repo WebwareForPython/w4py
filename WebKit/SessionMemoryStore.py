@@ -97,5 +97,5 @@ class SessionMemoryStore(SessionStore):
     def storeAllSessions(self):
         """Permanently save all sessions in the store."""
         filestore = SessionFileStore(self._app)
-        for key in self:
-            filestore[key] = self[key]
+        for key, session in self.items():
+            filestore[key] = session
