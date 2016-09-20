@@ -215,37 +215,27 @@ class SessionStore(object):
 
     def items(self):
         """Return a list with the (key, value) pairs for all sessions."""
-        items = []
-        for key in self:
+        return list(self.iteritems())
+
+    def values(self):
+        """Return a list with the values of all stored sessions."""
+        return list(self.itervalues())
+
+    def iteritems(self):
+        """Return an iterator over the (key, value) pairs for all sessions."""
+        for key in self.keys():
+            # since the size of the store might change during iteration,
+            # we iterate over the list of keys, not the store itself
             try:
-                items.append((key, self[key]))
+                yield key, self[key]
             except KeyError:
                 # since we aren't using a lock here, some keys
                 # could be already deleted again during this loop
                 pass
-        return items
-
-    def values(self):
-        """Return a list with the values of all stored sessions."""
-        values = []
-        for key in self:
-            try:
-                values.append(self[key])
-            except KeyError:
-                pass
-        return values
-
-    def iteritems(self):
-        """Return an iterator over the (key, value) pairs for all sessions."""
-        for key in self:
-            try:
-                yield key, self[key]
-            except KeyError:
-                pass
 
     def itervalues(self):
         """Return an iterator over the stored values of all sessions."""
-        for key in self:
+        for key in self.keys():
             try:
                 yield self[key]
             except KeyError:
