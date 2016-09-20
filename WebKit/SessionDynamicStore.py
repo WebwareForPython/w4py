@@ -2,7 +2,6 @@
 
 import time
 import threading
-from operator import itemgetter
 
 from MiscUtils import NoDefault
 
@@ -317,12 +316,6 @@ class SessionDynamicStore(SessionStore):
                 len(self._memoryStore), len(self._fileStore))
 
     def memoryKeysInAccessTimeOrder(self):
-        """Return memory store's keys in ascending order of last access time."""
-        accessTimeAndKeys = []
-        for key in self._memoryStore:
-            try:
-                accessTimeAndKeys.append(
-                    (self._memoryStore[key].lastAccessTime(), key))
-            except KeyError:
-                pass
-        return map(itemgetter(1), sorted(accessTimeAndKeys))
+        """Fetch memory store's keys in ascending order of last access time."""
+        return [session.identifier() for session in sorted(
+            self._memoryStore.values(), key=lambda v: v.lastAccessTime())]
