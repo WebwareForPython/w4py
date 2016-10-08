@@ -2,6 +2,7 @@
 # Webware for Python
 # See Docs/index.html
 
+
 def InstallInWebKit(appServer):
     app = appServer.application()
     from WebKit.PlugIn import PlugInError
