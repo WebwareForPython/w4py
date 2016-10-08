@@ -3,7 +3,7 @@
 # Simple example of using ADO in WebKit for database access with
 # automatic connection pooling.
 #
-# To run this example, you'll have to set EnableCOM to 1 in the
+# To run this example, you'll have to set EnableCOM to True in the
 # AppServer.config file; you'll have to create a database with a table
 # called Customers that has a CustomerName field; and you'll
 # have to create a System DSN called MyDataSource that points to
