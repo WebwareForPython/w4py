@@ -50,6 +50,17 @@ class Page(HTTPContent):
         """
         return self.title()
 
+    def htRootArgs(self):
+        """The attributes for the <html> element.
+
+        Returns the arguments used for the root HTML tag.
+        Invoked by writeHTML() and preAction().
+
+        Authors are encouraged to specify a lang attribute,
+        giving the document's language.
+        """
+        return 'lang="en"'
+
     def htBodyArgs(self):
         """The atrributes for the <body> element.
 
@@ -77,7 +88,11 @@ class Page(HTTPContent):
             self.response().setHeader('Content-Type', 'mime/type').
         """
         self.writeDocType()
-        self.writeln('<html>')
+        htmlArgs = self.htRootArgs()
+        if htmlArgs:
+            self.writeln('<html %s>' % htmlArgs)
+        else:
+            self.writeln('<html>')
         self.writeHead()
         self.writeBody()
         self.writeln('</html>')
@@ -220,7 +235,11 @@ class Page(HTTPContent):
         For a page, we first writeDocType(), <html>, and then writeHead().
         """
         self.writeDocType()
-        self.writeln('<html>')
+        htmlArgs = self.htRootArgs()
+        if htmlArgs:
+            self.writeln('<html %s>' % htmlArgs)
+        else:
+            self.writeln('<html>')
         self.writeHead()
 
     def postAction(self, actionName):
