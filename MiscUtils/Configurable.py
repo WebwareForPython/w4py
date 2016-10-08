@@ -70,8 +70,8 @@ class Configurable(object):
             try:
                 return self.config()[name]
             except KeyError:
-                raise KeyError('%s config keys are: %s'
-                    % (name, self.config().keys()))
+                raise KeyError('%s not found - config keys are: %s'
+                    % (name, ', '.join(sorted(self.config()))))
         else:
             return self.config().get(name, default)
 

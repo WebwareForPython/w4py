@@ -113,7 +113,7 @@ class ASStreamOut(object):
         self.flush()
         self._closed = True
         self._committed = True
-        self._autocommit = True
+        self._autoCommit = True
 
     def closed(self):
         """Check whether we are closed to new data."""

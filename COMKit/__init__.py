@@ -12,8 +12,9 @@ COM free-threading. Then go ahead and use win32com inside your servlets.
 
 __all__ = []
 
-# This function gets called by the app server during initialization
+
 def InstallInWebKit(appServer):
+    # This function gets called by the app server during initialization
     # See if enabling COM was requested
     if appServer.setting('EnableCOM', 0):
 

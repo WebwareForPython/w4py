@@ -377,7 +377,7 @@ class AppServer(ConfigurableForServerSidePath):
         return self._webwarePath
 
     def webKitPath(self):
-        """Return teh WebKit path."""
+        """Return the WebKit path."""
         return self._webKitPath
 
 

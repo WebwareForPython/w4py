@@ -4,5 +4,6 @@
 
 __all__ = ['HTMLForException', 'HTTPStatusCodes', 'HTMLTag', 'Funcs']
 
+
 def InstallInWebKit(appServer):
     pass
