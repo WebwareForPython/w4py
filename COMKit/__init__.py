@@ -5,7 +5,7 @@ used in free-threading mode in a threaded app server. See Appendix D of
 the fine book Python Programming on Win32 by Mark Hammond and Andy
 Robinson for details.
 
-To use COM, simply set EnableCOM to 1 in your AppServer.config file.
+To use COM, simply set EnableCOM to True in your AppServer.config file.
 This causes the app server threads to be configured properly for
 COM free-threading. Then go ahead and use win32com inside your servlets.
 """
