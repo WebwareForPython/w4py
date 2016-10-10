@@ -589,7 +589,7 @@ class Application(ConfigurableForServerSidePath):
         return request
 
     def runTransaction(self, trans):
-        """Run transation.
+        """Run transaction.
 
         Executes the transaction, handling HTTPException errors.
         Finds the servlet (using the root parser, probably

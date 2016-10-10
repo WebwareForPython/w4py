@@ -105,7 +105,7 @@ class PropertiesObject(dict):
         except WillNotRunError as msg:
             self['willNotRunReason'] = msg
             return
-        self['willRun'] = 1  # we passed all the tests
+        self['willRun'] = True  # we passed all the tests
 
     def willRunKeys(self):
         """Return keys to be examined before running the component.
