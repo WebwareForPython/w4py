@@ -5,7 +5,7 @@ Wants=remote-fs.target
 After=syslog.target
 
 [Service]
-Environment="WORK_DIR=/opt/Webware/WebKit/"
+Environment="WORK_DIR=/opt/Webware/WebKit"
 ExecStart=/usr/bin/python ${WORK_DIR}/Launch.py -o ${WORK_DIR}/Logs/webkit.log -u wwwrun -g www
 Restart=on-failure
 RestartSec=5s
