@@ -38,7 +38,7 @@ follow "Config"
 find "<th.*>AppServer</th>"
 find "<tr><th.*>EnableHTTP</th><td>True</td></tr>"
 find "<th.*>Application</th>"
-find "<tr><th.*>AdminPassword</th><td>WebKit</td></tr>"
+find "<tr><th.*>AdminPassword</th><td>${password}</td></tr>"
 
 follow "Plug-ins"
 title PlugIns
