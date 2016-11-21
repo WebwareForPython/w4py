@@ -32,7 +32,7 @@ from docutils import core, frontend, utils
 from docutils.utils.error_reporting import ErrorOutput, ErrorString
 from docutils.parsers import rst
 from docutils.readers import standalone, pep
-from docutils.writers import html_plain, pep_html
+from docutils.writers import html5_polyglot, pep_html
 
 
 usage = '%prog [options] [<directory> ...]'
@@ -73,7 +73,7 @@ class SettingsSpec(docutils.SettingsSpec):
           'wildcard (shell globbing) patterns (separated by colons).',
           ['--ignore'],
           {'metavar': '<patterns>', 'action': 'append',
-           'default': [],
+           'default': ['.git', '.hg', '.svn'],
            'validator': frontend.validate_colon_separated_string_list}),
          ('Work silently (no progress messages).  Independent of "--quiet".',
           ['--silent'],
@@ -122,7 +122,7 @@ class Builder:
             '': Struct(components=(pep.Reader, rst.Parser, pep_html.Writer,
                                    SettingsSpec)),
             '.txt': Struct(components=(rst.Parser, standalone.Reader,
-                                       html_plain.Writer, SettingsSpec),
+                                       html5_polyglot.Writer, SettingsSpec),
                            reader_name='standalone',
                            writer_name='html5'),
             'PEPs': Struct(components=(rst.Parser, pep.Reader,
