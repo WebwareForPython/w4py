@@ -1,6 +1,6 @@
 name = 'CGIWrapper'
 
-version = ('X', 'Y', 0)
+version = (1, 2, 1)
 
 docs = [
 {'name': "User's Guide", 'file': 'UsersGuide.html'},

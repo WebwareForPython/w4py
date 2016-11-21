@@ -3,8 +3,8 @@ WebKit User's Guide
 
 Webware for Python
 
-:Version: X.Y
-:Released: @@/@@/@@
+:Version: 1.2.1
+:Released: 11/21/16
 
 .. contents:: Contents
 
