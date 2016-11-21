@@ -117,7 +117,7 @@ Test the current version before releasing it:
     and switch to this branch. The branch name should be the
     same as the version number.
     The command for creating the branch would be like:
-    > git checkout -b release-1.1.2
+    > git checkout -b release-1.1.3
 
 [ ] Update all version numbers using bin/setversion.py:
     * Edit bin/setversion.py and set the following parameters:
@@ -140,8 +140,8 @@ Test the current version before releasing it:
 [ ] Commit these changes on the workspace to the branch in the repository
     and create an annotated tag for the release.
     The commands for committing and creating the tag would be like:
-    > git commit -m "Release Webware for Python 1.1.2"
-    > git tag -a 1.1.2 -m "Webware for Python version 1.1.2"
+    > git commit -m "Release Webware for Python 1.1.3"
+    > git tag -a 1.1.3 -m "Webware for Python version 1.1.3"
 </pre>
 
 
@@ -154,9 +154,9 @@ lost and you may get problems with wrong EOL characters.
 [ ] Use ReleaseHelper to create the release. This extracts all necessary
     files from the repository to create a directory without the Git
     repository itself, and then builds a tarball from that directory.
-    For instance, for creating the 1.1.2 tarball:
+    For instance, for creating the 1.1.3 tarball:
 
-    > bin/ReleaseHelper.py tag=1.1.2
+    > bin/ReleaseHelper.py tag=1.1.3
 
     If you specify the tag name, the tarball is built using the revision
     information found in the release. Otherwise the tarball is built
