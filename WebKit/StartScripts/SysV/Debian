@@ -7,6 +7,14 @@
 #
 # init.d script for Debian GNU/Linux
 #
+### BEGIN INIT INFO
+# Provides:          webkit
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     3 5
+# Default-Stop:      0 1 2 6
+# Description:       WebKit Application Server (Webware for Python)
+### END INIT INFO
 
 ### START LOCAL CONFIGURATION
 
