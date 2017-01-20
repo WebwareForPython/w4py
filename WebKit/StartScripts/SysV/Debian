@@ -140,6 +140,12 @@ d_reload() {
         $WEBWARE_USER -n python -s HUP
 }
 
+d_status() {
+    [ -f "$PID_FILE" ] && \
+    start-stop-daemon -T -q -p $PID_FILE \
+        $WEBWARE_USER -n python
+}
+
 case "$1" in
     start)
         echo -n "Starting $DESC: $APP_NAME"
@@ -163,8 +169,17 @@ case "$1" in
         d_start
         echo "."
         ;;
+    status)
+        echo -n "Checking $DESC: $NAME"
+        if d_status; then
+            echo "(running)"
+        else
+            echo "(dead)"
+            exit 1
+        fi
+        ;;
     *)
-        echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+        echo "Usage: $SCRIPTNAME {start|stop|status|restart|reload|force-reload}" >&2
         exit 1
         ;;
 esac
