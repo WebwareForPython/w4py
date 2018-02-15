@@ -26,9 +26,9 @@ class SQLiteObjectStore(SQLObjectStore):
     def dbVersion(self):
         return "SQLite %s" % sqlite.sqlite_version
 
-    def _executeSQL(self, cur, sql):
+    def _executeSQL(self, cur, sql, clausesArgs=None):
         try:
-            cur.execute(sql)
+            cur.execute(sql, clausesArgs)
         except sqlite.Warning:
             if not self.setting('IgnoreSQLWarnings', False):
                 raise
