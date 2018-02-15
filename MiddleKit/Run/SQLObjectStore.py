@@ -635,7 +635,7 @@ class SQLObjectStore(ObjectStore):
         Invoked by fetchObjRef() if either the class or the object serial
         number is zero.
         """
-        raise ObjRefZeroSerialNumError(objRefSplit(objRef))
+        raise ObjRefZeroSerialNumError(*objRefSplit(objRef))
 
     def objRefDangles(self, objRef):
         """Raise dangling reference error.
@@ -647,7 +647,7 @@ class SQLObjectStore(ObjectStore):
         self.warning() and includes the objRef as decimal, hexadecimal
         and class:obj numbers.
         """
-        raise ObjRefDanglesError(objRefSplit(objRef))
+        raise ObjRefDanglesError(*objRefSplit(objRef))
 
 
     ## Special Cases ##
