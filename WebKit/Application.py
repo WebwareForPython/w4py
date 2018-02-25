@@ -174,8 +174,8 @@ class Application(ConfigurableForServerSidePath):
         # sessions, in case the loading of the sessions causes an exception.
         self._exceptionHandlerClass = ExceptionHandler
 
-        self.initSessions()
         self.makeDirs()
+        self.initSessions()
 
         URLParser.initApp(self)
         self._rootURLParser = URLParser.ContextParser(self)
@@ -238,8 +238,6 @@ class Application(ConfigurableForServerSidePath):
         if moduleName in (
                 'Dynamic', 'File', 'Memcached', 'Memory', 'Redis', 'Shelve'):
             moduleName = 'Session%sStore' % moduleName
-        self._sessionDir = self.serverSidePath(
-            self.setting('SessionStoreDir') or 'Sessions')
         className = moduleName.rsplit('.', 1)[-1]
         try:
             exec 'from %s import %s' % (moduleName, className)
@@ -258,6 +256,8 @@ class Application(ConfigurableForServerSidePath):
             self.setting('CacheDir') or 'Cache')
         self._errorMessagesDir = self.serverSidePath(
             self.setting('ErrorMessagesDir') or 'ErrorMsgs')
+        self._sessionDir = self.serverSidePath(
+            self.setting('SessionStoreDir') or 'Sessions')
         for path in (self.serverSidePath('Logs'),
                 self._cacheDir, self._errorMessagesDir, self._sessionDir):
             if path and not os.path.exists(path):
