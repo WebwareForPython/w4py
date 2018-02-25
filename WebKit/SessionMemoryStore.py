@@ -15,7 +15,7 @@ class SessionMemoryStore(SessionStore):
 
     ## Init ##
 
-    def __init__(self, app, restoreFiles=True):
+    def __init__(self, app, restoreFiles=None):
         """Initialize the session memory store.
 
         If restoreFiles is true, and sessions have been saved to file,
@@ -23,6 +23,8 @@ class SessionMemoryStore(SessionStore):
         """
         SessionStore.__init__(self, app)
         self._store = {}
+        if restoreFiles is None:
+            restoreFiles = self._retain
         if restoreFiles:
             filestore = SessionFileStore(app)
             for key in filestore:
@@ -31,6 +33,7 @@ class SessionMemoryStore(SessionStore):
                 except Exception:
                     app.handleException()
             filestore.clear()
+        self._restoreFiles = restoreFiles
 
 
     ## Access ##
@@ -96,6 +99,7 @@ class SessionMemoryStore(SessionStore):
 
     def storeAllSessions(self):
         """Permanently save all sessions in the store."""
-        filestore = SessionFileStore(self._app)
-        for key, session in self.items():
-            filestore[key] = session
+        if self._restoreFiles:
+            filestore = SessionFileStore(self._app)
+            for key, session in self.items():
+                filestore[key] = session

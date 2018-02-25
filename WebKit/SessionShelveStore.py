@@ -19,13 +19,15 @@ class SessionShelveStore(SessionStore):
 
     ## Init ##
 
-    def __init__(self, app, restoreFiles=True, filename=None):
+    def __init__(self, app, restoreFiles=None, filename=None):
         """Initialize the session shelf.
 
         If restoreFiles is true, existing shelve file(s) will be reused.
         """
         SessionStore.__init__(self, app)
         filename = os.path.join(app._sessionDir, filename or self._filename)
+        if restoreFiles is None:
+            restoreFiles = self._retain
         flag = 'c' if restoreFiles else 'n'
         self._store = shelve.open(filename,
             flag=flag, protocol=maxPickleProtocol)

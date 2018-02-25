@@ -52,6 +52,7 @@ defaultConfig = dict(
     SessionPrefix = '',
     SessionName = '_SID_',
     AlwaysSaveSessions = True,
+    RetainSessions = True,
     IgnoreInvalidSession = True,
     UseAutomaticPathSessions = False,
     UseCookieSessions = True,
@@ -220,6 +221,7 @@ class Application(ConfigurableForServerSidePath):
             self.defaultConfig()['SessionName'])
         self._autoPathSessions = self.setting('UseAutomaticPathSessions')
         self._alwaysSaveSessions = self.setting('AlwaysSaveSessions')
+        self._retainSessions = self.setting('RetainSessions')
         moduleName = self.setting('SessionModule')
         className = moduleName.rsplit('.', 1)[-1]
         try:

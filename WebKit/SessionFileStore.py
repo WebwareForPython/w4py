@@ -28,13 +28,15 @@ class SessionFileStore(SessionStore):
 
     ## Init ##
 
-    def __init__(self, app, restoreFiles=True):
+    def __init__(self, app, restoreFiles=None):
         """Initialize the session file store.
 
         If restoreFiles is true, and sessions have been saved to file,
         the store will be initialized from these files.
         """
         SessionStore.__init__(self, app)
+        if restoreFiles is None:
+            restoreFiles = self._retain
         self._sessionDir = app._sessionDir
         self._lock = threading.RLock()
         if not restoreFiles:
