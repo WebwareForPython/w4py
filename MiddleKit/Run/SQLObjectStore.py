@@ -391,7 +391,7 @@ class SQLObjectStore(ObjectStore):
                 clauses = 'where %s=%d' % (klass.sqlSerialColumnName(), serialNum)
             if self._markDeletes:
                 clauses = self.addDeletedToClauses(clauses)
-            conn, cur = self.executeSQL(fetchSQLStart + clauses + ';', commit=False, clausesArgs=clausesArgs)
+            conn, cur = self.executeSQL(fetchSQLStart + clauses + ';', clausesArgs=clausesArgs)
             try:
                 for row in cur.fetchall():
                     serialNum = row[0]
