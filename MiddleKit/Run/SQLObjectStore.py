@@ -348,7 +348,7 @@ class SQLObjectStore(ObjectStore):
             return objects[0]
 
     def fetchObjectsOfClass(self, aClass,
-            clauses='', isDeep=True, refreshAttrs=True, serialNum=None):
+            clauses='', isDeep=True, refreshAttrs=True, serialNum=None, clausesArgs=None):
         """Fetch a list of objects of a specific class.
 
         The list may be empty if no objects are found.
@@ -379,7 +379,7 @@ class SQLObjectStore(ObjectStore):
         if isDeep:
             for subklass in klass.subklasses():
                 deepObjs.extend(self.fetchObjectsOfClass(
-                    subklass, clauses, isDeep, refreshAttrs, serialNum))
+                    subklass, clauses, isDeep, refreshAttrs, serialNum, clausesArgs))
 
         # Now get objects of this exact class
         objs = []
@@ -391,7 +391,7 @@ class SQLObjectStore(ObjectStore):
                 clauses = 'where %s=%d' % (klass.sqlSerialColumnName(), serialNum)
             if self._markDeletes:
                 clauses = self.addDeletedToClauses(clauses)
-            conn, cur = self.executeSQL(fetchSQLStart + clauses + ';')
+            conn, cur = self.executeSQL(fetchSQLStart + clauses + ';', clausesArgs=clausesArgs)
             try:
                 for row in cur.fetchall():
                     serialNum = row[0]
@@ -429,7 +429,7 @@ class SQLObjectStore(ObjectStore):
 
     ## Self utility for SQL, connections, cursors, etc. ##
 
-    def executeSQL(self, sql, connection=None, commit=False):
+    def executeSQL(self, sql, connection=None, commit=False, clausesArgs=None):
         """Execute the given SQL.
 
         This will connect to the database for the first time if necessary.
@@ -450,18 +450,18 @@ class SQLObjectStore(ObjectStore):
             self._sqlEcho.write('SQL %04i. %s %s\n' % (self._sqlCount, timestamp, sql))
             self._sqlEcho.flush()
         conn, cur = self.connectionAndCursor(connection)
-        self._executeSQL(cur, sql)
+        self._executeSQL(cur, sql, clausesArgs)
         if commit:
             conn.commit()
         return conn, cur
 
-    def _executeSQL(self, cur, sql):
+    def _executeSQL(self, cur, sql, clausesArgs=None):
         """Invoke execute on the cursor with the given SQL.
 
         This is a hook for subclasses that wish to influence this event.
         Invoked by executeSQL().
         """
-        cur.execute(sql)
+        cur.execute(sql, clausesArgs)
 
     def executeSQLTransaction(self, transaction, connection=None, commit=True):
         """Execute the given sequence of SQL statements and commit as transaction."""

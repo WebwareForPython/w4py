@@ -91,9 +91,9 @@ class MySQLObjectStore(SQLObjectStore):
     def dbapiModule(self):
         return MySQLdb
 
-    def _executeSQL(self, cur, sql):
+    def _executeSQL(self, cur, sql, clausesArgs=None):
         try:
-            cur.execute(sql)
+            cur.execute(sql, clausesArgs)
         except MySQLdb.Warning:
             if not self.setting('IgnoreSQLWarnings', False):
                 raise
