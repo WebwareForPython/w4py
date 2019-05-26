@@ -43,13 +43,11 @@ class StorePage(SitePage):
                 user=req.value('user'), passwd=req.value('password'))
             self._store.readModelFileNamed(modelFilename)
             self._store.connect()
-            recentModels = self.request().cookie('recentModels', [])
-            if recentModels:
-                recentModels = recentModels.split(';')
+            recentModels = self.request().cookie('recentModels', '').split(';')
             if modelFilename not in recentModels:
                 recentModels.append(modelFilename)
-                recentModels = ';'.join(recentModels)
-                self.response().setCookie('recentModels', ';'.join(recentModels))
+                self.response().setCookie('recentModels',
+                    ';'.join(recentModels))
         return self._store
 
 
@@ -57,10 +55,12 @@ class StorePage(SitePage):
 
     def writeTopBar(self):
         names = os.path.split(self.modelFilename())
-        self.writeln('<p><a href="SelectModel" class="SelectLink">SELECT</a>'
+        self.writeln(
+            '<p><a href="SelectModel" class="SelectLink">SELECT</a>'
             ' <span class=StatusBar>%s - %s</span></p>' % (names[1], names[0]))
         req = self.request()
-        self.writeln('<p><a href="SelectDatabase" class="SelectLink">SELECT</a>'
+        self.writeln(
+            '<p><a href="SelectDatabase" class="SelectLink">SELECT</a>'
             ' <span class="StatusBar">db=%s, host=%s, user=%s</span></p>'
             % (req.value('database'), req.value('host'), req.value('user')))
 

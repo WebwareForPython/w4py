@@ -33,7 +33,7 @@ class ObjectStore(object):
         return self.htObjectsInList(objs, className)
 
     def htObjectsInList(self, objs, adjective):
-        """Get HTML for list of onjects.
+        """Get HTML for list of objects.
 
         Returns an HTML string for a list of MiddleKit objects
         and their attributes. The adjective describes the type
@@ -67,9 +67,9 @@ class ObjectStore(object):
 class Klass(object):
 
     def htHeadingsRow(self):
-        ht = ['<tr>']
-        ht.append('<th class="TableHeading">class</th>')
-        ht.append('<th class="TableHeading">serial</th>')
+        ht = ['<tr>',
+              '<th class="TableHeading">class</th>',
+              '<th class="TableHeading">serial</th>']
         for attr in self.allAttrs():
             heading = splitWords(attr.name())
             ht.append('<th class="TableHeading">%s</th>' % heading)
@@ -80,11 +80,11 @@ class Klass(object):
 class MiddleObject(object):
 
     def htAttrsRow(self):
-        ht = ['<tr>']
-        ht.append('<td class="TableData">%s</td>' % self.__class__.__name__)
-        ht.append('<td class="TableData">%i</td>' % self.serialNum())
+        ht = ['<tr>',
+              '<td class="TableData">%s</td>' % self.__class__.__name__,
+              '<td class="TableData">%i</td>' % self.serialNum()]
         for attr in self.klass().allAttrs():
-            value = getattr(self, '_'+attr.name())
+            value = getattr(self, '_' + attr.name())
             ht.append('<td class="TableData">%s</td>'
                 % attr.htValue(value, self))
         ht.append('</tr>\n')
@@ -102,7 +102,7 @@ class MiddleObject(object):
                 else:
                     klasses[klassName] = [obj]
             klassList = []
-            for name in sorted(klassNames):
+            for name in sorted(klasses):
                 klassList.extend(klasses[name])
         return self.store().htObjectsInList(klassList, listName)
 

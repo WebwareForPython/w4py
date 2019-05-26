@@ -28,7 +28,10 @@ class SQLiteObjectStore(SQLObjectStore):
 
     def _executeSQL(self, cur, sql, clausesArgs=None):
         try:
-            cur.execute(sql, clausesArgs)
+            if clausesArgs is None:
+                cur.execute(sql)
+            else:
+                cur.execute(sql, clausesArgs)
         except sqlite.Warning:
             if not self.setting('IgnoreSQLWarnings', False):
                 raise
