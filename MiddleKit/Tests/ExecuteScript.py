@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 """Execute SQL script using the nonstandard DB API executescript() method."""
 

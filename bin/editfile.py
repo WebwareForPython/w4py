@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 """Helper script for the feature provided by the IncludeEditLink setting."""
 

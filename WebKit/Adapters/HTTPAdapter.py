@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # If you used the MakeAppWorkDir.py script to make a separate
 # application working directory, specify it here:

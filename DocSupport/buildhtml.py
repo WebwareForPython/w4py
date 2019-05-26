@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 # $Id$
 # Author: David Goodger <goodger@python.org>
