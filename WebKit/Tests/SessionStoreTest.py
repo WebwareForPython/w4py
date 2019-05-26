@@ -20,6 +20,7 @@ class Application(object):
 
     _sessionDir = 'SessionStoreTestDir'
     _alwaysSaveSessions = True
+    _retainSessions = True
 
     def setting(self, key, default=None):
         return dict(
