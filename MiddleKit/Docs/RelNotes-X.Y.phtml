@@ -24,7 +24,10 @@
 
 <a id="Security"></a><h2>Security</h2>
 <ul>
-  <li>...</li>
+  <li>Support passing separate arguments to
+  <code>Store.fetchObjectsOfClass()</code>,
+  so that it is possible to build queries safely
+  (contributed by PeaceWorks Technology Solutions).</li>
 </ul>
 
 <a id="MinorChanges"></a><h2>Minor API Changes</h2>
@@ -34,6 +37,8 @@
 
 <a id="Bugfixes"></a><h2>Bugfixes</h2>
 <ul>
+  <li>Fix for errors that call <code>objRefSplit()</code> for args
+  (contributed by PeaceWorks Technology Solutions).</li>
   <li>Fixed problem when executing SQL without <code>clausesArgs</code>
   in SQLiteObjectStore (as suggested by Nico Latzer).</li>
   <li>Fixed bug in <code>MiddleObject.htObjectsInList</code>
