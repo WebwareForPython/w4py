@@ -388,7 +388,7 @@ class ThreadedAppServer(AppServer):
 
                     try:
                         client, addr = sock.accept()
-                    except select.error as e:
+                    except socket.error as e:
                         if e[0] not in self._ignoreErrnos:
                             raise
                         if debug:
