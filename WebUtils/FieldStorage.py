@@ -26,15 +26,20 @@ class FieldStorage(cgi.FieldStorage):
     """
 
     def __init__(self, fp=None, headers=None, outerboundary='',
-            environ=os.environ, keep_blank_values=False, strict_parsing=False):
+            environ=os.environ, keep_blank_values=False, strict_parsing=False,
+            max_num_fields=None):
         method = environ.get('REQUEST_METHOD', 'GET').upper()
-        qs_on_post = (environ.get('QUERY_STRING', None)
-            if method not in ('GET', 'HEAD') else None)
+        qs_on_post = None if method in ('GET', 'HEAD') else environ.get(
+            'QUERY_STRING', None)
         if qs_on_post:
             environ['QUERY_STRING'] = ''
         try:
-            cgi.FieldStorage.__init__(self, fp, headers, outerboundary,
-                environ, keep_blank_values, strict_parsing)
+            if max_num_fields is None:
+                cgi.FieldStorage.__init__(self, fp, headers, outerboundary,
+                    environ, keep_blank_values, strict_parsing)
+            else:  # not supported in Python < 2.7
+                cgi.FieldStorage.__init__(self, fp, headers, outerboundary,
+                    environ, keep_blank_values, strict_parsing, max_num_fields)
         finally:
             if qs_on_post:
                 environ['QUERY_STRING'] = qs_on_post
@@ -44,8 +49,8 @@ class FieldStorage(cgi.FieldStorage):
     def add_qs(self, qs):
         """Add all non-existing parameters from the given query string."""
         r = {}
-        for name_value in qs.split('&'):
-            for name_value in name_value.split(';'):
+        for name_values in qs.split('&'):
+            for name_value in name_values.split(';'):
                 nv = name_value.split('=', 2)
                 if len(nv) != 2:
                     if self.strict_parsing:
