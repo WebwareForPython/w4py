@@ -1,0 +1,25 @@
+<% header(name + ' 1.2.2 Release Notes') %>
+
+<p><% name %> version 1.2.2 released on 08/04/19</p>
+
+<a id="Security"></a><h2>Security</h2>
+<ul>
+  <li>Support passing separate arguments to
+  <code>Store.fetchObjectsOfClass()</code>,
+  so that it is possible to build queries safely
+  (contributed by PeaceWorks Technology Solutions).</li>
+</ul>
+
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>Fix for errors that call <code>objRefSplit()</code> for args
+  (contributed by PeaceWorks Technology Solutions).</li>
+  <li>Fixed problem when executing SQL without <code>clausesArgs</code>
+  in SQLiteObjectStore (as suggested by Nico Latzer).</li>
+  <li>Fixed bug in <code>MiddleObject.htObjectsInList</code>
+  (as suggested by Nico Latzer).</li>
+  <li>Fix problem when setting cookies in StorePage (as suggested by
+  Nico Latzer).</li>
+</ul>
+
+<% footer() %>

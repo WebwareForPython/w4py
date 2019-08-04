@@ -1,0 +1,29 @@
+<% header(name + ' 1.2.2 Release Notes') %>
+
+<p><% name %> version 1.2.2 released on 08/04/19</p>
+
+<a id="NewFeatures"></a><h2>New Features</h2>
+<ul>
+  <li>Added option <code>RetainSessions</code>. This allows disabling the
+  feature that MemoryStore sessions are saved when the server stops and
+  restored when it starts again.
+</li>
+</ul>
+
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>Support FieldStorage with <code>max_num_fields</code> in Python 2.7</li>
+  <li>Missing directories are now created before initializing sessions.
+  This makes sure that errors happening during session initialization
+  (e.g. trying to restore corrupt session files) are handled properly.</li>
+  <li>Improved the start script for Debian-based systems.</li>
+  <li>The start script for Debian has been improved.</li>
+</ul>
+
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>Fixed bug in error handling of socket errors in ThreadedAppServer
+  (thanks to Adam Kerrison for reporting).</li>
+</ul>
+
+<% footer() %>
