@@ -3,8 +3,8 @@ Beginner Tutorial
 
 Webware for Python
 
-:Version: X.Y
-:Released: @@/@@/@@
+:Version: 1.2.2
+:Released: 08/04/19
 
 .. contents:: Contents
 

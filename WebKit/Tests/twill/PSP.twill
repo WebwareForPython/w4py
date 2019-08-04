@@ -4,7 +4,7 @@
 # twill test script (twill.idyll.org)
 # PSP context
 
-setglobal version X.Y
+setglobal version 1.2.2
 
 go http://127.0.0.1:8080
 follow PSP
