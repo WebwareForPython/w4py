@@ -1,7 +1,7 @@
 Metadata-Version: 2.1
 Name: Webware for Python
 Version: 1.2.2
-Summary: Webare for Python is a time-tested modular, object-oriented web framework.
+Summary: Webware for Python is a time-tested modular, object-oriented web framework.
 Home-page: https://cito.github.io/w4py/
 Author: Chuck Esterbrook et al.
 License: MIT license
