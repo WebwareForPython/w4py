@@ -48,7 +48,7 @@
 </pre>
 </td></tr></table>
 
-<p>Here you see the <code>proceed()</code> method in action. It can be used by long running tasks to check if they should terminate. This is the case when the scheduler or the task itself has been stopped. The latter is achieved with a <code>stopTask()</code> call which is not recommented though. It's generally better to let the task finish and use the <code>unregister()</code> and <code>disable()</code> methods of the task handler. The first really deletes the task after termination while the second only disables its rescheduling. You can still use it afterwards. The implementation of <code>proceed()</code> is very simple:</p>
+<p>Here you see the <code>proceed()</code> method in action. It can be used by long running tasks to check if they should terminate. This is the case when the scheduler or the task itself has been stopped. The latter is achieved with a <code>stopTask()</code> call which is not recommended though. It's generally better to let the task finish and use the <code>unregister()</code> and <code>disable()</code> methods of the task handler. The first really deletes the task after termination while the second only disables its rescheduling. You can still use it afterwards. The implementation of <code>proceed()</code> is very simple:</p>
 
 <table style="background-color:#eee;width:100%"><tr><td>
 <pre>

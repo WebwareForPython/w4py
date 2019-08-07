@@ -73,9 +73,9 @@ Python <i>str()</i> function.  Multiple lines are not supported in a PSP express
 <a id="ScriptTag"></a><h3>Script Tag &ndash; &lt;% script code %&gt;</h3>
 
 <p>The script tag is used to enclose Python code that should be run by the WebKit Servlet
- runner when requests are processed by the Servlet which this PSP page produces.  Any valid Python
+runner when requests are processed by the Servlet which this PSP page produces.  Any valid Python
 code can be used in Script tags.  Inside a script tag, indentation is up to the author, and is used
-just like in regular Python. (More info on blocks below)  The PSP Engine actually just outputs the strings in a Script tag
+just like in regular Python (more info on blocks below).  The PSP Engine actually just outputs the strings in a Script tag
 into the method body that is being produced by this PSP page.</p>
 
 <h5>Example</h5>
@@ -137,7 +137,7 @@ To end this level of indentation, just start another script tag. Easy.</p>
   &lt;tr&gt;&lt;td&gt;&lt;%= icubed%&gt;&lt;/td&gt;&lt;/tr&gt;
  &lt;% pass %&gt;  # Any new script statement resets the HTML indentation level</pre>
 
-<p>You could also start a new script block that just continues at the same indentation level that the HTML and the previous scipt block were at.</p>
+<p>You could also start a new script block that just continues at the same indentation level that the HTML and the previous script block were at.</p>
 
 <a id="Braces"></a><h4>Braces</h4>
 
@@ -216,7 +216,7 @@ so you should always use the &lt;psp:method&gt; tag below if you want to overrid
 
 <p>The Method tag is used to declare new methods of the Servlet class this page is producing.
 It will generally be more effective to place method declarations in a Servlet class and then have
- the PSP page inherit from that class, but this tag is here for quick methods.  The Method tag
+the PSP page inherit from that class, but this tag is here for quick methods.  The Method tag
 may also be useful for over-riding the default functionality of a base class method, as opposed to
 creating a Servlet class with only a slight change from another.</p>
 
@@ -264,7 +264,7 @@ If the filename starts with a "/", it is assumed to be an absolute path.
 If it doesn't start with a "/", the file path is assumed to be relative to the psp file.
 The contents of the insert file will not be escaped in any way except for triple-double-quotes (&quot;&quot;&quot;), which will be escaped.</p>
 
-<p>At every request of this servlet, this file will be read from disk and sent along with the rest of the ouput of the page.</p>
+<p>At every request of this servlet, this file will be read from disk and sent along with the rest of the output of the page.</p>
 
 <p>This tag accepts one additional parameter, "static", which can be set to "True" or "1".
 Setting this attribute to True will cause the inserted file's contents to be embedded in the PSP class at generation time.
@@ -307,7 +307,7 @@ The imports attribute of the page directive tells the PSP parser to import certa
 <li><p><span class="typed">extends</span> &ndash;
 The extends attribute of the page tells the PSP parser what base class this Servlet should be derived from.
 The PSP servlet produced by parsing the PSP file will inherit all of the attributes and methods of the base class.
-The Servlet will have access to each of those atributes and methods. They will still need to be accessed using the self. sytax of Python.</p>
+The Servlet will have access to each of those attributes and methods. They will still need to be accessed using the "self" syntax of Python.</p>
 
 <p><b>Example:</b> <span class="py">&lt;%@ page extends="MyPSPBaseClass"%&gt;</span></p>
 
@@ -338,7 +338,7 @@ can be utilized by multiple threads simultaneously. This is analogous to the isT
 
 <p><b>Example:</b> <span class="py">&lt;%@ page isThreadSafe="yes"%&gt;</span></p>
 
-<p>valid values are "yes" and "no". The default is "no".</p></li>
+<p>Valid values are "yes" and "no". The default is "no".</p></li>
 
 <li><p><span class="typed">isInstanceSafe</span> &ndash;
 The <i>isInstanceSafe</i> attribute of the <i>page</i> directive tells the PSP parser
@@ -350,10 +350,9 @@ This is analogous to the isInstanceSafe function of WebKit Servlets.</p>
 <p>Valid values are "yes" and "no". The default is "yes".</p></li>
 
 <li><p><span class="typed">indentType</span> &ndash;
-The <i>indentType </i> attribute of the page directive tells the parser how to handle block indention in the Python sourcefile it creates.
-The <i> indentType</i> attribute sets whether the sourcefile will be indented with tabs or spaces, or braces.
-Valid values are "tabs", "spaces" or "braces". If this is set to "spaces", see <i>indentSpaces</i> for setting the number of spaces to be used.
-(also, see blocks, below). The default is "spaces".</p>
+The <i>indentType</i> attribute of the <i>page</i> directive tells the parser how to handle block indention in the Python sourcefile it creates.
+The <i>indentType</i> attribute sets whether the sourcefile will be indented with tabs or spaces, or braces.
+Valid values are "tabs", "spaces" or "braces". If this is set to "spaces", see <i>indentSpaces</i> for setting the number of spaces to be used (also, see blocks, below). The default is "spaces".</p>
 
 <p><b>Example:</b> <span class="py">&lt;%@ page indentType="tabs"%&gt;</span></p>
 
@@ -363,7 +362,7 @@ without the user realizing it. If you are having trouble with complex blocks, lo
 <li><p><span class="typed">indentSpaces</span> &ndash;
 Sets the number of spaces to be used for indentation when <i>indentType</i> is set to spaces. The default is "4".</p>
 
-<p><b>Example:</b> <span class="py"> &lt;%@ page indentSpaces="8" %&gt;</span></p></li>
+<p><b>Example:</b> <span class="py">&lt;%@ page indentSpaces="8" %&gt;</span></p></li>
 
 <li><p><span class="typed">gobbleWhitespace</span> &ndash;
 The <i>gobblewhitespace</i> attribute of the <i>page</i> directive tells the PSP parser whether it can safely assume
@@ -410,7 +409,7 @@ you may use the <i>&lt;psp:include ...&gt;</i> tag described above.</p>
 
 <ul>
 <li><b>Declaration</b> (<span class="py">&lt;%! ... %&gt;</span>) &ndash; No need for this tag.  Simply use script tags to declare local variables.</li>
-<li><b>Forwarding</b> functionality is now available in WebKit, but no tag based support has been added to PSP yet.</lI>
+<li><b>Forwarding</b> functionality is now available in WebKit, but no tag based support has been added to PSP yet.</li>
 </ul>
 
 <a id="Developers"></a><h2>Developers</h2>
