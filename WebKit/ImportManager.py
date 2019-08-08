@@ -78,7 +78,7 @@ class ImportManager(object):
     def notifyOfNewFiles(self, hook):
         """Register notification hook.
 
-        Called by someone else to register that they'd like to be know
+        Called by someone else to register that they'd like to know
         when a new file is imported.
         """
         self._notifyHook = hook
