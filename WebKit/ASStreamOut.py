@@ -71,7 +71,7 @@ class ASStreamOut(object):
         if not self._committed:
             if self._autoCommit:
                 if debug:
-                    print "ASSTreamOut.flush setting needCommit"
+                    print ">>> ASStreamOut.flush setting needCommit"
                 self._needCommit = True
             return False
         try:
@@ -99,7 +99,7 @@ class ASStreamOut(object):
         Will fail if the response is already committed.
         """
         if debug:
-            print ">>> ASSTreamOut clear called"
+            print ">>> ASStreamOut clear called"
         if self._committed:
             raise InvalidCommandSequence
         self._buffer = ''
@@ -109,7 +109,7 @@ class ASStreamOut(object):
     def close(self):
         """Close this buffer. No more data may be sent."""
         if debug:
-            print ">>> ASSTreamOut close called"
+            print ">>> ASStreamOut close called"
         self.flush()
         self._closed = True
         self._committed = True
@@ -139,7 +139,7 @@ class ASStreamOut(object):
     def pop(self, count):
         """Remove count bytes from the front of the buffer."""
         if debug:
-            print "ASSTreamOut popping %s" % count
+            print ">>> ASStreamOut popping", count
         self._buffer = self._buffer[count:]
 
     def committed(self):

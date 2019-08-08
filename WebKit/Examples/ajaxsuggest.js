@@ -1,5 +1,5 @@
 /*
-    Javascript for the AjaxSuggest example.
+    JavaScript for the AjaxSuggest example.
 
     Provides all the client-side heavy lifting required to get Ajax functionality into a web page.
 

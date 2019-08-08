@@ -7,7 +7,7 @@ from MiscUtils.DataTable import DataTable
 class DumpCSV(AdminSecurity):
 
     def filename(self):
-        """Overidden by subclasses to specify what filename to show."""
+        """Overridden by subclasses to specify what filename to show."""
         return None
 
     def awake(self, trans):

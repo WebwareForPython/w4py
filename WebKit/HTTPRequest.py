@@ -90,7 +90,7 @@ class HTTPRequest(Request):
             # REQUEST_URI isn't actually part of the CGI standard and some
             # web servers like IIS don't set it (as of 8/22/2000).
             if 'SCRIPT_URL' in env:
-                self._uri = self._environ['SCRIPT_URL']
+                self._uri = env['SCRIPT_URL']
                 # correct servletPath if there was a redirection
                 if not (self._uri + '/').startswith(self._servletPath + '/'):
                     i = self._uri.find(self._pathInfo)

@@ -842,7 +842,7 @@ class Application(ConfigurableForServerSidePath):
             dict(editlink=editlink))
 
     def rootURLParser(self):
-        """Accessor: the Rool URL parser.
+        """Accessor: the Root URL parser.
 
         URL parsing (as defined by subclasses of `URLParser.URLParser`)
         starts here. Other parsers are called in turn by this parser.

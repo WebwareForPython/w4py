@@ -70,7 +70,7 @@ class JSONRPCServlet(HTTPContent):
     def jsonCall(self):
         """Execute method with arguments on the server side.
 
-        Returns Javascript function to be executed by the client immediately.
+        Returns JavaScript function to be executed by the client immediately.
         """
         request = self.request()
         data = json.loads(request.rawInput().read())

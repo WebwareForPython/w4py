@@ -1,6 +1,6 @@
 /*
-    Basic Ajax Javascript functions used by AjaxPage.
-    
+    Basic Ajax JavaScript functions used by AjaxPage.
+
     Written by John Dickinson based on ideas from
     Apple Developer Connection and DivMod Nevow.
     Some changes made by Christoph Zwerschke.

@@ -117,7 +117,7 @@ class AjaxPage(BaseClass):
         the unique request number in the field _req_
         and the arguments in the field _ (single underscore).
 
-        Returns Javascript function to be executed by the client immediately.
+        Returns JavaScript function to be executed by the client immediately.
         """
         req = self.request()
         if req.hasField('_call_'):
@@ -168,7 +168,7 @@ class AjaxPage(BaseClass):
             self._responseQueue.setdefault(sid, []).append(cmd)
 
     def ajaxPoll(self):
-        """Return queued Javascript functions to be executed on the client side.
+        """Return queued JavaScript functions to be executed on the client.
 
         This is polled by the client in random intervals in order to get
         results from long-running queries or push content to the client.
@@ -176,7 +176,7 @@ class AjaxPage(BaseClass):
         if self._clientPolling:
             sid = self.session().identifier()
             # Set the timeout until the next time this method is called
-            # by the client, using the Javascript wait variable:
+            # by the client, using the JavaScript wait variable:
             cmd = ['wait=%s' % self.clientPollingInterval()]
             if sid in self._responseQueue:  # add in other commands
                 cmd.extend(map(str, self._responseQueue[sid]))
@@ -191,9 +191,9 @@ class AjaxPage(BaseClass):
         self.write(cmd)  # write out at least the wait variable
 
     def ajaxPush(self, cmd):
-        """Push Javascript commands to be executed on the client side.
+        """Push JavaScript commands to be executed on the client.
 
-        Client polling must be activitated if you want to use this.
+        Client polling must be activated if you want to use this.
         """
         if self._clientPolling:
             if self._debug:

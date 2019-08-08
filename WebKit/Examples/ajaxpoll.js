@@ -1,5 +1,5 @@
 /*
-    Extended Ajax Javascript functions used by AjaxPage.
+    Extended Ajax JavaScript functions used by AjaxPage.
 
     Implements a periodic polling mechanism to prevent server timeouts
     and to allow pushing commands from the server to the client.
