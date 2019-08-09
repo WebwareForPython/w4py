@@ -20,11 +20,9 @@ def image_lib_link(lib=None):
     if not lib:
         lib = 'gd' if gdImage else 'pil'
     name, src = dict(
-        gd = ('GD module',
-            'newcenturycomputers.net/projects/gdmodule.html'),
-        pil = ('Python Imaging Library (PIL)',
-            'www.pythonware.com/products/pil/'))[lib]
-    return '<a href="http://%s">%s</a>' % (src, name)
+        gd=('GD module', 'newcenturycomputers.net/projects/gdmodule.html'),
+        pil=('Pillow library', 'pypi.org/project/Pillow/'))[lib]
+    return '<a href="https://%s">%s</a>' % (src, name)
 
 X, Y = 500, 200  # the image size
 
@@ -98,20 +96,23 @@ class ImageDemo(ExamplePage):
     This example creates an image of a sinusoid.
 
     For more information on generating graphics, see
-    http://python.org/topics/web/graphics.html.
+    https://wiki.python.org/moin/GraphicsAndImages.
 
-    This example works with both PIL and GD.
+    This example works with both Pillow and GD.
     """
 
+    saveToFile = False
+
     def defaultAction(self):
-        if self.request().field('fmt', None) == '.png' and (gdImage or pilImage):
+        fmt = self.request().field('fmt', None)
+        if fmt == '.png' and (gdImage or pilImage):
             image = self.generatePNGImage()
             res = self.response()
             res.setHeader("Content-Type", "image/png")
             res.setHeader("Content-Length", str(len(image)))
-            # Uncomment the following line to suggest to the client that the
-            # result should be saved to a file, rather than displayed in-line:
-            # res.setHeader("Content-Disposition", "attachment; filename=foo.png")
+            if self.saveToFile:
+                res.setHeader("Content-Disposition",
+                              "attachment; filename=demo.png")
             self.write(image)
         else:
             self.writeHTML()
