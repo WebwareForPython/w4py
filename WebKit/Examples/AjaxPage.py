@@ -5,9 +5,9 @@ Apple Developer Connection and DivMod Nevow.
 Some changes by Robert Forkel and Christoph Zwerschke.
 """
 
-import time
-import traceback
-import random
+from time import time
+from traceback import print_exc
+from random import randrange
 
 from MiscUtils import StringIO
 
@@ -26,7 +26,7 @@ def quoteJs(what):
 
 
 class PyJs(object):
-    """This class simply tanslates a Python expression into a JavaScript string."""
+    """Translate Python expressions to JavaScript strings."""
 
     def __init__(self, name):
         self._name = name
@@ -108,7 +108,7 @@ class AjaxPage(BaseClass):
 
         You should always make it a little random to avoid synchronization.
         """
-        return random.choice(range(3, 8))
+        return randrange(3, 8)
 
     def ajaxCall(self):
         """Execute method with arguments on the server side.
@@ -120,13 +120,14 @@ class AjaxPage(BaseClass):
         Returns JavaScript function to be executed by the client immediately.
         """
         req = self.request()
+        startTime = None
         if req.hasField('_call_'):
             call = req.field('_call_')
             args = req.field('_', [])
             if not isinstance(args, list):
                 args = [args]
             if self._clientPolling and self._responseTimeout:
-                startTime = time.time()
+                startTime = time()
             if call in self.exposedMethods():
                 try:
                     method = getattr(self, call)
@@ -140,7 +141,7 @@ class AjaxPage(BaseClass):
                         cmd = str(method(*args))
                     except Exception:
                         err = StringIO()
-                        traceback.print_exc(file=err)
+                        print_exc(file=err)
                         e = err.getvalue()
                         cmd = self.alert('%s was called, '
                             'but encountered an error: %s' % (call, e))
@@ -149,10 +150,8 @@ class AjaxPage(BaseClass):
                 cmd = self.alert('%s is not an approved method' % call)
         else:
             cmd = self.alert('Ajax call missing call parameter.')
-        if self._clientPolling and self._responseTimeout:
-            inTime = time.time() - startTime < self._responseTimeout
-        else:
-            inTime = 1
+        inTime = startTime is None or (
+                time() - startTime < self._responseTimeout)
         if inTime:
             # If the computation of the method did not last very long,
             # deliver it immediately back to the client with this response:
@@ -197,7 +196,7 @@ class AjaxPage(BaseClass):
         """
         if self._clientPolling:
             if self._debug:
-                self.log("Ajax pushes in queue: " + cmd)
+                self.log("Ajax pushes in queue: %s" % cmd)
             sid = self.session().identifier()
             self._responseQueue.setdefault(sid, []).append(cmd)
 

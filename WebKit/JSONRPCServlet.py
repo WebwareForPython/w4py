@@ -3,8 +3,8 @@
 Written by Jean-Francois Pieronne
 """
 
-import traceback
-import json
+from json import dumps, loads
+from traceback import print_exc
 
 from MiscUtils import StringIO
 from HTTPContent import HTTPContent
@@ -56,12 +56,10 @@ class JSONRPCServlet(HTTPContent):
         return []
 
     def writeError(self, msg):
-        self.write(json.dumps(
-            {'id': self._id, 'code': -1, 'error': msg}))
+        self.write(dumps({'id': self._id, 'code': -1, 'error': msg}))
 
     def writeResult(self, data):
-        data = json.dumps(
-            {'id': self._id, 'result': data})
+        data = dumps({'id': self._id, 'result': data})
         if not self._allowEval:
             data = ('throw new Error'
                 '("Direct evaluation not allowed");\n/*%s*/' % (data,))
@@ -73,7 +71,7 @@ class JSONRPCServlet(HTTPContent):
         Returns JavaScript function to be executed by the client immediately.
         """
         request = self.request()
-        data = json.loads(request.rawInput().read())
+        data = loads(request.rawInput().read())
         self._id, call, params = data['id'], data['method'], data['params']
         if call == 'system.listMethods':
             self.writeResult(self.exposedMethods())
@@ -90,7 +88,7 @@ class JSONRPCServlet(HTTPContent):
                     self.writeResult(method(*params))
                 except Exception:
                     err = StringIO()
-                    traceback.print_exc(file=err)
+                    print_exc(file=err)
                     e = err.getvalue()
                     self.writeError('%s was called, '
                         'but encountered an error: %s' % (call, e))

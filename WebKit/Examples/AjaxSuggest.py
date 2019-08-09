@@ -12,16 +12,11 @@ from random import randint
 from AjaxPage import AjaxPage
 
 maxSuggestions = 10
-maxWords = 5000
-maxLetters = 5
 
-# Create some random "words":
-suggestions = []
-for i in range(maxWords):
-    word = []
-    for j in range(maxLetters):
-        word.append(chr(randint(97, 122)))
-    suggestions.append(''.join(word))
+# Create some random "magic words":
+maxLetters, maxWords = 5, 5000
+magicWords = [''.join(chr(randint(97, 122)) for j in range(maxLetters))
+              for i in range(maxWords)]
 
 
 class AjaxSuggest(AjaxPage):
@@ -30,11 +25,13 @@ class AjaxSuggest(AjaxPage):
 
     def writeJavaScript(self):
         AjaxPage.writeJavaScript(self)
-        self.writeln('<script type="text/javascript" src="ajaxsuggest.js"></script>')
+        self.writeln(
+            '<script type="text/javascript" src="ajaxsuggest.js"></script>')
 
     def writeStyleSheet(self):
         AjaxPage.writeStyleSheet(self)
-        self.writeln('<link rel="stylesheet" href="ajaxsuggest.css" type="text/css">')
+        self.writeln(
+            '<link rel="stylesheet" href="ajaxsuggest.css" type="text/css">')
 
     def htBodyArgs(self):
         return AjaxPage.htBodyArgs(self) + ' onload="initPage();"'
@@ -55,8 +52,10 @@ JavaScript enabled in order for this to work.</p>
 <p>Start typing in some lowercase letters,
 and get random words starting with these characters suggested:</p>''')
         self.writeln('''<form><div>
-<input type="text" name="query" id="query" onkeyup="getSuggestions();" autocomplete="off">
-<input type="submit" value="Submit"></div><div class="hide" id="suggestions"></div></form>''')
+<input type="text" name="query" id="query"
+ onkeyup="getSuggestions();" autocomplete="off">
+<input type="submit" value="Submit"></div><div class="hide" id="suggestions">
+</div></form>''')
 
     def exposedMethods(self):
         """Register the suggest method for use with Ajax."""
@@ -68,10 +67,9 @@ and get random words starting with these characters suggested:</p>''')
         The JavaScript function we want called is `handleSuggestions`
         and we pass an array of strings starting with prefix.
 
-        Note: to pass more general Python objects to the client side, use JSON,
-        e.g. using json-py's (sourceforge.net/projects/json-py/) JsonWriter.
+        Note: to pass more general Python objects to the client side,
+        use Python's JSON encoder.
         """
-        s = filter(lambda w, prefix=prefix:
-            w.startswith(prefix), suggestions) or ['none']
-        return "handleSuggestions([%s]);" % ",".join(
-            map(lambda w: "'%s'" % w, s[:maxSuggestions]))
+        words = [w for w in magicWords if w.startswith(prefix)] or ['none']
+        wordList = ",".join(map(repr, words[:maxSuggestions]))
+        return "handleSuggestions([%s]);" % wordList
