@@ -9,7 +9,7 @@
 
 // Function that is called after the page has been loaded:
 function initPage() {
-    document.getElementById('query').focus()
+    document.getElementById('query').focus();
 }
 
 // Function to be associated with input control (initiates the Ajax request):
@@ -22,7 +22,7 @@ function handleSuggestions(res) {
     if (res.length > 0) {
         var e = document.getElementById('suggestions');
         e.innerHTML = '<div onmouseover="suggestOver(this)" onmouseout="suggestOut(this)" onclick="clearSuggestions()" class="suggest_button_normal">close</div>';
-        for (i=0; i<res.length; i++) {
+        for (var i=0; i<res.length; i++) {
             e.innerHTML += '<div onmouseover="suggestOver(this)" onmouseout="suggestOut(this)" onclick="setQuery(this.innerHTML)" class="suggest_link_normal">' + res[i] + '</div>';
         }
         e.className = 'show';
@@ -40,9 +40,9 @@ function suggestOut(div_node) {
 }
 
 function clearSuggestions() {
-    var e = document.getElementById('suggestions')
+    var e = document.getElementById('suggestions');
     e.innerHTML = '';
-    e.className = 'hide'
+    e.className = 'hide';
 }
 
 function setQuery(value) {

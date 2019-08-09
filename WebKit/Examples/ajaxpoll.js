@@ -24,9 +24,7 @@ function openPollConnection()
                     try {
                         eval(req.responseText);
                         req.abort();
-                    } catch(e) {
-                        ; // ignore errors
-                    }
+                    } catch(e) { } // ignore errors
                     if (!dying) {
                         // reopen the response connection after a wait period
                         setTimeout("openPollConnection()", wait*1000);
@@ -48,14 +46,10 @@ function shutdown()
     dying = true;
 }
 
-var userAgent = navigator.userAgent.toLowerCase()
-if (userAgent.indexOf("msie") >= 0) {
-    // IE specific
-    window.attachEvent("onbeforeunload", shutdown);
-} else if (document.implementation && document.implementation.createDocument) {
-    // Mozilla specific (onbeforeunload is in v1.7+ only)
+if (window.addEventListener)
     window.addEventListener("beforeunload", shutdown, false);
-}
+else if (window.attachEvent)  // MSIE
+    window.attachEvent("onbeforeunload", shutdown);
 
 // Open initial connection back to server:
 openPollConnection();
