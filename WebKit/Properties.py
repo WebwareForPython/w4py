@@ -31,7 +31,6 @@ WebKitConfig = {
         'Forward',
         'SecureCountVisits',
         'FileUpload',
-        'PushServlet',
         'RequestInformation',
         'ImageDemo',
         'AjaxSuggest',
