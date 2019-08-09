@@ -45,23 +45,8 @@ function escapeJSONChar(c)
 escapeJSONString =
 function escapeJSONString(s)
 {
-    /* The following should suffice but Safari's regex is b0rken
-       (doesn't support callback substitutions)
-       return "\"" + s.replace(/([^\u0020-\u007f]|[\\\"])/g,
-       escapeJSONChar) + "\"";
-    */
-
-    /* Rather inefficient way to do it */
-    var parts = s.split("");
-    for(var i=0; i < parts.length; i++) {
-    var c =parts[i];
-    if(c == '"' ||
-        c == '\\' ||
-        c.charCodeAt(0) < 32 ||
-        c.charCodeAt(0) >= 128)
-        parts[i] = escapeJSONChar(parts[i]);
-    }
-    return "\"" + parts.join("") + "\"";
+    return "\"" + s.replace(/([^\u0020-\u007f]|[\\\"])/g,
+    escapeJSONChar) + "\"";
 };
 
 /* Marshall objects to JSON format */
@@ -332,8 +317,7 @@ function JSONRpcClient_sendRequest(req)
     http.open("POST", this.serverURL, (req.cb != null), this.user, this.pass);
     }
 
-    /* setRequestHeader is missing in Opera 8 Beta */
-    try { http.setRequestHeader("Content-Type", "text/plain"); } catch(e) {}
+    http.setRequestHeader("Content-Type", "application/json");
 
     /* Construct call back if we have one */
     if(req.cb) {
@@ -453,6 +437,7 @@ function JSONRpcClient_poolReturnHTTPRequest(http)
 };
 
 JSONRpcClient.msxmlNames = [
+    "MSXML2.XMLHTTP.6.0",
     "MSXML2.XMLHTTP.5.0",
     "MSXML2.XMLHTTP.4.0",
     "MSXML2.XMLHTTP.3.0",
