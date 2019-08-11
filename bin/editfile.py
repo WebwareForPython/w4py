@@ -15,8 +15,8 @@ editorCommands = {
         'gedit +%(line)s "%(filename)s"',
     'jEdit':
         'jedit "%(filename)s" +line:%(line)s',
-    'jedit (Windows)':
-        'start %%ProgramFiles%%\\jEdit\jedit.jar "%(filename)s" +line:%(line)s',
+    'jEdit (Windows)':
+        r'start %%ProgramFiles%%\\jEdit\jedit.jar "%(filename)s" +line:%(line)s',
     'Kate':
         'kate -u -l %(line)s "%(filename)s"',
     'Komodo':
@@ -50,7 +50,7 @@ except ImportError:
 
 
 def transform(params):
-    """Transform EditFile paramters.
+    """Transform EditFile parameters.
 
     As an example, if you are under Windows and your edit file
     has a Unix filename, then it is transformed to a Samba path.
