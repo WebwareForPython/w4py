@@ -67,13 +67,13 @@ def htCache(factory):
     wr('<tr><th>File</th><th>Directory</th></tr>')
     paths = []
     for key in keys:
-        dir, base = os.path.split(key)
-        path = dict(dir=dir, base=base, full=key)
+        head, tail = os.path.split(key)
+        path = dict(dir=head, base=tail, full=key)
         paths.append(path)
-    paths.sort(key=lambda path: (path['base'].lower(), path['dir'].lower()))
-    # At this point, paths is a list where each element is a tuple
-    # of (basename, dirname, fullPathname) sorted first by basename
-    # and second by dirname
+    paths.sort(key=lambda p: (p['base'].lower(), p['dir'].lower()))
+    # At this point, paths is a list where each element is a dictionary
+    # with directory name, base name, full path name sorted first by
+    # base name and second by dir name.
     for path in paths:
         wr('<tr><td><a href="#id%s">%s</a></td><td>%s</td></tr>'
             % (id(path['full']), path['base'], path['dir']))

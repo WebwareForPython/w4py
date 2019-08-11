@@ -4,10 +4,6 @@ from AdminSecurity import AdminSecurity
 class PlugIns(AdminSecurity):
 
     def writeContent(self):
-        # @@ 2000-06-02 ce: We should allow a custom admin link
-        # for each plug-in (if it provides one)
-        # @@ 2001-01-25 ce: We should pick up more of the info
-        # in plugIn.properties()
         wr = self.writeln
         plugIns = self.application().server().plugIns()
         if plugIns:
