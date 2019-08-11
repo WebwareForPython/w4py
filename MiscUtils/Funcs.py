@@ -11,7 +11,7 @@ import datetime
 import time
 import textwrap
 
-from struct import calcsize
+from struct import calcsize, pack
 
 from hashlib import md5, sha1
 
@@ -277,20 +277,26 @@ def localTimeDelta(t=None):
 
 
 def uniqueId(forObject=None, sha=False):
-    """Generate an opaque, identifier string.
+    """Generate an opaque identifier string.
 
-    The string is practically guaranteed to be unique
-    If an object is passed, then its id() is incorporated into the generation.
-    Returns a 32 character long string relying on md5 or,
-    if sha is True, a 40 character long string relying on sha-1.
+    The string is practically guaranteed to be unique for each call.
+
+    If a randomness source is not found in the operating system, this function
+    will use MD5 hashing with a combination of pseudo-random numbers and time
+    values to generate additional randomness. In this case, if an object is
+    passed, then its id() will be incorporated into the generation as well.
+
+    Returns a 32 character long string of hex digits. If sha is set to True,
+    then SHA-1 will be used instead of MD5, and the returned string will be
+    40 characters long instead.
     """
     try:  # prefer os.urandom(), if available
-        r = [os.urandom(8)]
+        return os.urandom(20 if sha else 16).encode('hex')
     except (AttributeError, NotImplementedError):
-        r = [time.time(), random.random(), os.times()]
-    if forObject is not None:
-        r.append(id(forObject))
-    return (sha1 if sha else md5)(str(r)).hexdigest()
+        r = pack('3f', time.time(), random.random(), os.times()[0])
+        if forObject is not None:
+            r += pack('q', id(forObject))
+        return (sha1 if sha else md5)(str(r)).hexdigest()
 
 
 def valueForString(s):
