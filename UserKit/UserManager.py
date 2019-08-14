@@ -71,7 +71,7 @@ class UserManager(object):
       * save modified users after a period of time following the first
         unsaved modification
       * push users out of memory after a period of inactivity
-      * deactive (e.g., log out) users after a period of inactivity
+      * deactivate (e.g., log out) users after a period of inactivity
 
     The methods for managing these values deal with the timeouts as
     number-of-minutes. The default values and the methods are:

@@ -55,7 +55,7 @@ class Task(object):
     def _run(self, handle):
         """This is the actual run method for the Task thread.
 
-        It is a private method which should not be overriden.
+        It is a private method which should not be overridden.
         """
         self._name = handle.name()
         self._handle = handle

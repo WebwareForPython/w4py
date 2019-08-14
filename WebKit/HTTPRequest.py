@@ -607,7 +607,7 @@ class HTTPRequest(Request):
         if self._stack:
             return self._stack[0][0]
         else:
-            self.servlet()
+            return self.servlet()
 
     def previousServlet(self):
         """Get the servlet that passed this request to us, if any."""

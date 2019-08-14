@@ -126,7 +126,7 @@ class ExceptionHandler(object):
         # Cache MaxValueLengthInExceptionReport for speed
         self._maxValueLength = self.setting('MaxValueLengthInExceptionReport')
 
-        # exception occurance time (overridden by response.endTime())
+        # exception occurrence time (overridden by response.endTime())
         self._time = time()
 
         # Get to work
@@ -292,7 +292,7 @@ class ExceptionHandler(object):
         self.writeln(htTitle(s))
 
     def writeDict(self, d, heading=None, encoded=None):
-        """Output a table-formated dictionary."""
+        """Output a table-formatted dictionary."""
         self.writeln(htmlForDict(d, addSpace=self._addSpace,
             filterValueCallBack=self.filterDictValue,
             maxValueLength=self._maxValueLength,
@@ -438,10 +438,10 @@ class ExceptionHandler(object):
     def logExceptionToDisk(self, errorMsgFilename=None):
         """Log the exception to disk.
 
-        Writes a tuple containing (date-time, filename,
-        pathname, exception-name, exception-data,error report
-        filename) to the errors file (typically 'Errors.csv')
-        in CSV format. Invoked by `handleException`.
+        Writes a tuple containing (date-time, filename, pathname,
+        exception-name, exception-data, error report filename)
+        to the errors file (typically 'Errors.csv') in CSV format.
+        Invoked by `handleException`.
         """
         if not self.setting('LogErrors'):
             return
@@ -684,16 +684,15 @@ table.NiceTable table.NiceTable th {
 
 def htTitle(name):
     """Format a `name` as a section title."""
-    return ('<h2 class="section">%s</h2>' % name)
+    return '<h2 class="section">%s</h2>' % name
 
 
 def osIdDict():
     """Get all OS id information.
 
-    Returns a dictionary containing id information such as
-
+    Returns a dictionary containing id information such as uid and pid.
     """
-    ids = ['egid', 'euid', 'gid', 'groups', 'pgrp',
+    ids = ['egid', 'euid', 'gid', 'groups', 'pgid', 'pgrp',
         'pid', 'ppid', 'uid']
     attrs = {}
     for id in ids:

@@ -93,7 +93,7 @@ class HTTPContent(HTTPServlet):
                 if action in self.actions():
                     self.handleAction(action)
                     return
-            # Next, check whether there is an _acion_name field:
+            # Next, check whether there is an _action_name field:
             for action in self.actions():
                 name = prefix + action
                 if req.hasField(name) or (req.hasField(name + '.x')
@@ -360,10 +360,9 @@ class HTTPContent(HTTPServlet):
     def writeExceptionReport(self, handler):
         """Write extra information to the exception report.
 
-        The `handler` argument is the exception handler, and
-        information is written there (using `writeTitle`,
-        `write`, and `writeln`).  This information is added
-        to the exception report.
+        The `handler` argument is the exception handler, and information
+        is written there (using `writeTitle`, `write`, and `writeln`).
+        This information is added to the exception report.
 
         See `WebKit.ExceptionHandler` for more information.
         """
@@ -373,9 +372,9 @@ class HTTPContent(HTTPServlet):
 <pre>
 exceptionReportAttrs = 'foo bar baz'.split()
 def writeExceptionReport(self, handler):
-handler.writeTitle(self.__class__.__name__)
-handler.writeAttrs(self, self.exceptionReportAttrs)
-handler.write('any string')
+    handler.writeTitle(self.__class__.__name__)
+    handler.writeAttrs(self, self.exceptionReportAttrs)
+    handler.write('any string')
 </pre>
 <p>See WebKit/ExceptionHandler.py for more information.</p>
 ''')

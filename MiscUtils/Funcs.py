@@ -150,9 +150,11 @@ def localIP(remote=('www.yahoo.com', 80), useCache=True):
         #    there is no easy way to tell which one is the externally visible IP.
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect(remote)
-            address, port = s.getsockname()
-            s.close()
+            try:
+                s.connect(remote)
+                address, port = s.getsockname()
+            finally:
+                s.close()
             if address and not address.startswith('127.'):
                 if useCache:
                     _localIP = address
@@ -326,9 +328,9 @@ def valueForString(s):
     t = s.lower()
     if t == 'none':
         return None
-    if t.lower() == 'true':
+    if t == 'true':
         return True
-    if t.lower() == 'false':
+    if t == 'false':
         return False
     if s[0] in '[({"\'':
         return eval(s)

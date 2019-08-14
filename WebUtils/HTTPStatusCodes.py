@@ -52,8 +52,8 @@ HTTPStatusCodeListColumnNames = ('Code', 'Identifier', 'Description')
 
 
 HTTPStatusCodes = {}
-# HTTPStatusCodes can be indexed by either their status code number
-# of textual identifier. The result is a dictionary with keys code,
+# HTTPStatusCodes can be indexed by either their status code number or
+# by a  textual identifier. The result is a dictionary with keys code,
 # identifier, asciiMessage and htmlMessage.
 
 
@@ -67,7 +67,7 @@ for record in HTTPStatusCodeList:
 
 
 def HTMLTableOfHTTPStatusCodes(codes=HTTPStatusCodeList,
-        tableArgs='style="text-align:center;',
+        tableArgs='style="text-align:center"',
         rowArgs='style="vertical-align:top"', colArgs='',
         headingTag='th', headingArgs=''):
     """Return an HTML table with HTTP status codes.

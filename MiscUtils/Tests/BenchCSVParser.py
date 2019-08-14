@@ -14,11 +14,11 @@ from MiscUtils.CSVParser import CSVParser
 
 class BenchCSVParser(object):
 
-    def __init__(self, profile=0, runTestSuite=1):
+    def __init__(self, profile=False, runTestSuite=True):
         self.parse = CSVParser().parse
         self._shouldProfile = profile
         self._shouldRunTestSuite = runTestSuite
-        self._iters = 100
+        self._iterations = 100
 
     def main(self):
         if len(sys.argv) > 1 and sys.argv[1].lower().startswith('prof'):
@@ -47,7 +47,7 @@ class BenchCSVParser(object):
     def benchFileNamed(self, name):
         lines = open(name).readlines()
         for line in lines:
-            for n in xrange(self._iters):
+            for n in xrange(self._iterations):
                 # we duplicate lines to reduce the overhead of the loop
                 self.parse(line)
                 self.parse(line)

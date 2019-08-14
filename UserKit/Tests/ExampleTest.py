@@ -16,22 +16,17 @@ class SimpleExampleTest(unittest.TestCase):
 
     def setUpDataDir(self, userManager):
         """Make a folder for UserManager data."""
-
         self._userDataDir = os.path.join(testDir, 'Users')
-
         if os.path.exists(self._userDataDir):
             shutil.rmtree(self._userDataDir, ignore_errors=True)
         os.mkdir(self._userDataDir)
-
         userManager.setUserDir(self._userDataDir)
 
     def tearDown(self):
-
-        # Remove our test folder for UserManager data
+        """Remove our test folder for UserManager data."""
         if os.path.exists(self._userDataDir):
             shutil.rmtree(self._userDataDir, ignore_errors=True)
         self._mgr = None
-
 
     def testUsersNoRoles(self):
         from UserKit.UserManagerToFile import UserManagerToFile
@@ -60,7 +55,6 @@ class SimpleExampleTest(unittest.TestCase):
         self.assertFalse(theUser.isActive(),
             'User should no longer be active.')
         self.assertEqual(self._mgr.numActiveUsers(), 0)
-
 
     def testUsersAndRoles(self):
         from UserKit.RoleUserManagerToFile import RoleUserManagerToFile

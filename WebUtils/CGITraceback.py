@@ -32,7 +32,7 @@ DefaultOptions = {
 
 def breaker():
     return ('<body style="background-color:#F0F0FF">' +
-        '<span style="color:#F0F0FF;font-size:small"> > </font> ' +
+        '<span style="color:#F0F0FF;font-size:small"> > </span> ' +
         '</table>' * 5)
 
 
@@ -164,7 +164,7 @@ def html(context=5, options=None):
                             value = getattr(value, subname)
                             name += '.' + subname
                         else:
-                            name += '.' + '(unknown: %s)' % subname
+                            name += '.(unknown: %s)' % subname
                             break
                     name = '<strong>%s</strong>' % name
                     if isinstance(value, MethodType):

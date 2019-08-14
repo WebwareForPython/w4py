@@ -4,7 +4,7 @@ from MiscUtils.Funcs import positiveId
 
 
 class Role(object):
-    """Used in conjuction with RoleUser to provide role-based security.
+    """Used in conjunction with RoleUser to provide role-based security.
 
     All roles have a name and a description and respond to playsRole().
 

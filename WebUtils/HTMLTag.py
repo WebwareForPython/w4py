@@ -20,7 +20,7 @@ You can discard the reader immediately if you like:
     tag = HTMLReader().readFileNamed('foo.html')
 
 The point of reading HTML into tag objects is so that you have a concrete,
-Pythonic data structure to work with. The original motiviation for such a
+Pythonic data structure to work with. The original motivation for such a
 beast was in building automated regression test suites that wanted granular,
 structured access to the HTML output by the web application.
 
@@ -161,8 +161,9 @@ class HTMLTag(object):
 
         An assertion fails if an attribute is set twice.
         """
-        assert name not in self._attrs, 'name = %r, attrs = %r' % (name, attrs)
-        self._attrs[name] = value
+        attrs = self._attrs
+        assert name not in attrs, 'name = %r, attrs = %r' % (name, attrs)
+        attrs[name] = value
 
     def addChild(self, child):
         """Add a child to the receiver.
@@ -237,9 +238,10 @@ class HTMLTag(object):
 
     def __repr__(self):
         r = ['<', self._name]
-        if self._attrs:
-            for key in sorted(self._attrs):
-                r.extend([' ', key, '="', self._attrs[key], '"'])
+        attrs = self._attrs
+        if attrs:
+            for key in sorted(attrs):
+                r.extend([' ', key, '="', attrs[key], '"'])
         r.append('>')
         if self._lineNumber or self._isClosed:
             r.append(' (')

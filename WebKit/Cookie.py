@@ -155,6 +155,6 @@ class Cookie(object):
         Returns a string with the value that should be used
         in the HTTP headers.
         """
-        items = self._cookies.items()
-        assert len(items) == 1
-        return items[0][1].OutputString()
+        values = self._cookies.values()
+        assert len(values) == 1
+        return values[0].OutputString()

@@ -8,8 +8,8 @@ from MiscUtils.DictForArgs import *
 class TestDictForArgs(unittest.TestCase):
 
     def testPositives(self):
-#               print 'Positive cases:'
-        tests = '''\
+        # print 'Positive cases:'
+        cases = '''\
 # Basics
 x=1       == {'x': '1'}
 x=1 y=2   == {'x': '1', 'y': '2'}
@@ -30,18 +30,14 @@ x y       == {'x': '1', 'y': '1'}
 x y=2     == {'x': '1', 'y': '2'}
 x=2 y     == {'x': '2', 'y': '1'}
 '''
-        tests = tests.splitlines()
-        errCount = 0
+        cases = cases.splitlines()
         self._testPositive('', {})
         self._testPositive(' ', {})
-        for test in tests:
-            if '#' in test:
-                test = test[:test.index('#')]
-            test = test.strip()
-            if test:
-                input, output = test.split('==', 1)
+        for case in cases:
+            case = case.split('#', 1)[0].strip()
+            if case:
+                input, output = case.split('==', 1)
                 output = eval(output)
-                result = DictForArgs(input)
                 self._testPositive(input, output)
 
     def _testPositive(self, input, output):
@@ -61,11 +57,8 @@ $
 x=5 'y'=6
 '''
         cases = cases.splitlines()
-        errCount = 0
         for case in cases:
-            if '#' in case:
-                case = case[:case.index('#')]
-            case = case.strip()
+            case = case.split('#', 1)[0].strip()
             if case:
                 self._testNegative(case)
 
@@ -83,14 +76,14 @@ x=5 'y'=6
 
     def testPyDictForArgs(self):
         cases = '''\
-        x=1 == {'x': 1}
-        x=1; y=2 == {'x': 1, 'y': 2}
-        x='a' == {'x': 'a'}
-        x="a"; y="""b""" == {'x': 'a', 'y': 'b'}
-        x=(1, 2, 3) == {'x': (1, 2, 3)}
-        x=['a', 'b'] == {'x': ['a', 'b']}
-        x='a b'.split() == {'x': ['a', 'b']}
-        x=['a b'.split(), 1]; y={'a': 1} == {'x': [['a', 'b'], 1], 'y': {'a': 1}}
+x=1 == {'x': 1}
+x=1; y=2 == {'x': 1, 'y': 2}
+x='a' == {'x': 'a'}
+x="a"; y="""b""" == {'x': 'a', 'y': 'b'}
+x=(1, 2, 3) == {'x': (1, 2, 3)}
+x=['a', 'b'] == {'x': ['a', 'b']}
+x='a b'.split() == {'x': ['a', 'b']}
+x=['a b'.split(), 1]; y={'a': 1} == {'x': [['a', 'b'], 1], 'y': {'a': 1}}
 '''.splitlines()
         for case in cases:
             case = case.strip()

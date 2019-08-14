@@ -67,7 +67,7 @@ class UserManagerToFile(UserManager):
         filename = str(serialNum) + '.user'
         filename = os.path.join(self.userDir(), filename)
         if os.path.exists(filename):
-            with open(filename) as f:
+            with open(filename, 'rb') as f:
                 user = self.decoder()(f)
             self._cachedUsers.append(user)
             self._cachedUsersBySerialNum[serialNum] = user
@@ -170,7 +170,7 @@ class UserMixIn(object):
             str(self.serialNum())) + '.user'
 
     def save(self):
-        with open(self.filename(), 'w') as f:
+        with open(self.filename(), 'wb') as f:
             self.manager().encoder()(self, f)
 
 

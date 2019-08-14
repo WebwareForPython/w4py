@@ -117,7 +117,7 @@ class HTTPException(Exception):
 
 
 class HTTPMovedPermanently(HTTPException):
-    """HTTPExcecption "moved permanently" subclass.
+    """HTTPException "moved permanently" subclass.
 
     When a resource is permanently moved. The browser may remember this
     relocation, and later requests may skip requesting the original
@@ -158,7 +158,7 @@ class HTTPMovedPermanently(HTTPException):
 
 
 class HTTPTemporaryRedirect(HTTPMovedPermanently):
-    """HTTPExcecption "temporary redirect" subclass.
+    """HTTPException "temporary redirect" subclass.
 
     Like HTTPMovedPermanently, except the redirect is only valid for this
     request. Internally identical to HTTPMovedPermanently, except with a
@@ -172,7 +172,7 @@ HTTPRedirect = HTTPTemporaryRedirect
 
 
 class HTTPBadRequest(HTTPException):
-    """HTTPExcecption "bad request" subclass.
+    """HTTPException "bad request" subclass.
 
     When the browser sends an invalid request.
     """
@@ -180,7 +180,7 @@ class HTTPBadRequest(HTTPException):
 
 
 class HTTPAuthenticationRequired(HTTPException):
-    """HTTPExcecption "authentication required" subclass.
+    """HTTPException "authentication required" subclass.
 
     HTTPAuthenticationRequired will usually cause the browser to open up an
     HTTP login box, and after getting login information from the user, the
@@ -211,7 +211,7 @@ HTTPAuthorizationRequired = HTTPAuthenticationRequired
 
 
 class HTTPSessionExpired(HTTPException):
-    """HTTPExcecption "session expired" subclass.
+    """HTTPException "session expired" subclass.
 
     This is the same as HTTPAuthenticationRequired, but should be used
     in the situation when a session has expired.
@@ -221,7 +221,7 @@ class HTTPSessionExpired(HTTPException):
 
 
 class HTTPForbidden(HTTPException):
-    """HTTPExcecption "forbidden" subclass.
+    """HTTPException "forbidden" subclass.
 
     When access is not allowed to this resource. If the user is anonymous,
     and must be authenticated, then HTTPAuthenticationRequired is a preferable
@@ -235,7 +235,7 @@ class HTTPForbidden(HTTPException):
 
 
 class HTTPNotFound(HTTPException):
-    """HTTPExcecption "not found" subclass.
+    """HTTPException "not found" subclass.
 
     When the requested resource does not exist. To be more secretive,
     it is okay to return a 404 if access to the resource is not permitted
@@ -256,7 +256,7 @@ class HTTPNotFound(HTTPException):
 
 
 class HTTPMethodNotAllowed(HTTPException):
-    """HTTPExcecption "method not allowed" subclass.
+    """HTTPException "method not allowed" subclass.
 
     When a method (like GET, PROPFIND, POST, etc) is not allowed
     on this resource (usually because it does not make sense, not
@@ -267,7 +267,7 @@ class HTTPMethodNotAllowed(HTTPException):
 
 
 class HTTPRequestTimeout(HTTPException):
-    """HTTPExcecption "request timeout" subclass.
+    """HTTPException "request timeout" subclass.
 
     The client did not produce a request within the time that the
     server was prepared to wait. The client may repeat the request
@@ -277,7 +277,7 @@ class HTTPRequestTimeout(HTTPException):
 
 
 class HTTPConflict(HTTPException):
-    """HTTPExcecption "conflict" subclass.
+    """HTTPException "conflict" subclass.
 
     When there's a locking conflict on this resource (in response to
     something like a PUT, not for most other conflicts). Mostly for WebDAV.
@@ -286,7 +286,7 @@ class HTTPConflict(HTTPException):
 
 
 class HTTPUnsupportedMediaType(HTTPException):
-    """HTTPExcecption "unsupported media type" subclass.
+    """HTTPException "unsupported media type" subclass.
 
     The server is refusing to service the request because the entity
     of the request is in a format not supported by the requested resource
@@ -296,7 +296,7 @@ class HTTPUnsupportedMediaType(HTTPException):
 
 
 class HTTPPreconditionFailed(HTTPException):
-    """HTTPExcecption "Precondition Failed" subclass.
+    """HTTPException "Precondition Failed" subclass.
 
     During compound, atomic operations, when a precondition for an early
     operation fail, then later operations in will fail with this code.
@@ -306,7 +306,7 @@ class HTTPPreconditionFailed(HTTPException):
 
 
 class HTTPServerError(HTTPException):
-    """HTTPExcecption "Server Error" subclass.
+    """HTTPException "Server Error" subclass.
 
     The server encountered an unexpected condition which prevented it
     from fulfilling the request.
@@ -315,7 +315,7 @@ class HTTPServerError(HTTPException):
 
 
 class HTTPNotImplemented(HTTPException):
-    """HTTPExcecption "not implemented" subclass.
+    """HTTPException "not implemented" subclass.
 
     When methods (like GET, POST, PUT, PROPFIND, etc) are not
     implemented for this resource.
@@ -325,7 +325,7 @@ class HTTPNotImplemented(HTTPException):
 
 
 class HTTPServiceUnavailable(HTTPException):
-    """HTTPExcecption "service unavailable" subclass.
+    """HTTPException "service unavailable" subclass.
 
     The server is currently unable to handle the request due to a temporary
     overloading or maintenance of the server. The implication is that this
@@ -336,7 +336,7 @@ class HTTPServiceUnavailable(HTTPException):
 
 
 class HTTPInsufficientStorage(HTTPException):
-    """HTTPExcecption "insufficient storage" subclass.
+    """HTTPException "insufficient storage" subclass.
 
     When there is not sufficient storage, usually in response to a PUT when
     there isn't enough disk space. Mostly for WebDAV.

@@ -254,7 +254,7 @@ class Server(object):
             raise RequestError(d['requestError'])
         else:
             raise RequestError(
-                'Response does not have a value, expection or requestError.')
+                'Response does not have a value, exception or requestError.')
 
     def __repr__(self):
         return '<%s for %s%s>' % (self.__class__.__name__, self._host, self._handler)

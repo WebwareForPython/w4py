@@ -64,7 +64,7 @@ class StreamReader(object):
     """This class handles the PSP source file.
 
     It provides the characters to the other parts of the system.
-    It can move forward and backwards in a file and remember locactions.
+    It can move forward and backwards in a file and remember locations.
     """
 
     def __init__(self, filename, ctxt):

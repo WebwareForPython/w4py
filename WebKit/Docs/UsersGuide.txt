@@ -201,7 +201,7 @@ are no longer useful. For example::
 Raising Exceptions
 ------------------
 
-Uncaught expections are trapped at the application level where a
+Uncaught exceptions are trapped at the application level where a
 useful error page is saved with information such as the traceback,
 environment, fields, etc. You can configure the application to
 automatically e-mail you this information. Here is an `example error

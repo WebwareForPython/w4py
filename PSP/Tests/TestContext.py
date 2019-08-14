@@ -17,7 +17,7 @@ class TestCLContext(unittest.TestCase):
         self.assertEqual(clc.getPspFileName(), 'ContextTest.psp')
         self.assertEqual(clc.getBaseUri(), '/files/PSP'.replace('/', os.sep))
 
-    def testPythonFileEncodin(self):
+    def testPythonFileEncoding(self):
         clc = PSPCLContext('test.psp')
         self.assertEqual(clc.getPythonFileEncoding(), None)
         clc.setPythonFileEncoding('latin-1')
@@ -28,7 +28,6 @@ class TestCLContext(unittest.TestCase):
         clc = PSPCLContext(pspfile)
         uri = clc.resolveRelativeURI('Test2.psp')
         self.assertEqual(uri, '/files/PSP/Test2.psp'.replace('/', os.sep))
-        pspfile = '/files3/PSP3/Test3.psp'.replace('/', os.sep)
         self.assertEqual(clc.resolveRelativeURI(uri), uri)
 
     def testPSPReader(self):

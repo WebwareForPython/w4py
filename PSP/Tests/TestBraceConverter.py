@@ -34,7 +34,8 @@ class DummyWriter(ServletWriter):
 
 class TestBraceConverter(unittest.TestCase):
 
-    def trim(self, text):
+    @staticmethod
+    def trim(text):
         return '\n'.join(filter(None, map(str.rstrip, text.splitlines())))
 
     def assertParses(self, input, expected):

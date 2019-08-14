@@ -1,39 +1,13 @@
-import sys
 import unittest
 
 import FixPath
 from MiscUtils.Error import Error
 
 
-def check(err):
-    print 'str: ', err
-    print 'repr:', repr(err)
-    assert err.keys() in [['a', 'b'], ['b', 'a']]
-    assert isinstance(err['a'], int)
-    assert isinstance(err['b'], str)
-    print
+class DummyObject:
 
-
-def test():
-    err = Error(None, None)
-    print 'str: ', err
-    print 'repr:', repr(err)
-    assert err.object() is None
-    assert err.message() is None
-    print
-
-    err = Error(test, 'test')
-    print 'str: ', err
-    print 'repr:', repr(err)
-    assert err.object() is test
-    assert err.message() == 'test'
-    print
-
-    err = Error(None, '', a=5, b='.')
-    check(err)
-
-    err = Error(None, '', {'a': 5}, b='.')
-    check(err)
+    def __repr__(self):
+        return '<dummy>'
 
 
 class TestError(unittest.TestCase):
@@ -42,13 +16,18 @@ class TestError(unittest.TestCase):
         err = Error(None, None)
         self.assertEqual('ERROR: None', str(err))
         self.assertEqual('ERROR(object=None; message=None; data={})', repr(err))
+        self.assertTrue(err.object() is None)
+        self.assertTrue(err.message() is None)
 
     def testObjMessage(self):
-        err = Error(test, 'test')
+        obj = DummyObject()
+        err = Error(obj, 'test')
         self.assertEqual('ERROR: test', str(err))
         # Should produce something like:
         # "ERROR(object=<function test at 0x74f70>; message='test'; data={})"
         self.assertTrue(repr(err).endswith("; message='test'; data={})"))
+        self.assertTrue(err.object() is obj)
+        self.assertTrue(err.message() == 'test')
 
     def testValueDict(self):
         err = Error(None, '', a=5, b='.')
@@ -70,5 +49,4 @@ class TestError(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    test()
     unittest.main()

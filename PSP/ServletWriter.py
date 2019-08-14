@@ -45,10 +45,7 @@ class ServletWriter(object):
         self.setIndention()
 
     def setIndention(self):
-        if self._useTabs:
-            self._indent = '\t'
-        else:
-            self._indent = self._indentSpaces
+        self._indent = '\t' if self._userTabs else self._indentSpaces
 
     def setIndentType(self, type):
         if type == 'tabs':

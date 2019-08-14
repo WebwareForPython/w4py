@@ -46,9 +46,9 @@ class UserManagerTest(unittest.TestCase):
             "We should be able to set a custom user class.")
         class Poser(object):
             pass
-        self.assertRaises(Exception, mgr.setUserClass, Poser), (
-            "Setting a customer user class that doesn't extend UserKit.User"
-            " should fail.")
+        # Setting a customer user class that doesn't extend UserKit.User
+        # should fail.
+        self.assertRaises(Exception, mgr.setUserClass, Poser)
 
     def tearDown(self):
         self._mgr.shutDown()
@@ -64,7 +64,7 @@ class _UserManagerToSomewhereTest(UserManagerTest):
     """
 
     def setUp(self):
-        pass  # nothing for no
+        pass  # nothing for now
 
     def tearDown(self):
         self._mgr = None

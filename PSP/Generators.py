@@ -130,7 +130,7 @@ class ScriptGenerator(GenericGenerator):
         if blockcheck.endswith(':'):
             writer.pushIndent()
             writer.println()
-            writer._blockcount = writer._blockcount+1
+            writer._blockcount += 1
             # Check for end of block, "pass" by itself:
         if self.chars.strip() == 'pass' and writer._blockcount > 0:
             writer.popIndent()

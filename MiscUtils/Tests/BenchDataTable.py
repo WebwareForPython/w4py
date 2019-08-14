@@ -17,7 +17,7 @@ class BenchDataTable(object):
     def __init__(self, profile=False, runTestSuite=True):
         self._shouldProfile = profile
         self._shouldRunTestSuite = runTestSuite
-        self._iters = 200
+        self._iterations = 200
 
     def main(self):
         if len(sys.argv) > 1 and sys.argv[1].lower().startswith('prof'):
@@ -45,7 +45,7 @@ class BenchDataTable(object):
 
     def benchFileNamed(self, name):
         contents = open(name).read()
-        for n in xrange(self._iters):
+        for n in xrange(self._iterations):
             # we duplicate lines to reduce the overhead of the loop
             dt = DataTable()
             dt.readString(contents)

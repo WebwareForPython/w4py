@@ -281,7 +281,7 @@ class HTTPResponse(Response):
         self._strmOut.setAutoCommit(autoFlush)
 
     def isCommitted(self):
-        """Check whether response is already commited.
+        """Check whether response is already committed.
 
         Checks whether the response has already been partially or completely sent.
         If this returns true, no new headers/cookies can be added

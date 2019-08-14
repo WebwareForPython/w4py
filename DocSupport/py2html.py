@@ -19,7 +19,7 @@ options:
  -bgcolor:color use color as background-color for page
  -header:file   use contents of file as header
  -footer:file   use contents of file as footer
- -URL           replace all occurances of 'URL: link' with
+ -URL           replace all occurrences of 'URL: link' with
                 '<a href="link">link</a>'; this is always enabled
                 in CGI mode
  -v             verbose

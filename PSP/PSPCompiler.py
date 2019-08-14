@@ -26,7 +26,7 @@ class Compiler(object):
         self._ctxt = context
 
     def compile(self):
-        """Compile the PSP context and return a list of all source files."""
+        """Compile the PSP context and return a set of all source files."""
         reader = StreamReader(self._ctxt.getPspFileName(), self._ctxt)
         reader.init()
         writer = ServletWriter(self._ctxt)

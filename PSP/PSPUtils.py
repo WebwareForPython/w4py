@@ -27,10 +27,7 @@ def removeQuotes(s):
 
 def isExpression(s):
     """Check whether this is a PSP expression."""
-    if s.startswith('<%=') and s.endswith('%>'):
-        return True
-    else:
-        return False
+    return s.startswith('<%=') and s.endswith('%>')
 
 
 def getExpr(s):
