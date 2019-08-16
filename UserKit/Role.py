@@ -26,9 +26,6 @@ class Role(object):
         self._name = name
         self._description = description
 
-    def __str__(self):
-        return self.name()
-
 
     ## Attributes ##
 

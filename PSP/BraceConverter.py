@@ -31,7 +31,7 @@ import sys
 class BraceConverter(object):
 
     CSKIP = re.compile("(^[^\"'{}:#]+)")
-    COLONBRACE = re.compile(":\s*{\s*([^\s].*)?$")
+    COLONBRACE = re.compile(r":\s*{\s*([^\s].*)?$")
 
     def __init__(self):
         self.inquote = False

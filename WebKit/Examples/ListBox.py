@@ -78,9 +78,8 @@ style="width:%(width)dpt;text-align:center">
 
     def new(self):
         """Add a new item to the list box."""
-        req = self.request()
         self._vars['items'].append(dict(
-            name = 'New item %d' % self._vars['newCount']))
+            name='New item %d' % self._vars['newCount']))
         self._vars['newCount'] += 1
         self.writeBody()
 

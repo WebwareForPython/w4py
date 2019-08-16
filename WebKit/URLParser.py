@@ -316,7 +316,7 @@ class _FileParser(URLParser):
     FileParser objects are threadsafe. A factory function is used to cache
     FileParser instances, so for any one path only a single FileParser instance
     will exist.  The `_FileParser` class is the real class, and `FileParser` is
-    a factory that either returns an existant _FileParser object, or creates a
+    a factory that either returns an existent _FileParser object, or creates a
     new one if none exists.
 
     FileParser uses several settings from ``Application.config``, which are

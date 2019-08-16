@@ -20,7 +20,7 @@ debug = False
 
 
 class SessionMemcachedStore(SessionStore):
-    """A session store using Memached.
+    """A session store using Memcached.
 
     Stores the sessions in a single Memcached store using 'last write wins'
     semantics. This increases fault tolerance and allows server clustering.

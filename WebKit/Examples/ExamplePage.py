@@ -28,7 +28,7 @@ class ExamplePage(SidebarPage):
             class Main(ExamplePage):
                 pass
 
-    If WebKitConfig['examplesPages'] is non-existant or None, then
+    If WebKitConfig['examplesPages'] is non-existent or None, then
     no examples will be available for the plug-in.
 
     If the WebKit Examples context is not present in the first place,

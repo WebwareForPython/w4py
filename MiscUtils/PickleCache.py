@@ -18,7 +18,7 @@ search for "Pickle":
 
 The cached file is named the same as the original file with
 '.pickle.cache' suffixed. The utility of '.pickle' is to denote the file
-format and the utilty of '.cache' is to provide '*.cache' as a simple
+format and the utility of '.cache' is to provide '*.cache' as a simple
 pattern that can be removed, ignored by backup scripts, etc.
 
 The treatment of the cached file is silent and friendly just like

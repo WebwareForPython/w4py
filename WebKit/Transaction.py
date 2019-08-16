@@ -105,7 +105,7 @@ class Transaction(object):
         return self._response.endTime() - self._request.time()
 
     def errorOccurred(self):
-        """Check whether a server error occured."""
+        """Check whether a server error occurred."""
         return isinstance(self._error, Exception)
 
     def error(self):

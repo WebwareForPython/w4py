@@ -48,7 +48,7 @@ class ExceptionHandler(object):
       * writeDict
       * writeAttrs
 
-    Derived classes must not assume that the error occured in a
+    Derived classes must not assume that the error occurred in a
     transaction.  self._tra may be None for exceptions outside
     of transactions.
 
