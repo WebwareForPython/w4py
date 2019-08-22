@@ -45,7 +45,7 @@ class Main(SidebarPage):
                 '<td>%d.</td><td>' % (bgcolor, caseNum))
             for url, urlName in urls:
                 wr('<a href="%s">%s</a><br>' % (url, urlName))
-            wr('<td>%s</td></tr>' % expectation)
+            wr('</td><td>%s</td></tr>' % expectation)
             caseNum += 1
         wr('</table>')
 

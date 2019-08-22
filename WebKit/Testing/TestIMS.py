@@ -68,7 +68,7 @@ class TestIMS(SidebarPage):
                 % (rsp.status, rsp.reason, size))
         arpaformat = '%a, %d %b %Y %H:%M:%S GMT'
         t = list(time.strptime(lm, arpaformat))
-        t[0] -= 1  # last year
+        t[0] -= 1  # one year before last modification
         newlm = time.strftime(arpaformat, time.gmtime(time.mktime(t)))
         self.writeTest('Opening <code>%s</code><br>with If-Modified-Since: %s'
             % (path, newlm))

@@ -43,5 +43,5 @@ class Welcome(ExamplePage):
             wr('<ul>')
             wr('<li>serverSidePath: <code>%s</code></li>'
                 % req.serverSidePath())
-            wr('<li> extraURLPath: <code>%s</code></li>' % extraURLPath)
+            wr('<li>extraURLPath: <code>%s</code></li>' % extraURLPath)
             wr('</ul>')
