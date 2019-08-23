@@ -472,7 +472,7 @@ class Main(Page):
     def writeContent(self):
         self.writeln('<h1>Welcome to Webware for Python!</h1>')
         self.writeln('''
-        <p>This is a sample context generated for you and has purposly been kept
+        <p>This is a sample context generated for you and has purposely been kept
         very simple to give you something to play with to get yourself started.
         The code that implements this page is located in <b>%s</b>.</p>
         ''' % self.request().serverSidePath())
