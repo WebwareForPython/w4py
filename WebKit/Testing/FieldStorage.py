@@ -21,21 +21,23 @@ class FieldStorage(SidebarPage):
         fields = request.fields()
         writeln = self.writeln
         if method == 'GET' and not fields:
-            get_fields = [('getfield1', 'getvalue1'),
+            getFields = [
+                ('getfield1', 'getvalue1'),
                 ('getfield2', 'getvalue21'), ('getfield2', 'getvalue22'),
                 ('dualfield1', 'getdual1'),
                 ('dualfield2', 'getdual21'), ('dualfield2', 'getdual22'),
                 ('getempty', '')]
-            post_fields = [('postfield1', 'postvalue1'),
+            postFields = [
+                ('postfield1', 'postvalue1'),
                 ('postfield2', 'postvalue21'), ('postfield2', 'postvalue22'),
                 ('dualfield1', 'postdual1'),
                 ('dualfield2', 'postdual21'), ('dualfield2', 'postdual22'),
                 ('postempty', '')]
             writeln('<p>The WebKit FieldStorage class can be tested here.</p>')
             writeln('<form action="FieldStorage?%s" method="POST">'
-                % '&amp;'.join('%s=%s' % field for field in get_fields))
+                % '&amp;'.join('%s=%s' % field for field in getFields))
             writeln('<p>Please press the button to run the test:')
-            for field in post_fields:
+            for field in postFields:
                 writeln('<input type="hidden" name="%s" value="%s">' % field)
             writeln('<input type="submit" name="testbutton" value="Submit">')
             writeln('</p></form>')
@@ -81,7 +83,7 @@ class FieldStorage(SidebarPage):
             elif request.field('dualfield1') in (
                     ['getdual1', 'postdual1'], ['postdual1', 'getdual1']):
                 error('The first dual field'
-                    ' was extended instead of overridden via POST')
+                      ' was extended instead of overridden via POST')
             elif request.field('dualfield1') != 'postdual1':
                 error('The first dual field got a wrong value')
             if not request.hasField('dualfield2'):
@@ -92,7 +94,7 @@ class FieldStorage(SidebarPage):
                     ['getdual21', 'getdual22', 'postdual21', 'postdual22'],
                     ['postdual21', 'postdual22', 'getdual21', 'getdual22']):
                 error('The second dual field'
-                    ' was extended instead of overridden via POST')
+                      ' was extended instead of overridden via POST')
             elif request.field('dualfield2') != ['postdual21', 'postdual22']:
                 error('The second dual field got a wrong value')
             if errors:

@@ -50,7 +50,7 @@ NameError: tableOptions</span></pre>
 
 <p>You can index the HTTPStatusCodes dictionary by code number such as <code>200</code>, or identifier such as <code>OK</code>. The dictionary returned has keys <code>'code'</code>, <code>'identifier'</code> and <code>'htmlMsg'</code>. An <code>'asciiMsg'</code> key is provided, however, the HTML tags are not yet actually stripped out.</p>
 
-<p>The <code>HTMLTableOfHTTPStatusCodes()</code> functions returns a string which is exactly that: a table containing the <code>HTTPStatusCodes</code> defined by the module. You can affect the formatting of the table by specifying values for the arguments. It's highly recommended that you use <code>key=value</code> arguments since the number and order could easily change in future versions. The definition is:</p>
+<p>The <code>HTMLTableOfHTTPStatusCodes()</code> function returns a string which is exactly that: a table containing the <code>HTTPStatusCodes</code> defined by the module. You can affect the formatting of the table by specifying values for the arguments. It's highly recommended that you use <code>key=value</code> arguments since the number and order could easily change in future versions. The definition is:</p>
 
 <pre class="py">def HTMLTableOfHTTPStatusCodes(codes=HTTPStatusCodeList,
     tableArgs='align=center border=2',

@@ -147,7 +147,7 @@ class ValueForNameTest(LookupTest):
         self.assertTrue(self.lookup(obj, 'rect.origin.x'))
 
         self.assertRaises(NamedValueAccessError, self.lookup, d, 'bar')
-        self.assertRaises(NamedValueAccessError, self.lookup, obj,  'bar')
+        self.assertRaises(NamedValueAccessError, self.lookup, obj, 'bar')
 
         self.assertEqual(self.lookup(d, 'bar', 2), 2)
         self.assertEqual(self.lookup(obj, 'rect.bar', 2), 2)

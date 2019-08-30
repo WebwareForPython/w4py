@@ -59,27 +59,26 @@ class BraceConverter(object):
                 writer.printChars(self.line[:match.end(1)])
                 self.line = self.line[match.end(1):]
             else:
-                ch = self.line[0]
-                if ch == "'":
+                c = self.line[0]
+                if c == "'":
                     self.handleQuote("'", writer)
                     self.skipquote(writer)
-                elif ch == '"':
+                elif c == '"':
                     self.handleQuote('"', writer)
                     self.skipquote(writer)
-                elif ch == '{':
+                elif c == '{':
                     self.openBrace(writer)
-                elif ch == '}':
+                elif c == '}':
                     self.closeBrace(writer)
-                elif ch == ':':
+                elif c == ':':
                     self.openBlock(writer)
-                elif ch == '#':
+                elif c == '#':
                     writer.printChars(self.line)
                     self.line = ''
                 else:
                     # should never get here
                     raise Exception()
-        else:
-            writer.printChars('\n')
+        writer.printChars('\n')
 
     def openBlock(self, writer):
         """Open a new block."""

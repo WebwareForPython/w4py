@@ -25,17 +25,15 @@ class Mark(object):
 
     def __init__(self, reader,
             fileId=None, stream=None, inBaseDir=None, encoding=None):
-
-        if isinstance(reader, StreamReader):
-            self.reader = reader
-            self.fileId = fileId
-            self.includeStack = []
-            self.cursor = 0
-            self.stream = stream
-            self.baseDir = inBaseDir
-            self.encoding = encoding
-        else:
-            self = copy(reader)
+        if not isinstance(reader, StreamReader):
+            raise TypeError('First argument must be a StreamReader')
+        self.reader = reader
+        self.fileId = fileId
+        self.includeStack = []
+        self.cursor = 0
+        self.stream = stream
+        self.baseDir = inBaseDir
+        self.encoding = encoding
 
     def __str__(self):
         return '%s(%d)' % (self.getFile(), self.cursor)
@@ -124,8 +122,8 @@ class StreamReader(object):
 
         Return the point before the string, but move reader past it.
         """
-        new_cursor = self.current.stream.find(s, self.current.cursor)
-        if new_cursor < 0:
+        newCursor = self.current.stream.find(s, self.current.cursor)
+        if newCursor < 0:
             self.current.cursor = len(self.current.stream)
             if self.hasMoreInput():
                 self.popFile()
@@ -133,7 +131,7 @@ class StreamReader(object):
             else:
                 raise EOFError
         else:
-            self.current.cursor = new_cursor
+            self.current.cursor = newCursor
             mark = self.mark()
             self.current.cursor += len(s)
             return mark
@@ -217,13 +215,13 @@ class StreamReader(object):
 
     def nextContent(self):
         """Find next < char."""
-        cur_cursor = self.current.cursor
+        currentCursor = self.current.cursor
         self.current.cursor += 1
-        new_cursor = self.current.stream.find('<', self.current.cursor)
-        if new_cursor < 0:
-            new_cursor = len(self.current.stream)
-        self.current.cursor = new_cursor
-        return self.current.stream[cur_cursor:new_cursor]
+        newCursor = self.current.stream.find('<', self.current.cursor)
+        if newCursor < 0:
+            newCursor = len(self.current.stream)
+        self.current.cursor = newCursor
+        return self.current.stream[currentCursor:newCursor]
 
     def parseTagAttributes(self):
         """Parse the attributes at the beginning of a tag."""

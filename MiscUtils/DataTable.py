@@ -791,7 +791,7 @@ class TableRecord(object):
         return iter(self)
 
     def iteritems(self):
-        for key in self.self._nameToIndexMap:
+        for key in self._nameToIndexMap:
             yield key, self[key]
 
 

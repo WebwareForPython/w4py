@@ -101,7 +101,7 @@ class DebugAppServer(OriginalThreadedAppServer):
 
     def restart(self):
         # The normal restart technique is to exit the application
-        # with a special exit code and let an exta-process script
+        # with a special exit code and let an extra-process script
         # start the app server up again. That works poorly for a
         # debugging environment which is attached to a particular process.
         Profiler.reset()
