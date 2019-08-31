@@ -692,8 +692,7 @@ def osIdDict():
 
     Returns a dictionary containing id information such as uid and pid.
     """
-    ids = ['egid', 'euid', 'gid', 'groups', 'pgid', 'pgrp',
-        'pid', 'ppid', 'uid']
+    ids = ['egid', 'euid', 'gid', 'groups', 'pgrp', 'pid', 'ppid', 'uid']
     attrs = {}
     for id in ids:
         getter = 'get' + id
