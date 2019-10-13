@@ -289,7 +289,7 @@ For this purpose, you must use a WebKit adapter_.  You must also
 activate the WebKit app server listener for adapters with the
 ``AppServer.config`` setting ``EnableAdapter``.  The port can be specified
 with the setting ``AdapterPort`` and will be ``8086`` by default.
-You can use several app servers listenting on different ports.
+You can use several app servers listening on different ports.
 
 
 .. _permissions:
@@ -825,7 +825,7 @@ it doesn't need to be located close to the Webware installation.
 
 You have a couple of options available, e.g. for chosing the name
 and location of the default context or creating additional library
-directories that will be added to the Python seach path.
+directories that will be added to the Python search path.
 You can see all of these options if you run ``bin/MakeAppWorkDir.py``
 without any parameters.
 

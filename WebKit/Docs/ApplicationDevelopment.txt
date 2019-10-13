@@ -76,7 +76,7 @@ Here's what the files and directories are for:
     ``WebKit/Configs``, but are specific to this application/AppServer.
 ``Context``:
     The directory for your default context.  This is where you put your servlets.
-    you can change its name and location with the ```-c`` and ``-d`` options.
+    You can change its name and location with the ```-c`` and ``-d`` options.
     You can also change this subsequently in the ``Application.config`` file
     in the ``Configs`` directory, where you can also configure more than one
     context.  You may also want to remove the other standard contexts that come
@@ -94,7 +94,7 @@ Here's what the files and directories are for:
     Called by the ``AppServer`` script to launch the AppServer.
 ``Lib``:
     An example for an application-specific library package that can be created
-    ``-l`` option (in this case, ``-l Lib``.  Import modules from this directory
+    ``-l`` option (in this case, ``-l Lib``).  Import modules from this directory
     like ``from Lib.SitePage import SitePage``.
 ``Logs``:
     Logs of accesses.
@@ -250,7 +250,7 @@ I also typically add other functions to the SitePage module, and then do
 like htmlEncode, or some other select functions that I use constantly in
 web applications.  Whether you want to use functions or methods is up to you --
 in many cases methods can be more easily extended or customized later, but
-sometimes method use can become excessive and create unnecessary dependences
+sometimes method use can become excessive and create unnecessary dependencies
 in your code.
 
 A basic framework for your SitePage might be::
@@ -268,7 +268,7 @@ A basic framework for your SitePage might be::
         def securePage(self):
             """Override this method in your servlets to return True if the
             page should only be accessible to logged-in users -- by default
-            pages are publically viewable"""
+            pages are publicly viewable"""
             return False
 
         def respondLogin(self):

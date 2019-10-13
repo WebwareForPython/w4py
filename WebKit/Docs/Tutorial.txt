@@ -162,7 +162,7 @@ Webware calls the servlet like this:
 You only have to override the portions that you want to. It is not uncommon to
 only override the ``writeContent()`` method in a servlet, for instance.
 
-You'll notice a file ``context/Main.py`` in your working directory. You can look
+You'll notice a file ``Context/Main.py`` in your working directory. You can look
 at it to get a feel for what a servlet might look like. (As an aside, a servlet
 called ``Main`` or ``index`` will be used analogous to the ``index.html`` file).
 You can look at it for a place to start experimenting, but here we'll work on
@@ -201,7 +201,7 @@ in the default context directory. First, ``Main.py``::
     from WebKit.Page import Page  # the base class for web pages
     import os
     import Image  # the Python Imaging Library
-    from urllib import quote as urlEncode
+
     dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
     class Main(Page):
@@ -224,7 +224,7 @@ in the default context directory. First, ``Main.py``::
                 # We're linking to the View servlet which we'll show later.
                 # Notice we use urlEncode -- otherwise we'll encounter bugs if
                 # there's a file with an embedded space or other character in it.
-                url = urlEncode(filename)
+                url = self.urlEncode(filename)
                 self.writeln('<p><a href="View?filename=%s">'
                     '<img src="Pics/%s" width="%i" height="%i"></a></p>'
                     % (url, url, x, y))
@@ -247,7 +247,7 @@ So here is our complete ``View`` servlet::
     from WebKit.Page import Page
     import os
     import Image
-    from urllib import quote as urlEncode
+
     dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
     class View(Page):
@@ -271,7 +271,7 @@ Iteration 2: Uploading Files
 
 That was fairly simple -- but usually you want to upload files, potentially
 through a web interface. Along the way we'll add thumbnail generation using
-PIL, and slighly improve the image index.
+PIL, and slightly improve the image index.
 
 We'll generate thumbnails kind of on demand, so you can still upload files
 manually -- thumbnails will be put in the directory ``Thumbs`` and have ``-tn``
@@ -280,7 +280,7 @@ appended to the name just to avoid confusion::
     from WebKit.Page import Page  # the base page class
     import os
     import Image  # the Python Imaging Library
-    from urllib import quote as urlEncode
+
     baseDir = os.path.dirname(__file__)
     picsDir = os.path.join(baseDir, 'Pics')
     thumbsDir = os.path.join(baseDir, 'Thumbs')
@@ -314,7 +314,7 @@ appended to the name just to avoid confusion::
                     im.save(os.path.join(thumbsDir, thumbFilename))
                 else:
                     im = Image.open(os.path.join(thumbsDir, thumbFilename))
-                url = urlEncode(filename)
+                url = self.urlEncode(filename)
                 self.writeln('<td><p><a href="View?filename=%s">'
                     '<img src="Pics/%s" width="%i" height="%i"></a></p>'
                     '<p>Filename: %s<br>Size: %i Bytes</p>'
@@ -337,7 +337,7 @@ page by using ``self.response().sendRedirect(url)``::
 
     from WebKit.Page import Page
     import os
-    from urllib import quote as urlEncode
+
     dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
     class Upload(Page):
@@ -360,5 +360,5 @@ page by using ``self.response().sendRedirect(url)``::
             # So to get the value we do this:
             filename, contents = file.filename, file.value
             open(os.path.join(dir, filename), 'wb').write(contents)
-            url = 'View?filename=' + urlEncode(filename)
+            url = 'View?filename=' + self.urlEncode(filename)
             self.response().sendRedirect(url)
