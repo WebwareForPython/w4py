@@ -53,8 +53,8 @@ def charWrap(s, width, hanging=0):
     and hanging indent. The font is assumed to be monospaced.
 
     This can be useful for including text between <pre> </pre> tags,
-    since <pre> will not word wrap, and for lengthly lines,
-    will increase the width of a web page.
+    since <pre> will not word wrap, and for lengthy lines, will increase
+    the width of a web page.
 
     It can also be used to help delineate the entries in log-style
     output by passing hanging=4.

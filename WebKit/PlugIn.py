@@ -28,7 +28,7 @@ class PlugIn(object):
     a Properties.py file advertising its name, version, requirements, etc.
     You can ask a plug-in for its properties().
 
-    The plug-in/package must have an __init__.py while must contain a function:
+    The plug-in/package must have an __init__.py which must contain a function:
         def InstallInWebKit(appServer):
     This function is invoked to take whatever actions are needed to plug the
     new component into WebKit. See PSP for an example.

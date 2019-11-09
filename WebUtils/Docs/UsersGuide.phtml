@@ -30,16 +30,16 @@ HTMLForExceptionOptions = {
 
 <p>A sample HTML exception string looks like this:</p>
 
-<table style="background-color:#F0F0F0:width:100%><tr><td>
-<pre><span style="color:"#000000">Traceback (innermost last):
-<span style="color:"#006600">  File "Application.py", line 90, in dispatchRequest</span>
-<span style="color:"#FF0000">    self.respond(context, response)</span>
-<span style="color:"#006600">  File "Application.py", line 112, in respond</span>
-<span style="color:"#FF0000">    ctx.component().respond(ctx, response)</span>
-<span style="color:"#006600">  File "HTTPComponent.py", line 30, in respond</span>
-<span style="color:"#FF0000">    method(ctx, response)</span>
-<span style="color:"#006600">  File "/home/echuck/Projects/Webware/WebKit/Examples/Introspect.py", line 9, in respondToGet</span>
-<span style="color:"#FF0000">    self.write('&lt;table %s&gt;' % tableOptions)</span>
+<table style="background-color:#F0F0F0:width:100%"><tr><td>
+<pre><span style="color:#000000">Traceback (innermost last):
+<span style="color:#006600">  File "Application.py", line 90, in dispatchRequest</span>
+<span style="color:#FF0000">    self.respond(context, response)</span>
+<span style="color:#006600">  File "Application.py", line 112, in respond</span>
+<span style="color:#FF0000">    ctx.component().respond(ctx, response)</span>
+<span style="color:#006600">  File "HTTPComponent.py", line 30, in respond</span>
+<span style="color:#FF0000">    method(ctx, response)</span>
+<span style="color:#006600">  File "/home/echuck/Projects/Webware/WebKit/Examples/Introspect.py", line 9, in respondToGet</span>
+<span style="color:#FF0000">    self.write('&lt;table %s&gt;' % tableOptions)</span>
 NameError: tableOptions</span></pre>
 </td></tr></table>
 

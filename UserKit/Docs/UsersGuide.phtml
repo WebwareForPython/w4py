@@ -32,11 +32,11 @@ to give feedback, discuss features and get help using UserKit.</p>
 
 <a id="PasswordEncryption"></a><h3>Encryption of Passwords</h3>
 
-<p>Generally one should never save users' passwords anywhere in plain text. However UserKit intentionally does no support encryption of passwords. That is left to how you use UserKit in your application. See ExampleTests.py, for a demonstration of how easy this is using SHA digests to encrypt passwords. Basically you encrypt your password before you give it to UserKit. It is as simle as this:</p>
+<p>Generally one should never save users' passwords anywhere in plain text. However UserKit intentionally does no support encryption of passwords. That is left to how you use UserKit in your application. See ExampleTests.py, for a demonstration of how easy this is using SHA digests to encrypt passwords. Basically you encrypt your password before you give it to UserKit. It is as simple as this:</p>
 
 <pre class="py">usermanager.createUser('johndoe', sha('buster').hexdigest())</pre>
 
-<p>This design decision is to decouple UserKit from your particular  encryption requirements, and allows you to use more advanced algorithms as they become available.</p>
+<p>This design decision is to decouple UserKit from your particular encryption requirements, and allows you to use more advanced algorithms as they become available.</p>
 
 
 <a id="KnownBugs"></a><h2>Known Bugs</h2>
