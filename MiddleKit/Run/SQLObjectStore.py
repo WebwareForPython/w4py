@@ -461,7 +461,10 @@ class SQLObjectStore(ObjectStore):
         This is a hook for subclasses that wish to influence this event.
         Invoked by executeSQL().
         """
-        cur.execute(sql, clausesArgs)
+        if clausesArgs:
+            cur.execute(sql, clausesArgs)
+        else:
+            cur.execute(sql)
 
     def executeSQLTransaction(self, transaction, connection=None, commit=True):
         """Execute the given sequence of SQL statements and commit as transaction."""
