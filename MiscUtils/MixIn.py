@@ -32,12 +32,12 @@ def MixIn(pyClass, mixInClass, makeAncestor=False, mixInSuperMethods=False):
     An example, that resides in Webware, is MiddleKit.Core.ModelUser.py,
     which install mix-ins for SQL adapters. Search for "MixIn(".
 
-    If makeAncestor is 1, then a different technique is employed:
+    If makeAncestor is True, then a different technique is employed:
     the mixInClass is made the first base class of the pyClass.
     You probably don't need to use this and if you do, be aware that your
     mix-in can no longer override attributes/methods in pyClass.
 
-    If mixInSuperMethods is 1, then support will be enabled for you to
+    If mixInSuperMethods is True, then support will be enabled for you to
     be able to call the original or "parent" method from the mixed-in method.
     This is done like so:
 
