@@ -710,7 +710,7 @@ class IntAttr(object):
             try:
                 int(value)  # raises exception if value is invalid
             except ValueError as e:
-                raise ValueError('%s (attr is %s)' (e, self.name()))
+                raise ValueError('%s (attr is %s)' % (e, self.name()))
             return str(value)
 
 
