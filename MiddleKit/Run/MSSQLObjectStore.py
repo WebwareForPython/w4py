@@ -2,8 +2,8 @@ import datetime
 
 import pyodbc
 
+from MiscUtils import NoDefault
 from SQLObjectStore import SQLObjectStore
-
 
 
 class MSSQLObjectStore(SQLObjectStore):
