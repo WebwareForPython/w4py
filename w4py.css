@@ -37,21 +37,46 @@ header.hero .subtitle {
 header.hero img.logo {
   position: absolute;
   top: 48px;
-  left: 575px;
+  left: 600px;
   border-style: none;
   z-index: 2;
 }
 
 div.slogan {
-  padding: 2pt 8pt;
+  padding: 2pt;
   color: #336699;
   text-align: center;
   font-size: 20px;
   font-weight: bolder;
 }
 
+div.update {
+  color: #336699;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+div.update img {
+  position: relative;
+  left: -4px;
+  top: 24px;
+}
+
+div.update a {
+  padding: 0 2pt;
+}
+
 div.content {
   padding: 16pt;
+}
+
+section#download > header + div {
+  font-size: 93.75%;
+}
+
+section#download > div {
+  padding: 7pt;
 }
 
 section.card {
