@@ -23,9 +23,7 @@ ListAttr
 LongAttr
 Model
 ModelUser
-NULL
 ObjRefAttr
 StringAttr
 TimeAttr
-__init__
 '''.split()
