@@ -1,13 +1,16 @@
-import os
+import difflib
+
 
 def test(store):
     with open('Dump.csv', 'w') as samples:
         store.dumpObjectStore(samples)
 
-    command = 'diff -uZ ../MKDump.mkmodel/Samples.csv Dump.csv'
-    print command
-    retval = os.system(command)
-    if os.name=='posix':
-        retval >>= 8  # upper byte is the return code
+    dumped = open('Dump.csv').readlines()
+    expected = open('../MKDump.mkmodel/Samples.csv').readlines()
+    diff = map(str.rstrip, difflib.context_diff(dumped, expected,
+        fromfile='dumped.csv', tofile='expected.csv'))
 
-    assert retval == 0
+    for line in diff:
+        print line
+
+    assert not diff
