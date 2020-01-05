@@ -158,16 +158,12 @@ class ContextParser(URLParser):
             # The default context refers to another context,
             # not a unique context.  Return the name of that context.
             return dest
-        # map existing context paths to their names
-        contextDirs = {}
-        for name, path in contexts.items():
-            if name != 'default':
-                contextDirs[self.absContextPath(path)] = name
         destPath = self.absContextPath(dest)
-        if destPath in contextDirs:
-            # The default context has the same directory
-            # as another context, so it's still not unique
-            return contextDirs[destPath]
+        for name, path in contexts.items():
+            if name != 'default' and self.absContextPath(path) == destPath:
+                # The default context has the same directory
+                # as another context, so it's still not unique
+                return name
         # The default context has no other name
         return 'default'
 
