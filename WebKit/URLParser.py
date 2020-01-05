@@ -144,7 +144,7 @@ class ContextParser(URLParser):
 
     ## Context handling ##
 
-    def resolveDefaultContext(self, name, dest):
+    def resolveDefaultContext(self, dest):
         """Find default context.
 
         Figure out if the default context refers to an existing context,
@@ -154,22 +154,22 @@ class ContextParser(URLParser):
         or 'default' if the default context is unique.
         """
         contexts = self._contexts
-        contextDirs = {}
-        # make a list of existing context paths
-        for name, path in contexts.items():
-            if name != 'default':
-                contextDirs[self.absContextPath(path)] = name
         if dest in contexts:
             # The default context refers to another context,
             # not a unique context.  Return the name of that context.
             return dest
-        elif self.absContextPath(dest) in contextDirs:
+        # map existing context paths to their names
+        contextDirs = {}
+        for name, path in contexts.items():
+            if name != 'default':
+                contextDirs[self.absContextPath(path)] = name
+        destPath = self.absContextPath(dest)
+        if destPath in contextDirs:
             # The default context has the same directory
             # as another context, so it's still not unique
-            return contextDirs[self.absContextPath(dest)]
-        else:
-            # The default context has no other name
-            return 'default'
+            return contextDirs[destPath]
+        # The default context has no other name
+        return 'default'
 
     def addContext(self, name, path):
         """Add a context to the system.
@@ -179,7 +179,7 @@ class ContextParser(URLParser):
         the context name.
         """
         if name == 'default':
-            dest = self.resolveDefaultContext(name, path)
+            dest = self.resolveDefaultContext(path)
             self._defaultContext = dest
             if dest != 'default':
                 # in this case default refers to an existing context, so
