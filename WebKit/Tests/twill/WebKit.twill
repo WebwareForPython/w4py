@@ -172,8 +172,8 @@ find 'name="items"\s+size="10"\s+style="width:250pt;'
 
 follow Forward
 title Forward
-find "This is the Forward servlet speaking."
-find "Welcome to WebKit"
+find "This is the <em>Forward</em> servlet speaking."
+find "Hello from IncludeMe"
 
 follow SecureCountVisits
 title "Log In"
