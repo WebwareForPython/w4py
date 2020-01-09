@@ -5,7 +5,7 @@ Compiled templates are cached either along with the templates or in the
 KidKit subdirectory of the WebKit Cache directory.
 
 Note that the Kid package itself is not part of Webware; you need to install
-it separately (see http://www.kid-templating.org for more information).
+it separately (see pypi.org/project/kid for more information).
 
 
 CREDITS:

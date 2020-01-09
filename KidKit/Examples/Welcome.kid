@@ -20,7 +20,7 @@ docs</a> here.</p>
 
 <p>You are currently using Kid version
 <strong py:content="kid.__version__">(version)</strong>.
-See the <a href="http://www.kid-templating.org">Kid homepage</a>
+See the <a href="https://pypi.org/project/kid/">Kid homepage</a>
 for more information about Kid templates.</p>
 
 <h4 style="text-align:center">Here are some examples.</h4>

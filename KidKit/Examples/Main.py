@@ -13,4 +13,4 @@ class Main(KidExamplePage):
     def writeContent(self):
         self.writeln('''<h4 style="color:red">Kid templates not installed.</h4>
 <p>The KidKit plug-in is based on the <code>kid</code> package available at
-<a href="http://www.kid-templating.org">www.kid-templating.org</a>.</p>''')
+<a href="https://pypi.org/project/kid/">pypi.org/project/kid</a>.</p>''')
