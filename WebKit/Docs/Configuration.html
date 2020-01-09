@@ -18,12 +18,13 @@
 <ul>
 <li><p><a class="reference internal" href="#general-settings" id="id7">General Settings</a></p></li>
 <li><p><a class="reference internal" href="#path-handling" id="id8">Path Handling</a></p></li>
-<li><p><a class="reference internal" href="#caching" id="id9">Caching</a></p></li>
-<li><p><a class="reference internal" href="#errors" id="id10">Errors</a></p></li>
-<li><p><a class="reference internal" href="#logging" id="id11">Logging</a></p></li>
+<li><p><a class="reference internal" href="#sessions" id="id9">Sessions</a></p></li>
+<li><p><a class="reference internal" href="#caching" id="id10">Caching</a></p></li>
+<li><p><a class="reference internal" href="#errors" id="id11">Errors</a></p></li>
+<li><p><a class="reference internal" href="#logging" id="id12">Logging</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#appserver-config" id="id12">AppServer.config</a></p></li>
+<li><p><a class="reference internal" href="#appserver-config" id="id13">AppServer.config</a></p></li>
 </ul>
 </div>
 <div class="section" id="command-line-configuration">
@@ -91,7 +92,7 @@ Default: <span class="docutils literal">True</span> (on).</p>
 <h2>Path Handling</h2>
 <p>These configuration settings control which files are exposed to users,
 which files are hidden, and some of how those files get chosen.</p>
-<dl>
+<dl class="simple">
 <dt><span class="docutils literal">DirectoryFile</span>:</dt>
 <dd><p>The list of basic filenames that WebKit searches for when serving
 up a directory.  Note that the extensions are absent since WebKit
@@ -139,11 +140,16 @@ is given explicitly.  Default: <span class="docutils literal"><span class="pre">
 </dd>
 <dt><span class="docutils literal">FilesToServe</span>:</dt>
 <dd><p>File patterns to serve from exclusively.  If the file being served
-for a particulary request does not match one of these patterns an
+for a particular request does not match one of these patterns an
 <span class="docutils literal">HTTP 403 Forbidden</span> error will be return.  This affects all
 requests, not just requests with autodetected extensions.  If set
 to <span class="docutils literal">[]</span> then no restrictions are placed.  Default: <span class="docutils literal">[]</span>.</p>
 </dd>
+</dl>
+</div>
+<div class="section" id="sessions">
+<h2>Sessions</h2>
+<dl>
 <dt><span class="docutils literal">MemcachedNamespace</span>:</dt>
 <dd><p>The namespace used to prefix all keys from the Webware application
 when accessing Memcached servers for storing sessions.  You should
@@ -292,7 +298,7 @@ Default: <span class="docutils literal">_SID_</span>.</p>
 <dt><span class="docutils literal">ExtraPathInfo</span>:</dt>
 <dd><p>When enabled, this setting allows a servlet to be followed by
 additional path components which are accessible via HTTPRequest's
-<span class="docutils literal">extraURLPath()</span>.  For subclassers of <span class="docutils literal">Page</span>, this would be
+<span class="docutils literal">extraURLPath()</span>.  For subclasses of <span class="docutils literal">Page</span>, this would be
 <span class="docutils literal"><span class="pre">self.request().extraURLPath()</span></span>.  Default: <span class="docutils literal">False</span>.</p>
 </dd>
 <dt><span class="docutils literal">UnknownFileTypes</span>:</dt>
@@ -429,9 +435,9 @@ ErrorEmailServer and ErrorEmailHeaders settings.  You must also set
 (false/do not email).</p>
 </dd>
 <dt><span class="docutils literal">EmailErrorReportAsAttachment</span>:</dt>
-<dd><p>Set to True to make html error reports be emailed as text with an
-html attachment, or False to make the html the body of the message.
-Default: <span class="docutils literal">False</span> (html in body).</p>
+<dd><p>Set to True to make HTML error reports be emailed as text with an
+HTML attachment, or False to make the html the body of the message.
+Default: <span class="docutils literal">False</span> (HTML in body).</p>
 </dd>
 <dt><span class="docutils literal">ErrorEmailServer</span>:</dt>
 <dd><p>The SMTP server to use for sending e-mail error messages, and, if
@@ -511,7 +517,7 @@ Default: <span class="docutils literal">True</span> (do report exceptions).</p>
 information such as time, duration and whether or not an error
 occurred.  Default: <span class="docutils literal">True</span>.</p>
 </dd>
-<dt><span class="docutils literal">ActivityLogFilenames</span>:</dt>
+<dt><span class="docutils literal">ActivityLogFilename</span>:</dt>
 <dd><p>This is the name of the file that servlet executions are logged to.
 This setting has no effect if <span class="docutils literal">LogActivity</span> is False.  The path can
 be relative to the WebKit location, or an absolute path.

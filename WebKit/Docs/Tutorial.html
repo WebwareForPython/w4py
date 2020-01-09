@@ -164,7 +164,7 @@ after the transaction is complete -- the servlet won't get reused any earlier.</
 </ul>
 <p>You only have to override the portions that you want to. It is not uncommon to
 only override the <span class="docutils literal">writeContent()</span> method in a servlet, for instance.</p>
-<p>You'll notice a file <span class="docutils literal">context/Main.py</span> in your working directory. You can look
+<p>You'll notice a file <span class="docutils literal">Context/Main.py</span> in your working directory. You can look
 at it to get a feel for what a servlet might look like. (As an aside, a servlet
 called <span class="docutils literal">Main</span> or <span class="docutils literal">index</span> will be used analogous to the <span class="docutils literal">index.html</span> file).
 You can look at it for a place to start experimenting, but here we'll work on
@@ -193,7 +193,7 @@ in the default context directory. First, <span class="docutils literal">Main.py<
 <pre class="literal-block">from WebKit.Page import Page  # the base class for web pages
 import os
 import Image  # the Python Imaging Library
-from urllib import quote as urlEncode
+
 dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
 class Main(Page):
@@ -216,7 +216,7 @@ class Main(Page):
             # We're linking to the View servlet which we'll show later.
             # Notice we use urlEncode -- otherwise we'll encounter bugs if
             # there's a file with an embedded space or other character in it.
-            url = urlEncode(filename)
+            url = self.urlEncode(filename)
             self.writeln('&lt;p&gt;&lt;a href=&quot;View?filename=%s&quot;&gt;'
                 '&lt;img src=&quot;Pics/%s&quot; width=&quot;%i&quot; height=&quot;%i&quot;&gt;&lt;/a&gt;&lt;/p&gt;'
                 % (url, url, x, y))</pre>
@@ -234,7 +234,7 @@ self.write(field('username'))</pre>
 <pre class="literal-block">from WebKit.Page import Page
 import os
 import Image
-from urllib import quote as urlEncode
+
 dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
 class View(Page):
@@ -257,14 +257,14 @@ class View(Page):
 <h2>Iteration 2: Uploading Files</h2>
 <p>That was fairly simple -- but usually you want to upload files, potentially
 through a web interface. Along the way we'll add thumbnail generation using
-PIL, and slighly improve the image index.</p>
+PIL, and slightly improve the image index.</p>
 <p>We'll generate thumbnails kind of on demand, so you can still upload files
 manually -- thumbnails will be put in the directory <span class="docutils literal">Thumbs</span> and have <span class="docutils literal"><span class="pre">-tn</span></span>
 appended to the name just to avoid confusion:</p>
 <pre class="literal-block">from WebKit.Page import Page  # the base page class
 import os
 import Image  # the Python Imaging Library
-from urllib import quote as urlEncode
+
 baseDir = os.path.dirname(__file__)
 picsDir = os.path.join(baseDir, 'Pics')
 thumbsDir = os.path.join(baseDir, 'Thumbs')
@@ -298,7 +298,7 @@ class Main(Page):
                 im.save(os.path.join(thumbsDir, thumbFilename))
             else:
                 im = Image.open(os.path.join(thumbsDir, thumbFilename))
-            url = urlEncode(filename)
+            url = self.urlEncode(filename)
             self.writeln('&lt;td&gt;&lt;p&gt;&lt;a href=&quot;View?filename=%s&quot;&gt;'
                 '&lt;img src=&quot;Pics/%s&quot; width=&quot;%i&quot; height=&quot;%i&quot;&gt;&lt;/a&gt;&lt;/p&gt;'
                 '&lt;p&gt;Filename: %s&lt;br&gt;Size: %i Bytes&lt;/p&gt;'
@@ -318,7 +318,7 @@ is finished and we have uploaded the image, we redirect them to the viewing
 page by using <span class="docutils literal"><span class="pre">self.response().sendRedirect(url)</span></span>:</p>
 <pre class="literal-block">from WebKit.Page import Page
 import os
-from urllib import quote as urlEncode
+
 dir = os.path.join(os.path.dirname(__file__), 'Pics')
 
 class Upload(Page):
@@ -341,7 +341,7 @@ class Upload(Page):
         # So to get the value we do this:
         filename, contents = file.filename, file.value
         open(os.path.join(dir, filename), 'wb').write(contents)
-        url = 'View?filename=' + urlEncode(filename)
+        url = 'View?filename=' + self.urlEncode(filename)
         self.response().sendRedirect(url)</pre>
 </div>
 </div>

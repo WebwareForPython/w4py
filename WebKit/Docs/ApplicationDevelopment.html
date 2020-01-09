@@ -102,7 +102,7 @@ script that can be used to start the AppServer as a service.</p>
 </dd>
 <dt><span class="docutils literal">Context</span>:</dt>
 <dd><p>The directory for your default context.  This is where you put your servlets.
-you can change its name and location with the <span class="docutils literal"><span class="pre">`-c</span></span> and <span class="docutils literal"><span class="pre">-d</span></span> options.
+You can change its name and location with the <span class="docutils literal"><span class="pre">`-c</span></span> and <span class="docutils literal"><span class="pre">-d</span></span> options.
 You can also change this subsequently in the <span class="docutils literal">Application.config</span> file
 in the <span class="docutils literal">Configs</span> directory, where you can also configure more than one
 context.  You may also want to remove the other standard contexts that come
@@ -124,7 +124,7 @@ purge these every so often.</p>
 </dd>
 <dt><span class="docutils literal">Lib</span>:</dt>
 <dd><p>An example for an application-specific library package that can be created
-<span class="docutils literal"><span class="pre">-l</span></span> option (in this case, <span class="docutils literal"><span class="pre">-l</span> Lib</span>.  Import modules from this directory
+<span class="docutils literal"><span class="pre">-l</span></span> option (in this case, <span class="docutils literal"><span class="pre">-l</span> Lib</span>).  Import modules from this directory
 like <span class="docutils literal">from Lib.SitePage import SitePage</span>.</p>
 </dd>
 <dt><span class="docutils literal">Logs</span>:</dt>
@@ -268,7 +268,7 @@ as a template for all the pages that follow.</p>
 like htmlEncode, or some other select functions that I use constantly in
 web applications.  Whether you want to use functions or methods is up to you --
 in many cases methods can be more easily extended or customized later, but
-sometimes method use can become excessive and create unnecessary dependences
+sometimes method use can become excessive and create unnecessary dependencies
 in your code.</p>
 <p>A basic framework for your SitePage might be:</p>
 <pre class="literal-block">from WebKit.Page import Page
@@ -284,7 +284,7 @@ class SitePage(Page):
     def securePage(self):
         &quot;&quot;&quot;Override this method in your servlets to return True if the
         page should only be accessible to logged-in users -- by default
-        pages are publically viewable&quot;&quot;&quot;
+        pages are publicly viewable&quot;&quot;&quot;
         return False
 
     def respondLogin(self):
