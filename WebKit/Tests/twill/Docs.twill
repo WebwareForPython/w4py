@@ -4,8 +4,8 @@
 # twill test script (twill.idyll.org)
 # Docs context
 
-setglobal version X.Y
-setglobal date @@/@@/@@
+setglobal version 1.2.3
+setglobal date 01/09/20
 
 go http://127.0.0.1:8080
 follow Docs
@@ -158,7 +158,7 @@ follow "User's Guide"
 find '<h1 class="header">WebKit User\'s Guide</h1>'
 find "<p>Webware for Python</p>"
 find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
-# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
+find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find '<h1>Synopsis</h1>'
 find '<h1>Credit</h1>'
 find '<div class="footer">'
@@ -171,7 +171,7 @@ follow "Beginner Tutorial"
 find '<h1 class="header">Beginner Tutorial</h1>'
 find "<p>Webware for Python</p>"
 find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
-# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
+find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find '<h1>Synopsis</h1>'
 find '<div class="footer">'
 back
@@ -179,7 +179,7 @@ follow "Application Development"
 find '<h1 class="header">Application Development With Webware</h1>'
 find "<p>Webware for Python</p>"
 find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
-# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
+find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find '<h1>Synopsis</h1>'
 find '<div class="footer">'
 back
@@ -191,7 +191,7 @@ follow "Future Work"
 find '<h1 class="header">Future Work</h1>'
 find "<p>Webware for Python</p>"
 find "<dt>Version</dt>\s*<dd><p>${version}</p>\s*</dd>"
-# if release find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
+find "<dt>Released:</dt>\s*<dd><p>${date}</p>\s*</dd>"
 find "To Do"
 find '<div class="footer">'
 back
