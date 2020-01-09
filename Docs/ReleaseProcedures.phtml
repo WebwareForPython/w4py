@@ -75,6 +75,8 @@ Test the current version before releasing it:
 <pre>
 [ ] Make sure the workspace is up to date.
 
+[ ] Make sure that the year in the LICENSE file has been updated.
+
 [ ] Update the release notes:
     * Search webware-discuss and webware-devel archives for "update"
       in the subject, since the date of the last release.
@@ -113,11 +115,15 @@ Test the current version before releasing it:
     release candidate 1, release candidate 2, ...
     with suffixes a1, a2, b1, b2, rc1, rc2 as in 0.6.1b2.
 
+[ ] Set the chosen version number in the PKG-INFO file, and
+    check that the other content of the file is still up to date.
+    Caution: Do not remove trailing white space in this file!
+
 [ ] Create a branch for the version in the Git repository
     and switch to this branch. The branch name should be the
     same as the version number.
     The command for creating the branch would be like:
-    > git checkout -b release-1.2.1
+    > git checkout -b release-1.2.3
 
 [ ] Update all version numbers using bin/setversion.py:
     * Edit bin/setversion.py and set the following parameters:
@@ -140,8 +146,8 @@ Test the current version before releasing it:
 [ ] Commit these changes on the workspace to the branch in the repository
     and create an annotated tag for the release.
     The commands for committing and creating the tag would be like:
-    > git commit -m "Release Webware for Python 1.2.1"
-    > git tag -a 1.2.1 -m "Webware for Python version 1.2.1"
+    > git commit -m "Release Webware for Python 1.2.3"
+    > git tag -a 1.2.3 -m "Webware for Python version 1.2.3"
 </pre>
 
 
@@ -154,9 +160,9 @@ lost and you may get problems with wrong EOL characters.
 [ ] Use ReleaseHelper to create the release. This extracts all necessary
     files from the repository to create a directory without the Git
     repository itself, and then builds a tarball from that directory.
-    For instance, for creating the 1.2.1 tarball:
+    For instance, for creating the 1.2.3 tarball:
 
-    > bin/ReleaseHelper.py tag=1.2.1
+    > bin/ReleaseHelper.py tag=1.2.3
 
     If you specify the tag name, the tarball is built using the revision
     information found in the release. Otherwise the tarball is built
@@ -166,6 +172,9 @@ lost and you may get problems with wrong EOL characters.
     Following these procedures assures that the tagged version in the
     repository is what is actually in the released tarball.
 
+    You may want to repackage the tarball using tar, because the archive
+    is created using "git archive" with extended "pax headers" that may
+    cause problems with some archivers such as 7-zip under MS Windows.
     Using the option pkg=zip, you can also build a zip archive instead
     of the tarball that will make the MS Windows users happy.
 </pre>
@@ -233,6 +242,7 @@ Test the released tarball, preferably under Unix and also under Windows.
       > ./install.py --set-password=""
 
     * Check <a href="http://webware.sourceforge.net/Webware/Docs/">webware.sourceforge.net/Webware/Docs/</a>.
+      Due to heavy caching it may take some time until the new version appears.
 
     * Add a news item to the <a href="https://sourceforge.net/projects/webware/">Webware Project Page</a> at SourceForge.
 
