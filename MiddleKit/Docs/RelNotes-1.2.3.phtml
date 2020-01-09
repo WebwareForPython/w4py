@@ -1,0 +1,24 @@
+<% header(name + ' 1.2.3 Release Notes') %>
+
+<p><% name %> version 1.2.3 released on 01/09/20</p>
+
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>Made <code>MKDump</code> test work under Windows.</li>
+</ul>
+
+<a id="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>We now pass execution parameters in <code>SQLObjectStore</code> only
+   when necessary. Some DB API drivers may not like a None value.</li>
+  <li>The <code>dumpObjectStore</code> method now always dumps objects in a
+  consistent order.</li>
+</ul>
+
+<a id="Bugfixes"></a><h2>Bugfixes</h2>
+<ul>
+  <li>Fixed error message in <code>SQLGenerator.IntAttr</code>.</li>
+  <li>Added missing import to <code>MSSQLObjectStore</code>.</li>
+</ul>
+
+<% footer() %>

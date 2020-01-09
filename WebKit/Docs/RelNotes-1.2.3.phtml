@@ -1,0 +1,21 @@
+<% header(name + ' 1.2.3 Release Notes') %>
+
+<p><% name %> version 1.2.3 released on 01/09/20</p>
+
+<a id="Improvements"></a><h2>Improvements and Refinements</h2>
+<ul>
+  <li>Minor fixes and simplifications in the JSON-RPC and AJAX examples.</li>
+  <li>Added two very simple test servlets ("IncludeMe" and "Simple").</li>
+  <li>Do not list the PushServlet any more, since it is not well supported
+  by browsers.</li>
+  <li>Various minor fixes in the Admin and Testing contexts.</li>
+  <li>Made the redirection in the Example index servlet more robust.</li>
+</ul>
+
+<a id="MinorChanges"></a><h2>Minor API Changes</h2>
+<ul>
+  <li>Removed unused parameter from the <code>resolveDefaultContext</code>
+  method of <code>ContextParser</code> and simplified the code.</li>
+</ul>
+
+<% footer() %>
