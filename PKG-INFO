@@ -2,20 +2,20 @@ Metadata-Version: 2.1
 Name: Webware for Python
 Version: 1.2.3
 Summary: Webware for Python is a time-tested modular, object-oriented web framework.
-Home-page: https://cito.github.io/w4py/
+Home-page: https://webwareforpython.github.io/w4py/
 Author: Chuck Esterbrook et al.
 License: MIT license
 Description: Webware for Python
         ==================
-        
+
         Webware for Python is a suite of Python packages and tools
         for developing object-oriented, web-based applications.
-        
+
         The suite uses well known design patterns and includes
         a fast Application Server, Servlets, Python Server Pages (PSP),
         Object-Relational Mapping, Task Scheduling, Session Management,
         and many other features. Webware is very modular and easily extended.
-        
+
 Description-Content-Type: text/x-rst
 Keywords: web framework servlets
 Classifier: Development Status :: 5 - Production/Stable

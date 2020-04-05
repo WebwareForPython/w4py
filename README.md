@@ -14,8 +14,8 @@ Supported Python versions:
 
 This repository contains only the code for the legacy versions that still support Python 2.
 
-The homepage for these legacy versions is here: <https://cito.github.io/w4py/>
+The homepage for these legacy versions is here: <https://webwareforpython.github.io/w4py/>
 
 **New version for Python 3 available:**
 
-The repository for the current version here: <https://github.com/Cito/w4py3>
+The repository for the current version here: <https://github.com/WebwareForPython/w4py3>

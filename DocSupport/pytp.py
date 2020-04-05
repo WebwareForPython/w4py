@@ -57,7 +57,7 @@ DOWNLOAD
 
 This script is part of Webware for Python.
 You can download the latest version from the GitHub repository
-(https://github.com/Cito/w4py/blob/master/DocSupport/pytp.py).
+(https://github.com/WebwareForPython/w4py/blob/master/DocSupport/pytp.py).
 
 Note: Similar template processors have been written by:
   * Christopher A. Craig (http://www.ccraig.org/software/pyhp/)

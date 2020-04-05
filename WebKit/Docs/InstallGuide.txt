@@ -172,7 +172,7 @@ Webware for Python
 :Version: X.Y
 :Released: @@/@@/@@
 
-You can check for the latest version at https://cito.github.io/w4py/.
+You can check for the latest version at https://webwareforpython.github.io/w4py/.
 
 If you're feeling adventurous, you can get the latest in-development
 source code from the public repository.  Instructions are located at
@@ -180,7 +180,7 @@ the `Webware GtiHub page`__.  You can find more information about Git in
 general in the `Git Documentation`__.  The master branch of Webware is
 generally fairly stable.
 
-__ https://github.com/Cito/w4py
+__ https://github.com/WebwareForPython/w4py
 __ https://git-scm.com/documentation
 
 
