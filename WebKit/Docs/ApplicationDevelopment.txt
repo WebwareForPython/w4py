@@ -3,8 +3,8 @@ Application Development With Webware
 
 Webware for Python
 
-:Version: X.Y
-:Released: @@/@@/@@
+:Version: 1.2.4
+:Released: 03/19/22
 
 .. contents:: Contents
 

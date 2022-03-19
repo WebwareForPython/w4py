@@ -169,8 +169,8 @@ check to see if you have the latest version.  This is:
 
 Webware for Python
 
-:Version: X.Y
-:Released: @@/@@/@@
+:Version: 1.2.4
+:Released: 03/19/22
 
 You can check for the latest version at https://webwareforpython.github.io/w4py/.
 

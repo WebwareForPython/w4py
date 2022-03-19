@@ -1,6 +1,6 @@
 name = 'MiscUtils'
 
-version = ('X', 'Y', 0)
+version = (1, 2, 4)
 
 docs = [
     {'name': "User's Guide", 'file': 'UsersGuide.html'},
