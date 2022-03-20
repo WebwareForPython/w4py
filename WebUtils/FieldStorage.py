@@ -8,7 +8,7 @@ even in a POST request.
 import os
 import cgi
 
-from urllib import unquote
+from urllib import unquote_plus
 
 
 class FieldStorage(cgi.FieldStorage):
@@ -114,10 +114,10 @@ class FieldStorage(cgi.FieldStorage):
                     nv.append('')
                 else:
                     continue
-            if len(nv[1]) or keep_blank_values:
-                name = unquote(nv[0].replace('+', ' '))
+            if nv[1] or keep_blank_values:
+                name = unquote_plus(nv[0])
                 if name not in existing_names:
                     # Only append values that aren't already the FieldStorage;
                     # this makes POSTed vars override vars on the query string.
-                    value = unquote(nv[1].replace('+', ' '))
+                    value = unquote_plus(nv[1])
                     append(cgi.MiniFieldStorage(name, value))
